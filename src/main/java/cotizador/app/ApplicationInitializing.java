@@ -7,5 +7,5 @@ public class ApplicationInitializing extends ResourceConfig {
         // Define the package which contains the service classes.
         packages("cotizador");
         register(new BinderApplication());  
-    }
+    } 
 }
