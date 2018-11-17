@@ -1,32 +1,23 @@
-package test.service;
-
-import java.util.HashMap;
-
-import java.util.Map;
+package cotizador.service;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.glassfish.jersey.server.mvc.Template;
-import org.glassfish.jersey.server.mvc.Viewable;
 
-import test.dao.shape.Shape;
-import test.dao.shape.ShapeDAO;
-import test.dao.shape.model.ShapeRootModel;
-import test.dao.shape.type.Circle;
-import test.dao.shape.type.Square;
-import test.dao.shape.type.Triangle;
+import cotizador.dao.shape.Shape;
+import cotizador.dao.shape.ShapeDAO;
+import cotizador.dao.shape.model.ShapeRootModel;
+import cotizador.dao.shape.type.Circle;
+import cotizador.dao.shape.type.Square;
+import cotizador.dao.shape.type.Triangle;
 
 @Path("/shape")
 @Produces(MediaType.TEXT_HTML)
@@ -144,7 +135,7 @@ public class ShapeRestService {
 	@GET
 	@Template
 
-	public Viewable test() {
+	public Viewable cotizador() {
 	    Map<String, String> model = new HashMap<>();
 	    model.put("key1", "value1");
 	    
@@ -152,7 +143,7 @@ public class ShapeRestService {
 	    
 	    System.out.println("llegue a prueba");
 
-	    return new Viewable("/test", model);
+	    return new Viewable("/cotizador", model);
 	}*/
 	
 	@POST

@@ -1,10 +1,11 @@
-package test.app;
+package cotizador.app;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
-import test.dao.shape.ShapeDAO;
 
-public class TestBinder extends AbstractBinder {
+import cotizador.dao.shape.ShapeDAO;
+
+public class BinderApplication extends AbstractBinder {
     @Override
     protected void configure() {
         bind(ShapeDAO.class).to(ShapeDAO.class); 

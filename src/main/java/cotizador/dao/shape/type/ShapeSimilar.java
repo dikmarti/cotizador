@@ -1,10 +1,10 @@
-package test.dao.shape.type;
+package cotizador.dao.shape.type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import test.dao.shape.Shape;
+import cotizador.dao.shape.Shape;
 
 @Entity
 @Table(name="shape_similar")
