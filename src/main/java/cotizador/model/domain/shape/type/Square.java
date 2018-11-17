@@ -1,4 +1,4 @@
-package cotizador.dao.shape.type;
+package cotizador.model.domain.shape.type;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

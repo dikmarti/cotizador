@@ -1,6 +1,7 @@
-package cotizador.service;
+package cotizador.controllers;
 
 import javax.inject.Inject;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,24 +13,24 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import cotizador.dao.shape.Shape;
-import cotizador.dao.shape.ShapeDAO;
-import cotizador.dao.shape.model.ShapeRootModel;
-import cotizador.dao.shape.type.Circle;
-import cotizador.dao.shape.type.Square;
-import cotizador.dao.shape.type.Triangle;
+import cotizador.model.domain.shape.Shape;
+import cotizador.model.repository.ShapeRepository;
+import cotizador.model.domain.shape.model.ShapeRootModel;
+import cotizador.model.domain.shape.type.Circle;
+import cotizador.model.domain.shape.type.Square;
+import cotizador.model.domain.shape.type.Triangle;
 
 @Path("/shape")
 @Produces(MediaType.TEXT_HTML)
-public class ShapeRestService {
+public class ShapeController {
 	
-	Logger log = Logger.getLogger(ShapeRestService.class); 
+	Logger log = Logger.getLogger(ShapeController.class); 
 	private static final String SHAPE_NOT_FOUND = "Shape not found!";
 	private static final String SHAPE_FOUND = "Shape found!";
 	private static final String SAVE_ERROR = "Error saving shape";
 	private static final String SAVE_OK = "Save OK";
 	@Inject
-	ShapeDAO shapeDAO;
+	ShapeRepository shapeDAO;
 
 	@Path("/{id}")
 	@GET

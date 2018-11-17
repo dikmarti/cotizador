@@ -1,4 +1,4 @@
-package cotizador.dao.shape;
+package cotizador.model.domain.shape;
 
 public interface IShapeData {
 

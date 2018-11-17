@@ -1,4 +1,5 @@
-package cotizador.dao.shape;
+package cotizador.model.repository;
+
 
 import java.util.List;
 
@@ -6,17 +7,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import cotizador.dao.shape.type.Circle;
-import cotizador.dao.shape.type.ShapeType;
-import cotizador.dao.shape.type.Square;
-import cotizador.dao.shape.type.Triangle;
+import cotizador.model.domain.shape.*;
  
-public class ShapeDAO {
+public class ShapeRepository {
 	
 	EntityManager entityManager;
 	
 	
-	public ShapeDAO() {
+	public ShapeRepository() {
 
     	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory( "persistence");
     	entityManager = entityManagerFactory.createEntityManager();

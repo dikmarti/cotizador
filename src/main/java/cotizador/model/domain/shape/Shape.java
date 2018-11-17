@@ -1,4 +1,4 @@
-package cotizador.dao.shape;
+package cotizador.model.domain.shape;
 
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;

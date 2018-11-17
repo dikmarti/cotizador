@@ -1,12 +1,13 @@
-package cotizador.dao.shape.type;
+package cotizador.model.domain.shape.type;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import cotizador.dao.shape.Shape;
+import cotizador.model.domain.shape.Shape;
 
 @Entity
 public class Circle extends Shape{
