@@ -1,4 +1,4 @@
-package test.dao.shape.type;
+package cotizador.dao.shape.type;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

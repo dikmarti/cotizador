@@ -264,7 +264,7 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
     	  	  var $formSerialized = objectifyForm($form);
     	  	  
     		  $.ajax({
-		    	  url: "/TestGradle/rest/shape/prueba",
+		    	  url: "/Cotizador/rest/shape/prueba",
 		    	  type: "POST",
 		    	  data: JSON.stringify($formSerialized),
 		    	  dataType: "json",

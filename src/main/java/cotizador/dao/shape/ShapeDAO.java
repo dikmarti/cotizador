@@ -1,4 +1,4 @@
-package test.dao.shape;
+package cotizador.dao.shape;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import test.dao.shape.type.Circle;
-import test.dao.shape.type.ShapeType;
-import test.dao.shape.type.Square;
-import test.dao.shape.type.Triangle;
+import cotizador.dao.shape.type.Circle;
+import cotizador.dao.shape.type.ShapeType;
+import cotizador.dao.shape.type.Square;
+import cotizador.dao.shape.type.Triangle;
  
 public class ShapeDAO {
 	

@@ -1,9 +1,9 @@
-package test.dao.shape.model;
+package cotizador.dao.shape.model;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import test.dao.shape.Shape;
+import cotizador.dao.shape.Shape;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonAutoDetect(setterVisibility = JsonAutoDetect.Visibility.ANY,
