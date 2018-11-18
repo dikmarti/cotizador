@@ -20,15 +20,15 @@
 <div class="header-top">
    <div class="header-bar header-white header-wide header-padding header-card">	
     <div class="header-left"><img src="resources/images/logo.jpg" style="width: 100px; height: 40px; object-fit: contain;"></div>
-    <div class="topnav"  id="myTopnav">      
-	   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <div class="topnav2"  id="myTopnav2"> 
+     <a href="javascript:void(0);" class="icon2" onclick="myFunction()">
 	   	<i class="fa fa-bars"></i>
-	   </a>	  
-	 
+	   </a>	
+    </div>
+    <div class="topnav"  id="myTopnav">   	 
 	   <a href="#projects" class=" active">Projects</a>
 	   <a href="#about" >About</a>
 	   <a href="#contact" >Contact</a>	   
-	   
 	    <a href="#" >&lt;Usuario&gt;</a>
 	  
 	</div>	
