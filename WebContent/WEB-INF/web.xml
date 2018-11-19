@@ -26,5 +26,14 @@
 	      <servlet-name>myTest</servlet-name>
 	      <url-pattern>/test</url-pattern>
 	 </servlet-mapping>	
+	 
+	 <servlet>
+      <servlet-name>testTemp</servlet-name>
+      <jsp-file>/jsp/testTemplate.jsp</jsp-file>
+	 </servlet>
+	 <servlet-mapping>
+	      <servlet-name>testTemp</servlet-name>
+	      <url-pattern>/testTemplate</url-pattern>
+	 </servlet-mapping>	
 	  	     	
 </web-app>
