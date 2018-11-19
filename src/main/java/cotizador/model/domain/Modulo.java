@@ -13,6 +13,10 @@ public class Modulo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 
+	// Tipo de modulo admin(0) o de negocio(1)
+	@Column(name="tipo_modulo")
+	private int tipoModulo;
+	
 	@Column
 	private String nombre;
 	
@@ -28,6 +32,14 @@ public class Modulo {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public int getTipoModulo() {
+		return tipoModulo;
+	}
+
+	public void setTipoModulo(int tipoModulo) {
+		this.tipoModulo = tipoModulo;
 	}
 
 	public String getNombre() {
