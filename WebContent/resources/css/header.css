@@ -110,3 +110,5 @@ body {
     user-select: none;
     cursor: default;
 }
+
+.footer-black,.w3-hover-black:hover{color:#fff!important;background-color:#052C56!important}
