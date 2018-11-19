@@ -13,6 +13,9 @@ public class Proyecto {
 	private String id;
 	
 	@Column
+	private String ruc;
+	
+	@Column
 	private String descripcion;
 	
 	@ManyToOne
@@ -30,10 +33,7 @@ public class Proyecto {
 	
 	@Column
 	private String nivel;
-	
-	@Column(name="metros_cuadrado")
-	private float metrosCuadrado;
-	
+		
 	@Column(name="area_construccion")
 	private float areaConstruccion;
 	
@@ -61,6 +61,14 @@ public class Proyecto {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getRuc() {
+		return ruc;
+	}
+
+	public void setRuc(String ruc) {
+		this.ruc = ruc;
 	}
 
 	public String getDescripcion() {
@@ -109,14 +117,6 @@ public class Proyecto {
 
 	public void setNivel(String nivel) {
 		this.nivel = nivel;
-	}
-
-	public float getMetrosCuadrado() {
-		return metrosCuadrado;
-	}
-
-	public void setMetrosCuadrado(float metrosCuadrado) {
-		this.metrosCuadrado = metrosCuadrado;
 	}
 
 	public float getAreaConstruccion() {
