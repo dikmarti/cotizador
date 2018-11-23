@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="cotizador.model.domain.Cliente" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Cliente.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="331" y="1159"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="cotizador.model.domain.Metrado" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Metrado.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1932" y="247"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="cotizador.model.domain.Nivel" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Nivel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1361" y="247"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="cotizador.model.domain.Sistema" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Sistema.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2875" y="1071"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="cotizador.model.domain.Modulo" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Modulo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1179" y="1636"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="cotizador.model.domain.Validacion" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Validacion.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="568" width="255" x="208" y="236"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="cotizador.model.domain.Permiso" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Permiso.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1171" y="1189"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="cotizador.model.domain.Proyecto" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Proyecto.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="874" y="520"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="cotizador.model.domain.Usuario" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Usuario.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1648" y="1001"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="cotizador.model.domain.Proveedor" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Proveedor.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2035" y="657"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="cotizador.model.domain.Precio" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Precio.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2437" y="657"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="cotizador.model.domain.Producto" project="Cotizador" 
+    file="/Cotizador/src/main/java/cotizador/model/domain/Producto.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2351" y="1339"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="13">    
+    <bendpoint x="1107" y="248"/>    
+    <bendpoint x="1107" y="519"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="14" name="proyecto"/>      
+      <multiplicity id="15" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="16">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="17" name="proveedor"/>      
+      <multiplicity id="18" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="19">    
+    <bendpoint x="2438" y="972"/>    
+    <bendpoint x="2353" y="972"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="20" name="producto"/>      
+      <multiplicity id="21" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="22">    
+    <bendpoint x="2875" y="1339"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="23" name="sistema"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="25">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="26" name="nivel"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="28">    
+    <bendpoint x="830" y="1189"/>    
+    <bendpoint x="830" y="1635"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="29" name="modulo"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
+    <bendpoint x="878" y="1160"/>    
+    <bendpoint x="646" y="1160"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="32" name="cliente"/>      
+      <multiplicity id="33" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="34">    
+    <bendpoint x="2437" y="247"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="35" name="precio"/>      
+      <multiplicity id="36" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="37">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="38" name="proyecto"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="40">    
+    <bendpoint x="1412" y="1189"/>    
+    <bendpoint x="1412" y="1001"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="41" name="usuario"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="43">    
+    <bendpoint x="2009" y="1339"/>    
+    <bendpoint x="2009" y="1001"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="44" name="usuario"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
