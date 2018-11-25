@@ -5,12 +5,13 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
+@Table(name="proyecto")
 public class Proyecto {
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private int id;
 	
 	@Column
 	private String ruc;
@@ -55,11 +56,11 @@ public class Proyecto {
 	@Column(name="fecha_modificacion")
 	private Date fechaModificacion;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

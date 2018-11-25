@@ -1,5 +1,7 @@
 package cotizador.controllers;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import javax.ws.rs.Consumes;
@@ -15,6 +17,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.shape.Shape;
 import cotizador.model.repository.ShapeRepository;
+import cotizador.service.GenericService;
 import cotizador.model.domain.shape.model.ShapeRootModel;
 import cotizador.model.domain.shape.type.Circle;
 import cotizador.model.domain.shape.type.Square;
@@ -31,6 +34,9 @@ public class ShapeController {
 	private static final String SAVE_OK = "Save OK";
 	@Inject
 	ShapeRepository shapeDAO;
+	
+	@Inject
+	GenericService genericService;
 
 	@Path("/{id}")
 	@GET
@@ -51,6 +57,8 @@ public class ShapeController {
 				model.setMessage(SHAPE_NOT_FOUND);
 			}	
 		}catch(Exception e) {
+			e.printStackTrace();
+			log.error("Error al buscar shape:" + e);
 			model.setMessage(SHAPE_NOT_FOUND);
 		}		
 		System.out.println("end getShape");
@@ -156,6 +164,16 @@ public class ShapeController {
         System.out.println("/TEST json name " + jsonName);
         
         return jsonName;
+    }
+	
+	@GET
+    @Path("/modules")	
+	@Produces(MediaType.APPLICATION_JSON)
+    public List<Object> getModules() {
+   
+       List<Object> allObject = genericService.getAllObject("Modulo.findModules", "tipoModulo", 1);
+        System.out.println(allObject);
+        return allObject;
     }
   
 }

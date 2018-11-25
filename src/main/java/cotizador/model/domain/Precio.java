@@ -11,7 +11,7 @@ public class Precio {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private int id;
 	
 	@ManyToOne
 	@PrimaryKeyJoinColumn(name="id_producto", referencedColumnName="id")
@@ -30,11 +30,11 @@ public class Precio {
 	@Column(name="fecha_fin")
 	private Date fechaFin;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

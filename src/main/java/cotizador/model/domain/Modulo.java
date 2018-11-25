@@ -1,17 +1,21 @@
 package cotizador.model.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name = "Modulo.findById", query = "SELECT s FROM Modulo s WHERE s.id = :id"),
+	@NamedQuery(name = "Modulo.findModules", query = "SELECT s FROM Modulo s WHERE s.tipoModulo = :tipoModulo"),
+	@NamedQuery(name = "Modulo.findAll", query = "SELECT s FROM Modulo s")
+})
+
 @Entity
+@Table(name="modulo")
 public class Modulo {
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private int id;
 
 	// Tipo de modulo admin(0) o de negocio(1)
 	@Column(name="tipo_modulo")
@@ -26,11 +30,11 @@ public class Modulo {
 	@Column
 	private int orden;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

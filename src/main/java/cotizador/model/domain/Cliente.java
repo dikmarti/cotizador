@@ -2,13 +2,19 @@ package cotizador.model.domain;
 
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name = "Cliente.findById", query = "SELECT s FROM Cliente s WHERE s.id = :id"),
+	@NamedQuery(name = "Cliente.findAll", query = "SELECT s FROM Cliente s")
+})
+
 @Entity
+@Table(name="cliente")
 public class Cliente {
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private int id;
 	
 	@Column
 	private String ruc;
@@ -28,11 +34,11 @@ public class Cliente {
 	@Column(name="persona_contacto")
 	private String personaContacto;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -3,12 +3,13 @@ package cotizador.model.domain;
 import javax.persistence.*;
 
 @Entity
+@Table(name="proveedor")
 public class Proveedor {
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private int id;
 	
 	@Column
 	private String codigo;
@@ -19,11 +20,11 @@ public class Proveedor {
 	@Column
 	private String  direccion;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

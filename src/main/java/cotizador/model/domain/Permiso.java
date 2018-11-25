@@ -11,7 +11,7 @@ public class Permiso {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private int id;
 	
 	@ManyToOne
 	@PrimaryKeyJoinColumn(name="id_usuario", referencedColumnName="id")
@@ -24,11 +24,11 @@ public class Permiso {
 	@Column(name="fecha_asignacion")
 	private Date fechaAsignacion;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

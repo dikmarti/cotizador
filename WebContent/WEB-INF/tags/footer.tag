@@ -38,7 +38,7 @@
 
 	<section class="bg-black" style='position:relative;'>
 		<div class="footer--copyright centered">
-			<p>&copy; Copyright 2018 - 2019 Dian Inc. </p>
+			<p>&copy; Copyright 2018 - 2019</p>
 		</div>
 	</section>
 </footer>

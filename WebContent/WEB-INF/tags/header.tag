@@ -12,10 +12,43 @@
 	   </a>	
     </div>
     <div class="topnav"  id="myTopnav">   	 
-	   <a href="#projects" class=" active">Projects</a>
-	   <a href="#about" >About</a>
-	   <a href="#contact" >Contact</a>	   
+	   <a href="#projects" class=" active">Proyectos</a>
+	   <a href="#about" >Configuración</a>
+	   <a href="#contact" >Contacto</a>	   
 	    <a href="#" >&lt;Usuario&gt;</a> 
 	</div>	
   </div>
 </div>
+
+<script type="text/javascript">
+      
+    	(function() {
+   	  	  
+   		  $.ajax({
+	    	  url: "/Cotizador/rest/shape/modules",
+	    	  type: "GET",
+	    	  dataType: "json",
+	    	  contentType: "application/json; charset=utf-8",
+	    	  async: false,
+	    	  success: function(result){		    		
+	    	        console.log("termino");
+	    	        console.log(result);
+	    	        var obj = JSON.stringify(result);
+	    	        
+	    	        //$("#divMensaje").html(obj);
+	    	        
+	    	       // var obj2 = JSON.parse(obj);
+	    	  },
+	    	  complete: function(result){
+	    	        console.log("complete");
+	    	  },
+	    	  error: function(result){
+	    	        console.log("error");
+	    	  }
+	    	});
+		      
+	     
+   	})();
+      	
+      	// Send products de un array JSON.stringify(arrayTV).replace(/(:)/g,',').replace(/(")/g,'')
+      </script>

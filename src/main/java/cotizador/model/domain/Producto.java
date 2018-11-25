@@ -3,12 +3,13 @@ package cotizador.model.domain;
 import javax.persistence.*;
 
 @Entity
+@Table(name="producto")
 public class Producto {
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private int id;
 	
 	@Column
 	private String codigo;
@@ -29,18 +30,14 @@ public class Producto {
 	private int unidadMedida;
 	
 	@ManyToOne
-	@PrimaryKeyJoinColumn(name="id_usuario", referencedColumnName="id")
-	private Usuario usuario;
-	
-	@ManyToOne
 	@PrimaryKeyJoinColumn(name="id_sistema", referencedColumnName="id")
 	private Sistema sistema;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -90,14 +87,6 @@ public class Producto {
 
 	public void setUnidadMedida(int unidadMedida) {
 		this.unidadMedida = unidadMedida;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	public Sistema getSistema() {

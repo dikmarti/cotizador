@@ -14,23 +14,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
-@SqlResultSetMapping(
-		  name="ShapeById",
-		  columns={@ColumnResult(name="id"),
-				   @ColumnResult(name="surface"),
-				   @ColumnResult(name="type"),
-				   @ColumnResult(name="base"),
-				   @ColumnResult(name="height"),
-				   @ColumnResult(name="diameter")	
-		  		  }
-)
-
-@NamedNativeQuery(
-		  name = "Shapes",
-		  query = "SELECT * FROM shape WHERE id = ?",
-		  resultSetMapping = "ShapeById"
-)
-
 @NamedQueries({
 	@NamedQuery(name = "Shape.findById", query = "SELECT s FROM Shape s WHERE s.id = :id"),
 	@NamedQuery(name = "Shape.findAll", query = "SELECT s FROM Shape s")
