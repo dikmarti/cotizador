@@ -35,5 +35,13 @@
 	      <servlet-name>testTemp</servlet-name>
 	      <url-pattern>/testTemplate</url-pattern>
 	 </servlet-mapping>	
+	 <servlet>
+      <servlet-name>testTempTable</servlet-name>
+      <jsp-file>/jsp/testTemplateTable.jsp</jsp-file>
+	 </servlet>
+	 <servlet-mapping>
+	      <servlet-name>testTempTable</servlet-name>
+	      <url-pattern>/testTemplateTable</url-pattern>
+	 </servlet-mapping>	
 	  	     	
 </web-app>
