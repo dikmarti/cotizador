@@ -11,19 +11,35 @@
 	   	<i class="fa fa-bars"></i>
 	   </a>	
     </div>
-    <div class="topnav"  id="myTopnav">   	 
-	   <a href="#projects" class=" active">Proyectos</a>
-	   <a href="#about" >Configuración</a>
-	   <a href="#contact" >Contacto</a>	   
-	    <a href="#" >&lt;Usuario&gt;</a> 
+    <div class="topnav"  id="myTopnav">   	
+      	<a href="#" data-sub-menu="proyectos">Proyectos</a>	  
+	  	<a href="#" data-sub-menu="configuracion">Configuración</a>	  
+	   	<a href="#" data-sub-menu="contacto">Contacto</a>	  
+	  	<a href="#" >&lt;Usuario&gt;</a>	  	     
 	</div>	
   </div>
 </div>
 
+<div class="sub-menu" id="proyectos">
+	<ul>
+	
+	</ul>
+</div>
+
 <script type="text/javascript">
       
+      $("[data-sub-menu]").click(function() {
+    	 var $divSubMenu = $(this).data("sub-menu");
+   	 
+    	  if ( $("#"+$divSubMenu+":first").is( ":hidden" ) ) {
+    		  	$( "#"+$divSubMenu ).slideDown( "slow" );
+   		  } else {
+   		    $( "#"+$divSubMenu ).hide();
+   		  }
+      });
+      
     	(function() {
-   	  	  
+   	  	  /*
    		  $.ajax({
 	    	  url: "/Cotizador/rest/shape/modules",
 	    	  type: "GET",
@@ -33,11 +49,20 @@
 	    	  success: function(result){		    		
 	    	        console.log("termino");
 	    	        console.log(result);
-	    	        var obj = JSON.stringify(result);
 	    	        
-	    	        //$("#divMensaje").html(obj);
+	    	        var $submenu = $(".sub-menu ul");
+	    	        var lis = "";
+	    	        $.each(result, function( index, element ) {	    	        	
+	    	        		    	        	
+	    	        	if(result[index].tipoModulo == "1"){
+	    	        		var li = "<li>" + result[index].nombre + "</li>";
+	    	        		lis += li;
+	    	        		console.log(result[index].nombre);
+	    	        	}
+	    	        	
+	    	        });
+	    	        $submenu.html(lis);
 	    	        
-	    	       // var obj2 = JSON.parse(obj);
 	    	  },
 	    	  complete: function(result){
 	    	        console.log("complete");
@@ -47,7 +72,7 @@
 	    	  }
 	    	});
 		      
-	     
+	     */
    	})();
       	
       	// Send products de un array JSON.stringify(arrayTV).replace(/(:)/g,',').replace(/(")/g,'')
