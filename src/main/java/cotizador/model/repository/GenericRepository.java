@@ -48,25 +48,21 @@ public class GenericRepository {
     	return result.get(0);
     }
     
-    public List<Object> getAllObject(String query, String parameter, Object parameterValue) {
-    	System.out.println(query);
-    	System.out.println(parameter);
-    	System.out.println(parameterValue);
-    	System.out.println(entityManager.createNamedQuery(query)
-			    			.setParameter(parameter, parameterValue)
-			    			.getResultList());
-    	
-    	List<Object> result = (List<Object>)entityManager.createQuery("SELECT m FROM Modulo m")
+    public List<Object> getAllObject(String query) {
+     	
+    	List<Object> result = (List<Object>)entityManager.createQuery(query)
 			    			.getResultList();  	
         	    	
     	return result;
     }
-    public List<Object> getAllObjectFiltered(String query, String[] parameters, Object[] parametersValues) {
+    
+    
+    public List<Object> getAllObjectFiltered(String query, Object[] parametersValues) {
     	
     	/*List<Object> result = (List<Object>)entityManager.createNamedQuery(query)
-			    			.setParameter("id", Integer.parseInt(id))
-			    			.getResultList();    */	    	
-        	    	
+			    			.setParameter("id", Integer.parseInt(id)).set
+			    			.getResultList();        	
+        	*/    	
     	return null;
     }
   

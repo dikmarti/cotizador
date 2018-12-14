@@ -5,6 +5,7 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import cotizador.model.repository.GenericRepository;
 import cotizador.model.repository.ShapeRepository;
 import cotizador.service.GenericService;
+import cotizador.service.LoginService;
 
 public class BinderApplication extends AbstractBinder {
     @Override
@@ -12,5 +13,6 @@ public class BinderApplication extends AbstractBinder {
         bind(ShapeRepository.class).to(ShapeRepository.class); 
         bind(GenericRepository.class).to(GenericRepository.class);
         bind(GenericService.class).to(GenericService.class);
+        bind(LoginService.class).to(LoginService.class);
     }
 }

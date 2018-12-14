@@ -15,7 +15,7 @@
       	<a href="#" data-sub-menu="proyectos">Proyectos</a>	  
 	  	<a href="#" data-sub-menu="configuracion">Configuración</a>	  
 	   	<a href="#" data-sub-menu="contacto">Contacto</a>	  
-	  	<a href="#" >&lt;Usuario&gt;</a>	  	     
+	  	<a href="login" >Ingresar</a>	  	     
 	</div>	
   </div>
 </div>
