@@ -15,11 +15,23 @@
 	<head>
 		<jsp:invoke fragment="head"/>
 	</head>		
-	<body>			
+	<body>
+		<div class="modal-loader"><!-- Place at bottom of page --></div>			
 		<jsp:invoke fragment="header"/>		
 			
 		<jsp:doBody/>
 		
 		<jsp:invoke fragment="footer"/>			
 	</body>
+	
+	<script type="text/javascript">   
+
+		$body = $("body");
+	
+		$(document).on({
+		    ajaxStart: function() { $body.addClass("loading");    },
+		     ajaxStop: function() { $body.removeClass("loading"); }    
+		});
+
+</script>
 </html>

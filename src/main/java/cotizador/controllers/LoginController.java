@@ -37,7 +37,6 @@ public class LoginController {
 	@Produces(MediaType.APPLICATION_JSON)
     public Usuario login(String jsonForm, @Context HttpServletRequest httpRequest) {
 		
-		
         System.out.println("/Login json form " + jsonForm);
     	ObjectMapper mapper=new ObjectMapper();
     	LoginModel loginForm = new LoginModel();
@@ -48,11 +47,11 @@ public class LoginController {
 			loginForm = mapper.readValue(jsonForm, LoginModel.class);
 			usuario = loginService.login(loginForm.getUsuario(), loginForm.getClave());
 			
-			if(usuario != null) {
-				
+			if(usuario != null) {				
 				HttpSession httpSession = httpRequest.getSession();
-				httpSession.setAttribute("usuario", usuario);
+				httpSession.setAttribute("usuario", usuario.getLogin());
 			}
+			
 									
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
@@ -67,10 +66,8 @@ public class LoginController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}       
-        
+      System.out.println("usuario " + usuario.getLogin());
         return usuario;
     }
-	
-	
   
 }

@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
+<% String username = (String)request.getSession().getAttribute("usuario"); %>
+
 <div class="header-top">
    <div class="header-bar header-white header-wide header-padding header-card">	
     <div class="header-left"><img src="resources/images/logo.jpg" style="width: 100px; height: 40px; object-fit: contain;"></div>
@@ -15,7 +17,7 @@
       	<a href="#" data-sub-menu="proyectos">Proyectos</a>	  
 	  	<a href="#" data-sub-menu="configuracion">Configuración</a>	  
 	   	<a href="#" data-sub-menu="contacto">Contacto</a>	  
-	  	<a href="login" >Ingresar</a>	  	     
+	 <a href="login" id="linkLogin" class='<%= username != null ? "login" : "" %>'><%= username != null ? username : "Ingresar" %> </a>	  	     
 	</div>	
   </div>
 </div>

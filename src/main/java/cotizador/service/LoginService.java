@@ -27,7 +27,9 @@ public class LoginService {
 		List<Object> allObject = genericRepository.getAllObject("SELECT u FROM Usuario u WHERE u.login = '" + 
 										usuario + "' AND u.clave = '" + claveEncriptada + "'");
 		
-		return (Usuario)allObject.get(0);
+		Usuario usuarioResult = !allObject.isEmpty() ? (Usuario)allObject.get(0) : null;
+		
+		return  usuarioResult;
 	}
 	
 	

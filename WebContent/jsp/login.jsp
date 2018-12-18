@@ -54,6 +54,7 @@
     	 var $usuario =  $("#usuario").val();
     	 var $clave =  $("#clave").val();
     	 $(".msg-error").removeClass("on");
+	     $(".msg-error").html("Debe ingresar los datos");
     	 
     	 if ($usuario == "" || $clave == "" ) {
     		  $(".msg-error").addClass("on");
@@ -74,7 +75,16 @@
 	    	  success: function(result){		    		
 	    	        console.log("termino");
 	    	        var obj = JSON.stringify(result);
-	    	        console.log(" objeto " + obj);
+	    	        console.log(" objeto " + obj);	    	        
+	    	        
+	    	        $(".msg-error").removeClass("on");
+	    	        
+	    	        if(obj === undefined) {	    	        	
+	    	        	$(".msg-error").html("El usuario y/o clave ingresados no son correctos.")
+	    	        	$(".msg-error").addClass("on");	    	        	 
+	    	        } else {
+	    	        	location.href = "index";
+	    	        }
 	    	       
 	    	  },
 	    	  complete: function(result){
