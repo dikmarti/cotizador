@@ -11,7 +11,24 @@
 <br>
 <br>
 <br>
-
+	<div class="row icon button">
+		<a href="#" class="btn btn-primary a-btn-slide-text">
+        	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        	<span><strong>Añadir</strong></span>            
+    	</a>
+    	<a href="#" class="btn btn-primary a-btn-slide-text">
+        	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        	<span><strong>Editar</strong></span>            
+    	</a>
+    	<a href="#" class="btn btn-primary a-btn-slide-text">
+        	<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+        	<span><strong>Ver</strong></span>            
+    	</a>
+    	<a href="#" class="btn btn-primary a-btn-slide-text">
+       		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        	<span><strong>Borrar</strong></span>            
+    	</a>
+	</div>
 <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
   <thead>
     <tr>

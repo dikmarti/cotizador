@@ -1725,3 +1725,9 @@ to {
 .w3-border-pale-blue, .w3-hover-border-pale-blue:hover {
 	border-color: #e7ffff !important
 }
+
+.row.icon.button {
+	margin-right: 0px !important;
+    margin-bottom: 15px;
+    text-align: right;
+}
