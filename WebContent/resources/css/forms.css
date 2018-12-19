@@ -138,10 +138,11 @@ div.tab-content>div.active {
     left:       0;
     height:     100%;
     width:      100%;
-    background: rgba( 255, 255, 255, .8 ) 
-                url('http://i.stack.imgur.com/FhHRx.gif') 
+    background: rgba(84,87,89, .8 ) 
+                url('../../resources/images/loading.gif') 
                 50% 50% 
                 no-repeat;
+    background-size: 50px 50px;                    
 }
 
 /* When the body has the loading class, we turn
@@ -154,8 +155,7 @@ body.loading .modal-loader {
    modal element will be visible */
 body.loading .modal-loader {
     display: block;
-
-
+}
 
 @media screen and (max-width: 600px) {
   .form-style-8{
@@ -189,6 +189,6 @@ body.loading .modal-loader {
   .form-style-8 input[type="submit"]:hover {
 	background:linear-gradient(to bottom, #004876 5%, #004876 100%);
 	background-color: #004876;
-}
+  }
   
 }
