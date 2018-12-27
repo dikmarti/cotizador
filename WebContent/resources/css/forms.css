@@ -130,6 +130,22 @@ div.tab-content>div.active {
 	text-transform: uppercase;
 }
 
+.logout {	
+	display: none;	
+}
+
+.logout img {	
+	width: 30px;
+	height: 30px;
+}
+
+.logout.on {	
+	display: block;		
+	position: relative;
+    float: right;
+    top: 10px;   
+}
+
 .modal-loader {
     display:    none;
     position:   fixed;
@@ -189,6 +205,14 @@ body.loading .modal-loader {
   .form-style-8 input[type="submit"]:hover {
 	background:linear-gradient(to bottom, #004876 5%, #004876 100%);
 	background-color: #004876;
+  }
+  
+  .logout.on {	
+	display: block;		
+	position: relative;
+    float: left;
+    padding-left: 15px;  
+    padding-bottom: 20px; 	
   }
   
 }
