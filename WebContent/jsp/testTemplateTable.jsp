@@ -78,6 +78,7 @@
 
 <script type="text/javascript">
 
+$(document).ready(function() {
    	 $.ajax({
     	  url: "/Cotizador/rest/userModule/all",
     	  type: "GET",
@@ -131,7 +132,7 @@
 		  });
 		  $('.dataTables_length').addClass('bs-select');
 
-	      
+	  });   
 	</script>
 	
 </t:standardPage>
