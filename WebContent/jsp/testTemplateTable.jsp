@@ -86,7 +86,7 @@
 
 <script type="text/javascript">
 		  
-		(function() {
+	$(document).ready(function() {
 	    	 
 	    	 $.ajax({
 		    	  url: "/Cotizador/rest/userModule/all",
