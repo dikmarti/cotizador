@@ -1,8 +1,6 @@
 package cotizador.service;
 
-import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -10,7 +8,7 @@ import cotizador.model.domain.Usuario;
 import cotizador.model.repository.GenericRepository;
 import cotizador.utils.PasswordUtils;
 
-public class LoginService {
+public class UserService {
 
 	@Inject
 	GenericRepository genericRepository;
@@ -30,6 +28,17 @@ public class LoginService {
 		Usuario usuarioResult = !allObject.isEmpty() ? (Usuario)allObject.get(0) : null;
 		
 		return  usuarioResult;
+	}
+	
+	public List<Usuario> retrieveAllUsers() {
+		
+		System.out.println("finding all user from data base");
+		
+		List<Object> allObject = genericRepository.getAllObject("SELECT u FROM Usuario u");
+		
+		List<Usuario> usersResult = !allObject.isEmpty() ? (List<Usuario>) (Object) allObject : null;
+		
+		return  usersResult;
 	}
 	
 	

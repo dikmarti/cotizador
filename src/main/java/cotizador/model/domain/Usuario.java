@@ -106,5 +106,12 @@ public class Usuario {
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
-		
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", tipoUsuario=" + tipoUsuario + ", login=" + login
+				+ ", clave=" + clave + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email
+				+ ", cargo=" + cargo + "]";
+	}
+	
 }

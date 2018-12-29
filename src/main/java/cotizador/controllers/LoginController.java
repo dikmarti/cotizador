@@ -19,8 +19,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.Usuario;
 import cotizador.model.domain.models.LoginModel;
-import cotizador.model.domain.shape.type.Circle;
-import cotizador.service.LoginService;
+import cotizador.service.UserService;
 
 @Path("/login")
 @Produces(MediaType.TEXT_HTML)
@@ -31,7 +30,7 @@ public class LoginController {
 	Logger log = Logger.getLogger(LoginController.class); 
 
 	@Inject
-	LoginService loginService;
+	UserService userService;
 
 	@POST
     @Path("/in")
@@ -47,7 +46,7 @@ public class LoginController {
 		try {
 			
 			loginForm = mapper.readValue(jsonForm, LoginModel.class);
-			usuario = loginService.login(loginForm.getUsuario(), loginForm.getClave());
+			usuario = userService.login(loginForm.getUsuario(), loginForm.getClave());
 			
 			if(usuario != null) {				
 				HttpSession httpSession = httpRequest.getSession();
