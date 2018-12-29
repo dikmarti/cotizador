@@ -35,7 +35,7 @@
 								<div class="circle-tile-number text-faded">
 									Usuarios <span id="sparklineA"></span>
 								</div>
-								<a href="#" class="circle-tile-footer">Administrar <i
+								<a id="btn-mod-one" href="#" class="circle-tile-footer">Administrar <i
 									class="fa fa-chevron-circle-right"></i></a>
 							</div>
 						</div>
@@ -130,5 +130,13 @@
 	</div>
 	<!-- End page content -->
 </div>
+
+<script type="text/javascript">      
+
+      $("#btn-mod-one").click(function() {
+    	  location.href = "testTemplateTable";    	 
+      });
+      
+</script>
 
 </t:standardPage>
