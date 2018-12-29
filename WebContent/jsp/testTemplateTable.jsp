@@ -12,19 +12,19 @@
 <br>
 <br>
 	<div class="row icon button">
-		<a href="#" class="btn btn-primary a-btn-slide-text">
+		<a id="btn-user-create" class="btn btn-primary a-btn-slide-text">
         	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        	<span><strong>Añadir</strong></span>            
+        	<span><strong>Crear</strong></span>            
     	</a>
-    	<a href="#" class="btn btn-primary a-btn-slide-text">
+    	<a id="btn-user-modify" class="btn btn-primary a-btn-slide-text">
         	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
         	<span><strong>Editar</strong></span>            
     	</a>
-    	<a href="#" class="btn btn-primary a-btn-slide-text">
+    	<a id="btn-user-view" class="btn btn-primary a-btn-slide-text">
         	<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
         	<span><strong>Ver</strong></span>            
     	</a>
-    	<a href="#" class="btn btn-primary a-btn-slide-text">
+    	<a id="btn-user-delete" class="btn btn-primary a-btn-slide-text">
        		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         	<span><strong>Borrar</strong></span>            
     	</a>
@@ -72,6 +72,40 @@
   </tfoot>
 </table>
 </div>
+
+<!-- Modal -->
+<div id="user-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Crear Usuario</h4>
+      </div>
+      <div class="modal-body">
+      		<form id="userForm" class="form-content">
+			    <input id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
+			    <input id="usuario" type="text" name="usuario" placeholder="Usuario" maxlength="200"/>
+			    <input id="clave" type="password" name="clave" placeholder="Clave"  maxlength="50"/>
+			    <input id="email" type="text" name="email" placeholder="Email" maxlength="200"/>
+			    <input id="direccion" type="text" name="direccion" placeholder="Dirección" maxlength="200"/>
+			    <input id="telefono" type="text" name="telefono" placeholder="telefono" maxlength="200"/>
+			    <input id="cargo" type="text" name="cargo" placeholder="Cargo" maxlength="200"/>
+			    <input id="tipoUsuario" type="text" name="tipoUsuario" placeholder="Tipo de Usuario" maxlength="200"/>
+			    <div class="msg-error">
+			   			Debe ingresar los datos
+			   	</div>
+		   	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- End Modal -->
   
 <!-- End page content -->
 </div>
@@ -132,7 +166,20 @@ $(document).ready(function() {
 		  });
 		  $('.dataTables_length').addClass('bs-select');
 
+		$("#btn-user-create").click(function() {
+			console.log("create user"); 
+			$("#user-modal").modal("show");
+		});
+		
+		$("#btn-user-modify").click(function() {
+			console.log("modify user");   	 
+		});
+		
+		$("#btn-user-delete").click(function() {
+			console.log("delete user");   	 
+		});
 	  });   
+		  
 	</script>
 	
 </t:standardPage>

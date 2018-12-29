@@ -13,6 +13,13 @@ public class UserService {
 	@Inject
 	GenericRepository genericRepository;
 	
+	/**
+	 * Metodo que buscar un usuario en la base de datos
+	 * 
+	 * @param usuario
+	 * @param clave
+	 * @return
+	 */
 	public Usuario login(String usuario, String clave) {
 		
 		char[] charArrayPassword = clave.toCharArray();
@@ -30,6 +37,11 @@ public class UserService {
 		return  usuarioResult;
 	}
 	
+	/**
+	 * Metodo que retorna la data de los usuarios existentes en la base de datos
+	 * 
+	 * @return
+	 */
 	public List<Usuario> retrieveAllUsers() {
 		
 		System.out.println("finding all user from data base");
@@ -39,6 +51,38 @@ public class UserService {
 		List<Usuario> usersResult = !allObject.isEmpty() ? (List<Usuario>) (Object) allObject : null;
 		
 		return  usersResult;
+	}
+	
+	/**
+	 * Metodo que registra un nuevo usuario a la base de datos
+	 * 
+	 * @return
+	 */
+	public Boolean createUser(String usuario, String login, String clave, String email, String telefono, String direccion,
+			String cargo, int tipoUsuario) {
+		
+		Usuario user = new Usuario();
+		user.setNombre(usuario);
+		user.setLogin(login);
+		
+		char[] charArrayPassword = clave.toCharArray();
+		byte[] salt = new byte[20];	
+		
+		String claveEncriptada = PasswordUtils.hashPassword(charArrayPassword, salt);
+		
+		user.setClave(claveEncriptada);
+		user.setEmail(email);
+		user.setTelefono(telefono);
+		user.setDireccion(direccion);
+		user.setCargo(cargo);
+		user.setTipoUsuario(tipoUsuario);
+		
+		System.out.println("Creating user from data base");
+		Object object = genericRepository.addObject(user);
+		
+		Boolean userResult = object != null ? Boolean.TRUE : Boolean.FALSE;
+		
+		return  userResult;
 	}
 	
 	
