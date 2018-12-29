@@ -85,63 +85,60 @@
 </div>
 
 <script type="text/javascript">
-		  
-		(function() {
-	    	 
-	    	 $.ajax({
-		    	  url: "/Cotizador/rest/userModule/all",
-		    	  type: "GET",
-		    	  dataType: "json",
-		    	  contentType: "application/json; charset=utf-8",
-		    	  success: function(result){		    		
-		    	        console.log("termino");
-		    	        console.log(result);
 
-		    	        var $tableData = $("#user-table-data");
-		    	       	var dataUsers = "";
-		    	        
-		    	        $.each(result, function( index, element ) {	    	        	
-		    	        		    	        	
-		    	        		var li = "<tr><td>" + result[index].nombre + "</td>"
-		    	        					+"<td>" + result[index].login + "</td>"
-		    	        					+"<td>" + result[index].direccion + "</td>"
-		    	        					+"<td>" + result[index].email + "</td>"
-		    	        					+"<td>" + result[index].telefono + "</td>"
-		    	        					+"<td>" + result[index].cargo + "</td></tr>";
-		    	        		lis += li;
-		    	        });
-		    	        $tableData.html(dataUsers);
-		    	  },
-		    	  complete: function(result){
-		    	        console.log("complete");
-		    	  },
-		    	  error: function(result){
-		    	        console.log("error");
-		    	  }
-		    	  
-		    	});
-	    	 
-			$('#dtBasicExample').DataTable({
-				  responsive: true,
-				    "pagingType": "simple_numbers",
-				    "pageLength": 10,
-				    "language": {
-			            "lengthMenu": "Historial Personas",
-			            "zeroRecords": "No existen registros",
-			            "emptyTable":     "No existen registros en tabla",
-			            "info": "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros.",
-			            "infoEmpty": "Ningún registro disponible para la búsqueda.",
-			            "infoFiltered": "",
-			            "search": "Buscar: ",
-			            "paginate": {
-			                "previous": "Atrás",
-			                "next": "Siguiente"
-			              }
-			        }
-			  });
-			  $('.dataTables_length').addClass('bs-select');
-	      });
-		
+   	 $.ajax({
+    	  url: "/Cotizador/rest/userModule/all",
+    	  type: "GET",
+    	  dataType: "json",
+    	  contentType: "application/json; charset=utf-8",
+    	  success: function(result){		    		
+    	        console.log("termino");
+    	        console.log(result);
+
+    	        var $tableData = $("#user-table-data");
+    	       	var dataUsers = "";
+    	        
+    	        $.each(result, function( index, element ) {	    	        	
+    	        		    	        	
+    	        		var li = "<tr><td>" + result[index].nombre + "</td>"
+    	        					+"<td>" + result[index].login + "</td>"
+    	        					+"<td>" + result[index].direccion + "</td>"
+    	        					+"<td>" + result[index].email + "</td>"
+    	        					+"<td>" + result[index].telefono + "</td>"
+    	        					+"<td>" + result[index].cargo + "</td></tr>";
+    	        		li += li;
+    	        });
+    	        $tableData.html(dataUsers);
+    	  },
+    	  complete: function(result){
+    	        console.log("complete");
+    	  },
+    	  error: function(result){
+    	        console.log("error");
+    	  }
+    	  
+    	});
+   	 
+		$('#dtBasicExample').DataTable({
+			  responsive: true,
+			    "pagingType": "simple_numbers",
+			    "pageLength": 10,
+			    "language": {
+		            "lengthMenu": "Historial Personas",
+		            "zeroRecords": "No existen registros",
+		            "emptyTable":     "No existen registros en tabla",
+		            "info": "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros.",
+		            "infoEmpty": "Ningún registro disponible para la búsqueda.",
+		            "infoFiltered": "",
+		            "search": "Buscar: ",
+		            "paginate": {
+		                "previous": "Atrás",
+		                "next": "Siguiente"
+		              }
+		        }
+		  });
+		  $('.dataTables_length').addClass('bs-select');
+
 	      
 	</script>
 	
