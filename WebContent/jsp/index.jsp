@@ -59,7 +59,7 @@
 						<div class="circle-tile">
 							<a href="#">
 								<div class="circle-tile-heading orange">
-									<i class="fa fa-bell fa-fw fa-3x"></i>
+									<i class="fa fa-wrench fa-fw fa-3x"></i>
 								</div>
 							</a>
 							<div class="circle-tile-content orange">
