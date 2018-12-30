@@ -81,6 +81,8 @@ body {
 	height: 300px;	
 	background-color: white;
 	position: absolute;
+	z-index: 2;
+	top: 72px;
 }
 
 .sub-menu ul{

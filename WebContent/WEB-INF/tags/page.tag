@@ -14,8 +14,22 @@
 
 	<head>
 		<jsp:invoke fragment="head"/>
+		<script type="text/javascript">   
+		$(document).ready(function () {
+			
+			$body = $("body");
+				
+			$( document ).ajaxStart(function() {
+			     $body.addClass("loading");		      
+			});
+			
+			$( document ).ajaxStop(function() {		    
+			    $body.removeClass("loading");   
+			});
+		 });
+	</script>
 	</head>		
-	<body>
+	<body>	
 		<div class="modal-loader"><!-- Place at bottom of page --></div>			
 		<jsp:invoke fragment="header"/>		
 			
@@ -23,18 +37,4 @@
 		
 		<jsp:invoke fragment="footer"/>			
 	</body>
-	
-	<script type="text/javascript">   
-
-		$body = $("body");
-	
-		$( document ).ajaxStart(function() {
-		     $body.addClass("loading");		      
-		});
-		
-		$( document ).ajaxStop(function() {		    
-		    $body.removeClass("loading");   
-		});
-
-</script>
 </html>
