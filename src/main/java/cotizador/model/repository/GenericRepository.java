@@ -41,7 +41,8 @@ public class GenericRepository {
     
     public Object getObjectById(String id, String query) {
     	
-    	List<Object> result = (List<Object>)entityManager.createNamedQuery(query)
+    	@SuppressWarnings("unchecked")
+		List<Object> result = (List<Object>)entityManager.createNamedQuery(query)
 			    			.setParameter("id", Integer.parseInt(id))
 			    			.getResultList();    	    	
         	    	
@@ -50,20 +51,27 @@ public class GenericRepository {
     
     public List<Object> getAllObject(String query) {
      	
-    	List<Object> result = (List<Object>)entityManager.createQuery(query)
+    	@SuppressWarnings("unchecked")
+		List<Object> result = (List<Object>)entityManager.createQuery(query)
 			    			.getResultList();  	
         	    	
     	return result;
     }
     
     
-    public List<Object> getAllObjectFiltered(String query, Object[] parametersValues) {
+    public List<Object> getAllObjectFiltered(String query, String filter, Object parameterValue) {
     	
-    	/*List<Object> result = (List<Object>)entityManager.createNamedQuery(query)
-			    			.setParameter("id", Integer.parseInt(id)).set
-			    			.getResultList();        	
-        	*/    	
-    	return null;
+    	System.out.println("query " + query);
+    	System.out.println("filter " + filter);
+    	System.out.println("parameterValue " + parameterValue);
+    	
+    	@SuppressWarnings("unchecked")
+		List<Object> result = (List<Object>)entityManager.createNamedQuery(query)
+			    			.setParameter(filter, parameterValue)
+			    			.getResultList();   
+
+    	System.out.println("result " + result);
+    	return result;
     }
   
 }

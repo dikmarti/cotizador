@@ -23,12 +23,8 @@ import cotizador.service.UserService;
 
 @Path("/login")
 @Produces(MediaType.TEXT_HTML)
-public class LoginController {
+public class LoginController extends GenericController{
 	
-	private static final String USUARIO_SESSION = "usuario";
-
-	Logger log = Logger.getLogger(LoginController.class); 
-
 	@Inject
 	UserService userService;
 

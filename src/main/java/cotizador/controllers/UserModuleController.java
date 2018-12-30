@@ -17,9 +17,7 @@ import cotizador.service.UserService;
 
 @Path("/userModule")
 @Produces(MediaType.TEXT_HTML)
-public class UserModuleController {
-	
-	Logger log = Logger.getLogger(LoginController.class); 
+public class UserModuleController extends GenericController{
 
 	@Inject
 	UserService userService;

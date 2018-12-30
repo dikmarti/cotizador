@@ -5,7 +5,7 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name = "Modulo.findById", query = "SELECT s FROM Modulo s WHERE s.id = :id"),
 	@NamedQuery(name = "Modulo.findModules", query = "SELECT s FROM Modulo s WHERE s.tipoModulo = :tipoModulo"),
-	@NamedQuery(name = "Modulo.findAll", query = "SELECT s FROM Modulo s")
+	@NamedQuery(name = "Modulo.findAll", query = "SELECT s FROM Modulo s")	
 })
 
 @Entity

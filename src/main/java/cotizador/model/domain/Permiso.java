@@ -4,6 +4,10 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name = "Permiso.findByUser", query = "SELECT p FROM Permiso p WHERE p.usuario.login = :login")	
+})
+
 @Entity
 @Table(name="permiso")
 public class Permiso {
