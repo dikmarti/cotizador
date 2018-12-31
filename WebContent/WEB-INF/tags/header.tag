@@ -89,7 +89,7 @@
     	 var menus = $("[data-sub-menu]");
     	 
 	        $.each(menus, function( index , element) {
-	        	var id = $(element).data("sub-menu");	
+	        	var id = $(element).data("sub-menu");	 
 	        	
 	        	if(id != $divSubMenu){
 	        		$( "#"+id ).hide();	 
@@ -97,7 +97,11 @@
   	        });	
    	 
 			if ( $("#"+$divSubMenu+":first").is( ":hidden" ) ) {
-			  	$( "#"+$divSubMenu ).show();
+				var $contentSubmenu = $( "#"+$divSubMenu+" ul").text();
+				
+				if($contentSubmenu != "") {
+				 	$( "#"+$divSubMenu ).show();		
+				}
 			} else {
 			   	$( "#"+$divSubMenu ).hide();
 			}

@@ -1,5 +1,6 @@
 package cotizador.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,10 +30,25 @@ public class ModuleController extends GenericController{
 		HttpSession httpSession = httpRequest.getSession();
 		String usuarioLogueado = (String) httpSession.getAttribute(USUARIO_SESSION);
    		
-		System.out.println("usuario logueado " + usuarioLogueado);		
+		System.out.println("usuario logueado " + usuarioLogueado);
 		
-       List<Modulo> modules = moduleService.getModulesByUser(usuarioLogueado);       
-        
+		List<Modulo> modules = new ArrayList<Modulo>();
+		
+		if(usuarioLogueado != null && !usuarioLogueado.isEmpty()) {
+			
+			List<Modulo> modulesSession = (List<Modulo>) httpSession.getAttribute("menu_"+usuarioLogueado);
+			
+			if(modulesSession != null && !modulesSession.isEmpty()) {
+				modules = modulesSession;
+			} else {
+				modules = moduleService.getModulesByUser(usuarioLogueado); 
+				
+				if(!modules.isEmpty()) {
+					httpSession.setAttribute("menu_"+ usuarioLogueado, modules);
+				}
+			}			
+		}		
+                     
         return modules;
     }
   
