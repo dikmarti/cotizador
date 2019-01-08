@@ -7,7 +7,7 @@ public class ApplicationSecureMap {
 	 public static final Map<String, String> applicationSecureMap = new HashMap<String, String>();
 	    static {
 //Ajustar nombre jsp adm usuarios
-	    	applicationSecureMap.put("Usuarios", "Cotizador/testTemplateTable");
+	    	applicationSecureMap.put("Usuarios", "Cotizador/admUsuarios");
 	        applicationSecureMap.put("Modulos", "Cotizador/admModulos");
 	        applicationSecureMap.put("Permisos", "Cotizador/admPermisos");
 	        applicationSecureMap.put("Sistemas", "Cotizador/admSistemas");

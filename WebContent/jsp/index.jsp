@@ -134,7 +134,7 @@
 <script type="text/javascript">      
 
       $("#btn-mod-one").click(function() {
-    	  location.href = "testTemplateTable";    	 
+    	  location.href = "admUsuarios";    	 
       });
       
 </script>
