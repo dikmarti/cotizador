@@ -6,7 +6,8 @@ import java.util.Map;
 public class ApplicationSecureMap {
 	 public static final Map<String, String> applicationSecureMap = new HashMap<String, String>();
 	    static {
-	        applicationSecureMap.put("Usuarios", "Cotizador/admUsuario");
+//Ajustar nombre jsp adm usuarios
+	    	applicationSecureMap.put("Usuarios", "Cotizador/testTemplateTable");
 	        applicationSecureMap.put("Modulos", "Cotizador/admModulos");
 	        applicationSecureMap.put("Permisos", "Cotizador/admPermisos");
 	        applicationSecureMap.put("Sistemas", "Cotizador/admSistemas");
@@ -17,5 +18,8 @@ public class ApplicationSecureMap {
 	        applicationSecureMap.put("Metrado", "Cotizador/admMetrado");
 	            
 	    }
+		public static Map<String, String> getApplicationsecuremap() {
+			return applicationSecureMap;
+		}    
 
 }

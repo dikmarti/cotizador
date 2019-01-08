@@ -1,5 +1,7 @@
 package cotizador.model.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @NamedQueries({
@@ -10,7 +12,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="modulo")
-public class Modulo {
+public class Modulo implements Serializable{
+
+	private static final long serialVersionUID = 5044378297377997916L;
 
 	@Id
 	@Column(name = "id")
