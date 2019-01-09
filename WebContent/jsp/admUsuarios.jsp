@@ -29,7 +29,7 @@
         	<span><strong>Borrar</strong></span>            
     	</a>
 	</div>
-<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+<table id="dtUserModule" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
   <thead>
     <tr>
       <th class="th-sm">Nombre
@@ -130,7 +130,7 @@ $(document).ready(function() {
     	        
     	        $.each(result, function( index, element ) {	    	        	
     	        		    	        	
-    	        		var li = "<tr><td>" + result[index].nombre + "</td>"
+    	        		var li = "<tr role='row'><td>" + result[index].nombre + "</td>"
     	        					+"<td>" + result[index].login + "</td>"
     	        					+"<td>" + result[index].direccion + "</td>"
     	        					+"<td>" + result[index].email + "</td>"
@@ -149,7 +149,7 @@ $(document).ready(function() {
     	  
     	});
    	 
-		$('#dtBasicExample').DataTable({
+   	var table = $('#dtUserModule').DataTable({
 			  responsive: true,
 			    "pagingType": "simple_numbers",
 			    "pageLength": 10,
@@ -168,6 +168,16 @@ $(document).ready(function() {
 		        }
 		  });
 		  $('.dataTables_length').addClass('bs-select');
+		  
+		  $('#dtUserModule tbody').on( 'click', 'tr', function () {
+		        if ( $(this).hasClass('selected') ) {
+		            $(this).removeClass('selected');
+		        }
+		        else {
+		            table.row({selected: true}).removeClass('selected');
+		            $(this).addClass('selected'); 
+		        }
+		    } );
 
 		$("#btn-user-create").click(function() {
 			console.log("create user"); 
@@ -194,7 +204,7 @@ $(document).ready(function() {
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Debe ingresar los datos");
 	    	 
-	    	 if ($usuario == "" || $clave == "" || $nombre == "" || $email == "" || $direccion == "" 
+	    	 if ($login == "" || $clave == "" || $nombre == "" || $email == "" || $direccion == "" 
 	    			 || $telefono == "" || $cargo == "" || $tipoUsuario == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
