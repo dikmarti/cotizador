@@ -84,9 +84,9 @@
         <h4 class="modal-title">Crear Usuario</h4>
       </div>
       <div class="modal-body">
-      		<form id="userForm" class="form-content">
+      		<form id="createUserForm" class="form-content">
 			    <input id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
-			    <input id="usuario" type="text" name="usuario" placeholder="Usuario" maxlength="200"/>
+			    <input id="login" type="text" name="login" placeholder="Login" maxlength="200"/>
 			    <input id="clave" type="password" name="clave" placeholder="Clave"  maxlength="50"/>
 			    <input id="email" type="text" name="email" placeholder="Email" maxlength="200"/>
 			    <input id="direccion" type="text" name="direccion" placeholder="Dirección" maxlength="200"/>
@@ -94,13 +94,16 @@
 			    <input id="cargo" type="text" name="cargo" placeholder="Cargo" maxlength="200"/>
 			    <input id="tipoUsuario" type="text" name="tipoUsuario" placeholder="Tipo de Usuario" maxlength="200"/>
 			    <div class="msg-error">
-			   			Debe ingresar los datos
+			   			Debe ingresar los datos.
 			   	</div>
+			   	<div class="form-style-button">
+		   			<input type="button" value="Crear" id="btn-modal-create"/>
+		   		</div>
 		   	</form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+<!--       <div class="modal-footer"> -->
+<!--         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!--       </div> -->
     </div>
 
   </div>
@@ -178,6 +181,62 @@ $(document).ready(function() {
 		$("#btn-user-delete").click(function() {
 			console.log("delete user");   	 
 		});
+		
+		$("#btn-modal-create").click(function() {
+	    	 var $nombre =  $("#nombre").val();
+	    	 var $login =  $("#login").val();
+	    	 var $clave =  $("#clave").val();
+	    	 var $email =  $("#email").val();
+	    	 var $direccion =  $("#direccion").val();
+	    	 var $telefono =  $("#telefono").val();
+	    	 var $cargo =  $("#cargo").val();
+	    	 var $tipoUsuario =  $("#tipoUsuario").val();
+	    	 $(".msg-error").removeClass("on");
+		     $(".msg-error").html("Debe ingresar los datos");
+	    	 
+	    	 if ($usuario == "" || $clave == "" || $nombre == "" || $email == "" || $direccion == "" 
+	    			 || $telefono == "" || $cargo == "" || $tipoUsuario == "") {
+	    		  $(".msg-error").addClass("on");
+	    		  return false;
+	   		 } else {
+	   		      console.log("Hay valores");
+	   		 }
+	    	 
+	    	  var $form = $("#createUserForm").serializeArray();    	  	  
+		  	  var $formSerialized = objectifyForm($form);
+	    	 
+	    	 $.ajax({
+		    	  url: "/Cotizador/rest/userModule/create",
+		    	  type: "POST",
+		    	  data: JSON.stringify($formSerialized),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino");
+		    	        var obj = JSON.stringify(result);
+		    	        console.log(" objeto " + obj);	    	        
+		    	        
+		    	        $(".msg-error").removeClass("on");
+		    	        
+		    	        if(obj === undefined) {	    	        	
+		    	        	$(".msg-error").html("Ha ocurrido un error, el usuario no pudo ser creado.")
+		    	        	$(".msg-error").addClass("on");	    	        	 
+		    	        } else {
+		    	        	location.href = "index";
+		    	        }
+		    	       
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+	    	 
+	      });
+		
 	  });   
 		  
 	</script>

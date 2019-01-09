@@ -90,5 +90,45 @@ public class UserModuleController extends GenericController{
 		}       
 		return null;
     }
+	
+	@POST
+    @Path("/delete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+    public Boolean delete(String jsonForm, @Context HttpServletRequest httpRequest) {
+		
+        System.out.println("/delete json form " + jsonForm);
+    	ObjectMapper mapper=new ObjectMapper();
+    	UserModel userModel = new UserModel();
+    	
+		try {
+			
+			userModel = mapper.readValue(jsonForm, UserModel.class);
+			Boolean deleted = userService.deleteUser(userModel.getNombre(), userModel.getLogin(), userModel.getClave(),
+					userModel.getEmail(), userModel.getTelefono(), userModel.getDireccion(), userModel.getCargo(), 
+					userModel.getTipoUsuario());
+			
+			if(deleted) {				
+				return Boolean.TRUE;
+			} else {
+				return Boolean.FALSE;
+			}
+			
+									
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}       
+		return null;
+    }
   
 }

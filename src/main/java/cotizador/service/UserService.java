@@ -61,6 +61,8 @@ public class UserService {
 	public Boolean createUser(String usuario, String login, String clave, String email, String telefono, String direccion,
 			String cargo, int tipoUsuario) {
 		
+		System.out.println("Method createUser...");
+		
 		Usuario user = new Usuario();
 		user.setNombre(usuario);
 		user.setLogin(login);
@@ -79,6 +81,47 @@ public class UserService {
 		
 		System.out.println("Creating user from data base");
 		Object object = genericRepository.addObject(user);
+		
+		Boolean userResult = object != null ? Boolean.TRUE : Boolean.FALSE;
+		
+		return  userResult;
+	}
+	
+	/**
+	 * Metodo que elimina un usuario de la base de datos
+	 * @param usuario
+	 * @param login
+	 * @param clave
+	 * @param email
+	 * @param telefono
+	 * @param direccion
+	 * @param cargo
+	 * @param tipoUsuario
+	 * @return
+	 */
+	public Boolean deleteUser(String usuario, String login, String clave, String email, String telefono, String direccion,
+			String cargo, int tipoUsuario) {
+		
+		System.out.println("Method deleteUser...");
+		
+		Usuario user = new Usuario();
+		user.setNombre(usuario);
+		user.setLogin(login);
+		
+		char[] charArrayPassword = clave.toCharArray();
+		byte[] salt = new byte[20];	
+		
+		String claveEncriptada = PasswordUtils.hashPassword(charArrayPassword, salt);
+		
+		user.setClave(claveEncriptada);
+		user.setEmail(email);
+		user.setTelefono(telefono);
+		user.setDireccion(direccion);
+		user.setCargo(cargo);
+		user.setTipoUsuario(tipoUsuario);
+		
+		System.out.println("Creating user from data base");
+		Object object = genericRepository.removeObject(user);
 		
 		Boolean userResult = object != null ? Boolean.TRUE : Boolean.FALSE;
 		

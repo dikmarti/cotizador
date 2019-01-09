@@ -30,9 +30,30 @@ public class GenericRepository {
         
     }
     
+    public Object removeObject(Object object){
+    	
+    	entityManager.getTransaction().begin();	
+    	Object objectRemoved = removeObject(entityManager, object);
+    	
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+       return objectRemoved;
+        
+    }
+    
     private Object addObject(EntityManager entityManager, Object object){
         
     	entityManager.persist(object);
+    	entityManager.flush();
+		
+		return object;
+        
+    }
+    
+    private Object removeObject(EntityManager entityManager, Object object){
+        
+    	entityManager.remove(object);
     	entityManager.flush();
 		
 		return object;
