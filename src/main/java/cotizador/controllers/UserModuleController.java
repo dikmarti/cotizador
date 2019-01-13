@@ -139,9 +139,8 @@ public class UserModuleController extends GenericController {
 
 			userModel = mapper.readValue(jsonForm, UserModel.class);
 			
-			userService.updateUser(userModel.getNombre(), userModel.getLogin(), userModel.getClave(),
-					userModel.getEmail(), userModel.getTelefono(), userModel.getDireccion(), userModel.getCargo(),
-					userModel.getTipoUsuario());
+			userService.updateUser(userModel.getNombre(), userModel.getLogin(),	userModel.getEmail(), 
+					userModel.getTelefono(), userModel.getDireccion(), userModel.getCargo());
 
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block

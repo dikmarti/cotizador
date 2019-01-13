@@ -81,6 +81,18 @@ public class GenericRepository {
     	
     }
     
+    public int updateUserByLogin(String query){
+    	
+    	entityManager.getTransaction().begin();	
+    	int result = entityManager.createQuery(query).executeUpdate();  	
+
+    	entityManager.getTransaction().commit();
+        entityManager.close();
+        	    	
+    	return result;
+    	
+    }
+    
     public Object getObjectById(String id, String query) {
     	
     	@SuppressWarnings("unchecked")

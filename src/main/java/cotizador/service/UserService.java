@@ -107,30 +107,13 @@ public class UserService {
 	 * @param tipoUsuario
 	 * @return
 	 */
-	public void updateUser(String usuario, String login, String clave, String email, String telefono, String direccion,
-			String cargo, int tipoUsuario) {
+	public void updateUser(String usuario, String login, String email, String telefono, String direccion,
+			String cargo) {
 
 		System.out.println("Method updateUser...");
-
-		Usuario user = new Usuario();
-		user.setNombre(usuario);
-		user.setLogin(login);
-
-		char[] charArrayPassword = clave.toCharArray();
-		byte[] salt = new byte[20];	
-
-		String claveEncriptada = PasswordUtils.hashPassword(charArrayPassword, salt);
-
-		user.setClave(claveEncriptada);
-		user.setEmail(email);
-		user.setTelefono(telefono);
-		user.setDireccion(direccion);
-		user.setCargo(cargo);
-		user.setTipoUsuario(tipoUsuario);
-
 		System.out.println("Updating user from data base");
 
-		genericRepository.updateObject(user);
+		genericRepository.updateUserByLogin("UPDATE Usuario SET nombre = '', login");
 
 		System.out.println("finish user update");
 

@@ -110,7 +110,7 @@
 				    <input class="form-control" id="cargo" type="text" name="cargo" placeholder="Cargo" maxlength="200"/>
       			</div>
       			<div class="form-group col-md-6">
-				    <select class="form-control form-control-sm" id="tipoUsuario" name="tipoUsuario" >
+				    <select class="form-control form-control-sm" id="tipoUsuario" name="tipoUsuario">
 				    	<option value="">Tipo de Usuario</option>
 				    	<option value="1">Estandard</option>
 				    </select>
@@ -243,7 +243,7 @@ $(document).ready(function() {
 			$('#user-modal').find('#btn-modal-update').css('visibility', 'visible');
 			$('#user-modal').find('#btn-modal-update').css('display', '');
 			$('#user-modal').find('#clave').attr('disabled', 'true');
-			$('#user-modal').find('#tipousuario').attr('disabled', 'true');
+			$('#user-modal').find('#tipoUsuario').attr('disabled', 'true');
 			$("#user-modal").modal("show");
 		});
 		
@@ -300,7 +300,7 @@ $(document).ready(function() {
 	    	 var $cargo =  $("#cargo").val();
 	    	 var $tipoUsuario =  $("#tipoUsuario option:selected").val();
 	    	 $(".msg-error").removeClass("on");
-		     $(".msg-error").html("Debe ingresar los datos");
+		     $(".msg-error").html("Debe ingresar los datos.");
 		     
 		     if($tipoUsuario != 1) {
 		    	 $(".msg-error").html("Debe seleccionar el tipo de usuario.")
@@ -350,6 +350,76 @@ $(document).ready(function() {
 		    	        		$("#user-modal").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 		    	        		$(".msg-error").html("Ha ocurrido un error, el usuario no pudo ser creado.");
+			    	        	$(".msg-error").addClass("on");	 
+		    	        	}
+		    	        }
+		    	       
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+	    	 
+	      });
+		
+		$("#btn-modal-update").click(function() {
+			$("#user-modal").css('z-index', '1');
+	    	 var $nombre =  $("#nombre").val();
+	    	 var $login =  $("#login").val();
+	    	 var $email =  $("#email").val();
+	    	 var $direccion =  $("#direccion").val();
+	    	 var $telefono =  $("#telefono").val();
+	    	 var $cargo =  $("#cargo").val();
+	    	 
+	    	 $(".msg-error").removeClass("on");
+		     $(".msg-error").html("Debe ingresar los datos.");
+		     
+	    	 if ($login == "" || $nombre == "" || $email == "" || $direccion == "" 
+	    			 || $telefono == "" || $cargo == "") {
+	    		  $(".msg-error").addClass("on");
+	    		  return false;
+	   		 } else {
+	   		      console.log("Hay valores");
+	   		 }
+	    	 
+	    	  var $form = $("#createUserForm").serializeArray();    	  	  
+		  	  var $formSerialized = objectifyForm($form);
+	    	 
+	    	 $.ajax({
+		    	  url: "/Cotizador/rest/userModule/update",
+		    	  type: "POST",
+		    	  data: JSON.stringify($formSerialized),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino actualizacion de usuario");
+		    	        console.log("result: " + result);
+		    	        var obj = JSON.stringify(result);
+		    	        console.log(" objeto " + obj);	    	        
+		    	        
+		    	        $(".msg-error").removeClass("on");
+		    	        
+		    	        if(obj === undefined) {	    	  
+		    	        	$("#user-modal").css('z-index', '2');
+		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+		    	        	$(".msg-error").html("Ha ocurrido un error, el usuario no pudo ser actualizado.");
+		    	        	$(".msg-error").addClass("on");	    	        	 
+		    	        } else {
+		    	        	if(result == 0) {
+			    	        	location.href = "admUsuarios";
+		    	        	} else if (result == 1) {
+		    	        		$("#user-modal").css('z-index', '2');
+			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+		    	        		$(".msg-error").html("Ha ocurrido un error, login ya existe.");
+			    	        	$(".msg-error").addClass("on");	 
+		    	        	} else if (result == 2) {
+		    	        		$("#user-modal").css('z-index', '2');
+			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+		    	        		$(".msg-error").html("Ha ocurrido un error, el usuario no pudo ser actualizado.");
 			    	        	$(".msg-error").addClass("on");	 
 		    	        	}
 		    	        }
