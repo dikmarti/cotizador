@@ -103,6 +103,7 @@ public class UserModuleController extends GenericController {
 			String login = userLogin.get("login");
 			Boolean deleted = userService.deleteUser(login);
 
+			System.out.println("deleted: " + deleted);
 			if (deleted) {
 				return Boolean.TRUE;
 			} else {
@@ -142,7 +143,7 @@ public class UserModuleController extends GenericController {
 			Integer status = userService.updateUser(userModel.getNombre(), userModel.getLogin(), userModel.getLoginAnterior(), userModel.getEmail(), 
 					userModel.getTelefono(), userModel.getDireccion(), userModel.getCargo());
 
-			System.out.println("status" + status);
+			System.out.println("status: " + status);
 			return status;
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block

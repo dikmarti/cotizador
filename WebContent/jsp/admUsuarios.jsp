@@ -184,7 +184,7 @@ $(document).ready(function() {
 			    "pagingType": "simple_numbers",
 			    "pageLength": 10,
 			    "language": {
-		            "lengthMenu": "Historial Personas",
+		            "lengthMenu": "Módulo de Usuarios",
 		            "zeroRecords": "No existen registros",
 		            "emptyTable":     "No existen registros en tabla",
 		            "info": "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros.",
@@ -453,7 +453,13 @@ $(document).ready(function() {
 		
 		$("#tipoUsuario").click(function() {
 			$(this).removeClass("custom-color");
-		});		
+		});	
+		
+		$("#telefono").on('keypress', function (e) {
+			if(!/^([0-9])*$/.test(e.key)) {
+				return false;
+			}
+		});	
 	  });   
 		  
 	</script>
