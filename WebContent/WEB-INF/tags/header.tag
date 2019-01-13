@@ -18,14 +18,12 @@
 	   </a>	
     </div>
     <div class="topnav"  id="myTopnav">   	
-      	<a href="#" data-sub-menu="servicios">Servicios</a>	  
-	  	<a href="#" data-sub-menu="configuracion">Configuración</a>	  
-	   	<a href="#" data-sub-menu="contacto">Contacto</a>	  
-	 	<a href="login" id="linkLogin" class='<%= username != null ? "login" : "" %>'><%= username != null ? username : "Ingresar" %></a>
-	 	<a href="index" class="fa fa-home fa-5x" style="font-size: 25px; "></a>
-	 	<div class='logout <%= username != null ? "on" : "" %>' id="logout">
-			<img id="linkLogout" src="resources/images/logout.png" >	 
-		</div>		  	     
+      	<a href="#" data-sub-menu="servicios" style="text-decoration: none;">Servicios</a>	  
+	  	<a href="#" data-sub-menu="configuracion" style="text-decoration: none;">Configuración</a>	  
+	   	<a href="#" data-sub-menu="contacto" style="text-decoration: none;">Contacto</a>	  
+	 	<a href="login" id="linkLogin" style="text-decoration: none;" class='<%= username != null ? "login" : "" %>'><%= username != null ? username : "Ingresar" %></a>
+	 	<a href="index" class="fa fa-home fa-5x" style="font-size: 25px; text-decoration: none;"></a>
+	 	<a href="index" class="fa fa-sign-out fa-5x" style="font-size: 25px; text-decoration: none;"></a>	 			  	     
 	</div>	
   </div>
 </div>
