@@ -39,5 +39,15 @@ public class ModuleService {
 		return  moduleList;
 	}
 	
+	public List<Modulo> getAllModules() {
+		
+		List<Object> allObject = genericRepository.getAllObjectByNameQuery("Modulo.findAll");
+
+		@SuppressWarnings("unchecked")
+		List<Modulo> result = !allObject.isEmpty() ? (List<Modulo>) (Object) allObject : new ArrayList<Modulo>();						
+	
+		return  result;
+	}
+	
 	
 }

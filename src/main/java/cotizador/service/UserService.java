@@ -29,7 +29,7 @@ public class UserService {
 
 		System.out.println("pass: " + claveEncriptada);
 
-		List<Object> allObject = genericRepository.getAllObject("SELECT u FROM Usuario u WHERE u.login = '" + 
+		List<Object> allObject = genericRepository.getAllObjectByQuery("SELECT u FROM Usuario u WHERE u.login = '" + 
 				usuario + "' AND u.clave = '" + claveEncriptada + "'");
 
 		Usuario usuarioResult = !allObject.isEmpty() ? (Usuario)allObject.get(0) : null;
@@ -46,7 +46,7 @@ public class UserService {
 
 		System.out.println("finding all user from data base");
 
-		List<Object> allObject = genericRepository.getAllObject("SELECT u FROM Usuario u");
+		List<Object> allObject = genericRepository.getAllObjectByQuery("SELECT u FROM Usuario u");
 
 		List<Usuario> usersResult = !allObject.isEmpty() ? (List<Usuario>) (Object) allObject : null;
 
@@ -146,7 +146,7 @@ public class UserService {
 	public Boolean validLogin(String login) {
 
 		System.out.println("Method validLogin...");
-		List<Object> allObject = genericRepository.getAllObject("SELECT u FROM Usuario u WHERE u.login = '" + login +"'");
+		List<Object> allObject = genericRepository.getAllObjectByQuery("SELECT u FROM Usuario u WHERE u.login = '" + login +"'");
 
 		Boolean result = !allObject.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
 		System.out.println("result: " + result);

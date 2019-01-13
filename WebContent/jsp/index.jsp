@@ -2,141 +2,138 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
+<%
+	String username = (String) request.getSession().getAttribute("usuario");
+%>
+<%
+	String modulos = (String) request.getSession().getAttribute("all_modules_json");
+%>
+<%
+	String allModulos = (String) request.getSession().getAttribute("index_modules_json");
+%>
+
 <t:standardPage>
 
-<!-- Page content -->
-<div class="w3-content w3-padding" style="max-width: 1564px; z-index: 1;">
+	<!-- Page content -->
+	<div class="w3-content w3-padding"
+		style="max-width: 1564px; z-index: 1;">
 
-	<!-- Contact Section -->
-	<div class="w3-container w3-padding-32" id="contact">
-		<br> <br> <br>
-		<div class="container-2">
-			<div id="page-wrapper">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="page-title">
-							<h2>
-								Dashboard<small> Content Overview</small>
-							</h2>
+		<!-- Contact Section -->
+		<div class="w3-container w3-padding-32" id="contact">
+			<br> <br> <br>
+			<div class="container-2">
+				<div id="page-wrapper">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="page-title">
+								
+							</div>
 						</div>
-					</div>
+					</div>					
 				</div>
-
-				<div class="row">
-					<div class="col-lg-2 col-sm-6">
-						<div class="circle-tile">
-							<a href="#">
-								<div class="circle-tile-heading dark-blue">
-									<i class="fa fa-users fa-fw fa-3x"></i>
-								</div>
-							</a>
-							<div class="circle-tile-content dark-blue">
-								<div class="circle-tile-description text-faded">Módulo 1</div>
-								<div class="circle-tile-number text-faded">
-									Usuarios <span id="sparklineA"></span>
-								</div>
-								<a id="btn-mod-one" href="#" class="circle-tile-footer">Administrar <i
-									class="fa fa-chevron-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2 col-sm-6">
-						<div class="circle-tile">
-							<a href="#">
-								<div class="circle-tile-heading green">
-									<i class="fa fa-money fa-fw fa-3x"></i>
-								</div>
-							</a>
-							<div class="circle-tile-content green">
-								<div class="circle-tile-description text-faded">Módulo 2</div>
-								<div class="circle-tile-number text-faded">Proyectos</div>
-								<a href="#" class="circle-tile-footer">Crear <i
-									class="fa fa-chevron-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2 col-sm-6">
-						<div class="circle-tile">
-							<a href="#">
-								<div class="circle-tile-heading orange">
-									<i class="fa fa-wrench fa-fw fa-3x"></i>
-								</div>
-							</a>
-							<div class="circle-tile-content orange">
-								<div class="circle-tile-description text-faded">Módulo 3</div>
-								<div class="circle-tile-number text-faded">Administración</div>
-								<a href="#" class="circle-tile-footer">Configurar <i
-									class="fa fa-chevron-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2 col-sm-6">
-						<div class="circle-tile">
-							<a href="#">
-								<div class="circle-tile-heading blue">
-									<i class="fa fa-tasks fa-fw fa-3x"></i>
-								</div>
-							</a>
-							<div class="circle-tile-content blue">
-								<div class="circle-tile-description text-faded">Módulo 4</div>
-								<div class="circle-tile-number text-faded">
-									Productos <span id="sparklineB"></span>
-								</div>
-								<a href="#" class="circle-tile-footer">Actualizar <i
-									class="fa fa-chevron-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2 col-sm-6">
-						<div class="circle-tile">
-							<a href="#">
-								<div class="circle-tile-heading red">
-									<i class="fa fa-shopping-cart fa-fw fa-3x"></i>
-								</div>
-							</a>
-							<div class="circle-tile-content red">
-								<div class="circle-tile-description text-faded">Módulo 5</div>
-								<div class="circle-tile-number text-faded">
-									Proyectos Metrados <span id="sparklineC"></span>
-								</div>
-								<a href="#" class="circle-tile-footer">Ver historial <i
-									class="fa fa-chevron-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2 col-sm-6">
-						<div class="circle-tile">
-							<a href="#">
-								<div class="circle-tile-heading purple">
-									<i class="fa fa-comments fa-fw fa-3x"></i>
-								</div>
-							</a>
-							<div class="circle-tile-content purple">
-								<div class="circle-tile-description text-faded">Módulo 6
-								</div>
-								<div class="circle-tile-number text-faded">
-									Trazas <span id="sparklineD"></span>
-								</div>
-								<a href="#" class="circle-tile-footer">Ver actividad <i
-									class="fa fa-chevron-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
+				<!-- page-wrapper END-->
 			</div>
-			<!-- page-wrapper END-->
+			<!-- container-1 END-->
 		</div>
-		<!-- container-1 END-->
+		<!-- End page content -->
 	</div>
-	<!-- End page content -->
-</div>
-
-<script type="text/javascript">      
-
-      $("#btn-mod-one").click(function() {
-    	  location.href = "admUsuarios";    	 
-      });
-      
-</script>
 
 </t:standardPage>
+
+<script type="text/javascript">    
+	$(document).ready(function() {		
+	
+		var arrayColors = ["purple","red", "light-gray", "blue","orange","green","dark-blue", "yellow", "gray"];
+	
+		 var modulosUser = '<%=modulos != null ? modulos : null %>';     
+	 	 var $divModulesByUSer = $("#page-wrapper");
+	 	 var $divAllModules = $("#page-wrapper");   
+	 	  
+	 	 if (modulosUser != "null") {
+	 		 console.log("modulos json" + modulosUser);		 
+	 		// En caso de que ya este en session cargar lista de modulos
+	 		
+	 		var result = JSON.parse(modulosUser); 		
+	 		createDivModules(result, $divModulesByUSer);
+	 		
+	 	 } else {
+	 		 
+	 		var modulos = '<%=allModulos != null ? allModulos : null%>';
+			console.log("modulosUser json" + modulosUser);
+			if (modulos != "null") {
+				var result = JSON.parse(modulos);
+				createDivModules(result, $divAllModules);
+			} else {
+				$.ajax({
+					url : "/Cotizador/rest/modules/allModules",
+					type : "GET",
+					dataType : "json",
+					contentType : "application/json; charset=utf-8",
+					success : function(result) {
+						console.log("termino");
+						console.log(result);
+						createDivModules(result,
+								$divAllModules);
+
+					},
+					complete : function(result) {
+						$body.removeClass("loading");
+					},
+					error : function(result) {
+						console.log("error");
+					}
+				});
+			}
+
+		}
+
+		function createDivModules(result, div) {
+			var dividir = false;
+			var i = 0;
+			var contentModules = "";
+			
+			var usuarioLogueado = '<%=username != null ? username : null %>'; 
+			
+			$.each(result, function(index, element) {			
+				
+				if(i == 0) {
+					contentModules += '<div class="row">'
+				}				
+				
+				contentModules += '<div class="col-lg-2 col-sm-6 separated">'
+				contentModules += '<div class="circle-tile">'
+				contentModules += '<a href="#">'
+				contentModules += '<div class="circle-tile-heading ' + arrayColors[index] +'">'
+				contentModules += '<i class="fa fa-cogs fa-fw fa-3x"></i>'
+				contentModules += '</div>'
+				contentModules += '</a>'
+				contentModules += '<div class="circle-tile-content  ' + arrayColors[index] +'">'
+				contentModules += '<div class="circle-tile-description text-faded"> </div>'
+				contentModules += '<div class="circle-tile-number text-faded"> M&oacute;dulo '
+				contentModules += result[index].nombre + ' <span id="sparklineA"></span>'
+				contentModules += '</div>'
+				
+				if(usuarioLogueado != "null") {
+					contentModules += '<a id="btn-mod-one" href="'+ result[index].url + '" class="circle-tile-footer">Ir '	
+				} else {
+					contentModules += '<a id="btn-mod-one" href="login" class="circle-tile-footer">Ir '
+				}	
+				
+				contentModules += '<i class="fa fa-chevron-circle-right"></i></a>'
+				contentModules += '</div>'
+				contentModules += '</div>'
+				contentModules += '</div>'
+				
+				if(i == 3) {
+					contentModules += '</div>'
+					div.append(contentModules);	
+					i = 0;
+					contentModules = "";
+				} else {
+					i++;
+				}
+							
+			});
+		}
+	});
+</script>
