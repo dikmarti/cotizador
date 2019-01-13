@@ -91,6 +91,9 @@ public class LoginController extends GenericController{
 						
 						System.out.println("/usuario session equals json " + usuario);
 						httpSession.removeAttribute(USUARIO_SESSION);
+						httpSession.removeAttribute("all_modules_json");
+						httpSession.removeAttribute("menu_"+ usuarioLogueado);
+
 					}
 		        }
 		} catch (JsonParseException e) {
