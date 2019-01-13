@@ -58,7 +58,7 @@ public class UserService {
 	 * 
 	 * @return
 	 */
-	public Integer createUser(String usuario, String login, String clave, String email, String telefono, String direccion,
+	public Integer createUser(String nombre, String login, String clave, String email, String telefono, String direccion,
 			String cargo, int tipoUsuario) {
 
 		System.out.println("Method createUser...");
@@ -71,7 +71,7 @@ public class UserService {
 		}
 
 		Usuario user = new Usuario();
-		user.setNombre(usuario);
+		user.setNombre(nombre);
 		user.setLogin(login);
 
 		char[] charArrayPassword = clave.toCharArray();
@@ -107,16 +107,28 @@ public class UserService {
 	 * @param tipoUsuario
 	 * @return
 	 */
-	public void updateUser(String usuario, String login, String email, String telefono, String direccion,
+	public Integer updateUser(String nombre, String login, String loginAnterior, String email, String telefono, String direccion,
 			String cargo) {
 
 		System.out.println("Method updateUser...");
 		System.out.println("Updating user from data base");
+		
+		if(!loginAnterior.equals(login)) {
+			if(!validLogin(login)) {
+				System.out.println("Ya existe login");
+				return 1;
+			}
+		}
 
-		genericRepository.updateUserByLogin("UPDATE Usuario SET nombre = '', login");
-
+		int status = genericRepository.executeUpdateQuery("UPDATE Usuario u SET u.nombre = '" + nombre + "', "
+						+ "u.login = '" + login + "', u.email = '" + email + "', u.telefono = '" + telefono + "', "
+						+ "u.direccion = '" + direccion + "', u.cargo = '" + cargo + "' WHERE u.login = '" + loginAnterior + "'");
+		
 		System.out.println("finish user update");
-
+		System.out.println("status: " + status);
+		Integer result = status == 1 ? 0 : 2;
+		
+		return result;
 	}
 
 	/**
@@ -135,7 +147,7 @@ public class UserService {
 
 		System.out.println("Method deleteUser...");
 
-		int deleted = genericRepository.removeUserByLogin("DELETE FROM Usuario u WHERE u.login = '" + login +"'");
+		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Usuario u WHERE u.login = '" + login +"'");
 
 		System.out.println("deleted: " + deleted);
 		Boolean userResult = deleted == 1 ? Boolean.TRUE : Boolean.FALSE;

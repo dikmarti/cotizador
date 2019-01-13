@@ -81,6 +81,7 @@
       </div>
       <div class="modal-body">
       		<form id="createUserForm" class="form-content">
+			<input id="loginAnterior" type="hidden" name="loginAnterior"/>
       		<div class="form-row">
       			<div class="form-group col-md-6">
 				    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
@@ -158,12 +159,12 @@ $(document).ready(function() {
     	        
     	        $.each(result, function( index, element ) {	    	        	
     	        		    	        	
-    	        		var li = "<tr role='row' id='"+ result[index].login +"'><td id='nombre'>" + result[index].nombre + "</td>"
-    	        					+"<td id='login'>" + result[index].login + "</td>"
-    	        					+"<td id='direccion'>" + result[index].direccion + "</td>"
-    	        					+"<td id='email'>" + result[index].email + "</td>"
-    	        					+"<td id='telefono'>" + result[index].telefono + "</td>"
-    	        					+"<td id='cargo'>" + result[index].cargo + "</td></tr>";
+    	        		var li = "<tr role='row' id='"+ result[index].login +"'><td id='nombreT'>" + result[index].nombre + "</td>"
+    	        					+"<td id='loginT'>" + result[index].login + "</td>"
+    	        					+"<td id='direccionT'>" + result[index].direccion + "</td>"
+    	        					+"<td id='emailT'>" + result[index].email + "</td>"
+    	        					+"<td id='telefonoT'>" + result[index].telefono + "</td>"
+    	        					+"<td id='cargoT'>" + result[index].cargo + "</td></tr>";
     	        		dataUsers += li;
     	        });
     	        $tableData.html(dataUsers);
@@ -209,8 +210,18 @@ $(document).ready(function() {
 
 		$("#btn-user-create").click(function() {
 			console.log("create user"); 
+			$('#dtUserModule').find('tr.selected').removeClass('selected');
 			$(".msg-error").removeClass("on");
+			$("#nombre").val('');
+	    	$("#login").val('');
+	    	$("#clave").val('');
+	    	$("#email").val('');
+	    	$("#direccion").val('');
+	    	$("#telefono").val('');
+	    	$("#cargo").val('');
 			$("#tipoUsuario").val([""]);
+	    	$('#user-modal').find('#clave').removeAttr('disabled');
+			$('#user-modal').find('#tipoUsuario').removeAttr('disabled');
 			$('#user-modal').find('#btn-modal-update').css('visibility', 'hidden');
 			$('#user-modal').find('#btn-modal-update').css('display', 'none');
 			$('#user-modal').find('#btn-modal-create').css('visibility', 'visible');
@@ -226,14 +237,15 @@ $(document).ready(function() {
 			} 
 			var $userModify = $('#dtUserModule').find('tr.selected');
 			console.log("modify user " + $userModify);
-			var $nombre =  $userModify.find("#nombre").text();
-	    	 var $login =  $userModify.find("#login").text();
-	    	 var $email =  $userModify.find("#email").text();
-	    	 var $direccion =  $userModify.find("#direccion").text();
-	    	 var $telefono =  $userModify.find("#telefono").text();
-	    	 var $cargo =  $userModify.find("#cargo").text();
+			var $nombre =  $userModify.find("#nombreT").text();
+	    	 var $login =  $userModify.find("#loginT").text();
+	    	 var $email =  $userModify.find("#emailT").text();
+	    	 var $direccion =  $userModify.find("#direccionT").text();
+	    	 var $telefono =  $userModify.find("#telefonoT").text();
+	    	 var $cargo =  $userModify.find("#cargoT").text();
 			$('#user-modal').find('#nombre').val($nombre);
 			$('#user-modal').find('#login').val($login);
+			$('#user-modal').find('#loginAnterior').val($login);
 			$('#user-modal').find('#direccion').val($direccion);
 			$('#user-modal').find('#email').val($email);
 			$('#user-modal').find('#telefono').val($telefono);
@@ -290,7 +302,6 @@ $(document).ready(function() {
 		});
 		
 		$("#btn-modal-create").click(function() {
-			$("#user-modal").css('z-index', '1');
 	    	 var $nombre =  $("#nombre").val();
 	    	 var $login =  $("#login").val();
 	    	 var $clave =  $("#clave").val();
@@ -319,6 +330,7 @@ $(document).ready(function() {
 	    	  var $form = $("#createUserForm").serializeArray();    	  	  
 		  	  var $formSerialized = objectifyForm($form);
 	    	 
+	  	 	 $("#user-modal").css('z-index', '1');
 	    	 $.ajax({
 		    	  url: "/Cotizador/rest/userModule/create",
 		    	  type: "POST",
@@ -367,7 +379,6 @@ $(document).ready(function() {
 	      });
 		
 		$("#btn-modal-update").click(function() {
-			$("#user-modal").css('z-index', '1');
 	    	 var $nombre =  $("#nombre").val();
 	    	 var $login =  $("#login").val();
 	    	 var $email =  $("#email").val();
@@ -385,10 +396,12 @@ $(document).ready(function() {
 	   		 } else {
 	   		      console.log("Hay valores");
 	   		 }
+
 	    	 
-	    	  var $form = $("#createUserForm").serializeArray();    	  	  
-		  	  var $formSerialized = objectifyForm($form);
+	    	 var $form = $("#createUserForm").serializeArray();    	  	  
+		  	 var $formSerialized = objectifyForm($form);
 	    	 
+	    	 $("#user-modal").css('z-index', '1');
 	    	 $.ajax({
 		    	  url: "/Cotizador/rest/userModule/update",
 		    	  type: "POST",

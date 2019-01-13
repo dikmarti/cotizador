@@ -21,6 +21,7 @@ public class UserModel {
 	public String telefono;
 	public String email;
 	public String cargo;
+	public String loginAnterior;
 	
 	public String getNombre() {
 		return nombre;
@@ -86,10 +87,19 @@ public class UserModel {
 		this.cargo = cargo;
 	}
 
+	public String getLoginAnterior() {
+		return loginAnterior;
+	}
+
+	public void setLoginAnterior(String loginAnterior) {
+		this.loginAnterior = loginAnterior;
+	}
+
 	@Override
 	public String toString() {
 		return "UserModel [nombre=" + nombre + ", tipoUsuario=" + tipoUsuario + ", login=" + login + ", clave=" + clave
-				+ ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", cargo=" + cargo + "]";
+				+ ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", cargo=" + cargo
+				+ ", loginAnterior=" + loginAnterior + "]";
 	}
-	
+
 }

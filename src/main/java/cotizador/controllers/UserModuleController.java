@@ -129,7 +129,7 @@ public class UserModuleController extends GenericController {
 	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Boolean update(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public Integer update(String jsonForm, @Context HttpServletRequest httpRequest) {
 
 		System.out.println("/update json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
@@ -139,9 +139,11 @@ public class UserModuleController extends GenericController {
 
 			userModel = mapper.readValue(jsonForm, UserModel.class);
 			
-			userService.updateUser(userModel.getNombre(), userModel.getLogin(),	userModel.getEmail(), 
+			Integer status = userService.updateUser(userModel.getNombre(), userModel.getLogin(), userModel.getLoginAnterior(), userModel.getEmail(), 
 					userModel.getTelefono(), userModel.getDireccion(), userModel.getCargo());
 
+			System.out.println("status" + status);
+			return status;
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

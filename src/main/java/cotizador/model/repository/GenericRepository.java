@@ -69,19 +69,7 @@ public class GenericRepository {
         
     }
     
-    public int removeUserByLogin(String query){
-    	
-    	entityManager.getTransaction().begin();	
-    	int result = entityManager.createQuery(query).executeUpdate();  	
-
-    	entityManager.getTransaction().commit();
-        entityManager.close();
-        	    	
-    	return result;
-    	
-    }
-    
-    public int updateUserByLogin(String query){
+    public int executeUpdateQuery(String query){
     	
     	entityManager.getTransaction().begin();	
     	int result = entityManager.createQuery(query).executeUpdate();  	
