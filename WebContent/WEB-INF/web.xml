@@ -55,12 +55,12 @@
 	      <url-pattern>/login</url-pattern>
 	 </servlet-mapping>	
 	 <servlet>
-      <servlet-name>testTempTable</servlet-name>
-      <jsp-file>/jsp/testTemplateTable.jsp</jsp-file>
+      <servlet-name>admUsuarios</servlet-name>
+      <jsp-file>/jsp/admUsuarios.jsp</jsp-file>
 	 </servlet>
 	 <servlet-mapping>
-	      <servlet-name>testTempTable</servlet-name>
-	      <url-pattern>/testTemplateTable</url-pattern>
+	      <servlet-name>admUsuarios</servlet-name>
+	      <url-pattern>/admUsuarios</url-pattern>
 	 </servlet-mapping>	
 	 <servlet>
 		 <servlet-name>index</servlet-name>

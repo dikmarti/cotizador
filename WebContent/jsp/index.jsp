@@ -45,11 +45,7 @@
 	
 		var arrayColors = ["purple","red", "light-gray", "blue","orange","green","dark-blue", "yellow", "gray"];
 	
-	    $("#btn-mod-one").click(function() {
-	    	location.href = "testTemplateTable";    	 
-	    });
-	      
-	     var modulosUser = '<%=modulos != null ? modulos : null %>';     
+		 var modulosUser = '<%=modulos != null ? modulos : null %>';     
 	 	 var $divModulesByUSer = $("#page-wrapper");
 	 	 var $divAllModules = $("#page-wrapper");   
 	 	  
