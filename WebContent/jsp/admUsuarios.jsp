@@ -111,9 +111,10 @@
 				    <input class="form-control" id="cargo" type="text" name="cargo" placeholder="Cargo" maxlength="200"/>
       			</div>
       			<div class="form-group col-md-6">
-				    <select class="form-control form-control-sm" id="tipoUsuario" name="tipoUsuario">
-				    	<option value="">Tipo de Usuario</option>
-				    	<option value="1">Estandard</option>
+				    <select class="form-control form-control-sm custom-color" id="tipoUsuario" name="tipoUsuario" >
+				    	<option class="placeholder-option" value="" disabled selected >Tipo de Usuario</option>
+				    	<option value="0">Administrador</option>
+				    	<option value="1">B&aacute;sico</option>				    	
 				    </select>
       			</div>
       		</div>
@@ -226,6 +227,7 @@ $(document).ready(function() {
 			$('#user-modal').find('#btn-modal-update').css('display', 'none');
 			$('#user-modal').find('#btn-modal-create').css('visibility', 'visible');
 			$('#user-modal').find('#btn-modal-create').css('display', '');
+			$("#tipoUsuario").addClass("custom-color");
 			$("#user-modal").modal("show");
 		});
 		
@@ -449,6 +451,9 @@ $(document).ready(function() {
 	    	 
 	      });
 		
+		$("#tipoUsuario").click(function() {
+			$(this).removeClass("custom-color");
+		});		
 	  });   
 		  
 	</script>

@@ -22,7 +22,7 @@
 	  	<a href="#" data-sub-menu="configuracion" style="text-decoration: none;">Configuración</a>	  
 	   	<a href="#" data-sub-menu="contacto" style="text-decoration: none;">Contacto</a>
 	   	<a class="fa fa-user fa-3x user"></a>	  
-	 	<a href="login" id="linkLogin" style="text-decoration: none; padding-left: 5px;" class='<%= username != null ? "login" : "" %>'><%= username != null ? username : "Ingresar" %></a>
+	 	<a href="login" id="linkLogin" style="text-decoration: none; padding-left: 5px; <%= username != null ? "pointer-events: none;" : "" %>" class='<%= username != null ? "login" : "" %>'><%= username != null ? username : "Ingresar" %></a>
 	 	<a href="index" class="fa fa-home fa-5x" style="font-size: 25px; text-decoration: none;"></a>
 	 	<a id="linkLogout" class="fa fa-sign-out fa-5x <%= username != null ? "logout show" : "logout hide" %>" style="font-size: 25px; text-decoration: none;"></a>	 			  	     
 	</div>	
