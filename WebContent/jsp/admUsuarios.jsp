@@ -20,10 +20,6 @@
         	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
         	<span><strong>Editar</strong></span>            
     	</a>
-    	<a id="btn-user-view" class="btn btn-primary a-btn-slide-text">
-        	<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-        	<span><strong>Ver</strong></span>            
-    	</a>
     	<a id="btn-user-delete" class="btn btn-primary a-btn-slide-text">
        		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         	<span><strong>Borrar</strong></span>            
@@ -85,20 +81,52 @@
       </div>
       <div class="modal-body">
       		<form id="createUserForm" class="form-content">
-			    <input id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
-			    <input id="login" type="text" name="login" placeholder="Login" maxlength="200"/>
-			    <input id="clave" type="password" name="clave" placeholder="Clave"  maxlength="50"/>
-			    <input id="email" type="text" name="email" placeholder="Email" maxlength="200"/>
-			    <input id="direccion" type="text" name="direccion" placeholder="Dirección" maxlength="200"/>
-			    <input id="telefono" type="text" name="telefono" placeholder="telefono" maxlength="200"/>
-			    <input id="cargo" type="text" name="cargo" placeholder="Cargo" maxlength="200"/>
-			    <input id="tipoUsuario" type="text" name="tipoUsuario" placeholder="Tipo de Usuario" maxlength="200"/>
-			    <div class="msg-error">
-			   			Debe ingresar los datos.
-			   	</div>
-			   	<div class="form-style-button">
-		   			<input type="button" value="Crear" id="btn-modal-create"/>
-		   		</div>
+      		<div class="form-row">
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
+      			</div>
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="login" type="text" name="login" placeholder="Login" maxlength="200"/>
+      			</div>
+    		</div>
+      		<div class="form-row">
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="clave" type="password" name="clave" placeholder="Clave"  maxlength="50"/>
+      			</div>
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="email" type="text" name="email" placeholder="Email" maxlength="200"/>
+      			</div>
+      		</div>
+      		<div class="form-row">
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="direccion" type="text" name="direccion" placeholder="Dirección" maxlength="200"/>
+      			</div>
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="telefono" type="text" name="telefono" placeholder="Teléfono" maxlength="200"/>
+      			</div>
+      		</div>
+      		<div class="form-row">
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="cargo" type="text" name="cargo" placeholder="Cargo" maxlength="200"/>
+      			</div>
+      			<div class="form-group col-md-6">
+				    <select class="form-control form-control-sm" id="tipoUsuario" name="tipoUsuario" >
+				    	<option value="">Tipo de Usuario</option>
+				    	<option value="1">Estandard</option>
+				    </select>
+      			</div>
+      		</div>
+      		<div class="form-row">
+      			<div class="form-group col-md-6">
+				    <div class="msg-error">
+				   			Debe ingresar los datos.
+	      			</div>
+      			</div>
+			</div>
+			<div class="form-style-button">
+			   	<input type="button" value="Crear" id="btn-modal-create" class="btn btn-primary" style="width: 50%; margin-left: 65px;"/>
+			   	<input type="button" value="Modificar" id="btn-modal-update" class="btn btn-primary" style="width: 50%; margin-left: 65px; visibility: hidden;"/>
+			</div>
 		   	</form>
       </div>
 <!--       <div class="modal-footer"> -->
@@ -130,12 +158,12 @@ $(document).ready(function() {
     	        
     	        $.each(result, function( index, element ) {	    	        	
     	        		    	        	
-    	        		var li = "<tr role='row'><td>" + result[index].nombre + "</td>"
-    	        					+"<td>" + result[index].login + "</td>"
-    	        					+"<td>" + result[index].direccion + "</td>"
-    	        					+"<td>" + result[index].email + "</td>"
-    	        					+"<td>" + result[index].telefono + "</td>"
-    	        					+"<td>" + result[index].cargo + "</td></tr>";
+    	        		var li = "<tr role='row' id='"+ result[index].login +"'><td id='nombre'>" + result[index].nombre + "</td>"
+    	        					+"<td id='login'>" + result[index].login + "</td>"
+    	        					+"<td id='direccion'>" + result[index].direccion + "</td>"
+    	        					+"<td id='email'>" + result[index].email + "</td>"
+    	        					+"<td id='telefono'>" + result[index].telefono + "</td>"
+    	        					+"<td id='cargo'>" + result[index].cargo + "</td></tr>";
     	        		dataUsers += li;
     	        });
     	        $tableData.html(dataUsers);
@@ -158,7 +186,7 @@ $(document).ready(function() {
 		            "zeroRecords": "No existen registros",
 		            "emptyTable":     "No existen registros en tabla",
 		            "info": "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros.",
-		            "infoEmpty": "Ningún registro disponible para la búsqueda.",
+		            "infoEmpty": "",
 		            "infoFiltered": "",
 		            "search": "Buscar: ",
 		            "paginate": {
@@ -166,33 +194,103 @@ $(document).ready(function() {
 		                "next": "Siguiente"
 		              }
 		        }
-		  });
+		  }); 
 		  $('.dataTables_length').addClass('bs-select');
 		  
 		  $('#dtUserModule tbody').on( 'click', 'tr', function () {
-		        if ( $(this).hasClass('selected') ) {
+		        if ($(this).hasClass('selected')) {
 		            $(this).removeClass('selected');
 		        }
 		        else {
-		            table.row({selected: true}).removeClass('selected');
+		        	$('#dtUserModule').find('tr.selected').removeClass('selected');
 		            $(this).addClass('selected'); 
 		        }
 		    } );
 
 		$("#btn-user-create").click(function() {
 			console.log("create user"); 
+			$(".msg-error").removeClass("on");
+			$("#tipoUsuario").val([""]);
+			$('#user-modal').find('#btn-modal-update').css('visibility', 'hidden');
+			$('#user-modal').find('#btn-modal-update').css('display', 'none');
+			$('#user-modal').find('#btn-modal-create').css('visibility', 'visible');
+			$('#user-modal').find('#btn-modal-create').css('display', '');
 			$("#user-modal").modal("show");
 		});
 		
 		$("#btn-user-modify").click(function() {
-			console.log("modify user");   	 
+			console.log("modify user");   
+			if($('#dtUserModule').find('tr.selected').length != 1) {
+				console.log("No hay usuario seleccionado");   	 
+				return false;
+			} 
+			var $userModify = $('#dtUserModule').find('tr.selected');
+			console.log("modify user " + $userModify);
+			var $nombre =  $userModify.find("#nombre").text();
+	    	 var $login =  $userModify.find("#login").text();
+	    	 var $email =  $userModify.find("#email").text();
+	    	 var $direccion =  $userModify.find("#direccion").text();
+	    	 var $telefono =  $userModify.find("#telefono").text();
+	    	 var $cargo =  $userModify.find("#cargo").text();
+			$('#user-modal').find('#nombre').val($nombre);
+			$('#user-modal').find('#login').val($login);
+			$('#user-modal').find('#direccion').val($direccion);
+			$('#user-modal').find('#email').val($email);
+			$('#user-modal').find('#telefono').val($telefono);
+			$('#user-modal').find('#cargo').val($cargo);
+			$('#user-modal').find('#btn-modal-create').css('visibility', 'hidden');
+			$('#user-modal').find('#btn-modal-create').css('display', 'none');
+			$('#user-modal').find('#btn-modal-update').css('visibility', 'visible');
+			$('#user-modal').find('#btn-modal-update').css('display', '');
+			$('#user-modal').find('#clave').attr('disabled', 'true');
+			$('#user-modal').find('#tipousuario').attr('disabled', 'true');
+			$("#user-modal").modal("show");
 		});
 		
 		$("#btn-user-delete").click(function() {
-			console.log("delete user");   	 
+			if($('#dtUserModule').find('tr.selected').length != 1) {
+				console.log("No hay usuario seleccionado");   	 
+				return false;
+			} 
+			var $userDelete = $('#dtUserModule').find('tr.selected').attr('id');
+			console.log("delete user " + $userDelete);   	 
+			
+			$.ajax({
+		    	  url: "/Cotizador/rest/userModule/delete",
+		    	  type: "POST",
+		    	  data: JSON.stringify({login: $userDelete}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino de borrar usuario");
+		    	        console.log("result: " + result);
+		    	        var obj = JSON.stringify(result);
+		    	        console.log(" objeto " + obj);	    	        
+		    	        
+		    	        $(".msg-error").removeClass("on");
+		    	        
+		    	        if(obj === undefined) {	    	        	
+		    	        } else {
+		    	        	if(result) {
+			    	        	location.href = "admUsuarios";
+		    	        	} else {
+		    	        		console.log("Ha ocurrido un error, el usuario no pudo ser creado.")
+		    	        	}
+		    	        }
+		    	       
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
 		});
 		
 		$("#btn-modal-create").click(function() {
+			$("#user-modal").css('z-index', '1');
 	    	 var $nombre =  $("#nombre").val();
 	    	 var $login =  $("#login").val();
 	    	 var $clave =  $("#clave").val();
@@ -200,9 +298,15 @@ $(document).ready(function() {
 	    	 var $direccion =  $("#direccion").val();
 	    	 var $telefono =  $("#telefono").val();
 	    	 var $cargo =  $("#cargo").val();
-	    	 var $tipoUsuario =  $("#tipoUsuario").val();
+	    	 var $tipoUsuario =  $("#tipoUsuario option:selected").val();
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Debe ingresar los datos");
+		     
+		     if($tipoUsuario != 1) {
+		    	 $(".msg-error").html("Debe seleccionar el tipo de usuario.")
+		    	 $(".msg-error").addClass("on");
+		    	 return false;
+		     }
 	    	 
 	    	 if ($login == "" || $clave == "" || $nombre == "" || $email == "" || $direccion == "" 
 	    			 || $telefono == "" || $cargo == "" || $tipoUsuario == "") {
@@ -222,17 +326,32 @@ $(document).ready(function() {
 		    	  dataType: "json",
 		    	  contentType: "application/json; charset=utf-8",
 		    	  success: function(result){		    		
-		    	        console.log("termino");
+		    	        console.log("termino creacion de usuario");
+		    	        console.log("result: " + result);
 		    	        var obj = JSON.stringify(result);
 		    	        console.log(" objeto " + obj);	    	        
 		    	        
 		    	        $(".msg-error").removeClass("on");
 		    	        
-		    	        if(obj === undefined) {	    	        	
-		    	        	$(".msg-error").html("Ha ocurrido un error, el usuario no pudo ser creado.")
+		    	        if(obj === undefined) {	    	  
+		    	        	$("#user-modal").css('z-index', '2');
+		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+		    	        	$(".msg-error").html("Ha ocurrido un error, el usuario no pudo ser creado.");
 		    	        	$(".msg-error").addClass("on");	    	        	 
 		    	        } else {
-		    	        	location.href = "index";
+		    	        	if(result == 0) {
+			    	        	location.href = "admUsuarios";
+		    	        	} else if (result == 1) {
+		    	        		$("#user-modal").css('z-index', '2');
+			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+		    	        		$(".msg-error").html("Ha ocurrido un error, login ya existe.");
+			    	        	$(".msg-error").addClass("on");	 
+		    	        	} else if (result == 2) {
+		    	        		$("#user-modal").css('z-index', '2');
+			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+		    	        		$(".msg-error").html("Ha ocurrido un error, el usuario no pudo ser creado.");
+			    	        	$(".msg-error").addClass("on");	 
+		    	        	}
 		    	        }
 		    	       
 		    	  },

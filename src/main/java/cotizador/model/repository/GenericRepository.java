@@ -30,6 +30,15 @@ public class GenericRepository {
         
     }
     
+    public void updateObject(Object object){
+    	
+    	entityManager.getTransaction().begin();	
+    	entityManager.merge(object);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+    }
+    
     public Object removeObject(Object object){
     	
     	entityManager.getTransaction().begin();	
@@ -58,6 +67,18 @@ public class GenericRepository {
 		
 		return object;
         
+    }
+    
+    public int removeUserByLogin(String query){
+    	
+    	entityManager.getTransaction().begin();	
+    	int result = entityManager.createQuery(query).executeUpdate();  	
+
+    	entityManager.getTransaction().commit();
+        entityManager.close();
+        	    	
+    	return result;
+    	
     }
     
     public Object getObjectById(String id, String query) {
