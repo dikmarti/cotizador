@@ -49,15 +49,24 @@ public class GenericRepository {
     	return result.get(0);
     }
     
-    public List<Object> getAllObject(String query) {
+    public List<Object> getAllObjectByNameQuery(String query) {
+     	
+    	@SuppressWarnings("unchecked")
+		List<Object> result = (List<Object>)entityManager.createNamedQuery(query)
+			    			.getResultList();  	
+        	    	
+    	return result;
+    }
+    
+    public List<Object> getAllObjectByQuery(String query) {
      	
     	@SuppressWarnings("unchecked")
 		List<Object> result = (List<Object>)entityManager.createQuery(query)
 			    			.getResultList();  	
         	    	
     	return result;
-    }
     
+    }
     
     public List<Object> getAllObjectFiltered(String query, String filter, Object parameterValue) {
     	

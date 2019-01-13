@@ -12,7 +12,7 @@ public class GenericService {
 	GenericRepository genericRepository;
 	
 	public List<Object> getAllObject(String query, String parameter, Object parameterValue){
-		return genericRepository.getAllObject(query);
+		return genericRepository.getAllObjectByQuery(query);
 	}
 	
 	
