@@ -18,6 +18,7 @@ import javax.ws.rs.ext.Provider;
 
 import cotizador.app.ApplicationSecureMap;
 import cotizador.controllers.GenericController;
+import cotizador.controllers.models.ModuloResponseModel;
 import cotizador.model.domain.Modulo;
 
 @Provider
@@ -30,17 +31,17 @@ public class ApplicationFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
-		System.out.println("BEGIN filter");
+		//System.out.println("BEGIN filter");
 		
 		String uri = ((HttpServletRequest) request).getRequestURI();
 		
-		System.out.println("request uri" + uri);
+		//System.out.println("request uri" + uri);
 		
 		Matcher matcher = patternResources.matcher(uri);
 		//OJO con resources
 				
 		if(matcher.matches()) {
-			System.out.println("Es resources , login o index");
+			//System.out.println("Es resources , login o index");
 			chain.doFilter(request, response);
 			return;
 		}
@@ -52,14 +53,14 @@ public class ApplicationFilter implements Filter {
 		Map<String, String> applicationsecuremap = appMap.getApplicationsecuremap();
 		
 		  if(usuarioLogueado != null && !usuarioLogueado.isEmpty()) {
-			  List<Modulo> modulesSession = (List<Modulo>) httpSession.getAttribute("menu_"+usuarioLogueado);
+			  List<ModuloResponseModel> modulesSession = (List<ModuloResponseModel>) httpSession.getAttribute("menu_"+usuarioLogueado);
 			  
-			  for (Modulo modulo : modulesSession) {
+			  for (ModuloResponseModel modulo : modulesSession) {
 				
 				  String modulePath = applicationsecuremap.get(modulo.getNombre());
 				  
 				  if(modulePath != null) {
-					  System.out.println("Es modulo permitido");
+					  //System.out.println("Es modulo permitido");
 						chain.doFilter(request, response);
 						return;
 				  }				 
@@ -70,7 +71,7 @@ public class ApplicationFilter implements Filter {
 		   * TODO: verificar un 404
 		   */
 		  
-		  System.out.println("context path " + ((HttpServletRequest) request).getContextPath());
+		  //System.out.println("context path " + ((HttpServletRequest) request).getContextPath());
 		  HttpServletResponse httpResponse = (HttpServletResponse) response;
 		  httpResponse.sendRedirect(((HttpServletRequest) request).getContextPath() + "/index");
 		  
