@@ -186,4 +186,17 @@ html.body-overflow.on {overflow:hidden}
 
 .footer-black,.w3-hover-black:hover{color:#fff!important;background-color:#052C56!important}
 
+a.user {
+	font-size: 17px; 
+	text-decoration: none; 
+	padding-right: 0px; 
+	margin-top: 4px;
+}
 
+a.logout .show {
+	display: block;
+}
+
+a.logout .hide {
+	display: none;
+}
