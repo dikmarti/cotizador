@@ -14,6 +14,12 @@ public class Nivel {
 	@Column
 	private String nombre;
 	
+	@Column
+	private String descripcion;
+	
+	@Column
+	private int orden;
+	
 	@ManyToOne
 	@PrimaryKeyJoinColumn(name="id_proyecto", referencedColumnName="id")
 	private Proyecto proyecto;
@@ -32,6 +38,22 @@ public class Nivel {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public int getOrden() {
+		return orden;
+	}
+
+	public void setOrden(int orden) {
+		this.orden = orden;
 	}
 
 	public Proyecto getProyecto() {

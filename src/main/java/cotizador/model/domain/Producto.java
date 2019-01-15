@@ -18,6 +18,9 @@ public class Producto {
 	private String nombre;
 	
 	@Column
+	private String nombreCorto;
+	
+	@Column
 	private String descripcion;
 	
 	@Column(name="porcentaje_resguardo")
@@ -55,6 +58,14 @@ public class Producto {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getNombreCorto() {
+		return nombreCorto;
+	}
+
+	public void setNombreCorto(String nombreCorto) {
+		this.nombreCorto = nombreCorto;
 	}
 
 	public String getDescripcion() {
