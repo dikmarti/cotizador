@@ -17,24 +17,28 @@
 	   	<i class="fa fa-bars"></i>
 	   </a>	
     </div>
-    <div class="topnav"  id="myTopnav">   	
-      	<a href="#" data-sub-menu="servicios" style="text-decoration: none;">Servicios</a>	  
-	  	<a href="#" data-sub-menu="configuracion" style="text-decoration: none;">Configuración</a>	  
-	   	<a href="#" data-sub-menu="contacto" style="text-decoration: none;">Contacto</a>
+    <div class="topnav"  id="myTopnav">     	
+		<div class="dropdown-m">
+		    <button class="dropbtn-m">Servicios 
+		      <i class="fa fa-caret-down"></i>
+		    </button>
+		    <div class="dropdown-content-m" id="servicios">
+		    </div>
+		</div>    
+		<div class="dropdown-m">
+		    <button class="dropbtn-m">Configuración 
+		      <i class="fa fa-caret-down"></i>
+		    </button>
+		    <div class="dropdown-content-m" id="configuracion">
+		    </div>
+		</div>	
 	   	<a class="fa fa-user fa-3x user"></a>	  
 	 	<a href="login" id="linkLogin" style="text-decoration: none; padding-left: 5px; <%= username != null ? "pointer-events: none;" : "" %>" class='<%= username != null ? "login" : "" %>'><%= username != null ? username : "Ingresar" %></a>
-	 	<a href="index" class="fa fa-home fa-5x" style="font-size: 25px; text-decoration: none;"></a>
-	 	<a id="linkLogout" class="fa fa-sign-out fa-5x <%= username != null ? "logout show" : "logout hide" %>" style="font-size: 25px; text-decoration: none;"></a>	 			  	     
+	 	<a href="index" class="fa fa-home fa-5x home" style="font-size: 25px; text-decoration: none;"></a>
+	 	<a id="linkLogout" class="fa fa-sign-out fa-5x <%= username != null ? "logout show" : "logout hide" %> signout" style="font-size: 25px; text-decoration: none;"></a>	
+	 	 			  	     
 	</div>	
   </div>
-</div>
-
-<div class="sub-menu w3-container w3-pale-blue w3-leftbar w3-border-blue" id="servicios">
-	<ul></ul>
-</div>
-
-<div class="sub-menu w3-container w3-pale-blue w3-leftbar w3-border-blue" id="configuracion">
-	<ul></ul>
 </div>
 
 <script type="text/javascript">
@@ -93,21 +97,21 @@
 		 
 		 function createSubMenu(result){
 			 
-			 var $servicios = $("#servicios ul");
-		      	var $configuracion = $("#configuracion ul");
+			 var $servicios = $("#servicios");
+		      	var $configuracion = $("#configuracion");
 		        var liServicios = "";
 		      	var liConfiguracion = "";
 		      	
 		        $.each(result, function( index, element ) {
 		        	
 		        	if(result[index].tipoModulo == "0"){
-		        		var li = "<li><a href='" + result[index].url +"'>" + result[index].nombre + "</a></li>";
+		        		var li = "<a style='text-decoration: none;' href='" + result[index].url +"'>" + result[index].nombre + "</a>";
 		        		liConfiguracion += li;
 		        		console.log(result[index].nombre);
 		        	}
 		        	
 		        	if(result[index].tipoModulo == "1"){
-		        		var li = "<li><a href='" + result[index].url +"'>" + result[index].nombre + "</a></li>";
+		        		var li = "<a style='text-decoration: none;' href='" + result[index].url +"'>" + result[index].nombre + "</a>";
 		        		liServicios += li;
 		        		console.log(result[index].nombre);
 		        	}	  	        	
@@ -116,32 +120,6 @@
 		      $configuracion.append(liConfiguracion);
 		      $servicios.append(liServicios);
 		 }
-			
-	      $("[data-sub-menu]").click(function() {
-	    	 var $divSubMenu = $(this).data("sub-menu");    	 
-	    	 var menus = $("[data-sub-menu]");
-	    	 
-		        $.each(menus, function( index , element) {
-		        	var id = $(element).data("sub-menu");	 
-		        	
-		        	if(id != $divSubMenu){
-		        		$( "html").addClass("body-overflow")
-		        		$( "#"+id ).hide();	 
-		        	}	    		   		   	        		        	
-	  	        });	
-	   	 
-				if ( $("#"+$divSubMenu+":first").is( ":hidden" ) ) {
-					var $contentSubmenu = $( "#"+$divSubMenu+" ul").text();
-					
-					if($contentSubmenu != "") {
-						$( "html").addClass("body-overflow").addClass("on");
-					 	$( "#"+$divSubMenu ).show();		
-					}
-				} else {
-					$( "html").removeClass("on")
-				   	$( "#"+$divSubMenu ).hide();
-				}
-	      });
 	      
 	      $("#linkLogout").click(function() {
 	     	 var $usuario =  $("#linkLogin").text();    	 
