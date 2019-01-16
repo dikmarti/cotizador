@@ -63,6 +63,14 @@
 	      <url-pattern>/admUsuarios</url-pattern>
 	 </servlet-mapping>	
 	 <servlet>
+      <servlet-name>admPermisos</servlet-name>
+      <jsp-file>/jsp/admPermisos.jsp</jsp-file>
+	 </servlet>
+	 <servlet-mapping>
+	      <servlet-name>admPermisos</servlet-name>
+	      <url-pattern>/admPermisos</url-pattern>
+	 </servlet-mapping>	
+	 <servlet>
 		 <servlet-name>index</servlet-name>
 	     <jsp-file>/jsp/index.jsp</jsp-file>
 	 </servlet>
