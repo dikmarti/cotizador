@@ -49,7 +49,12 @@
 		 }  
 	 });
 	
-
+	$("#clave").on('keypress', function (e) {
+			if(e.keyCode == 13) {
+				$( "#btn-login" ).trigger( "click" );
+			}
+	});	
+	 
       $("#btn-login").click(function() {
     	 var $usuario =  $("#usuario").val();
     	 var $clave =  $("#clave").val();

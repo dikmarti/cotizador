@@ -77,7 +77,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Crear Usuario</h4>
+        <h4 class="modal-title" id="modal-title-text">Crear Usuario</h4>
       </div>
       <div class="modal-body">
       		<form id="createUserForm" class="form-content">
@@ -228,6 +228,7 @@ $(document).ready(function() {
 			$('#user-modal').find('#btn-modal-create').css('visibility', 'visible');
 			$('#user-modal').find('#btn-modal-create').css('display', '');
 			$("#tipoUsuario").addClass("custom-color");
+			$('#user-modal').find('#modal-title-text').html('Crear Usuario');
 			$("#user-modal").modal("show");
 		});
 		
@@ -258,6 +259,7 @@ $(document).ready(function() {
 			$('#user-modal').find('#btn-modal-update').css('display', '');
 			$('#user-modal').find('#clave').attr('disabled', 'true');
 			$('#user-modal').find('#tipoUsuario').attr('disabled', 'true');
+			$('#user-modal').find('#modal-title-text').html('Modificar Usuario');
 			$("#user-modal").modal("show");
 		});
 		
