@@ -24,6 +24,15 @@ public class Precio {
 	@Column
 	private Double precio;
 	
+	@Column
+	private Double precioMaximo;
+	
+	@Column
+	private Double precioMinimoo;
+	
+	@Column
+	private Double precioPromedio;
+	
 	@Column(name="fecha_inicio")
 	private Date fechaInicio;
 	
@@ -52,6 +61,30 @@ public class Precio {
 
 	public void setProveedor(Proveedor proveedor) {
 		this.proveedor = proveedor;
+	}
+
+	public Double getPrecioMaximo() {
+		return precioMaximo;
+	}
+
+	public void setPrecioMaximo(Double precioMaximo) {
+		this.precioMaximo = precioMaximo;
+	}
+
+	public Double getPrecioMinimoo() {
+		return precioMinimoo;
+	}
+
+	public void setPrecioMinimoo(Double precioMinimoo) {
+		this.precioMinimoo = precioMinimoo;
+	}
+
+	public Double getPrecioPromedio() {
+		return precioPromedio;
+	}
+
+	public void setPrecioPromedio(Double precioPromedio) {
+		this.precioPromedio = precioPromedio;
 	}
 
 	public Double getPrecio() {
