@@ -17,6 +17,12 @@ public class Sistema {
 	@Column
 	private String descripcion;
 	
+	@Column
+	private String elementos;
+	
+	@Column
+	private String materiales;
+	
 	public int getId() {
 		return id;
 	}
@@ -39,6 +45,22 @@ public class Sistema {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getElementos() {
+		return elementos;
+	}
+
+	public void setElementos(String elementos) {
+		this.elementos = elementos;
+	}
+
+	public String getMateriales() {
+		return materiales;
+	}
+
+	public void setMateriales(String materiales) {
+		this.materiales = materiales;
 	}
 	
 }

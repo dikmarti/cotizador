@@ -14,6 +14,9 @@ public class Proyecto {
 	private int id;
 	
 	@Column
+	private int idCrmMCO;
+	
+	@Column
 	private String ruc;
 	
 	@Column
@@ -62,6 +65,14 @@ public class Proyecto {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getIdCrmMCO() {
+		return idCrmMCO;
+	}
+
+	public void setIdCrmMCO(int idCrmMCO) {
+		this.idCrmMCO = idCrmMCO;
 	}
 
 	public String getRuc() {

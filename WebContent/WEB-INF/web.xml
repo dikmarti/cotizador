@@ -69,5 +69,14 @@
 	 <servlet-mapping>
 	      <servlet-name>index</servlet-name>
 	      <url-pattern>/index</url-pattern>
+	 </servlet-mapping>	  
+	 
+	  <servlet>
+		 <servlet-name>proyecto</servlet-name>
+	     <jsp-file>/jsp/proyecto.jsp</jsp-file>
+	 </servlet>
+	 <servlet-mapping>
+	      <servlet-name>proyecto</servlet-name>
+	      <url-pattern>/proyecto</url-pattern>
 	 </servlet-mapping>	   	
 </web-app>

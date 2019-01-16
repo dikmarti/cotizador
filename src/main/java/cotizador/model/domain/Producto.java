@@ -12,6 +12,12 @@ public class Producto {
 	private int id;
 	
 	@Column
+	private int idProductoMCO;
+	
+	@Column
+	private int idFabricante;
+	
+	@Column
 	private String codigo;
 	
 	@Column
@@ -42,6 +48,22 @@ public class Producto {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getIdProductoMCO() {
+		return idProductoMCO;
+	}
+
+	public void setIdProductoMCO(int idProductoMCO) {
+		this.idProductoMCO = idProductoMCO;
+	}
+
+	public int getIdFabricante() {
+		return idFabricante;
+	}
+
+	public void setIdFabricante(int idFabricante) {
+		this.idFabricante = idFabricante;
 	}
 
 	public String getCodigo() {
