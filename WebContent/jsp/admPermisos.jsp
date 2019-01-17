@@ -13,7 +13,7 @@
 <br>
 	<div class="row icon button">
 		<a id="btn-adm-permission" class="btn btn-primary a-btn-slide-text">
-        	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
         	<span><strong>Administrar Permisos</strong></span>            
     	</a>
 	</div>
@@ -55,31 +55,25 @@
       </div>
       <div class="modal-body">
       		<form id="admUserPermissionForm" class="form-content">
-			<input id="loginAnterior" type="hidden" name="loginAnterior"/>
-      		<div class="form-row">
-      			<div class="form-group col-md-6">
-				    <input class="form-control" id="nombre" type="text" name="nombre" disabled="true"/>
-      			</div>
-      			<div class="form-group col-md-6">
-				    <input class="form-control" id="login" type="text" name="login" disabled="true"/>
-      			</div>
-    		</div>
-      		<div class="form-row">
-      			<div class="form-group col-md-6">
-				    <input class="form-control" id="cargo" type="text" name="cargo" disabled="true"/>
-      			</div>
-      			<div class="form-group col-md-6">
-				    <select class="form-control form-control-sm custom-color" id="tipoUsuario" name="tipoUsuario" >
-				    	<option class="placeholder-option" value="" disabled selected >Tipo de Usuario</option>
-				    	<option value="0">Administrador</option>
-				    	<option value="1">B&aacute;sico</option>				    	
-				    </select>
-      			</div>
-      		</div>
+				<input id="loginAnterior" type="hidden" name="loginAnterior"/>
+	      		<div class="form-row">
+	      			<div class="form-group col-md-4">
+	      				<label>Nombre</label>
+					    <input class="form-control" id="nombre" type="text" name="nombre" disabled="true"/>
+	      			</div>
+	      			<div class="form-group col-md-4">
+	      				<label>Login</label>
+					    <input class="form-control" id="login" type="text" name="login" disabled="true"/>
+	      			</div>
+	      			<div class="form-group col-md-4">
+	      				<label>Cargo</label>
+					    <input class="form-control" id="cargo" type="text" name="cargo" disabled="true"/>
+	      			</div>
+	    		</div>
 
-			<div class="form-style-button">
-			   	<input type="button" value="Actualizar" id="btn-modal-permission" class="btn btn-primary" style="width: 50%; margin-left: 65px;"/>
-			</div>
+				<div class="form-style-button">
+				   	<input type="button" value="Actualizar" id="btn-modal-permission" class="btn btn-primary" style="width: 50%; margin-left: 65px;"/>
+				</div>
 		   	</form>
       </div>
     </div>

@@ -166,6 +166,19 @@ public class UserService {
 		return result;
 
 	}
+	
+	public Usuario findUserByLogin(String login) {
+
+		System.out.println("Method findUserByLogin...");
+		List<Object> allObject = genericRepository.getAllObjectByQuery("SELECT u FROM Usuario u WHERE u.login = '" + login +"'");
+
+		Usuario result = !allObject.isEmpty() ? (Usuario) (Object) allObject.get(0) : null;
+		System.out.println("Usuario: " + result);
+
+		return result;
+
+	}
+
 
 
 }

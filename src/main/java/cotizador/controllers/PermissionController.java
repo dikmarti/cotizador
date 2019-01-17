@@ -20,6 +20,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import cotizador.model.domain.Permiso;
 import cotizador.model.domain.Usuario;
 import cotizador.model.domain.models.UserModel;
 import cotizador.service.PermissionService;
@@ -50,6 +51,44 @@ public class PermissionController extends GenericController {
 
 			System.out.println("status: " + status);
 			return status;
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@POST
+	@Path("/retrieveUserPermission")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Permiso> getUserPermission(String jsonForm, @Context HttpServletRequest httpRequest) {
+
+		System.out.println("/retrieveUserPermission json form " + jsonForm);
+		ObjectMapper mapper = new ObjectMapper();
+		UserModel userModel = new UserModel();
+
+		try {
+
+			userModel = mapper.readValue(jsonForm, UserModel.class);
+			
+			List<Permiso> permission = permissionService.permissionByUser(userModel.getLogin());
+			
+			if(permission == null) {
+				return null;
+			}
+			
+			return permission;
+			
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
