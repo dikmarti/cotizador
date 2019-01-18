@@ -59,5 +59,11 @@ public class Permiso {
 	public void setFechaAsignacion(Date fechaAsignacion) {
 		this.fechaAsignacion = fechaAsignacion;
 	}
+
+	@Override
+	public String toString() {
+		return "Permiso [id=" + id + ", usuario=" + usuario + ", modulo=" + modulo + ", fechaAsignacion="
+				+ fechaAsignacion + "]";
+	}
 	
 }

@@ -73,5 +73,11 @@ public class Modulo implements Serializable{
 	public void setOrden(int orden) {
 		this.orden = orden;
 	}
+
+	@Override
+	public String toString() {
+		return "Modulo [id=" + id + ", tipoModulo=" + tipoModulo + ", nombre=" + nombre + ", descripcion=" + descripcion
+				+ ", orden=" + orden + "]";
+	}
 		
 }

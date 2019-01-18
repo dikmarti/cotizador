@@ -20,6 +20,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import cotizador.model.domain.Modulo;
 import cotizador.model.domain.Permiso;
 import cotizador.model.domain.Usuario;
 import cotizador.model.domain.models.UserModel;
@@ -90,6 +91,46 @@ public class PermissionController extends GenericController {
 			}
 			
 			return permission;
+			
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/modulesToUser")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Modulo> getModulesToUser(String jsonForm, @Context HttpServletRequest httpRequest) {
+
+		System.out.println("/modulesToUser json form " + jsonForm);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, String> userLogin = new HashMap<String, String>();
+
+		try {
+
+			userLogin = mapper.readValue(jsonForm, Map.class);
+			String login = userLogin.get("login");
+			
+			List<Modulo> modules = permissionService.modulesToUser(login);
+			
+			if(modules == null) {
+				return null;
+			}
+			
+			return modules;
 			
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block

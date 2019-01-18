@@ -74,8 +74,7 @@
 	    		<div class="form-row">
 					<div class="form-group col-md-6">
 					    <select class="form-control form-control-sm custom-color" id="permissionModules" name="permissionModules" >
-					    	<option class="placeholder-option" value="" disabled selected >Seleccione</option>
-					    	<option value="0">Modulos Faltantesx</option>
+					    	<option class="placeholder-option" value="" disabled selected >Seleccione el módulo</option>
 					    </select>
 	      			</div>
 					<div class="row icon button">
@@ -222,6 +221,32 @@ $(document).ready(function() {
 			$('#user-modal-permission').find('#nombre').val($nombre);
 			$('#user-modal-permission').find('#login').val($login);
 			$('#user-modal-permission').find('#cargo').val($cargo);
+			
+			$.ajax({
+		    	  url: "/Cotizador/rest/permission/modulesToUser",
+		    	  type: "POST",
+		    	  data: JSON.stringify({login: $login}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino");
+		    	        console.log(result);
+		    	        
+		    	        $.each(result, function( index, element ) {	 
+		    	        	var o = new Option(result[index].nombre, result[index].id);
+		    	        	$(o).html(result[index].nombre);
+		    	        	$("#permissionModules").append(o);
+		    	        
+		    	        });
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
 			
 			$.ajax({
 		    	  url: "/Cotizador/rest/permission/retrieveUserPermission",
