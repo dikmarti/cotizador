@@ -67,6 +67,7 @@ public class PermissionController extends GenericController {
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@POST
 	@Path("/retrieveUserPermission")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -75,13 +76,14 @@ public class PermissionController extends GenericController {
 
 		System.out.println("/retrieveUserPermission json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
-		UserModel userModel = new UserModel();
+		Map<String, String> userLogin = new HashMap<String, String>();
 
 		try {
 
-			userModel = mapper.readValue(jsonForm, UserModel.class);
+			userLogin = mapper.readValue(jsonForm, Map.class);
+			String login = userLogin.get("login");
 			
-			List<Permiso> permission = permissionService.permissionByUser(userModel.getLogin());
+			List<Permiso> permission = permissionService.permissionByUser(login);
 			
 			if(permission == null) {
 				return null;

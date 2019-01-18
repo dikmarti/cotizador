@@ -155,20 +155,17 @@ $(document).ready(function() {
     	        console.log("termino");
     	        console.log(result);
 
-    	        var $tableData = $("#user-table-data");
-    	       	var dataUsers = "";
-    	        
-    	        $.each(result, function( index, element ) {	    	        	
-    	        		    	        	
-    	        		var li = "<tr role='row' id='"+ result[index].login +"'><td id='nombreT'>" + result[index].nombre + "</td>"
-    	        					+"<td id='loginT'>" + result[index].login + "</td>"
-    	        					+"<td id='direccionT'>" + result[index].direccion + "</td>"
-    	        					+"<td id='emailT'>" + result[index].email + "</td>"
-    	        					+"<td id='telefonoT'>" + result[index].telefono + "</td>"
-    	        					+"<td id='cargoT'>" + result[index].cargo + "</td></tr>";
-    	        		dataUsers += li;
+    	        $.each(result, function( index, element ) {	   
+    	        	
+    	        	table.rows.add(
+ 	        		       [{ "Nombre": result[index].nombre, 
+ 	        		    	   "Login": result[index].login,
+ 	        		    	   "Direccion": result[index].direccion,
+ 	        		    	   "Email": result[index].email,
+ 	        		    	   "Telefono": result[index].telefono,
+ 	        		    	   "Cargo": result[index].cargo
+ 	        		    	}]).draw(); 
     	        });
-    	        $tableData.html(dataUsers);
     	  },
     	  complete: function(result){
     	        console.log("complete");
@@ -195,7 +192,14 @@ $(document).ready(function() {
 		                "previous": "Atrás",
 		                "next": "Siguiente"
 		              }
-		        }
+		        },
+		        columns:[
+            	    {data: 'Nombre'},
+            	    {data: 'Login'},
+            	    {data: 'Direccion'},
+            	    {data: 'Email'},
+            	    {data: 'Telefono'},
+            	    {data: 'Cargo'}]
 		  }); 
 		  $('.dataTables_length').addClass('bs-select');
 		  
@@ -204,14 +208,14 @@ $(document).ready(function() {
 		            $(this).removeClass('selected');
 		        }
 		        else {
-		        	$('#dtUserModule').find('tr.selected').removeClass('selected');
+		        	table.$('tr.selected').removeClass('selected');
 		            $(this).addClass('selected'); 
 		        }
 		    } );
 
 		$("#btn-user-create").click(function() {
 			console.log("create user"); 
-			$('#dtUserModule').find('tr.selected').removeClass('selected');
+			table.$('tr.selected').removeClass('selected');
 			$(".msg-error").removeClass("on");
 			$("#nombre").val('');
 	    	$("#login").val('');
@@ -234,18 +238,18 @@ $(document).ready(function() {
 		
 		$("#btn-user-modify").click(function() {
 			console.log("modify user");   
-			if($('#dtUserModule').find('tr.selected').length != 1) {
+			if(table.$('tr.selected').length != 1) {
 				console.log("No hay usuario seleccionado");   	 
 				return false;
 			} 
-			var $userModify = $('#dtUserModule').find('tr.selected');
+			var $userModify = table.rows('.selected').data()[0];
 			console.log("modify user " + $userModify);
-			var $nombre =  $userModify.find("#nombreT").text();
-	    	 var $login =  $userModify.find("#loginT").text();
-	    	 var $email =  $userModify.find("#emailT").text();
-	    	 var $direccion =  $userModify.find("#direccionT").text();
-	    	 var $telefono =  $userModify.find("#telefonoT").text();
-	    	 var $cargo =  $userModify.find("#cargoT").text();
+			var $nombre =  $userModify.Nombre;
+	    	 var $login =  $userModify.Login;
+	    	 var $email =  $userModify.Direccion;
+	    	 var $direccion =  $userModify.Email;
+	    	 var $telefono =  $userModify.Telefono;
+	    	 var $cargo =  $userModify.Cargo;
 			$('#user-modal').find('#nombre').val($nombre);
 			$('#user-modal').find('#login').val($login);
 			$('#user-modal').find('#loginAnterior').val($login);
@@ -264,11 +268,11 @@ $(document).ready(function() {
 		});
 		
 		$("#btn-user-delete").click(function() {
-			if($('#dtUserModule').find('tr.selected').length != 1) {
+			if(table.$('tr.selected').length != 1) {
 				console.log("No hay usuario seleccionado");   	 
 				return false;
 			} 
-			var $userDelete = $('#dtUserModule').find('tr.selected').attr('id');
+			var $userDelete = table.rows('.selected').data()[0]['Login'];
 			console.log("delete user " + $userDelete);   	 
 			
 			$.ajax({

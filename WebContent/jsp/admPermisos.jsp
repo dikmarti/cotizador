@@ -70,11 +70,40 @@
 					    <input class="form-control" id="cargo" type="text" name="cargo" disabled="true"/>
 	      			</div>
 	    		</div>
-
-				<div class="form-style-button">
-				   	<input type="button" value="Actualizar" id="btn-modal-permission" class="btn btn-primary" style="width: 50%; margin-left: 65px;"/>
+<br>
+	    		<div class="form-row">
+					<div class="form-group col-md-6">
+					    <select class="form-control form-control-sm custom-color" id="permissionModules" name="permissionModules" >
+					    	<option class="placeholder-option" value="" disabled selected >Seleccione</option>
+					    	<option value="0">Modulos Faltantesx</option>
+					    </select>
+	      			</div>
+					<div class="row icon button">
+						<a id="btn-modal-add-permission" class="btn btn-primary a-btn-slide-text">
+				        	<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				        	<span><strong>Añadir Permiso</strong></span>            
+				    	</a>
+					</div>
 				</div>
 		   	</form>
+		   	
+		   	<table id="dtPermission" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+			  <thead>
+			    <tr>
+			      <th class="th-sm">Nombre del Módulo
+			      </th>
+			    </tr>
+			  </thead>
+			  <tbody id="table-data-permission">
+			  </tbody>
+			</table>
+			
+			<div class="row icon button">
+				<a id="btn-modal-delete-permission" class="btn btn-primary a-btn-slide-text">
+		        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		        	<span><strong>Eliminar Permiso</strong></span>            
+		    	</a>
+			</div>
       </div>
     </div>
 
@@ -96,18 +125,14 @@ $(document).ready(function() {
     	  success: function(result){		    		
     	        console.log("termino");
     	        console.log(result);
-
-    	        var $tableData = $("#user-table-data-permission");
-    	       	var dataUsers = "";
-    	        
     	        $.each(result, function( index, element ) {	    	        	
-    	        		    	        	
-    	        		var li = "<tr role='row' id='"+ result[index].login +"'><td id='nombreT'>" + result[index].nombre + "</td>"
-    	        					+"<td id='loginT'>" + result[index].login + "</td>"
-    	        					+"<td id='cargoT'>" + result[index].cargo + "</td></tr>";
-    	        		dataUsers += li;
+    	        	
+    	        	table.rows.add(
+    	        		       [{ "Nombre": result[index].nombre, 
+    	        		    	   "Login": result[index].login,
+    	        		    	   "Cargo": result[index].cargo
+    	        		    	}]).draw(); 
     	        });
-    	        $tableData.html(dataUsers);
     	  },
     	  complete: function(result){
     	        console.log("complete");
@@ -133,36 +158,109 @@ $(document).ready(function() {
 		            "paginate": {
 		                "previous": "Atrás",
 		                "next": "Siguiente"
-		              }
-		        }
+		             }
+		        },
+		        columns:[
+            	    {data: 'Nombre'},
+            	    {data: 'Login'},
+            	    {data: 'Cargo'}]
 		  }); 
-		  $('.dataTables_length').addClass('bs-select');
+   	
+   	var tablePermission = $('#dtPermission').DataTable({
+						  responsive: true,
+						    "pagingType": "simple_numbers",
+						    "pageLength": 5,
+						    "searching": false,
+						    "paging": false,
+						    "language": {
+					            "lengthMenu": "Permisos Otorgados",
+					            "zeroRecords": "No existen registros",
+					            "emptyTable":     "No existen registros en tabla",
+					            "info": "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros.",
+					            "infoEmpty": "",
+					            "infoFiltered": "",
+					            "paginate": {
+					                "previous": "Atrás",
+					                "next": "Siguiente"
+					              }
+					        },
+					        columns:[
+			            	    {data: 'Nombre'}]
+					  });
 		  
 		  $('#dtUserModulePermission tbody').on( 'click', 'tr', function () {
 		        if ($(this).hasClass('selected')) {
 		            $(this).removeClass('selected');
 		        }
 		        else {
-		        	$('#dtUserModulePermission').find('tr.selected').removeClass('selected');
+		        	table.$('tr.selected').removeClass('selected');
+		            $(this).addClass('selected'); 
+		        }
+		    } );
+		  
+		  $('#tablePermission tbody').on( 'click', 'tr', function () {
+		        if ($(this).hasClass('selected')) {
+		            $(this).removeClass('selected');
+		        }
+		        else {
+		        	tablePermission.$('tr.selected').removeClass('selected');
 		            $(this).addClass('selected'); 
 		        }
 		    } );
 
 		$("#btn-adm-permission").click(function() {
 			console.log("adm user permission");   
-			if($('#dtUserModulePermission').find('tr.selected').length != 1) {
+			if(table.$('tr.selected').length != 1) {
 				console.log("No hay usuario seleccionado");   	 
 				return false;
 			} 
-			var $userModify = $('#dtUserModulePermission').find('tr.selected');
+			var $userModify = table.rows('.selected').data()[0];
 			console.log("modify user permission " + $userModify);
-			var $nombre =  $userModify.find("#nombreT").text();
-	    	 var $login =  $userModify.find("#loginT").text();
-	    	 var $cargo =  $userModify.find("#cargoT").text();
+			var $nombre =  $userModify.Nombre;
+	    	 var $login =  $userModify.Login;
+	    	 var $cargo =  $userModify.Cargo;
 			$('#user-modal-permission').find('#nombre').val($nombre);
 			$('#user-modal-permission').find('#login').val($login);
 			$('#user-modal-permission').find('#cargo').val($cargo);
-			$("#user-modal-permission").modal("show");
+			
+			$.ajax({
+		    	  url: "/Cotizador/rest/permission/retrieveUserPermission",
+		    	  type: "POST",
+		    	  data: JSON.stringify({login: $login}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino");
+		    	        console.log(result);
+		    	        
+		    	        $.each(result, function( index, element ) {	 
+		    	        	
+		    	        	tablePermission.rows.add(
+		    	        		       [{ "Nombre": result[index].modulo.nombre 
+		    	        		    	}]).draw(); 
+		    	        });
+		    	        
+		    	        $('#tablePermission tbody').on( 'click', 'tr', function () {
+		    		        if ($(this).hasClass('selected')) {
+		    		            $(this).removeClass('selected');
+		    		        }
+		    		        else {
+		    		        	tablePermission.$('tr.selected').removeClass('selected');
+		    		            $(this).addClass('selected'); 
+		    		        }
+		    		    } );
+
+		    	        $("#user-modal-permission").modal("show");
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+			
 		});
 		
 	
@@ -170,11 +268,6 @@ $(document).ready(function() {
 	    	 var $login =  $("#login").val();
 	    	 var $tipoUsuario =  $("#tipoUsuario option:selected").val();
 		     
-		     if($tipoUsuario != 1) {
-		    	 $(".msg-error").html("Debe seleccionar el tipo de usuario.")
-		    	 $(".msg-error").addClass("on");
-		    	 return false;
-		     }
 	    	 
 	    	 if ($login == "" || $tipoUsuario == "") {
 	    		  $(".msg-error").addClass("on");
@@ -234,9 +327,6 @@ $(document).ready(function() {
 	    	 
 	      });
 		
-		$("#tipoUsuario").click(function() {
-			$(this).removeClass("custom-color");
-		});	
 		
 	  });   
 		  
