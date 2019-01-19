@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/footer.css">
 <link rel="stylesheet" type="text/css" href="resources/css/forms.css">
 <link rel="stylesheet" type="text/css" href="resources/css/index.css">
+<link rel="stylesheet" type="text/css" href="resources/css/proyecto.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
