@@ -13,98 +13,221 @@
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Ficha T&eacute;nica</h3>
     
     
-    <form id="createProyectForm" class="form-content">
-			
-      		<div class="form-row">
-      			<div class="form-group col-md-4">
-				    <input class="form-control" id="idCrmMCO" type="text" name="idCrmMCO" placeholder="Crm MCO" maxlength="200"/>
-      			</div>
-      			<div class="form-group col-md-4">
-				    <input class="form-control" id="ruc" type="text" name="ruc" placeholder="RUC" maxlength="200"/>
-      			</div>
-      			<div class="form-group col-md-4">
-				    <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripcion" maxlength="200"/>
-      			</div>     			
+  		<form id="createProyectForm" class="form-content">
+	
+    		<div class="form-row">
+    			<div class="form-group col-md-4">
+		    <input class="form-control" id="idCrmMCO" type="text" name="idCrmMCO" placeholder="Crm MCO" maxlength="200"/>
+    			</div>
+    			<div class="form-group col-md-4">
+		    <input class="form-control" id="ruc" type="text" name="ruc" placeholder="RUC" maxlength="200"/>
+    			</div>
+    			<div class="form-group col-md-4">
+		    <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripcion" maxlength="200"/>
+    			</div>     			
+  			</div>
+    		<div class="form-row">
+    			<div class="form-group col-md-4">
+		    <input class="form-control" id="contratista" type="text" name="contratista" placeholder="Contratista" maxlength="200"/>
+    			</div>
+    			<div class="form-group col-md-4">
+		    <input class="form-control" id="unidadEjecutora" type="text" name="unidadEjecutora" placeholder="Unidad ejecutora" maxlength="200"/>
+    			</div>
+    			
+    			<div class="form-group col-md-4">
+		    <input class="form-control" id="nivelConstruccion" type="text" name="nivelConstruccion" placeholder="Nivel construcción" maxlength="200"/>
+    			</div>
     		</div>
-      		<div class="form-row">
-      			<div class="form-group col-md-4">
-				    <input class="form-control" id="contratista" type="text" name="contratista" placeholder="Contratista" maxlength="200"/>
-      			</div>
-      			<div class="form-group col-md-4">
-				    <input class="form-control" id="unidadEjecutora" type="text" name="unidadEjecutora" placeholder="Unidad ejecutora" maxlength="200"/>
-      			</div>
-      			
-      			<div class="form-group col-md-4">
-				    <input class="form-control" id="nivelConstruccion" type="text" name="nivelConstruccion" placeholder="Nivel construcción" maxlength="200"/>
-      			</div>
-      		</div>
-      		<div class="form-row">
-      			<div class="form-group col-md-4">
-				    <input class="form-control" id="montoInversion" type="text" name="montoInversion" placeholder="Monto de inversion" maxlength="200"/>
-      			</div>
-      			<div class="form-group col-md-4">
-				    <input class="form-control" id="montoPartida" type="text" name="montoPartida" placeholder="Monto de partida" maxlength="200"/>
-      			</div>
-      			<div class="form-group col-md-4">
-				    <input class="form-control" id="areaConstruccion" type="text" name="areaConstruccion" placeholder="Área de construccion" maxlength="200"/>
-      			</div>
-      		</div>
-      		<div class="form-row">
-      			<div class="form-group col-md-4">
+    		<div class="form-row">
+    			<div class="form-group col-md-4">
+		    <input class="form-control" id="montoInversion" type="text" name="montoInversion" placeholder="Monto de inversion" maxlength="200"/>
+    			</div>
+    			<div class="form-group col-md-4">
+		    <input class="form-control" id="montoPartida" type="text" name="montoPartida" placeholder="Monto de partida" maxlength="200"/>
+    			</div>
+    			<div class="form-group col-md-4">
+		    <input class="form-control" id="areaConstruccion" type="text" name="areaConstruccion" placeholder="Área de construccion" maxlength="200"/>
+    			</div>
+    		</div>
+    		<div class="form-row">
+    			<div class="form-group col-md-4">
 				     <select class="form-control form-control-sm custom-color" id="soporteTecnico" name="soporteTecnico" >
 				    	<option class="placeholder-option" value="" disabled selected >Soporte</option>
 				    	<option value="0">Si</option>
 				    	<option value="1">No</option>				    	
 				    </select>
-      			</div>
-      			<div class="form-group col-md-4">
+		    			</div>
+		    			<div class="form-group col-md-4">
 				   <select class="form-control form-control-sm custom-color" id="garantiaCableado" name="garantiaCableado" >
 				    	<option class="placeholder-option" value="" disabled selected >Garantía Cableado</option>
 				    	<option value="0">Sí</option>
 				    	<option value="1">No</option>				    	
 				    </select>
-      			</div>
-      			<div class="form-group col-md-4">
+		    			</div>
+		    			<div class="form-group col-md-4">
 				     <select class="form-control form-control-sm custom-color" id="garantiaEquipos" name="garantiaEquipos" >
 				    	<option class="placeholder-option" value="" disabled selected >Garantía Equipos</option>
 				    	<option value="0">Si</option>
 				    	<option value="1">No</option>				    	
 				    </select>
-      			</div>
-      		</div>
-      		<div class="form-row">
-      			<div class="form-group col-md-4">
-				    <input class="form-control" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
-      			</div> 			
-      		</div>
-      		<div class="form-row">
-      			<div class="form-group col-md-8">
-				    <div class="msg-error">
-				   			Debe ingresar los datos.
-	      			</div>
-      			</div>
+    			</div>
+    		</div>
+    		<div class="form-row">
+    			<div class="form-group col-md-4">
+		    <input class="form-control" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
+    			</div> 			
+    		</div>
+    		<div class="form-row">
+    			<div class="form-group col-md-8">
+		    <div class="msg-error">
+		   			Debe ingresar los datos.
+     			</div>
+    			</div>
 			</div>
-			<div class="form-style-button">
-				<div class="form-group col-md-12" style="margin: auto; padding-left: 20%; padding-top: 5%;">
-				   	<input type="button" value="Crear" id="btn-modal-create" class="btn btn-primary" style="width: 50%; margin-left: 65px;"/>
-				   	<input type="button" value="Modificar" id="btn-modal-update" class="btn btn-primary" style="width: 50%; margin-left: 65px; visibility: hidden;"/>
-				</div>
+			
+			<div class="div-btns">
+			   	<input type="button" value="Guardar" id="btn-guardar" class="btn btn-primary" />			   	
+			   	<input type="button" value="Crear Nivel" id="btn-crear-nivel" class="btn btn-primary" />
 			</div>
-		   	</form>  
-  
-  
-  </div>
+			
+		 </form>  
+   	
+	   	<div id="niveles" class="niveles">
+			<div class="row div-row" id="row-niveles">
+			   
+			 
+			</div>  
+  		</div>
   
 <!-- End page content -->
 </div>
+
+<!-- Modal -->
+<div id="nivel-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal-title-text">Crear Nivel</h4>
+      </div>
+      <div class="modal-body">
+      		<form id="createNivelForm" class="form-content">
+				
+	      		<div class="form-row">
+	      			<div class="form-group col-md-6">
+					    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
+	      			</div>	      			
+	    		</div>
+	      		<div class="form-row">
+	      			<div class="form-group col-md-6">
+					    <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripción"  maxlength="200"/>
+	      			</div>	      			
+	      		</div>
+	      		<div class="form-row">
+	      			<div class="form-group col-md-6">
+					    <input class="form-control" id="orden" type="number" name="orden" placeholder="Orden" maxlength="200"/>
+	      			</div>	      			
+	      		</div>	      		
+	      		<div class="form-row">
+	      			<div class="form-group col-md-6">
+					    <div class="msg-error">
+					   			Debe ingresar los datos.
+		      			</div>
+	      			</div>
+				</div>
+				<div class="form-style-button">
+				   	<input type="button" value="Guardar" id="btn-guardar-nivel" class="btn btn-primary" style="margin-left: 30%;"/>			   
+				</div>
+		   	</form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- End Modal -->
 
 <script type="text/javascript">
 
 	$(document).ready(function() {
 		
+		var color1 = "rgb(0, 72, 118)";
+		var color2 = "rgb(242, 245,248)";
+		var indexColorNivel = 0;
+		var cantMaxNiveles = 50;
+		var ordenesNivelArray = [];
+
+		
+		var colorArray = interpolateColors(color1, color2, cantMaxNiveles);
+		
+		$("#btn-crear-nivel").click(function() {
+			
+//TODO validar si es nuevo o esta modificando
+			$("#nombre").val("");
+			$("#descripcion").val("");
+			$("#orden").val("")
+			
+			$("#niveles").addClass("show");			
+			$("#nivel-modal").modal("show");
+		});
+		
+		$("#btn-guardar-nivel").click(function() {
+			var colorNivelCreado = colorArray[indexColorNivel];
+			var colorFont = "white";
+			
+			if (indexColorNivel >= cantMaxNiveles/2) {
+				colorFont = "dark";
+			}
+						
+// TODO Ir a bd y guardar el nivel
+
+			var orden = $("#orden").val();
+			var nombre = $("#nombre").val();
+			var html = '<div data-orden=' + orden + ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');">';
+			html += '<p>' + nombre + '</p>';
+			html += '</div>';
+			
+			$("#row-niveles").prepend(html);	
+									
+			var $test = $('#row-niveles div').sort(function(a,b) {
+			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
+			});
+			
+			$("#row-niveles").html("");
+			console.log("ordenado: " + $test);
+			$("#row-niveles").append($test);		
+			
+			indexColorNivel++;
+		});	
+				
+		function interpolateColor(color1, color2, factor) {
+		    if (arguments.length < 3) { 
+		        factor = 0.5; 
+		    }
+		    var result = color1.slice();
+		    for (var i = 0; i < 3; i++) {
+		        result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
+		    }
+		    return result;
+		};
+		// My function to interpolate between two colors completely, returning an array
+		function interpolateColors(color1, color2, steps) {
+		    var stepFactor = 1 / (steps - 1),
+		        interpolatedColorArray = [];
+
+		    color1 = color1.match(/\d+/g).map(Number);
+		    color2 = color2.match(/\d+/g).map(Number);
+
+		    for(var i = 0; i < steps; i++) {
+		        interpolatedColorArray.push(interpolateColor(color1, color2, stepFactor * i));
+		    }
+
+		    return interpolatedColorArray;
+		}
 	});   
 
 </script>
-}
 
 </t:standardPage>

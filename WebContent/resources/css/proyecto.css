@@ -1,0 +1,52 @@
+.niveles {
+	display:none;
+}
+
+.niveles .show {
+	display:block;
+}
+
+.div-btns {
+	padding-top: 20%;
+    padding-left: 42%;
+    padding-bottom: 5%;
+}
+
+.div-row {
+	width: 300px;
+    margin-left: 40% !important;
+}
+
+.nivel-font{	
+	border-radius: 8px;
+}
+
+.nivel-font p{	
+	text-align: center;
+	vertical-align: middle;
+	padding: 10px;
+    margin: 0px;
+}
+
+.nivel-font.white{
+	color: white;
+	width: 250px;
+}
+
+.nivel-font.dark {
+	color: black;
+	width: 250px;
+}
+
+@media screen and (max-width: 600px) {
+  .div-btns {
+    width: 300px;
+   	float: right;
+   	padding-bottom: 5%;
+   	padding-left:35%;
+  }
+  .div-row {
+	margin-top: 50% !important;
+	margin-left: 12% !important;
+  }
+}
