@@ -63,7 +63,6 @@ public class LoginController extends GenericController{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}       
-      System.out.println("usuario " + usuario.getLogin());
         return usuario;
     }
 	

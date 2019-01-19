@@ -1,11 +1,14 @@
 package cotizador.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import cotizador.controllers.models.PermisoResponseModel;
 import cotizador.model.domain.Modulo;
 import cotizador.model.domain.Permiso;
 import cotizador.model.domain.Usuario;
@@ -21,33 +24,38 @@ public class PermissionService {
 	
 	@Inject
 	ModuleService moduleService;
+	
+	public static SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
 	/**
 	 * Retorna los permisos a modulos disponibles para un usuario
 	 * @param login
 	 * @return
 	 */
-	public List<Permiso> permissionByUser(String login) {
+	public List<PermisoResponseModel> permissionByUser(String login) {
 
 		System.out.println("Method permissionByUser...");
-		System.out.println("finding user from data base");
-		
-		Usuario user = userService.findUserByLogin(login);
-		
-		if(user == null) {
-			return null;
-		}
-		
 		System.out.println("finding user permission from data base");
 		
-		List<Object> allObject = genericRepository.getAllObjectFiltered("Permiso.findByUser", "login", user.getLogin());
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Permiso.findByUser", "login", login);
 		
 		System.out.println("user permission found: " + allObject);
 		
 		@SuppressWarnings("unchecked")
 		List<Permiso> permissionUser = !allObject.isEmpty() ? (List<Permiso>) (Object) allObject : null;
-		
-		return permissionUser;
+		List<PermisoResponseModel> permisoResponseModels = new ArrayList<PermisoResponseModel>();
+		if(permissionUser != null && !permissionUser.isEmpty()) {
+			for (Permiso p : permissionUser) {
+				PermisoResponseModel permisoResponseModel = new PermisoResponseModel();
+				permisoResponseModel.setid(p.getModulo().getId());
+				permisoResponseModel.setNombre(p.getModulo().getNombre());
+				permisoResponseModel.setFecha(format.format(p.getFechaAsignacion()));
+				
+				permisoResponseModels.add(permisoResponseModel);
+			}
+			return permisoResponseModels;
+		}
+		return null;
 	}
 	
 	/**
@@ -60,12 +68,12 @@ public class PermissionService {
 		System.out.println("Method modulesToUser...");
 		System.out.println("finding modules to user from data base");
 		
-		List<Permiso> userPermissions = permissionByUser(login);
+		List<PermisoResponseModel> userPermissions = permissionByUser(login);
 		List<Integer> userPermissionsModules = new ArrayList<Integer>();
 		if (userPermissions != null && !userPermissions.isEmpty()) {
 			
-			for (Permiso permiso : userPermissions) {
-				userPermissionsModules.add(permiso.getModulo().getId());
+			for (PermisoResponseModel permiso : userPermissions) {
+				userPermissionsModules.add(permiso.getId());
 			}
 			
 		}
@@ -82,12 +90,12 @@ public class PermissionService {
 			for (Modulo modulo : allModules) {
 				System.out.println("moduloUser: " + modulo.getNombre());
 				System.out.println("allModulesfor: " + allModules);
-				if(!userPermissionsModules.contains(modulo.getId())) {
+				if(!userPermissionsModules.contains((Integer)modulo.getId())) {
 					System.out.println("userPermissionsModules.contains(modulo.getId()): " + userPermissionsModules.contains(modulo.getId()));
 					modulesResult.add(modulo);
 				}
 			}
-			return allModules;
+			return modulesResult;
 		}
 		
 		return allModules;
@@ -99,11 +107,11 @@ public class PermissionService {
 	 * @param idModule
 	 * @return
 	 */
-	public Permiso addPermissionUser(String login, Integer idModule) {
+	public PermisoResponseModel addPermissionUser(String login, Integer idModule) {
 
 		System.out.println("Method updatePermission...");
 		System.out.println("finding user from data base");
-		
+
 		Usuario user = userService.findUserByLogin(login);
 		
 		System.out.println("finding module from data base");
@@ -117,12 +125,16 @@ public class PermissionService {
 		
 		System.out.println("Creating permiso from data base");
 		
-		Object object = genericRepository.addObject(permiso);		
+		Permiso object = (Permiso) genericRepository.addObject(permiso);		
 		
 		System.out.println("finish permission create");
 		
 		if (object != null) {
-			return (Permiso) object;
+			PermisoResponseModel permisoResponseModel = new PermisoResponseModel();
+			permisoResponseModel.setid(object.getModulo().getId());
+			permisoResponseModel.setNombre(object.getModulo().getNombre());
+			permisoResponseModel.setFecha(format.format(object.getFechaAsignacion()));
+			return permisoResponseModel;
 		}
 		
 		return null;

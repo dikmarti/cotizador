@@ -20,6 +20,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import cotizador.controllers.models.PermisoResponseModel;
 import cotizador.model.domain.Modulo;
 import cotizador.model.domain.Permiso;
 import cotizador.model.domain.Usuario;
@@ -38,7 +39,7 @@ public class PermissionController extends GenericController {
 	@Path("/addPermission")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Permiso create(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public PermisoResponseModel create(String jsonForm, @Context HttpServletRequest httpRequest) {
 
 		System.out.println("/update json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
@@ -50,7 +51,7 @@ public class PermissionController extends GenericController {
 			String login = data.get("login");
 			String module = data.get("modulo");
 			
-			Permiso permiso = permissionService.addPermissionUser(login, Integer.valueOf(module));
+			PermisoResponseModel permiso = permissionService.addPermissionUser(login, Integer.valueOf(module));
 
 			System.out.println("permiso: " + permiso);
 			if(permiso != null) {
@@ -77,7 +78,7 @@ public class PermissionController extends GenericController {
 	@Path("/retrieveUserPermission")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Permiso> getUserPermission(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public List<PermisoResponseModel> getUserPermission(String jsonForm, @Context HttpServletRequest httpRequest) {
 
 		System.out.println("/retrieveUserPermission json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
@@ -88,7 +89,7 @@ public class PermissionController extends GenericController {
 			userLogin = mapper.readValue(jsonForm, Map.class);
 			String login = userLogin.get("login");
 			
-			List<Permiso> permission = permissionService.permissionByUser(login);
+			List<PermisoResponseModel> permission = permissionService.permissionByUser(login);
 			
 			if(permission == null) {
 				return null;
