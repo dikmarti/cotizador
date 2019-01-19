@@ -54,23 +54,21 @@
         <h4 class="modal-title" id="modal-title-text">Administrar Permisos de Usuario</h4>
       </div>
       <div class="modal-body">
+   	  	<div class="form-row">
+   			<div class="form-group col-md-4">
+   				<label>Nombre</label>
+	    		<input class="form-control" id="nombre" type="text" name="nombre" disabled="true"/>
+   			</div>
+   			<div class="form-group col-md-4">
+   				<label>Login</label>
+	    		<input class="form-control" id="login" type="text" name="login" disabled="true"/>
+   			</div>
+   			<div class="form-group col-md-4">
+   				<label>Cargo</label>
+	    		<input class="form-control" id="cargo" type="text" name="cargo" disabled="true"/>
+   			</div>
+ 		</div>
       		<form id="admUserPermissionForm" class="form-content">
-				<input id="loginAnterior" type="hidden" name="loginAnterior"/>
-	      		<div class="form-row">
-	      			<div class="form-group col-md-4">
-	      				<label>Nombre</label>
-					    <input class="form-control" id="nombre" type="text" name="nombre" disabled="true"/>
-	      			</div>
-	      			<div class="form-group col-md-4">
-	      				<label>Login</label>
-					    <input class="form-control" id="login" type="text" name="login" disabled="true"/>
-	      			</div>
-	      			<div class="form-group col-md-4">
-	      				<label>Cargo</label>
-					    <input class="form-control" id="cargo" type="text" name="cargo" disabled="true"/>
-	      			</div>
-	    		</div>
-<br>
 	    		<div class="form-row">
 					<div class="form-group col-md-6">
 					    <select class="form-control form-control-sm custom-color" id="permissionModules" name="permissionModules" >
@@ -83,6 +81,13 @@
 				        	<span><strong>Añadir Permiso</strong></span>            
 				    	</a>
 					</div>
+				</div>
+				<div class="form-row">
+	      			<div class="form-group col-md-6">
+					    <div class="msg-error">
+					   			*Debe seleccionar un módulo.
+		      			</div>
+	      			</div>
 				</div>
 		   	</form>
 		   	
@@ -197,7 +202,7 @@ $(document).ready(function() {
 		        }
 		    } );
 		  
-		  $('#tablePermission tbody').on( 'click', 'tr', function () {
+		  $('#dtPermission tbody').on( 'click', 'tr', function () {
 		        if ($(this).hasClass('selected')) {
 		            $(this).removeClass('selected');
 		        }
@@ -264,17 +269,6 @@ $(document).ready(function() {
 		    	        		       [{ "Nombre": result[index].modulo.nombre 
 		    	        		    	}]).draw(); 
 		    	        });
-		    	        
-		    	        $('#tablePermission tbody').on( 'click', 'tr', function () {
-		    		        if ($(this).hasClass('selected')) {
-		    		            $(this).removeClass('selected');
-		    		        }
-		    		        else {
-		    		        	tablePermission.$('tr.selected').removeClass('selected');
-		    		            $(this).addClass('selected'); 
-		    		        }
-		    		    } );
-
 		    	        $("#user-modal-permission").modal("show");
 		    	  },
 		    	  complete: function(result){
@@ -289,16 +283,16 @@ $(document).ready(function() {
 		});
 		
 	
-		$("#btn-modal-permission").click(function() {
+		$("#btn-modal-add-permission").click(function() {
 	    	 var $login =  $("#login").val();
-	    	 var $tipoUsuario =  $("#tipoUsuario option:selected").val();
-		     
+	    	 var $moduleSelected =  $("#permissionModules option:selected").val();
+	    	 $(".msg-error").removeClass("on");
 	    	 
-	    	 if ($login == "" || $tipoUsuario == "") {
+	    	 if ($login == "" || $moduleSelected == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
 	   		 } else {
-	   		      console.log("Hay valores");
+	   		      console.log("Hay modulo seleccionado");
 	   		 }
 	    	 
 	    	  var $form = $("#admUserPermissionForm").serializeArray();    	  	  
@@ -306,13 +300,13 @@ $(document).ready(function() {
 	    	 
 	  	 	 $("#user-modal-permission").css('z-index', '1');
 	    	 $.ajax({
-		    	  url: "/Cotizador/rest/permission/updatePermission",
+		    	  url: "/Cotizador/rest/permission/addPermission",
 		    	  type: "POST",
-		    	  data: JSON.stringify($formSerialized),
+		    	  data: JSON.stringify({login: $login,  modulo: $moduleSelected}),
 		    	  dataType: "json",
 		    	  contentType: "application/json; charset=utf-8",
 		    	  success: function(result){		    		
-		    	        console.log("termino actualizacion de permisos de usuario");
+		    	        console.log("termino de agregar permiso al usuario");
 		    	        console.log("result: " + result);
 		    	        var obj = JSON.stringify(result);
 		    	        console.log(" objeto " + obj);	    	        
@@ -322,20 +316,17 @@ $(document).ready(function() {
 		    	        if(obj === undefined) {	    	  
 		    	        	$("#user-modal-permission").css('z-index', '2');
 		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		    	        	$(".msg-error").html("Ha ocurrido un error, el usuario no pudo ser creado.");
+		    	        	$(".msg-error").html("Ha ocurrido un error, el permiso no pudo ser otorgado.");
 		    	        	$(".msg-error").addClass("on");	    	        	 
 		    	        } else {
-		    	        	if(result == 0) {
-			    	        	location.href = "admUsuarios";
-		    	        	} else if (result == 1) {
+		    	        	if(result != null) {
+				    	        	tablePermission.rows.add(
+				    	        		       [{ "Nombre": result.modulo.nombre 
+				    	        		    	}]).draw(); 
+		    	        	} else {
 		    	        		$("#user-modal-permission").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		    	        		$(".msg-error").html("Ha ocurrido un error, login ya existe.");
-			    	        	$(".msg-error").addClass("on");	 
-		    	        	} else if (result == 2) {
-		    	        		$("#user-modal-permission").css('z-index', '2');
-			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		    	        		$(".msg-error").html("Ha ocurrido un error, el usuario no pudo ser creado.");
+		    	        		$(".msg-error").html("Ha ocurrido un error, el permiso no pudo ser otorgado.");
 			    	        	$(".msg-error").addClass("on");	 
 		    	        	}
 		    	        }

@@ -49,5 +49,15 @@ public class ModuleService {
 		return  result;
 	}
 	
+	public Modulo getModuleById(Integer id) {
+		
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Modulo.findById", "id", id);
+
+		@SuppressWarnings("unchecked")
+		Modulo result = !allObject.isEmpty() ? (Modulo) (Object) allObject.get(0) : null;						
+	
+		return  result;
+	}
+	
 	
 }

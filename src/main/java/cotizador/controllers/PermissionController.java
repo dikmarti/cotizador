@@ -35,23 +35,27 @@ public class PermissionController extends GenericController {
 	PermissionService permissionService;
 
 	@POST
-	@Path("/updatePermission")
+	@Path("/addPermission")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Integer update(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public Permiso create(String jsonForm, @Context HttpServletRequest httpRequest) {
 
 		System.out.println("/update json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
-		UserModel userModel = new UserModel();
+		Map<String, String> data = new HashMap<String, String>();
 
 		try {
 
-			userModel = mapper.readValue(jsonForm, UserModel.class);
+			data = mapper.readValue(jsonForm, Map.class);
+			String login = data.get("login");
+			String module = data.get("modulo");
 			
-			Integer status = permissionService.updatePermission(userModel.getLogin());
+			Permiso permiso = permissionService.addPermissionUser(login, Integer.valueOf(module));
 
-			System.out.println("status: " + status);
-			return status;
+			System.out.println("permiso: " + permiso);
+			if(permiso != null) {
+				return permiso;
+			}
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

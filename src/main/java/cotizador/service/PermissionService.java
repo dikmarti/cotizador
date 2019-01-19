@@ -1,6 +1,7 @@
 package cotizador.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -60,11 +61,11 @@ public class PermissionService {
 		System.out.println("finding modules to user from data base");
 		
 		List<Permiso> userPermissions = permissionByUser(login);
-		List<Modulo> userPermissionsModules = new ArrayList<Modulo>();
+		List<Integer> userPermissionsModules = new ArrayList<Integer>();
 		if (userPermissions != null && !userPermissions.isEmpty()) {
 			
 			for (Permiso permiso : userPermissions) {
-				userPermissionsModules.add(permiso.getModulo());
+				userPermissionsModules.add(permiso.getModulo().getId());
 			}
 			
 		}
@@ -78,12 +79,12 @@ public class PermissionService {
 		
 		
 		if(userPermissionsModules != null && !userPermissionsModules.isEmpty()) {
-			for (Modulo moduloUser : userPermissionsModules) {
-				System.out.println("moduloUser: " + moduloUser.getNombre());
+			for (Modulo modulo : allModules) {
+				System.out.println("moduloUser: " + modulo.getNombre());
 				System.out.println("allModulesfor: " + allModules);
-				if(allModules.contains(moduloUser)) {
-					System.out.println("allModules.contains(moduloUser): " + allModules.contains(moduloUser));
-					allModules.remove(moduloUser);
+				if(!userPermissionsModules.contains(modulo.getId())) {
+					System.out.println("userPermissionsModules.contains(modulo.getId()): " + userPermissionsModules.contains(modulo.getId()));
+					modulesResult.add(modulo);
 				}
 			}
 			return allModules;
@@ -93,29 +94,57 @@ public class PermissionService {
 	}
 
 	/**
-	 * Metodo que actualiza los permisos de un usuario en la base de datos
-	 * @param usuario
+	 * Metodo que agrega un permiso a un usuario en la base de datos
 	 * @param login
-	 * @param clave
-	 * @param email
-	 * @param telefono
-	 * @param direccion
-	 * @param cargo
-	 * @param tipoUsuario
+	 * @param idModule
 	 * @return
 	 */
-	public Integer updatePermission(String login) {
+	public Permiso addPermissionUser(String login, Integer idModule) {
 
 		System.out.println("Method updatePermission...");
-		System.out.println("Updating user permission from data base");
+		System.out.println("finding user from data base");
 		
-		int status = genericRepository.executeUpdateQuery("UPDATE Permiso u SET u.login = '" + login + "' WHERE u.login = '" + login + "'");
+		Usuario user = userService.findUserByLogin(login);
 		
-		System.out.println("finish user permission update");
-		System.out.println("status: " + status);
-		Integer result = status == 1 ? 0 : 2;
+		System.out.println("finding module from data base");
 		
-		return result;
+		Modulo module = moduleService.getModuleById(idModule);
+		
+		Permiso permiso = new Permiso();
+		permiso.setFechaAsignacion(new Date());
+		permiso.setUsuario(user);
+		permiso.setModulo(module);
+		
+		System.out.println("Creating permiso from data base");
+		
+		Object object = genericRepository.addObject(permiso);		
+		
+		System.out.println("finish permission create");
+		
+		if (object != null) {
+			return (Permiso) object;
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Metodo que elimina un permiso a un usuario en la base de datos 
+	 * @param login
+	 * @param idModule
+	 * @return
+	 */
+	public Boolean deletePermissionUser(String login, Integer idModule) {
+
+		System.out.println("Method deletePermissionUser...");
+
+		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Permiso p WHERE p.usuario.login = '" + login 
+						+"' AND p.modulo.id = '" + idModule + "'");
+
+		System.out.println("permission user deleted: " + deleted);
+		Boolean userResult = deleted == 1 ? Boolean.TRUE : Boolean.FALSE;
+
+		return  userResult;
 	}
 
 }
