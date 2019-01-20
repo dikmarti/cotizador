@@ -30,12 +30,10 @@ public class ApplicationFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
-		//System.out.println("BEGIN filter");
-		
+				
 		String uri = ((HttpServletRequest) request).getRequestURI();
 		
-		//System.out.println("request uri" + uri);
+		System.out.println("request uri" + uri);
 		
 		Matcher matcher = patternResources.matcher(uri);
 		//OJO con resources
@@ -52,28 +50,36 @@ public class ApplicationFilter implements Filter {
 		appMap = new ApplicationSecureMap();
 		Map<String, String> applicationsecuremap = appMap.getApplicationsecuremap();
 		
-		  if(usuarioLogueado != null && !usuarioLogueado.isEmpty()) {
-			  List<ModuloResponseModel> modulesSession = (List<ModuloResponseModel>) httpSession.getAttribute("menu_"+usuarioLogueado);
+	  if(usuarioLogueado != null && !usuarioLogueado.isEmpty()) {
+		  List<ModuloResponseModel> modulesSession = (List<ModuloResponseModel>) httpSession.getAttribute("menu_"+usuarioLogueado);
+		  
+		  for (ModuloResponseModel modulo : modulesSession) {
+			
+			  String uriModule = ((HttpServletRequest) request).getContextPath() + "/" + applicationsecuremap.get(modulo.getNombre());
 			  
-			  for (ModuloResponseModel modulo : modulesSession) {
-				
-				  String modulePath = applicationsecuremap.get(modulo.getNombre());
+			  if(uriModule.equals(uri)) {
+				  chain.doFilter(request, response);
+				  return;
+			  }	else {
+				  // Si la uri es una pagina dentro de un modulo
+				  int lastIndexOf = uri.lastIndexOf('/');					  
+				  String uriPage = uri.substring(lastIndexOf+1);
 				  
-				  if(modulePath != null) {
-					  //System.out.println("Es modulo permitido");
-						chain.doFilter(request, response);
-						return;
-				  }				 
-			  }
+				  String uriPermited = applicationsecuremap.get( modulo.getNombre() + "_" + uriPage);
+				  
+				  if(uriPermited != null) {
+					  chain.doFilter(request, response);
+					  return;
+				  }			 		 
+			  }	 
+	  		
 		  }
 		  
-		  /*
-		   * TODO: verificar un 404
-		   */
-		  
+	  }
 		  //System.out.println("context path " + ((HttpServletRequest) request).getContextPath());
-		  HttpServletResponse httpResponse = (HttpServletResponse) response;
-		  httpResponse.sendRedirect(((HttpServletRequest) request).getContextPath() + "/index");
-		  
+	  HttpServletResponse httpResponse = (HttpServletResponse) response;
+	  httpResponse.sendRedirect(((HttpServletRequest) request).getContextPath() + "/index");
+ 
+		chain.doFilter(request, response);
 	}
 }
