@@ -382,42 +382,49 @@ $(document).ready(function() {
 			} 
 			var $login =  $("#idUser").val();
 			var $permissionDelete = tablePermission.rows('.selected').data()[0]['Id'];
+			var $permissionName = tablePermission.rows('.selected').data()[0]['Nombre'];
 			console.log("delete permiso usuario " + $login);   	 
 			console.log("delete permiso modulo " + $permissionDelete);   	 
-			
-// 			$.ajax({
-// 		    	  url: "/Cotizador/rest/userModule/delete",
-// 		    	  type: "POST",
-// 		    	  data: JSON.stringify({login: $userDelete}),
-// 		    	  dataType: "json",
-// 		    	  contentType: "application/json; charset=utf-8",
-// 		    	  success: function(result){		    		
-// 		    	        console.log("termino de borrar usuario");
-// 		    	        console.log("result: " + result);
-// 		    	        var obj = JSON.stringify(result);
-// 		    	        console.log(" objeto " + obj);	    	        
+			$("#user-modal-permission").css('z-index', '1');
+			$.ajax({
+		    	  url: "/Cotizador/rest/permission/deletePermission",
+		    	  type: "POST",
+		    	  data: JSON.stringify({login: $login, module: $permissionDelete}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino de borrar permiso");
+		    	        console.log("result: " + result);
+		    	        var obj = JSON.stringify(result);
+		    	        console.log(" objeto " + obj);	    	        
 		    	        
-// 		    	        $(".msg-error").removeClass("on");
-		    	        
-// 		    	        if(obj === undefined) {	    	        	
-// 		    	        } else {
-// 		    	        	if(result) {
-// 			    	        	location.href = "admUsuarios";
-// 		    	        	} else {
-// 		    	        		console.log("Ha ocurrido un error, el usuario no pudo ser creado.")
-// 		    	        	}
-// 		    	        }
+		    	        $(".msg-error").removeClass("on");
+		    	        $("#user-modal-permission").css('z-index', '2');
+	    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+		    	        if(obj === undefined) {	    	        	
+		    	        	console.log("Ha ocurrido un error, el permiso no pudo ser eliminado.")
+		    	        } else {
+		    	        	if(result) {
+		    	        		tablePermission.rows('.selected').remove().draw( false );
+		    	        		
+		    	        		var o = new Option($permissionName, $permissionDelete);
+			    	        	$(o).html($permissionName);
+			    	        	$("#permissionModules").append(o);
+		    	        	} else {
+		    	        		console.log("Ha ocurrido un error, el usuario no pudo ser eliminado.");
+		    	        	}
+		    	        }
 		    	       
-// 		    	  },
-// 		    	  complete: function(result){
-// 		    	        console.log("complete");
-// 		    	  },
-// 		    	  error: function(result){
-// 		    	        console.log("error");
-// 		    	  }
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
 		    	  
 		    	  
-// 		    	});
+		    	});
 		});
 		
 		function clear() {

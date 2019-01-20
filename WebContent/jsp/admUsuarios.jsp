@@ -289,12 +289,13 @@ $(document).ready(function() {
 		    	        
 		    	        $(".msg-error").removeClass("on");
 		    	        
-		    	        if(obj === undefined) {	    	        	
+		    	        if(obj === undefined) {	 
+		    	        	console.log("Ha ocurrido un error, el usuario no pudo ser creado.")
 		    	        } else {
 		    	        	if(result) {
 			    	        	location.href = "admUsuarios";
 		    	        	} else {
-		    	        		console.log("Ha ocurrido un error, el usuario no pudo ser creado.")
+		    	        		console.log("Ha ocurrido un error, el usuario no pudo ser eliminado.")
 		    	        	}
 		    	        }
 		    	       

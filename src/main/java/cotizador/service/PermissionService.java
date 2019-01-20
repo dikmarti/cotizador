@@ -150,7 +150,7 @@ public class PermissionService {
 
 		System.out.println("Method deletePermissionUser...");
 
-		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Permiso p WHERE p.usuario.login = '" + login 
+		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Permiso p WHERE p.usuario.id = '" + login 
 						+"' AND p.modulo.id = '" + idModule + "'");
 
 		System.out.println("permission user deleted: " + deleted);
