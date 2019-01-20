@@ -85,6 +85,6 @@
 	 </servlet>
 	 <servlet-mapping>
 	      <servlet-name>proyecto</servlet-name>
-	      <url-pattern>/proyecto</url-pattern>
+	      <url-pattern>/formProyecto</url-pattern>
 	 </servlet-mapping>	   	
 </web-app>
