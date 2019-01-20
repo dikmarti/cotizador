@@ -74,19 +74,19 @@
     		</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-		    <input class="form-control" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
+		    		<input class="form-control" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
     			</div> 			
     		</div>
     		<div class="form-row">
-    			<div class="form-group col-md-8">
-		    <div class="msg-error">
+    			<div class="form-group col-md-12">
+		    <div class="msg-error" id="msg-error-proyecto">
 		   			Debe ingresar los datos.
      			</div>
     			</div>
 			</div>
 			
 			<div class="div-btns">
-			   	<input type="button" value="Guardar" id="btn-guardar" class="btn btn-primary" />			   	
+			   	<input type="button" value="Guardar" id="btn-guardar-proyecto" class="btn btn-primary" />			   	
 			   	<input type="button" value="Crear Nivel" id="btn-crear-nivel" class="btn btn-primary" />
 			</div>
 			
@@ -131,8 +131,8 @@
 	      			</div>	      			
 	      		</div>	      		
 	      		<div class="form-row">
-	      			<div class="form-group col-md-6">
-					    <div class="msg-error">
+	      			<div class="form-group col-md-12">
+					    <div class="msg-error" id="msg-error-nivel">
 					   			Debe ingresar los datos.
 		      			</div>
 	      			</div>
@@ -158,13 +158,39 @@
 		var indexColorNivel = 0;
 		var cantMaxNiveles = 50;
 		var ordenesNivelArray = [];
-
 		
 		var colorArray = interpolateColors(color1, color2, cantMaxNiveles);
 		
+		$("#btn-guardar-proyecto").click(function() {			
+
+			var idCrmMCO = $("#idCrmMCO").val();
+			var ruc = $("#ruc").val();
+			var descripcion = $("#descripcion").val();
+			var contratista = $("#contratista").val();
+			var unidadEjecutora = $("#unidadEjecutora").val();
+			var nivelConstruccion = $("#nivelConstruccion").val();
+			var montoInversion = $("#montoInversion").val();
+			var montoPartida = $("#montoPartida").val();
+			var areaConstruccion = $("#areaConstruccion").val();
+			var soporteTecnico = $("#soporteTecnico").val();
+			var garantiaCableado = $("#garantiaCableado").val();
+			var garantiaEquipos = $("#garantiaEquipos").val();
+			var localidad = $("#localidad").val();
+			
+			if(idCrmMCO.trim() == "" || ruc.trim() == "" || descripcion.trim() == "" ||
+				contratista.trim() == "" || unidadEjecutora.trim() == "" || nivelConstruccion.trim() == "" ||
+					montoInversion.trim() == "" || montoPartida.trim() == "" || areaConstruccion.trim() == "" ||
+						soporteTecnico.trim() == "" || garantiaCableado.trim() == "" || garantiaEquipos.trim() == "" ||
+							localidad.trim() == "") {
+				
+				$("#msg-error-proyecto").addClass("show");
+				return false;
+			}	
+		});
+		
 		$("#btn-crear-nivel").click(function() {
 			
-//TODO validar si es nuevo o esta modificando
+//TODO validar si es nuevo o esta modificando para mostrar los valores
 			$("#nombre").val("");
 			$("#descripcion").val("");
 			$("#orden").val("")
@@ -174,17 +200,25 @@
 		});
 		
 		$("#btn-guardar-nivel").click(function() {
+			
+			var orden = $("#orden").val();
+			var nombre = $("#nombre").val();
+			var descripcion = $("#descripcion").val();
+			
+			if(orden.trim() == "" || nombre.trim() == "" || descripcion.trim() == "") {
+				$("#msg-error-nivel").addClass("show");
+				return false;
+			}			
+
+// TODO Ir a bd y guardar el nivel
+			
 			var colorNivelCreado = colorArray[indexColorNivel];
 			var colorFont = "white";
 			
 			if (indexColorNivel >= cantMaxNiveles/2) {
 				colorFont = "dark";
-			}
-						
-// TODO Ir a bd y guardar el nivel
-
-			var orden = $("#orden").val();
-			var nombre = $("#nombre").val();
+			}			
+			
 			var html = '<div data-orden=' + orden + ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');">';
 			html += '<p>' + nombre + '</p>';
 			html += '</div>';
@@ -195,8 +229,7 @@
 			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
 			});
 			
-			$("#row-niveles").html("");
-			console.log("ordenado: " + $test);
+			$("#row-niveles").html("");			
 			$("#row-niveles").append($test);		
 			
 			indexColorNivel++;
@@ -212,7 +245,7 @@
 		    }
 		    return result;
 		};
-		// My function to interpolate between two colors completely, returning an array
+		
 		function interpolateColors(color1, color2, steps) {
 		    var stepFactor = 1 / (steps - 1),
 		        interpolatedColorArray = [];
