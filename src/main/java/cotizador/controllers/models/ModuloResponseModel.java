@@ -13,6 +13,8 @@ public class ModuloResponseModel implements Serializable{
 	private String descripcion;
 	
 	private String url;
+	
+	private int id;
 
 	public int getTipoModulo() {
 		return tipoModulo;
@@ -44,5 +46,20 @@ public class ModuloResponseModel implements Serializable{
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "ModuloResponseModel [tipoModulo=" + tipoModulo + ", nombre=" + nombre + ", descripcion=" + descripcion
+				+ ", url=" + url + ", id=" + id + "]";
 	}	
+	
 }

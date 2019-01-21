@@ -118,6 +118,7 @@ public class ModuleController extends GenericController{
 			moduloResponseModel.setNombre(modulo.getNombre());
 			moduloResponseModel.setTipoModulo(modulo.getTipoModulo());
 			moduloResponseModel.setUrl(urlModulo);
+			moduloResponseModel.setId(modulo.getId());
 			
 			modules.add(moduloResponseModel);					
 			moduloResponseModel  = new ModuloResponseModel();
