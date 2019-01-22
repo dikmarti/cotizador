@@ -2,26 +2,30 @@ package cotizador.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.app.ApplicationSecureMap;
 import cotizador.controllers.models.ModuloResponseModel;
 import cotizador.model.domain.Modulo;
+import cotizador.model.domain.models.UserModel;
 import cotizador.service.ModuleService;
 
 @Path("/modules")
@@ -145,6 +149,43 @@ public class ModuleController extends GenericController{
 		}
 		
 		return modules;
+	}
+	
+	@POST
+	@Path("/updateModule")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Integer update(String jsonForm, @Context HttpServletRequest httpRequest) {
+
+		System.out.println("/update json form " + jsonForm);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, String> data = new HashMap<String, String>();
+
+		try {
+
+			data = mapper.readValue(jsonForm, Map.class);
+			String id = data.get("id");
+			String nombre = data.get("nombre");
+			String descripcion = data.get("descripcion");
+			
+			Integer status = moduleService.updateModule(id, nombre, descripcion);
+
+			System.out.println("status: " + status);
+			return status;
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
   
 }

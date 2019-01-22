@@ -65,5 +65,28 @@ public class ModuleService {
 		return  result;
 	}
 	
+	/**
+	 * Metodo que actualiza un modulo en la base de datos
+	 * @param id
+	 * @param nombre
+	 * @param descripcion
+	 * @return
+	 */
+	public Integer updateModule(String id, String nombre, String descripcion) {
+
+		System.out.println("Method updateModule...");
+		System.out.println("Updating module from data base");
+
+
+		int status = genericRepository.executeUpdateQuery("UPDATE Modulo u SET u.nombre = '" + nombre + "', "
+						+ "u.descripcion = '" + descripcion + "' WHERE u.id = '" + id + "'");
+		
+		System.out.println("finish module update");
+		System.out.println("status: " + status);
+		Integer result = status == 1 ? 0 : 2;
+		
+		return result;
+	}
+	
 	
 }
