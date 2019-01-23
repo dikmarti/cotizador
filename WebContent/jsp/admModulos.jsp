@@ -20,20 +20,28 @@
 <table id="dtModule" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
   <thead>
     <tr>
+      <th class="th-sm">Orden
+	  </th>
       <th class="th-sm">Nombre
       </th>
       <th class="th-sm">Descripción
       </th>
+      <th class="th-sm">Id
+	  </th>
     </tr>
   </thead>
   <tbody id="module-data">
   </tbody>
   <tfoot>
     <tr>
+      <th>Orden
+      </th>
       <th>Nombre
       </th>
       <th>Descripción
       </th>
+      <th>Id
+	  </th>
     </tr>
   </tfoot>
 </table>
@@ -53,10 +61,16 @@
       		<form id="EditModuleForm" class="form-content">
 			<input id="id" type="hidden" name="id"/>
       		<div class="form-row">
-      			<div class="form-group col-md-6">
+      		<label for="orden" class="col-sm-10 col-form-label">Orden </label>
+      			<div class="form-group col-md-10">
+				    <input class="form-control" id="orden" type="text" name="orden" placeholder="Orden" maxlength="200"/>
+      			</div>
+      		<label for="nombre" class="col-sm-10 col-form-label">Nombre </label>
+      			<div class="form-group col-md-10">
 				    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
       			</div>
-      			<div class="form-group col-md-6">
+      		<label for="descripcion" class="col-sm-10 col-form-label">Descripción </label>
+      			<div class="form-group col-md-10">
 				    <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripción" maxlength="200"/>
       			</div>
     		</div>
@@ -68,7 +82,7 @@
       			</div>
 			</div>
 			<div class="form-style-button">
-			   	<input type="button" value="Modificar" id="btn-modal-update" class="btn btn-primary" style="width: 50%; margin-left: 65px; visibility: hidden;"/>
+			   	<input type="button" value="Modificar" id="btn-modal-update" class="btn btn-primary" style="width: 50%; margin-left: 65px;"/>
 			</div>
 		   	</form>
       </div>
@@ -96,9 +110,10 @@ $(document).ready(function() {
     	        $.each(result, function( index, element ) {	   
     	        	
     	        	table.rows.add(
- 	        		       [{ "Nombre": result[index].nombre, 
- 	        		    	   "Descripcion": result[index].descripcion,
- 	        		    	   "Id": result[index].id
+ 	        		       [{ "Orden": result[index].orden, 
+ 	        		          "Nombre": result[index].nombre, 
+ 	        		    	  "Descripcion": result[index].descripcion,
+ 	        		    	  "Id": result[index].id
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -129,12 +144,13 @@ $(document).ready(function() {
 		              }
 		        },
 		        columns:[
+            	    {data: 'Orden'},
             	    {data: 'Nombre'},
-            	    {data: 'Descripción'},
+            	    {data: 'Descripcion'},
             	    {data: 'Id'},],
           	    "columnDefs": [
                       {
-                          "targets": [ 2 ],
+                          "targets": [ 3 ],
                           "visible": false,
                           "searchable": false
                       }]
@@ -159,9 +175,11 @@ $(document).ready(function() {
 			} 
 			var $moduleModify = table.rows('.selected').data()[0];
 			console.log("modify module " + $moduleModify);
+			var $orden =  $moduleModify.Orden;
 			var $nombre =  $moduleModify.Nombre;
 	    	 var $descripcion =  $moduleModify.Descripcion;
-	    	 var $id =  $moduleModify.id;
+	    	 var $id =  $moduleModify.Id;
+			$('#module-modal').find('#orden').val($orden);
 			$('#module-modal').find('#nombre').val($nombre);
 			$('#module-modal').find('#descripcion').val($descripcion);
 			$('#module-modal').find('#id').val($id);
@@ -172,11 +190,12 @@ $(document).ready(function() {
 	    	 var $nombre =  $("#nombre").val();
 	    	 var $descripcion =  $("#descripcion").val();
 	    	 var $id =  $("#id").val();
+	    	 var $orden =  $("#orden").val();
 	    	 
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Los campos son obligatorios.");
 		     
-	    	 if ($descripcion == "" || $nombre == "" ) {
+	    	 if ($descripcion == "" || $nombre == "" || $orden == "" ) {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
 	   		 } else {
@@ -184,11 +203,11 @@ $(document).ready(function() {
 	   		 }
 
 	    	 
-	    	 $("#user-modal").css('z-index', '1');
+	    	 $("#module-modal").css('z-index', '1');
 	    	 $.ajax({
 		    	  url: "/Cotizador/rest/modules/updateModule",
 		    	  type: "POST",
-		    	  data: JSON.stringify({id: $id, nombre: $nombre, descripcion: $descripcion}),
+		    	  data: JSON.stringify({id: $id, nombre: $nombre, descripcion: $descripcion, orden: $orden}),
 		    	  dataType: "json",
 		    	  contentType: "application/json; charset=utf-8",
 		    	  success: function(result){		    		
@@ -200,17 +219,17 @@ $(document).ready(function() {
 		    	        $(".msg-error").removeClass("on");
 		    	        
 		    	        if(obj === undefined) {	    	  
-		    	        	$("#user-modal").css('z-index', '2');
+		    	        	$("#module-modal").css('z-index', '2');
 		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		    	        	$(".msg-error").html("Ha ocurrido un error, el modulo no pudo ser actualizado.");
+		    	        	$(".msg-error").html("Ha ocurrido un error, el módulo no pudo ser actualizado.");
 		    	        	$(".msg-error").addClass("on");	    	        	 
 		    	        } else {
 		    	        	if(result == 0) {
 			    	        	location.href = "admModulos";
 		    	        	} else {
-		    	        		$("#user-modal").css('z-index', '2');
+		    	        		$("#module-modal").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		    	        		$(".msg-error").html("Ha ocurrido un error, el modulo no pudo ser actualizado.");
+		    	        		$(".msg-error").html("Ha ocurrido un error, el módulo no pudo ser actualizado.");
 			    	        	$(".msg-error").addClass("on");	 
 		    	        	}
 		    	        }
@@ -226,6 +245,12 @@ $(document).ready(function() {
 		    	});
 	    	 
 	      });
+		
+		$("#orden").on('keypress', function (e) {
+			if(!/^([0-9])*$/.test(e.key)) {
+				return false;
+			}
+		});
 
 	  });   
 		  

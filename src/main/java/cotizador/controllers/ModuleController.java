@@ -118,11 +118,12 @@ public class ModuleController extends GenericController{
 		for (Modulo modulo : allModules) {
 			String urlModulo = applicationsecuremap.get(modulo.getNombre());
 			
-			moduloResponseModel.setDescripcion(modulo.getNombre());
 			moduloResponseModel.setNombre(modulo.getNombre());
+			moduloResponseModel.setDescripcion(modulo.getDescripcion());
 			moduloResponseModel.setTipoModulo(modulo.getTipoModulo());
 			moduloResponseModel.setUrl(urlModulo);
 			moduloResponseModel.setId(modulo.getId());
+			moduloResponseModel.setOrden(modulo.getOrden());
 			
 			modules.add(moduloResponseModel);					
 			moduloResponseModel  = new ModuloResponseModel();
@@ -151,6 +152,7 @@ public class ModuleController extends GenericController{
 		return modules;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@POST
 	@Path("/updateModule")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -167,8 +169,9 @@ public class ModuleController extends GenericController{
 			String id = data.get("id");
 			String nombre = data.get("nombre");
 			String descripcion = data.get("descripcion");
+			int orden = Integer.parseInt(data.get("orden"));
 			
-			Integer status = moduleService.updateModule(id, nombre, descripcion);
+			Integer status = moduleService.updateModule(id, nombre, descripcion, orden);
 
 			System.out.println("status: " + status);
 			return status;
