@@ -100,54 +100,62 @@
   		</div>
   
 <!-- End page content -->
+
+	
+
+	</div>
+
+
 </div>
 
 <!-- Modal -->
-<div id="nivel-modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" id="modal-title-text">Crear Nivel</h4>
-      </div>
-      <div class="modal-body">
-      		<form id="createNivelForm" class="form-content">
-				
-	      		<div class="form-row">
-	      			<div class="form-group col-md-6">
-					    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
-	      			</div>	      			
-	    		</div>
-	      		<div class="form-row">
-	      			<div class="form-group col-md-6">
-					    <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripción"  maxlength="200"/>
-	      			</div>	      			
-	      		</div>
-	      		<div class="form-row">
-	      			<div class="form-group col-md-6">
-					    <input class="form-control" id="orden" type="number" name="orden" placeholder="Orden" maxlength="200"/>
-	      			</div>	      			
-	      		</div>	      		
-	      		<div class="form-row">
-	      			<div class="form-group col-md-12">
-					    <div class="msg-error" id="msg-error-nivel">
-					   			Debe ingresar los datos.
+	<div id="nivel-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title" id="modal-title-text">Crear Nivel</h4>
+	      </div>
+	      <div class="modal-body">
+	      		<form id="createNivelForm" class="form-content">
+					
+		      		<div class="form-row">
+		      			<div class="form-group col-md-6">
+						    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
+		      			</div>	      			
+		    		</div>
+		      		<div class="form-row">
+		      			<div class="form-group col-md-6">
+						    <input class="form-control" id="descripcion-nivel" type="text" name="descripcion-nivel" placeholder="Descripción"  maxlength="200"/>
+		      			</div>	      			
+		      		</div>
+		      		<div class="form-row">
+		      			<div class="form-group col-md-6">
+						    <input class="form-control" id="orden" type="number" name="orden" placeholder="Orden" maxlength="200"/>
+		      			</div>	      			
+		      		</div>	      		
+		      		<div class="form-row">
+		      			<div class="form-group col-md-12">
+						    <div class="msg-error" id="msg-error-nivel">
+						   			Debe ingresar los datos.
+			      			</div>
 		      			</div>
-	      			</div>
-				</div>
-				<div class="form-style-button">
-				   	<input type="button" value="Guardar" id="btn-guardar-nivel" class="btn btn-primary" style="margin-left: 30%;"/>			   
-				</div>
-		   	</form>
-      </div>
+					</div>
+					<div class="form-style-button proyecto">
+					   	<input type="button" value="Guardar" id="btn-guardar-nivel" class="btn btn-primary" style="margin-left: 20%;"/>	
+					   	<input type="button" value="Cancelar" id="btn-cancelar-nivel" class="btn btn-primary" style="margin-left: 10%;"/>			   
+					</div>
+			   	</form>
+	      </div>
+	
+	    </div>
+	
+	  </div>
+	</div>
+	<!-- End Modal -->
 
-    </div>
-
-  </div>
-</div>
-<!-- End Modal -->
 
 <script type="text/javascript">
 
@@ -192,18 +200,27 @@
 			
 //TODO validar si es nuevo o esta modificando para mostrar los valores
 			$("#nombre").val("");
-			$("#descripcion").val("");
+			$("#descripcion-nivel").val("");
 			$("#orden").val("")
 			
 			$("#niveles").addClass("show");			
 			$("#nivel-modal").modal("show");
 		});
 		
+		$("#btn-cancelar-nivel").click(function() {
+
+			$("#nombre").val("");
+			$("#descripcion-nivel").val("");
+			$("#orden").val("")
+			
+			$("#nivel-modal").modal("hide");
+		});
+
 		$("#btn-guardar-nivel").click(function() {
 			
 			var orden = $("#orden").val();
 			var nombre = $("#nombre").val();
-			var descripcion = $("#descripcion").val();
+			var descripcion = $("#descripcion-nivel").val();
 			
 			if(orden.trim() == "" || nombre.trim() == "" || descripcion.trim() == "") {
 				$("#msg-error-nivel").addClass("show");
@@ -219,9 +236,11 @@
 				colorFont = "dark";
 			}			
 			
-			var html = '<div data-orden=' + orden + ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');">';
+			var html = '<div data-orden=' + orden + ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
 			html += '<p>' + nombre + '</p>';
-			html += '</div>';
+			html += '<a id="eliminarNivel" href="#" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 5px;"></a>';
+			html += '<a id="editarNivel" href="index" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: -28px;float:right;color:white;"></a>';
+			html += '</div>';			
 			
 			$("#row-niveles").prepend(html);	
 									
