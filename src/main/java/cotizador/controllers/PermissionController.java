@@ -75,6 +75,48 @@ public class PermissionController extends GenericController {
 	
 	@SuppressWarnings("unchecked")
 	@POST
+	@Path("/deletePermission")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Boolean delete(String jsonForm, @Context HttpServletRequest httpRequest) {
+
+		System.out.println("/deletePermission json form " + jsonForm);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> data = new HashMap<String, Object>();
+
+		try {
+
+			data = mapper.readValue(jsonForm, Map.class);
+			String login = (String) data.get("login");
+			Integer module = (Integer) data.get("module");
+			
+			Boolean deleted = permissionService.deletePermissionUser(login, module);
+
+			System.out.println("deleted: " + deleted);
+			if (deleted) {
+				return Boolean.TRUE;
+			} else {
+				return Boolean.FALSE;
+			}
+
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
 	@Path("/retrieveUserPermission")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

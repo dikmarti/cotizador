@@ -71,6 +71,14 @@
 	      <url-pattern>/admPermisos</url-pattern>
 	 </servlet-mapping>	
 	 <servlet>
+      <servlet-name>admModulos</servlet-name>
+      <jsp-file>/jsp/admModulos.jsp</jsp-file>
+	 </servlet>
+	 <servlet-mapping>
+	      <servlet-name>admModulos</servlet-name>
+	      <url-pattern>/admModulos</url-pattern>
+	 </servlet-mapping>	
+	 <servlet>
 		 <servlet-name>index</servlet-name>
 	     <jsp-file>/jsp/index.jsp</jsp-file>
 	 </servlet>
