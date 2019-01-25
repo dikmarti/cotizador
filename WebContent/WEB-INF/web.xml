@@ -79,6 +79,14 @@
 	      <url-pattern>/admModulos</url-pattern>
 	 </servlet-mapping>	
 	 <servlet>
+      <servlet-name>admProveedores</servlet-name>
+      <jsp-file>/jsp/admProveedores.jsp</jsp-file>
+	 </servlet>
+	 <servlet-mapping>
+	      <servlet-name>admProveedores</servlet-name>
+	      <url-pattern>/admProveedores</url-pattern>
+	 </servlet-mapping>	
+	 <servlet>
 		 <servlet-name>index</servlet-name>
 	     <jsp-file>/jsp/index.jsp</jsp-file>
 	 </servlet>
