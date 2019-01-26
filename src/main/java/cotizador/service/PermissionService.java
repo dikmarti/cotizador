@@ -1,6 +1,5 @@
 package cotizador.service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,7 +48,7 @@ public class PermissionService {
 				PermisoResponseModel permisoResponseModel = new PermisoResponseModel();
 				permisoResponseModel.setid(p.getModulo().getId());
 				permisoResponseModel.setNombre(p.getModulo().getNombre());
-				permisoResponseModel.setFecha(format.format(p.getFechaAsignacion()));
+				permisoResponseModel.setFecha(p.getFechaAsignacion() != null ? format.format(p.getFechaAsignacion()) : "");
 				
 				permisoResponseModels.add(permisoResponseModel);
 			}
@@ -133,7 +132,7 @@ public class PermissionService {
 			PermisoResponseModel permisoResponseModel = new PermisoResponseModel();
 			permisoResponseModel.setid(object.getModulo().getId());
 			permisoResponseModel.setNombre(object.getModulo().getNombre());
-			permisoResponseModel.setFecha(format.format(object.getFechaAsignacion()));
+			permisoResponseModel.setFecha(object.getFechaAsignacion() != null ? format.format(object.getFechaAsignacion()) : "");
 			return permisoResponseModel;
 		}
 		
