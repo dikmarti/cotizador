@@ -83,7 +83,7 @@ public class ProviderService {
 		int status = genericRepository.executeUpdateQuery("UPDATE Proveedor u SET u.nombre = '" + nombre + "', "
 						+ "u.codigo = '" + codigo + "', u.direccion = '" + direccion + "' WHERE u.id = '" + id + "'");
 		
-		System.out.println("finish user update");
+		System.out.println("finish provider update");
 		System.out.println("status: " + status);
 		Integer result = status == 1 ? 0 : 2;
 		
