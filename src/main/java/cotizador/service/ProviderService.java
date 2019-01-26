@@ -100,7 +100,7 @@ public class ProviderService {
 
 		System.out.println("Method deleteUser...");
 
-		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Provider u WHERE u.id = '" + id +"'");
+		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Proveedor u WHERE u.id = '" + id +"'");
 
 		System.out.println("deleted: " + deleted);
 		Boolean providerResult = deleted == 1 ? Boolean.TRUE : Boolean.FALSE;

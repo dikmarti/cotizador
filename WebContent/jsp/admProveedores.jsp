@@ -38,7 +38,7 @@
       </th>
     </tr>
   </thead>
-  <tbody id="user-table-data">
+  <tbody id="provider-table-data">
   </tbody>
   <tfoot>
     <tr>
@@ -53,6 +53,11 @@
     </tr>
   </tfoot>
 </table>
+	<div class="form-group col-md-10">
+		<div id="error-table" class="msg-error">
+			Error.
+		</div>
+	</div>
 </div>
 
 <!-- Modal -->
@@ -83,7 +88,7 @@
       			</div>
       		</div>
       		<div class="form-row">
-      			<div class="form-group col-md-6">
+      			<div class="form-group col-md-10">
 				    <div class="msg-error">
 				   			Debe ingresar los datos.
 	      			</div>
@@ -238,15 +243,19 @@ $(document).ready(function() {
 		    	        var obj = JSON.stringify(result);
 		    	        console.log(" objeto " + obj);	    	        
 		    	        
-		    	        $(".msg-error").removeClass("on");
+		    	        $("#error-table").removeClass("on");
 		    	        
 		    	        if(obj === undefined) {	 
 		    	        	console.log("Ha ocurrido un error, el proveedor no pudo ser eliminado.")
+		    	        	$("#error-table").html("Ha ocurrido un error, el proveedor no pudo ser eliminado.");
+		    	        	$("#error-table").addClass("on");	
 		    	        } else {
 		    	        	if(result) {
-			    	        	location.href = "admProveedores";
+		    	        		table.rows('.selected').remove().draw( false );
 		    	        	} else {
 		    	        		console.log("Ha ocurrido un error, el proveedor no pudo ser eliminado.")
+		    	        		$("#error-table").html("Ha ocurrido un error, el proveedor no pudo ser eliminado.");
+			    	        	$("#error-table").addClass("on");	
 		    	        	}
 		    	        }
 		    	       
@@ -280,7 +289,7 @@ $(document).ready(function() {
 	    	  var $form = $("#createProviderForm").serializeArray();    	  	  
 		  	  var $formSerialized = objectifyForm($form);
 	    	 
-	  	 	 $("#user-modal").css('z-index', '1');
+	  	 	 $("#provider-modal").css('z-index', '1');
 	    	 $.ajax({
 		    	  url: "/Cotizador/rest/provider/createProvider",
 		    	  type: "POST",
@@ -296,7 +305,7 @@ $(document).ready(function() {
 		    	        $(".msg-error").removeClass("on");
 		    	        
 		    	        if(obj === undefined) {	    	  
-		    	        	$("#user-modal").css('z-index', '2');
+		    	        	$("#provider-modal").css('z-index', '2');
 		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 		    	        	$(".msg-error").html("Ha ocurrido un error, el proveedor no pudo ser creado.");
 		    	        	$(".msg-error").addClass("on");	    	        	 
@@ -304,12 +313,12 @@ $(document).ready(function() {
 		    	        	if(result == 0) {
 			    	        	location.href = "admProveedores";
 		    	        	} else if (result == 1) {
-		    	        		$("#user-modal").css('z-index', '2');
+		    	        		$("#provider-modal").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 		    	        		$(".msg-error").html("Ha ocurrido un error, codigo de proveedor ya existe.");
 			    	        	$(".msg-error").addClass("on");	 
 		    	        	} else if (result == 2) {
-		    	        		$("#user-modal").css('z-index', '2');
+		    	        		$("#provider-modal").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 		    	        		$(".msg-error").html("Ha ocurrido un error, el proveedor no pudo ser creado.");
 			    	        	$(".msg-error").addClass("on");	 
@@ -347,7 +356,7 @@ $(document).ready(function() {
 	    	 var $form = $("#createProviderForm").serializeArray();    	  	  
 		  	 var $formSerialized = objectifyForm($form);
 	    	 
-	    	 $("#user-modal").css('z-index', '1');
+	    	 $("#provider-modal").css('z-index', '1');
 	    	 $.ajax({
 		    	  url: "/Cotizador/rest/provider/updateProvider",
 		    	  type: "POST",
@@ -363,7 +372,7 @@ $(document).ready(function() {
 		    	        $(".msg-error").removeClass("on");
 		    	        
 		    	        if(obj === undefined) {	    	  
-		    	        	$("#user-modal").css('z-index', '2');
+		    	        	$("#provider-modal").css('z-index', '2');
 		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 		    	        	$(".msg-error").html("Ha ocurrido un error, el proveedor no pudo ser actualizado.");
 		    	        	$(".msg-error").addClass("on");	    	        	 
@@ -371,12 +380,12 @@ $(document).ready(function() {
 		    	        	if(result == 0) {
 			    	        	location.href = "admProveedores";
 		    	        	} else if (result == 1) {
-		    	        		$("#user-modal").css('z-index', '2');
+		    	        		$("#provider-modal").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 		    	        		$(".msg-error").html("Ha ocurrido un error, código de proveedor ya existe.");
 			    	        	$(".msg-error").addClass("on");	 
 		    	        	} else if (result == 2) {
-		    	        		$("#user-modal").css('z-index', '2');
+		    	        		$("#provider-modal").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 		    	        		$(".msg-error").html("Ha ocurrido un error, el proveedor no pudo ser actualizado.");
 			    	        	$(".msg-error").addClass("on");	 
