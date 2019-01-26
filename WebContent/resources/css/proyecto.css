@@ -38,6 +38,23 @@
 	width: 250px;
 }
 
+.confirm {
+	padding-left: 26%;
+}
+
+.confirm-ok {
+	left: 200px;
+	position: absolute; 
+	top: 60px;
+}
+
+.confirm-no {
+	margin-left: 10%; 
+	position: absolute;
+	top: 60px;
+	left: 280px;
+}
+
 @media screen and (max-width: 600px) {
   .div-btns {
     width: 300px;
@@ -48,5 +65,22 @@
   .div-row {
 	margin-top: 50% !important;
 	margin-left: 12% !important;
+  }
+  .confirm {
+	padding-left: 4%;
+  }
+  .confirm-ok {
+	left: 100px;
+	position: absolute; 
+	top: 60px;
+  }
+  .confirm-no {
+	margin-left: 10%; 
+	position: absolute;
+	top: 60px;
+	left: 150px;
+  }
+  .nivel-font p{	
+	text-align: center;
   }
 }
