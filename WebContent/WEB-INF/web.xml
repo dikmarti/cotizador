@@ -95,6 +95,14 @@
 	      <url-pattern>/admSistemas</url-pattern>
 	 </servlet-mapping>	
 	 <servlet>
+      <servlet-name>admProductos</servlet-name>
+      <jsp-file>/jsp/admProductos.jsp</jsp-file>
+	 </servlet>
+	 <servlet-mapping>
+	      <servlet-name>admProductos</servlet-name>
+	      <url-pattern>/admProductos</url-pattern>
+	 </servlet-mapping>	
+	 <servlet>
 		 <servlet-name>index</servlet-name>
 	     <jsp-file>/jsp/index.jsp</jsp-file>
 	 </servlet>
