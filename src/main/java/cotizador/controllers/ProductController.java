@@ -128,7 +128,7 @@ public class ProductController extends GenericController {
 	}
 
 	@POST
-	@Path("/updateSystem")
+	@Path("/updateProduct")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Integer update(String jsonForm, @Context HttpServletRequest httpRequest) {
