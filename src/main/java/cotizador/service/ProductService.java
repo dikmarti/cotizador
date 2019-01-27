@@ -12,6 +12,9 @@ public class ProductService {
 
 	@Inject
 	GenericRepository genericRepository;
+
+	@Inject
+	SystemService systemService;
 	
 	/**
 	 * Metodo que retorna todos los producto de la base de datos
@@ -45,7 +48,7 @@ public class ProductService {
 	 */
 	public Integer createProduct(Integer idMco, Integer idFabricante, String codigo, String nombre, String nombreCorto, 
 			String descripcion, Integer porcentajeResguardo, String observacion, Integer unidadMedida, 
-			Sistema sistema) {
+			Integer sistema) {
 
 		System.out.println("Method createProduct...");
 
@@ -60,7 +63,10 @@ public class ProductService {
 		producto.setPorcentajeResguardo(porcentajeResguardo);
 		producto.setObservacion(observacion);
 		producto.setUnidadMedida(unidadMedida);
-		producto.setSistema(sistema);
+		
+		Sistema system = systemService.findSystemById(sistema);
+		
+		producto.setSistema(system);
 		
 		System.out.println("Creating product from data base");
 		Object object = genericRepository.addObject(producto);
@@ -88,7 +94,7 @@ public class ProductService {
 	 */
 	public Integer updateProduct(Integer idMco, Integer idFabricante, String codigo, String nombre, String nombreCorto, 
 			String descripcion, Integer porcentajeResguardo, String observacion, Integer unidadMedida, 
-			Sistema sistema, Integer id) {
+			Integer sistema, Integer id) {
 
 		System.out.println("Method updateProduct...");
 		System.out.println("Updating product from data base");

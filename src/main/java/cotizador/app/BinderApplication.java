@@ -23,6 +23,6 @@ public class BinderApplication extends AbstractBinder {
         bind(PermissionService.class).to(PermissionService.class);
         bind(ProviderService.class).to(ProviderService.class);
         bind(SystemService.class).to(SystemService.class); 
-        bind(ProviderService.class).to(ProductService.class); 
+        bind(ProductService.class).to(ProductService.class); 
     }
 }

@@ -167,6 +167,11 @@ public class UserService {
 
 	}
 	
+	/**
+	 * Metodo que retorna un usuario de la base por login
+	 * @param login
+	 * @return
+	 */
 	public Usuario findUserByLogin(String login) {
 
 		System.out.println("Method findUserByLogin...");

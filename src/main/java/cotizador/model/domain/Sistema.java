@@ -1,6 +1,10 @@
 package cotizador.model.domain;
 
 import javax.persistence.*;
+@NamedQueries({
+	@NamedQuery(name = "Sistema.findById", query = "SELECT s FROM Sistema s WHERE s.id = :id"),
+	@NamedQuery(name = "Sistema.findAll", query = "SELECT s FROM Sistema s")	
+})
 
 @Entity
 @Table(name="sistema")
@@ -61,6 +65,12 @@ public class Sistema {
 
 	public void setMateriales(String materiales) {
 		this.materiales = materiales;
+	}
+
+	@Override
+	public String toString() {
+		return "Sistema [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", elementos=" + elementos
+				+ ", materiales=" + materiales + "]";
 	}
 	
 }

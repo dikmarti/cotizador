@@ -46,7 +46,7 @@ public class ProductController extends GenericController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("allSystems: " + allProduct);
+		System.out.println("allProduct: " + allProduct);
 		return allProduct;
 	}
 

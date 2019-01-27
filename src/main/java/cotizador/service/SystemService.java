@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import cotizador.model.domain.Sistema;
+import cotizador.model.domain.Usuario;
 import cotizador.model.repository.GenericRepository;
 
 public class SystemService {
@@ -98,6 +99,23 @@ public class SystemService {
 		Boolean systemResult = deleted == 1 ? Boolean.TRUE : Boolean.FALSE;
 
 		return  systemResult;
+	}
+	
+	/**
+	 * Metodo que retorna un sistema de la base por id
+	 * @param id
+	 * @return
+	 */
+	public Sistema findSystemById(Integer id) {
+
+		System.out.println("Method findSystemById...");
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Sistema.findById", "id", id);
+
+		Sistema result = !allObject.isEmpty() ? (Sistema) (Object) allObject.get(0) : null;
+		System.out.println("Sistema: " + result);
+
+		return result;
+
 	}
 
 }

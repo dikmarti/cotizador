@@ -22,7 +22,7 @@ public class ProductModel {
 	public Integer porcentajeResguardo;
 	public String observacion;
 	public Integer unidadMedida;
-	public Sistema sistema;
+	public int sistema;
 	public Integer getId() {
 		return id;
 	}
@@ -83,10 +83,10 @@ public class ProductModel {
 	public void setUnidadMedida(Integer unidadMedida) {
 		this.unidadMedida = unidadMedida;
 	}
-	public Sistema getSistema() {
+	public Integer getSistema() {
 		return sistema;
 	}
-	public void setSistema(Sistema sistema) {
+	public void setSistema(Integer sistema) {
 		this.sistema = sistema;
 	}
 	@Override

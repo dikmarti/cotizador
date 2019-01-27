@@ -129,5 +129,13 @@ public class Producto {
 	public void setSistema(Sistema sistema) {
 		this.sistema = sistema;
 	}
+
+	@Override
+	public String toString() {
+		return "Producto [id=" + id + ", idProductoMCO=" + idProductoMCO + ", idFabricante=" + idFabricante
+				+ ", codigo=" + codigo + ", nombre=" + nombre + ", nombreCorto=" + nombreCorto + ", descripcion="
+				+ descripcion + ", porcentajeResguardo=" + porcentajeResguardo + ", observacion=" + observacion
+				+ ", unidadMedida=" + unidadMedida + ", sistema=" + sistema + "]";
+	}
 	
 }

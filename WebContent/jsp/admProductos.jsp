@@ -399,7 +399,7 @@ $(document).ready(function() {
 		     $(".msg-error").html("Debe ingresar los datos.");
 		     
 	    	 
-	    	 if ($idMco == "" || $idFabricante == "" || $codigo == "" || $nombre == "" || $nombreCorte == "" 
+	    	 if ($idMco == "" || $idFabricante == "" || $codigo == "" || $nombre == "" || $nombreCorto == "" 
 	    			 || $descripcion == "" || $porcentajeResguardo == "" || $observacion == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
@@ -444,7 +444,7 @@ $(document).ready(function() {
 		    	        	$(".msg-error").addClass("on");	    	        	 
 		    	        } else {
 		    	        	if(result == 0) {
-			    	        	location.href = "admSistemas";
+			    	        	location.href = "admProductos";
 		    	        	} else if (result == 1) {
 		    	        		$("#product-modal").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
@@ -532,7 +532,7 @@ $(document).ready(function() {
 		    	        	$(".msg-error").addClass("on");	    	        	 
 		    	        } else {
 		    	        	if(result == 0) {
-			    	        	location.href = "admSistemas";
+			    	        	location.href = "admProductos";
 		    	        	} else if (result == 1) {
 		    	        		$("#product-modal").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
