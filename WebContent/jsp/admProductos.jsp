@@ -46,7 +46,7 @@
       </th>
       <th class="th-sm">Observación
       </th>
-      <th class="th-sm">Unidad de Medidad
+      <th class="th-sm">Unidad de Medida
       </th>
       <th class="th-sm">Sistema
       </th>
@@ -74,7 +74,7 @@
       </th>
       <th>Observación
       </th>
-      <th>Unidad de Medidad
+      <th>Unidad de Medida
       </th>
       <th>Sistema
       </th>
@@ -137,8 +137,12 @@
       			<div class="form-group col-md-6">
 				    <select class="form-control form-control-sm custom-color" id="unidadMedida" name="unidadMedida" >
 				    	<option class="placeholder-option" value="" disabled selected >Seleccione Tipo de Medida</option>
-				    	<option value="0">Unidad</option>
+				    	<option value="0">Galón</option>				    	
 				    	<option value="1">Metros</option>				    	
+				    	<option value="2">Metros Cuadrados</option>				    	
+				    	<option value="3">Metros Cúbicos</option>				    	
+				    	<option value="4">Rollos</option>				    	
+				    	<option value="5">Unidad</option>
 				    </select>
       			</div>
      			<div class="form-group col-md-6">
@@ -185,7 +189,7 @@ $(document).ready(function() {
     	        	
     	        	table.rows.add(
  	        		       [{ "Id": result[index].id, 
- 	        		    	   "IdMco": result[index].idMco,
+ 	        		    	   "IdMco": result[index].idProductoMCO,
  	        		    	   "IdFabricante": result[index].idFabricante,
  	        		    	   "Codigo": result[index].codigo,
  	        		    	   "Nombre": result[index].nombre,
@@ -193,7 +197,7 @@ $(document).ready(function() {
  	        		    	   "Descripcion": result[index].descripcion,
  	        		    	   "PorcentajeResguardo": result[index].porcentajeResguardo,
  	        		    	   "Observacion": result[index].observacion,
- 	        		    	   "UnidadMedida": result[index].unidadMedidad,
+ 	        		    	   "UnidadMedida": result[index].unidadMedida,
  	        		    	   "Sistema": result[index].sistema.nombre
  	        		    	}]).draw(); 
     	        });
@@ -268,21 +272,20 @@ $(document).ready(function() {
 	    	$("#descripcion").val('');
 	    	$("#porcentajeResguardo").val('');
 	    	$("#observacion").val('');
-	    	$("#unidadMedida").val('');
-	    	$("#sistema").val('');
+	    	$("#unidadMedida").val([""]);
+	    	$("#sistema").val([""]);
 			$('#product-modal').find('#btn-modal-update').css('visibility', 'hidden');
 			$('#product-modal').find('#btn-modal-update').css('display', 'none');
 			$('#product-modal').find('#btn-modal-create').css('visibility', 'visible');
 			$('#product-modal').find('#btn-modal-create').css('display', '');
-			$('#product-modal').find('#modal-title-text').html('Crear Sistema');
+			$('#product-modal').find('#modal-title-text').html('Crear Producto');
 			
 			$.ajax({
 		    	  url: "/Cotizador/rest/system/all",
-		    	  type: "POST",
-		    	  data: JSON.stringify({login: $login}),
+		    	  type: "GET",
 		    	  dataType: "json",
 		    	  contentType: "application/json; charset=utf-8",
-		    	  success: function(result){		    		
+		    	  success: function(result){	    		
 		    	        console.log("termino");
 		    	        console.log(result);
 		    	        
@@ -324,7 +327,7 @@ $(document).ready(function() {
 			$('#product-modal').find('#porcentajeResguardo').val(productModify.PorcentajeResguardo);
 			$('#product-modal').find('#observacion').val($productModify.Observacion);
 			$('#product-modal').find('#unidadMedida').val($productModify.UnidadMedida);
-			$('#product-modal').find('#sistema').val($productModify.sistema);
+			$('#product-modal').find('#sistemas').val($productModify.sistema);
 			$('#product-modal').find('#btn-modal-create').css('visibility', 'hidden');
 			$('#product-modal').find('#btn-modal-create').css('display', 'none');
 			$('#product-modal').find('#btn-modal-update').css('visibility', 'visible');
@@ -492,6 +495,17 @@ $(document).ready(function() {
 	   		      console.log("Hay valores");
 	   		 }
 
+	    	 if($unidadMedida == "") {
+		    	 $(".msg-error").html("Debe seleccionar el tipo de medida.")
+		    	 $(".msg-error").addClass("on");
+		    	 return false;
+		     }
+	    	 
+	    	 if($sistemas == "") {
+		    	 $(".msg-error").html("Debe seleccionar el sistema al que corresponde el producto.")
+		    	 $(".msg-error").addClass("on");
+		    	 return false;
+		     }
 	    	 
 	    	 var $form = $("#createProductForm").serializeArray();    	  	  
 		  	 var $formSerialized = objectifyForm($form);

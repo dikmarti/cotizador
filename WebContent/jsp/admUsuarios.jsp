@@ -322,7 +322,7 @@ $(document).ready(function() {
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Debe ingresar los datos.");
 		     
-		     if($tipoUsuario != 1) {
+		     if($tipoUsuario == "") {
 		    	 $(".msg-error").html("Debe seleccionar el tipo de usuario.")
 		    	 $(".msg-error").addClass("on");
 		    	 return false;
