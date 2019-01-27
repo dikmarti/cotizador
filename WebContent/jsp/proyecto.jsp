@@ -17,36 +17,36 @@
 	
     		<div class="form-row">
     			<div class="form-group col-md-4">
-		    <input class="form-control" id="idCrmMCO" type="text" name="idCrmMCO" placeholder="Crm MCO" maxlength="200"/>
+		    		<input class="form-control" id="idCrmMCO" type="text" name="idCrmMCO" placeholder="Crm MCO" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-		    <input class="form-control" id="ruc" type="text" name="ruc" placeholder="RUC" maxlength="200"/>
+		    		<input class="form-control" id="ruc" type="text" name="ruc" placeholder="RUC" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-		    <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripcion" maxlength="200"/>
+				    <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripcion" maxlength="200"/>
     			</div>     			
   			</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-		    <input class="form-control" id="contratista" type="text" name="contratista" placeholder="Contratista" maxlength="200"/>
+				    <input class="form-control" id="contratista" type="text" name="contratista" placeholder="Contratista" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-		    <input class="form-control" id="unidadEjecutora" type="text" name="unidadEjecutora" placeholder="Unidad ejecutora" maxlength="200"/>
+		    		<input class="form-control" id="unidadEjecutora" type="text" name="unidadEjecutora" placeholder="Unidad ejecutora" maxlength="200"/>
     			</div>
     			
     			<div class="form-group col-md-4">
-		    <input class="form-control" id="nivelConstruccion" type="text" name="nivelConstruccion" placeholder="Nivel construcción" maxlength="200"/>
+		    		<input class="form-control" id="nivelConstruccion" type="text" name="nivelConstruccion" placeholder="Nivel construcción" maxlength="200"/>
     			</div>
     		</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-		    <input class="form-control" id="montoInversion" type="text" name="montoInversion" placeholder="Monto de inversion" maxlength="200"/>
+		    		<input class="form-control" id="montoInversion" type="text" name="montoInversion" placeholder="Monto de inversion" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-		    <input class="form-control" id="montoPartida" type="text" name="montoPartida" placeholder="Monto de partida" maxlength="200"/>
+				    <input class="form-control" id="montoPartida" type="text" name="montoPartida" placeholder="Monto de partida" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-		    <input class="form-control" id="areaConstruccion" type="text" name="areaConstruccion" placeholder="Área de construccion" maxlength="200"/>
+				    <input class="form-control" id="areaConstruccion" type="text" name="areaConstruccion" placeholder="Área de construccion" maxlength="200"/>
     			</div>
     		</div>
     		<div class="form-row">
@@ -56,15 +56,15 @@
 				    	<option value="0">Si</option>
 				    	<option value="1">No</option>				    	
 				    </select>
-		    			</div>
-		    			<div class="form-group col-md-4">
+		    	</div>
+		    	<div class="form-group col-md-4">
 				   <select class="form-control form-control-sm custom-color" id="garantiaCableado" name="garantiaCableado" >
 				    	<option class="placeholder-option" value="" disabled selected >Garantía Cableado</option>
 				    	<option value="0">Sí</option>
 				    	<option value="1">No</option>				    	
 				    </select>
-		    			</div>
-		    			<div class="form-group col-md-4">
+		    	</div>
+		    	<div class="form-group col-md-4">
 				     <select class="form-control form-control-sm custom-color" id="garantiaEquipos" name="garantiaEquipos" >
 				    	<option class="placeholder-option" value="" disabled selected >Garantía Equipos</option>
 				    	<option value="0">Si</option>
@@ -94,71 +94,20 @@
    	
 	   	<div id="niveles" class="niveles">
 			<div class="row div-row" id="row-niveles">
-			   
-			 
+			   			 
 			</div>  
   		</div>
   
 <!-- End page content -->
 
-	
-
 	</div>
-
 
 </div>
 
-<!-- Modal -->
-	<div id="nivel-modal" class="modal fade" role="dialog">
-	  <div class="modal-dialog">
-	
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title" id="modal-title-text">Crear Nivel</h4>
-	      </div>
-	      <div class="modal-body">
-	      		<form id="createNivelForm" class="form-content">
-					
-		      		<div class="form-row">
-		      			<div class="form-group col-md-6">
-						    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
-		      			</div>	      			
-		    		</div>
-		      		<div class="form-row">
-		      			<div class="form-group col-md-6">
-						    <input class="form-control" id="descripcion-nivel" type="text" name="descripcion-nivel" placeholder="Descripción"  maxlength="200"/>
-		      			</div>	      			
-		      		</div>
-		      		<div class="form-row">
-		      			<div class="form-group col-md-6">
-						    <input class="form-control" id="orden" type="number" name="orden" placeholder="Orden" maxlength="200"/>
-		      			</div>	      			
-		      		</div>	      		
-		      		<div class="form-row">
-		      			<div class="form-group col-md-12">
-						    <div class="msg-error" id="msg-error-nivel">
-						   			Debe ingresar los datos.
-			      			</div>
-		      			</div>
-					</div>
-					<div class="form-style-button proyecto">
-					   	<input type="button" value="Guardar" id="btn-guardar-nivel" class="btn btn-primary" style="margin-left: 20%;"/>	
-					   	<input type="button" value="Cancelar" id="btn-cancelar-nivel" class="btn btn-primary" style="margin-left: 10%;"/>			   
-					</div>
-			   	</form>
-	      </div>
-	
-	    </div>
-	
-	  </div>
-	</div>
-	<!-- End Modal -->
-
+<jsp:include page="/jsp/modalesProyecto.jsp" />
 
 <script type="text/javascript">
-
+			
 	$(document).ready(function() {
 		
 		var color1 = "rgb(0, 72, 118)";
@@ -207,13 +156,42 @@
 			$("#nivel-modal").modal("show");
 		});
 		
+		$("#editarNivel").click(function() {
+			
+//TODO traer los de bd para mostrar los valores		
+			$("#nivel-modal").modal("show");
+		});
+		
 		$("#btn-cancelar-nivel").click(function() {
-
+			$("div.edit").removeClass("edit");
 			$("#nombre").val("");
 			$("#descripcion-nivel").val("");
 			$("#orden").val("")
 			
 			$("#nivel-modal").modal("hide");
+		});
+		
+		$("#btn-confirm-cancel").click(function() {
+			$("div.remove").removeClass("remove");
+			$("#confirm-elim-modal").modal("hide");
+		});
+		
+		$("#btn-confirm-elim").click(function() {
+
+// TODO eliminar de bd
+
+// eliminar div y ordenar divs
+
+			$("div.remove").remove();
+			
+			var $test = $('#row-niveles div').sort(function(a,b) {
+			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
+			});
+			
+			$("#row-niveles").html("");			
+			$("#row-niveles").append($test);	
+			
+			$("#confirm-elim-modal").modal("hide");
 		});
 
 		$("#btn-guardar-nivel").click(function() {
@@ -228,7 +206,12 @@
 			}			
 
 // TODO Ir a bd y guardar el nivel
-			
+
+			if( $("div.edit").length > 0) {
+				$("div.edit").find("p").html(nombre);				
+				return false;
+			}
+
 			var colorNivelCreado = colorArray[indexColorNivel];
 			var colorFont = "white";
 			
@@ -236,10 +219,12 @@
 				colorFont = "dark";
 			}			
 			
-			var html = '<div data-orden=' + orden + ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
+			var html = '<div data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
+			html += ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
 			html += '<p>' + nombre + '</p>';
-			html += '<a id="eliminarNivel" href="#" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 5px;"></a>';
-			html += '<a id="editarNivel" href="index" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: -28px;float:right;color:white;"></a>';
+			html += '<a id="eliminarNivel" title="Eliminar nivel" onclick="eliminarNivel($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 0px;padding-left: 4px;"></a>';
+			html += '<a id="metrarNivel" title="Metrar nivel" onclick="metrarNivel($(this));" href="javascript:void(0)" class="fa fa-calculator fa-3x home" style="font-size: 13px; text-decoration: none; position: relative;top: -27px;float:right;color:white;padding-left: 4px;"></a>';
+			html += '<a id="editarNivel" title="Editar nivel" onclick="editarNivel($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: -28px;float:right;color:white;"></a>';
 			html += '</div>';			
 			
 			$("#row-niveles").prepend(html);	
@@ -278,8 +263,40 @@
 
 		    return interpolatedColorArray;
 		}
-	});   
-
+		
+		$("#orden").on('keypress', function (e) {
+			if(!/^([0-9])*$/.test(e.key)) {
+				return false;
+			}
+		});	
+		
+	});
+	
+	function editarNivel(elem){
+		elem.parent().addClass("edit");
+		$("#orden").val(elem.parent().data("orden"));
+		$("#nombre").val(elem.parent().data("nombre"));
+		$("#descripcion-nivel").val(elem.parent().data("descripcion-nivel"));
+		
+		$("#nivel-modal").modal("show");	
+	}
+	
+	function eliminarNivel(elem){
+		elem.parent().addClass("remove");	
+		$("#confirm-elim-modal").modal("show");
+	}
+	
+	function metrarNivel(elem){
+		elem.parent().addClass("metric");	
+		$("#metrado-modal").modal("show");
+	}
+	
+	$("#btn-cancelar-metrado").click(function() {
+		$("div.metric").removeClass("metric");
+		$("#metrado-modal").modal("hide");
+	});
+	
+	
 </script>
 
 </t:standardPage>
