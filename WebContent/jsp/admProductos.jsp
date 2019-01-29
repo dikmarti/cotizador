@@ -146,7 +146,7 @@
 				    </select>
       			</div>
      			<div class="form-group col-md-6">
-				    <select class="form-control form-control-sm custom-color" id="sistemas" name="sistemas" >
+				    <select class="form-control form-control-sm custom-color" id="sistema" name="sistema" >
 				    	<option class="placeholder-option" value="" disabled selected >Seleccione el Sistema</option>
 				    </select>
       			</div>
@@ -292,7 +292,7 @@ $(document).ready(function() {
 		    	        $.each(result, function( index, element ) {	 
 		    	        	var o = new Option(result[index].nombre, result[index].id);
 		    	        	$(o).html(result[index].nombre);
-		    	        	$("#sistemas").append(o);
+		    	        	$("#sistema").append(o);
 		    	        
 		    	        });
 						$("#product-modal").modal("show");
@@ -327,7 +327,7 @@ $(document).ready(function() {
 			$('#product-modal').find('#porcentajeResguardo').val(productModify.PorcentajeResguardo);
 			$('#product-modal').find('#observacion').val($productModify.Observacion);
 			$('#product-modal').find('#unidadMedida').val($productModify.UnidadMedida);
-			$('#product-modal').find('#sistemas').val($productModify.sistema);
+			$('#product-modal').find('#sistema').val($productModify.sistema);
 			$('#product-modal').find('#btn-modal-create').css('visibility', 'hidden');
 			$('#product-modal').find('#btn-modal-create').css('display', 'none');
 			$('#product-modal').find('#btn-modal-update').css('visibility', 'visible');
@@ -393,7 +393,7 @@ $(document).ready(function() {
 	    	 var $porcentajeResguardo =  $("#porcentajeResguardo").val();
 	    	 var $observacion =  $("#observacion").val();
 	    	 var $unidadMedida =  $("#unidadMedida option:selected").val();
-	    	 var $sistemas =  $("#sistemas option:selected").val();
+	    	 var $sistema =  $("#sistema option:selected").val();
 
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Debe ingresar los datos.");
@@ -413,7 +413,7 @@ $(document).ready(function() {
 		    	 return false;
 		     }
 	    	 
-	    	 if($sistemas == "") {
+	    	 if($sistema == "") {
 		    	 $(".msg-error").html("Debe seleccionar el sistema al que corresponde el producto.")
 		    	 $(".msg-error").addClass("on");
 		    	 return false;
@@ -481,7 +481,7 @@ $(document).ready(function() {
 	    	 var $porcentajeResguardo =  $("#porcentajeResguardo").val();
 	    	 var $observacion =  $("#observacion").val();
 	    	 var $unidadMedida =  $("#unidadMedida option:selected").val();
-	    	 var $sistemas =  $("#sistemas option:selected").val();
+	    	 var $sistema =  $("#sistema option:selected").val();
 
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Debe ingresar los datos.");
@@ -501,7 +501,7 @@ $(document).ready(function() {
 		    	 return false;
 		     }
 	    	 
-	    	 if($sistemas == "") {
+	    	 if($sistema == "") {
 		    	 $(".msg-error").html("Debe seleccionar el sistema al que corresponde el producto.")
 		    	 $(".msg-error").addClass("on");
 		    	 return false;
