@@ -92,6 +92,7 @@ public class LoginController extends GenericController{
 						httpSession.removeAttribute(USUARIO_SESSION);
 						httpSession.removeAttribute("all_modules_json");
 						httpSession.removeAttribute("menu_"+ usuarioLogueado);
+						httpSession.removeAttribute("index_modules_json");	
 
 					}
 		        }

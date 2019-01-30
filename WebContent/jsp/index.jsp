@@ -44,7 +44,7 @@
 	$(document).ready(function() {		
 	
 		var arrayColors = ["purple","red", "light-gray", "blue","orange","green","dark-blue", "yellow", "gray"];
-	
+		
 		 var modulosUser = '<%=modulos != null ? modulos : null %>';     
 	 	 var $divModulesByUSer = $("#page-wrapper");
 	 	 var $divAllModules = $("#page-wrapper");   
@@ -58,34 +58,64 @@
 	 		
 	 	 } else {
 	 		 
-	 		var modulos = '<%=allModulos != null ? allModulos : null%>';
-			console.log("modulosUser json" + modulosUser);
-			if (modulos != "null") {
-				var result = JSON.parse(modulos);
-				createDivModules(result, $divAllModules);
-			} else {
-				$.ajax({
-					url : "/Cotizador/rest/modules/allModules",
-					type : "GET",
-					dataType : "json",
-					contentType : "application/json; charset=utf-8",
-					success : function(result) {
-						console.log("termino");
-						console.log(result);
-						createDivModules(result,
-								$divAllModules);
+	 		 var userlogged = '<%= username != null ? username : null %>';
+			 if (userlogged != "null") {		 
+				 loadModules();
+			 } else {
+				var modulos = '<%=allModulos != null ? allModulos : null%>';
+				console.log("modulosUser json" + modulosUser);
+				if (modulos != "null") {
+					var result = JSON.parse(modulos);
+					createDivModules(result, $divAllModules);
+				} else {
+					$.ajax({
+						url : "/Cotizador/rest/modules/allModules",
+						type : "GET",
+						dataType : "json",
+						contentType : "application/json; charset=utf-8",
+						success : function(result) {
+							console.log("termino");
+							console.log(result);
+							createDivModules(result,
+									$divAllModules);
 
-					},
-					complete : function(result) {
-						$body.removeClass("loading");
-					},
-					error : function(result) {
-						console.log("error");
-					}
-				});
-			}
+						},
+						complete : function(result) {
+							$body.removeClass("loading");
+						},
+						error : function(result) {
+							console.log("error");
+						}
+					});
+				}
+			 } 		
 
 		}
+	 	 
+	 	function loadModules() {
+			 $.ajax({
+			  	  url: "/Cotizador/rest/modules/all",
+			  	  type: "GET", 
+			  	  dataType: "json",
+			  	  contentType: "application/json; charset=utf-8",	  	
+			  	  success: function(result){	
+			  		
+			  	      console.log("termino");
+			  	      console.log(result);	  	    
+			  	      
+			  	    var resultJson = JSON.parse(result); 		
+			 		createDivModules(resultJson, $divModulesByUSer);
+			 		   
+			  	  },
+			  	  complete: function(result){
+			  		$body.removeClass("loading");  
+			  	  },
+			  	  error: function(result){
+			  	        console.log("error");
+			  	  }		 
+			 });
+			 
+		 }
 
 		function createDivModules(result, div) {
 			var dividir = false;
@@ -134,6 +164,12 @@
 				}
 							
 			});
+			
+			if(i != 0) {
+				contentModules += '</div>'
+				div.append(contentModules);
+			}
+			
 		}
 	});
 </script>

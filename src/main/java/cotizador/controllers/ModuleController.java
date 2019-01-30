@@ -83,6 +83,7 @@ public class ModuleController extends GenericController{
 						System.out.println("all_modules_json : "+ jsonModules);
 						httpSession.setAttribute("all_modules_json" , jsonModules);
 						httpSession.setAttribute("menu_"+ usuarioLogueado, modules);
+						httpSession.removeAttribute("index_modules_json");	
 						
 					} catch (JsonGenerationException e) {
 						// TODO Auto-generated catch block
