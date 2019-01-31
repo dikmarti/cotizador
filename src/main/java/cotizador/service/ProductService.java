@@ -99,16 +99,18 @@ public class ProductService {
 		System.out.println("Method updateProduct...");
 		System.out.println("Updating product from data base");
 		
+		Sistema system = systemService.findSystemById(sistema);
+		
 		int status = genericRepository.executeUpdateQuery("UPDATE Producto u SET u.idProductoMCO = '" + idMco + "', "
 						+ "u.idFabricante = '" + idFabricante 
-						+ "u.codigo = '" + codigo 
-						+ "u.nombre = '" + nombre 
-						+ "u.nombreCorto = '" + nombreCorto 
-						+ "u.descripcion = '" + descripcion 
-						+ "u.porcentajeResguardo = '" + porcentajeResguardo 
-						+ "u.observacion = '" + observacion 
+						+ "', u.codigo = '" + codigo 
+						+ "', u.nombre = '" + nombre 
+						+ "', u.nombreCorto = '" + nombreCorto 
+						+ "', u.descripcion = '" + descripcion 
+						+ "', u.porcentajeResguardo = '" + porcentajeResguardo 
+						+ "', u.observacion = '" + observacion 
 						+ "', u.unidadMedida = '" + unidadMedida 
-						+ "', u.sistema = '" + sistema + "' WHERE u.id = '" + id + "'");
+						+ "', u.sistema = " + system + " WHERE u.id = '" + id + "'");
 		
 		System.out.println("finish product update");
 		System.out.println("status: " + status);
