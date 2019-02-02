@@ -136,5 +136,22 @@ public class ProductService {
 
 		return  productResult;
 	}
+	
+	/**
+	 * Metodo que retorna un producto de la base
+	 * @param id
+	 * @return
+	 */
+	public Producto findProductById(Integer id) {
+
+		System.out.println("Method findProductById...");
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Producto.findById", "id", id);
+
+		Producto result = !allObject.isEmpty() ? (Producto) (Object) allObject.get(0) : null;
+		System.out.println("Producto: " + result);
+
+		return result;
+
+	}
 
 }

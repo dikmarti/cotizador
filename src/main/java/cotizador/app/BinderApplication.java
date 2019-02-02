@@ -9,6 +9,7 @@ import cotizador.service.ModuleService;
 import cotizador.service.PermissionService;
 import cotizador.service.ProductService;
 import cotizador.service.ProviderService;
+import cotizador.service.RelationService;
 import cotizador.service.SystemService;
 import cotizador.service.UserService;
 
@@ -24,5 +25,6 @@ public class BinderApplication extends AbstractBinder {
         bind(ProviderService.class).to(ProviderService.class);
         bind(SystemService.class).to(SystemService.class); 
         bind(ProductService.class).to(ProductService.class); 
+        bind(RelationService.class).to(RelationService.class); 
     }
 }
