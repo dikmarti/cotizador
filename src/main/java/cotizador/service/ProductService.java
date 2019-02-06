@@ -33,6 +33,23 @@ public class ProductService {
 	}
 	
 	/**
+	 * Metodo que retorna todos los productos de la base por sistema
+	 * @param system
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Producto> retrieveAllProductBySystem(Integer idSystem) {
+		
+		System.out.println("finding all systems from data base");
+		
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Producto.findBySystem", "sistema", idSystem);
+		
+		List<Producto> result = !allObject.isEmpty() ? (List<Producto>) (Object) allObject : null;
+		
+		return  result;
+	}
+	
+	/**
 	 * Metodo que registra un nuevo producto a la base de datos
 	 * @param idMco
 	 * @param idFabricante
@@ -153,5 +170,5 @@ public class ProductService {
 		return result;
 
 	}
-
+	
 }

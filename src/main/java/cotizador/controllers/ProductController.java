@@ -34,7 +34,7 @@ public class ProductController extends GenericController {
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Producto> allProviders() {
+	public List<Producto> allProducts() {
 
 		System.out.println("/all get all prodcut from dataBase");
 		List<Producto> allProduct = new ArrayList<Producto>();
@@ -42,6 +42,32 @@ public class ProductController extends GenericController {
 		try {
 			allProduct = productService.retrieveAllProduct();
 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("allProduct: " + allProduct);
+		return allProduct;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/bySystem")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Producto> allProductsBySystem(String jsonForm, @Context HttpServletRequest httpRequest) {
+		
+		System.out.println("/bySystem get all prodcut from dataBase by system");
+		List<Producto> allProduct = new ArrayList<Producto>();
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Integer> providerMap = new HashMap<String, Integer>();
+
+		try {
+
+			providerMap = mapper.readValue(jsonForm, Map.class);
+			Integer idSystem = providerMap.get("idSystem");
+			allProduct = productService.retrieveAllProductBySystem(idSystem);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

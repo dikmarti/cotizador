@@ -244,34 +244,7 @@ $(document).ready(function() {
 			    	        	$("#sistema").append(o);
 			    	        
 			    	        });
-			    	  },
-			    	  complete: function(result){
-			    	        console.log("complete");
-			    	  },
-			    	  error: function(result){
-			    	        console.log("error");
-			    	  }
-			    	  
-			    	});
-				$.ajax({
-			    	  url: "/Cotizador/rest/product/all",
-			    	  type: "GET",
-			    	  dataType: "json",
-			    	  contentType: "application/json; charset=utf-8",
-			    	  success: function(result){	    		
-			    	        console.log("termino");
-			    	        console.log(result);
-			    	        
-			    	        $.each(result, function( index, element ) {	 
-			    	        	var o = new Option(result[index].nombre, result[index].id);
-			    	        	$(o).html(result[index].nombre);
-			    	        	$("#producto").append(o);
-			    	        	var a = new Option(result[index].nombre, result[index].id);
-			    	        	$(a).html(result[index].nombre);
-			    	        	$("#productoRelacion").append(a);
-			    	        	
-			    	        });
-							$("#product-modal-relation").modal("show");
+			    	        $("#product-modal-relation").modal("show");
 			    	  },
 			    	  complete: function(result){
 			    	        console.log("complete");
@@ -549,10 +522,37 @@ $(document).ready(function() {
     	        $("#productoRelacion option[value='"+$val+"']")[0].disabled = true;
 			});	
 			
-			$("#productoRelacion").change(function() {
-				var $val = $("#productoRelacion option:selected").val();
-    	        $("#producto option").removeAttr("disabled");
-    	        $("#producto option[value='"+$val+"']")[0].disabled = true;
+			$("#sistema").change(function() {
+				var $val = $("#sistema option:selected").val();
+				
+				$.ajax({
+			    	  url: "/Cotizador/rest/product/bySystem",
+			    	  type: "POST",
+			    	  data: JSON.stringify({idSystem: $val}),
+			    	  dataType: "json",
+			    	  contentType: "application/json; charset=utf-8",
+			    	  success: function(result){	
+			    	        console.log("termino");
+			    	        console.log(result);
+			    	        
+			    	        $.each(result, function( index, element ) {	 
+			    	        	var o = new Option(result[index].nombre, result[index].id);
+			    	        	$(o).html(result[index].nombre);
+			    	        	$("#producto").append(o);
+			    	        	var a = new Option(result[index].nombre, result[index].id);
+			    	        	$(a).html(result[index].nombre);
+			    	        	$("#productoRelacion").append(a);
+			    	        	
+			    	        });
+			    	  },
+			    	  complete: function(result){
+			    	        console.log("complete");
+			    	  },
+			    	  error: function(result){
+			    	        console.log("error");
+			    	  }
+			    	  
+			    	});
 			});	
 			
 			function clear() {
