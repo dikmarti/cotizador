@@ -2,6 +2,10 @@ package cotizador.model.domain;
 
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name = "Producto.findById", query = "SELECT s FROM Producto s WHERE s.id = :id"),
+	@NamedQuery(name = "Producto.findAll", query = "SELECT s FROM Producto s")	
+})
 @Entity
 @Table(name="producto")
 public class Producto {

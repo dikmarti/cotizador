@@ -99,16 +99,18 @@ public class ProductService {
 		System.out.println("Method updateProduct...");
 		System.out.println("Updating product from data base");
 		
+		Sistema system = systemService.findSystemById(sistema);
+		
 		int status = genericRepository.executeUpdateQuery("UPDATE Producto u SET u.idProductoMCO = '" + idMco + "', "
 						+ "u.idFabricante = '" + idFabricante 
-						+ "u.codigo = '" + codigo 
-						+ "u.nombre = '" + nombre 
-						+ "u.nombreCorto = '" + nombreCorto 
-						+ "u.descripcion = '" + descripcion 
-						+ "u.porcentajeResguardo = '" + porcentajeResguardo 
-						+ "u.observacion = '" + observacion 
+						+ "', u.codigo = '" + codigo 
+						+ "', u.nombre = '" + nombre 
+						+ "', u.nombreCorto = '" + nombreCorto 
+						+ "', u.descripcion = '" + descripcion 
+						+ "', u.porcentajeResguardo = '" + porcentajeResguardo 
+						+ "', u.observacion = '" + observacion 
 						+ "', u.unidadMedida = '" + unidadMedida 
-						+ "', u.sistema = '" + sistema + "' WHERE u.id = '" + id + "'");
+						+ "', u.sistema = " + system + " WHERE u.id = '" + id + "'");
 		
 		System.out.println("finish product update");
 		System.out.println("status: " + status);
@@ -133,6 +135,23 @@ public class ProductService {
 		Boolean productResult = deleted == 1 ? Boolean.TRUE : Boolean.FALSE;
 
 		return  productResult;
+	}
+	
+	/**
+	 * Metodo que retorna un producto de la base
+	 * @param id
+	 * @return
+	 */
+	public Producto findProductById(Integer id) {
+
+		System.out.println("Method findProductById...");
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Producto.findById", "id", id);
+
+		Producto result = !allObject.isEmpty() ? (Producto) (Object) allObject.get(0) : null;
+		System.out.println("Producto: " + result);
+
+		return result;
+
 	}
 
 }

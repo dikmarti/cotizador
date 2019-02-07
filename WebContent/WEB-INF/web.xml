@@ -103,6 +103,14 @@
 	      <url-pattern>/admProductos</url-pattern>
 	 </servlet-mapping>	
 	 <servlet>
+      <servlet-name>admRelaciones</servlet-name>
+      <jsp-file>/jsp/admRelaciones.jsp</jsp-file>
+	 </servlet>
+	 <servlet-mapping>
+	      <servlet-name>admRelaciones</servlet-name>
+	      <url-pattern>/admRelaciones</url-pattern>
+	 </servlet-mapping>	
+	 <servlet>
 		 <servlet-name>index</servlet-name>
 	     <jsp-file>/jsp/index.jsp</jsp-file>
 	 </servlet>

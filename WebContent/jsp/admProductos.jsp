@@ -197,7 +197,7 @@ $(document).ready(function() {
  	        		    	   "Descripcion": result[index].descripcion,
  	        		    	   "PorcentajeResguardo": result[index].porcentajeResguardo,
  	        		    	   "Observacion": result[index].observacion,
- 	        		    	   "UnidadMedida": result[index].unidadMedida,
+ 	        		    	   "UnidadMedida": returnUnidadMedida(result[index].unidadMedida),
  	        		    	   "Sistema": result[index].sistema.nombre
  	        		    	}]).draw(); 
     	        });
@@ -210,7 +210,45 @@ $(document).ready(function() {
     	  }
     	  
     	});
+   	
+   	 function returnUnidadMedida(unidadMedida){
+	       switch (unidadMedida) {
+		case 0:  return "Galón";
+			break;
+		case 1: return "Metros";
+			break;
+		case 2: return "Metros Cuadrados";
+			break;
+		case 3: return "Metros Cúbicos";
+			break;
+		case 4: return "Rollos";
+			break;
+		case 5: return "Unidad";
+			break;
+		default: return "";
+			break;
+		}
+  	}
    	 
+   	function returnUnidadMedidaVal(unidadMedida){
+	       switch (unidadMedida) {
+		case "Galón":  return "0";
+			break;
+		case "Metros": return "1";
+			break;
+		case "Metros Cuadrados": return "2";
+			break;
+		case "Metros Cúbicos": return "3";
+			break;
+		case "Rollos": return "4";
+			break;
+		case "Unidad": return "5";
+			break;
+		default: return "";
+			break;
+		}
+	}
+   	
    	var table = $('#dtProductModule').DataTable({
 			  responsive: true,
 			    "pagingType": "simple_numbers",
@@ -324,16 +362,45 @@ $(document).ready(function() {
 			$('#product-modal').find('#nombre').val($productModify.Nombre);
 			$('#product-modal').find('#nombreCorto').val($productModify.NombreCorto);
 			$('#product-modal').find('#descripcion').val($productModify.Descripcion);
-			$('#product-modal').find('#porcentajeResguardo').val(productModify.PorcentajeResguardo);
+			$('#product-modal').find('#porcentajeResguardo').val($productModify.PorcentajeResguardo);
 			$('#product-modal').find('#observacion').val($productModify.Observacion);
-			$('#product-modal').find('#unidadMedida').val($productModify.UnidadMedida);
-			$('#product-modal').find('#sistema').val($productModify.sistema);
+			$('#product-modal').find('#unidadMedida').val(returnUnidadMedidaVal($productModify.UnidadMedida));
+			$("#unidadMedida").removeClass("custom-color");
 			$('#product-modal').find('#btn-modal-create').css('visibility', 'hidden');
 			$('#product-modal').find('#btn-modal-create').css('display', 'none');
 			$('#product-modal').find('#btn-modal-update').css('visibility', 'visible');
 			$('#product-modal').find('#btn-modal-update').css('display', '');
 			$('#product-modal').find('#modal-title-text').html('Modificar Producto');
-			$("#product-modal").modal("show");
+
+			$.ajax({
+		    	  url: "/Cotizador/rest/system/all",
+		    	  type: "GET",
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){	    		
+		    	        console.log("termino");
+		    	        console.log(result);
+		    	        
+		    	        $.each(result, function( index, element ) {	 
+		    	        	var o = new Option(result[index].nombre, result[index].id);
+		    	        	$(o).html(result[index].nombre);
+		    	        	$("#sistema").append(o);
+		    	        	if($productModify.Sistema === result[index].nombre) {
+		    	        		$('#product-modal').find('#sistema').val(result[index].id);
+		    	        		$("#sistema").removeClass("custom-color");
+		    	        	}
+		    	        });
+						$("#product-modal").modal("show");
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+		
 		});
 		
 		$("#btn-product-delete").click(function() {
@@ -487,7 +554,7 @@ $(document).ready(function() {
 		     $(".msg-error").html("Debe ingresar los datos.");
 		     
 	    	 
-	    	 if ($idMco == "" || $idFabricante == "" || $codigo == "" || $nombre == "" || $nombreCorte == "" 
+	    	 if ($idMco == "" || $idFabricante == "" || $codigo == "" || $nombre == "" || $nombreCorto == "" 
 	    			 || $descripcion == "" || $porcentajeResguardo == "" || $observacion == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
@@ -557,6 +624,14 @@ $(document).ready(function() {
 		    	});
 	    	 
 	      });
+		
+		$("#sistema").click(function() {
+			$(this).removeClass("custom-color");
+		});	
+		
+		$("#unidadMedida").click(function() {
+			$(this).removeClass("custom-color");
+		});	
 	  });   
 		  
 	</script>

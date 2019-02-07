@@ -427,6 +427,10 @@ $(document).ready(function() {
 		    	});
 		});
 		
+		$("#permissionModules").click(function() {
+			$(this).removeClass("custom-color");
+		});	
+		
 		function clear() {
 			$('#permissionModules').empty()
 		    .append('<option class="placeholder-option" value="" disabled selected >Seleccione el módulo</option>');
