@@ -55,6 +55,29 @@
 	left: 280px;
 }
 
+.font-products {
+	font-size: 10px !important;
+	margin-bottom: 0px !important; 
+}
+
+.label-products {
+	margin-bottom: 0px !important;
+}
+
+.sep-first-products {
+    border-top: 1px solid white;
+    margin-top: 0px;
+}
+
+.sep-products {
+    border-top: 1px solid #ddd;
+    margin-top: 12px;
+}
+
+.collapsed-products {
+    margin-top: 10px;
+}
+
 @media screen and (max-width: 600px) {
   .div-btns {
     width: 300px;
