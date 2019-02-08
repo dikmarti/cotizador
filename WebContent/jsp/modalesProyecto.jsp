@@ -139,6 +139,7 @@
 
 					<div class="form-style-button proyecto">
 					   	<input type="button" value="Agregar" id="btn-agregar-producto" class="btn btn-primary" style="margin-left: 20%;"/>	
+					   	<input type="button" value="Modificar" id="btn-modificar-producto" class="btn btn-primary" style="margin-left: 20%; display:none;"/>
 					   	<input type="button" value="Cancelar" id="btn-cancelar-producto" class="btn btn-primary" style="margin-left: 10%;"/>			   
 					</div>
 			   	</form>
@@ -219,28 +220,28 @@
 			htmlProducto += '<div class="form-group row font-products" style="margin-top: 15px;">';
 			htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Producto:</label>';
 			htmlProducto += '   <div class="col-sm-10">';
-			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="nombre" value="' + $("#producto option:selected").text()+ '" style="border: none;">';
+			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + $("#producto option:selected").text()+ '" style="border: none;">';
 			htmlProducto += '    </div>';
 			htmlProducto += '</div>';
 
 			htmlProducto += '<div class="form-group row font-products">';
 			htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Proveedor:</label>';
 			htmlProducto += '   <div class="col-sm-10">';
-			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="nombre" value="' + $("#proveedor option:selected").text()+ '" style="border: none;">';
+			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-proveedor" value="' + $("#proveedor option:selected").text()+ '" style="border: none;">';
 			htmlProducto += '    </div>';
 			htmlProducto += '</div>';
 
 			htmlProducto += '<div class="form-group row font-products">';
 			htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Precio:</label>';
 			htmlProducto += '   <div class="col-sm-10">';
-			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="nombre" value="' + $("#precio option:selected").text()+ '" style="border: none;">';
+			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-precio" value="' + $("#precio option:selected").text()+ '" style="border: none;">';
 			htmlProducto += '    </div>';
 			htmlProducto += '</div>';
 			
 			htmlProducto += '<div class="form-group row font-products">';
 			htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Cantidad:</label>';
 			htmlProducto += '   <div class="col-sm-10">';
-			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="nombre" value="' + $("#cantidad").val()+ '" style="border: none;">';
+			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-cantidad" value="' + $("#cantidad").val()+ '" style="border: none;">';
 			htmlProducto += '    </div>';
 			htmlProducto += '</div>';
 			
@@ -273,7 +274,48 @@
 			
 		});	
 		
+		$("#btn-modificar-producto").click(function() {
+			
+			var sistema = $("#sistema option:selected").val();
+			var producto = $("#producto option:selected").val();
+			var proveedor = $("#proveedor option:selected").text();
+			var precio = $("#precio option:selected").text();
+			var cantidad = $("#cantidad").val();
+			
+			 $("#producto_"+ producto).find("#label-proveedor").val(proveedor);
+			 $("#producto_"+ producto).find("#label-precio").val(precio);
+			 $("#producto_"+ producto).find("#label-cantidad").val(cantidad);
+			 
+			 $("#sistema").removeAttr('disabled');
+			 $("#producto").removeAttr('disabled');
+			 
+			$("#btn-modificar-producto").css("display","none");
+			$("#btn-agregar-producto").css("display","inline-block");
+			
+			limpiarCombos();			
+		});	
+		
+		$("#btn-cancelar-producto").click(function() {
+// si esta el boton guardar mostrar mensaje seguro que desea salir ??
+			
+			$("#sistema").removeAttr('disabled');
+			$("#producto").removeAttr('disabled');
+			
+			$("#btn-modificar-producto").css("display","none");
+			$("#btn-agregar-producto").css("display","inline-block");
+			
+			limpiarCombos();
+		});	
+		
 	});
+	
+	function limpiarCombos(){
+		$("#sistema").val("");
+		$("#producto").val("");
+		$("#proveedor").val("");
+		$("#precio").val("");
+		$("#cantidad").val("");		
+	}
 	
 	function modificarProducto(element) {
 		
@@ -288,8 +330,12 @@
 		$("#proveedor").val(proveedor);
 		$("#precio").val(precio);
 		$("#cantidad").val(cantidad);
+
+		$("#btn-modificar-producto").css("display","inline-block");
+		$("#btn-agregar-producto").css("display","none");
 		
-//TODO que cuando le de guardar modifique el div que ya existe		
+		$("#sistema").prop('disabled', 'disabled');
+		$("#producto").prop('disabled', 'disabled');
 		
 	}
 	
