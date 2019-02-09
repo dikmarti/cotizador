@@ -155,7 +155,7 @@ $(document).ready(function() {
     	        		       	  "Producto": result[index].producto.nombre, 
     	        		    	  "ProductoRelacion": result[index].productoRelacion.nombre,
     	        		    	  "Factor": result[index].factor,
-    	        		    	  "Operacion": returnOperacion(result[index].operacion)
+    	        		    	  "Operacion": returnOperacionVal(result[index].operacion)
     	        		    	}]).draw(); 
     	        });
     	  },
@@ -328,7 +328,7 @@ $(document).ready(function() {
 			
 			$("#btn-modal-create").click(function() {
 		    	 var $sistema =  $("#sistema option:selected").val();
-		    	 var $prodcuto =  $("#producto option:selected").val();
+		    	 var $producto =  $("#producto option:selected").val();
 		    	 var $productoRelacion =  $("#productoRelacion option:selected").val();
 		    	 var $factor =  $("#factor").val();
 		    	 var $operacion =  $("#operacion option:selected").val();
@@ -389,7 +389,7 @@ $(document).ready(function() {
 			    	        	} else if (result == 1) {
 			    	        		$("#product-modal-relation").css('z-index', '2');
 				    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-			    	        		$(".msg-error").html("Ha ocurrido un error, la relación no pudo ser creada.");
+			    	        		$(".msg-error").html("Ha ocurrido un error, la relación ya existe.");
 				    	        	$(".msg-error").addClass("on");	 
 			    	        	} else if (result == 2) {
 			    	        		$("#product-modal-relation").css('z-index', '2');
@@ -495,9 +495,9 @@ $(document).ready(function() {
 
 			function returnOperacion(operacion){
 			       switch (operacion) {
-				case "Dividir":  return "0";
+				case "Dividir":  return 0;
 					break;
-				case "Multiplicar": return "1";
+				case "Multiplicar": return 1;
 					break;
 				default: return "";
 					break;
@@ -506,9 +506,9 @@ $(document).ready(function() {
 			
 			function returnOperacionVal(operacion){
 			       switch (operacion) {
-				case "0":  return "Dividir";
+				case 0:  return "Dividir";
 					break;
-				case "1": return "Multiplicar";
+				case 1: return "Multiplicar";
 					break;
 				default: return "";
 					break;
@@ -523,8 +523,12 @@ $(document).ready(function() {
 			});	
 			
 			$("#sistema").change(function() {
+				$('#producto').empty()
+			    .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Producto</option>');
+				$('#productoRelacion').empty()
+			    .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Producto a Relacionar</option>');
 				var $val = $("#sistema option:selected").val();
-				
+				$("#product-modal-relation").css('z-index', '1');
 				$.ajax({
 			    	  url: "/Cotizador/rest/product/bySystem",
 			    	  type: "POST",
@@ -553,6 +557,8 @@ $(document).ready(function() {
 			    	  }
 			    	  
 			    	});
+			    	        $("#product-modal-relation").css('z-index', '2');
+		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 			});	
 			
 			function clear() {

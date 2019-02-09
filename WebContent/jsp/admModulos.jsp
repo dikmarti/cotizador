@@ -181,6 +181,7 @@ $(document).ready(function() {
 	    	 var $id =  $moduleModify.Id;
 			$('#module-modal').find('#orden').val($orden);
 			$('#module-modal').find('#nombre').val($nombre);
+			$('#module-modal').find('#nombre').attr('disabled', 'true');
 			$('#module-modal').find('#descripcion').val($descripcion);
 			$('#module-modal').find('#id').val($id);
 			$("#module-modal").modal("show");
@@ -195,7 +196,7 @@ $(document).ready(function() {
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Los campos son obligatorios.");
 		     
-	    	 if ($descripcion == "" || $nombre == "" || $orden == "" ) {
+	    	 if ($descripcion == "" || $orden == "" ) {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
 	   		 } else {
@@ -207,7 +208,7 @@ $(document).ready(function() {
 	    	 $.ajax({
 		    	  url: "/Cotizador/rest/modules/updateModule",
 		    	  type: "POST",
-		    	  data: JSON.stringify({id: $id, nombre: $nombre, descripcion: $descripcion, orden: $orden}),
+		    	  data: JSON.stringify({id: $id, descripcion: $descripcion, orden: $orden}),
 		    	  dataType: "json",
 		    	  contentType: "application/json; charset=utf-8",
 		    	  success: function(result){		    		

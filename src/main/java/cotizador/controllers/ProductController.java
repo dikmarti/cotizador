@@ -60,12 +60,12 @@ public class ProductController extends GenericController {
 		System.out.println("/bySystem get all prodcut from dataBase by system");
 		List<Producto> allProduct = new ArrayList<Producto>();
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Integer> providerMap = new HashMap<String, Integer>();
+		Map<String, String> providerMap = new HashMap<String, String>();
 
 		try {
 
 			providerMap = mapper.readValue(jsonForm, Map.class);
-			Integer idSystem = providerMap.get("idSystem");
+			Integer idSystem = Integer.parseInt(providerMap.get("idSystem"));
 			allProduct = productService.retrieveAllProductBySystem(idSystem);
 			
 		} catch (Exception e) {

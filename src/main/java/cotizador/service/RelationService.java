@@ -49,6 +49,11 @@ public class RelationService {
 			Integer operacion) {
 
 		System.out.println("Method createRelation...");
+		
+		if(!validRelation(idSistema, idProducto, idProductoRelacion)) {
+			System.out.println("Ya existe relación");
+			return 1;
+		}
 
 		RelacionProducto relacionProducto = new RelacionProducto();
 		
@@ -128,4 +133,19 @@ public class RelationService {
 
 	}
 
+	public Boolean validRelation(Integer idSystem, Integer idProduct, Integer idProductRelation) {
+
+		System.out.println("Method validRelation...");
+		List<Object> allObject = genericRepository
+				.getAllObjectByQuery("SELECT u FROM RelacionProducto u WHERE u.sistema.id = '" 
+						+ idSystem +"' AND u.producto.id = '"
+						+ idProduct +"' AND u.productoRelacion = '"
+						+ idProductRelation +"'");
+
+		Boolean result = !allObject.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
+		System.out.println("result: " + result);
+
+		return result;
+
+	}
 }

@@ -168,11 +168,10 @@ public class ModuleController extends GenericController{
 
 			data = mapper.readValue(jsonForm, Map.class);
 			String id = data.get("id");
-			String nombre = data.get("nombre");
 			String descripcion = data.get("descripcion");
 			int orden = Integer.parseInt(data.get("orden"));
 			
-			Integer status = moduleService.updateModule(id, nombre, descripcion, orden);
+			Integer status = moduleService.updateModule(id, descripcion, orden);
 
 			System.out.println("status: " + status);
 			return status;
