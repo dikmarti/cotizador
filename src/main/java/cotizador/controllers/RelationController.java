@@ -135,14 +135,14 @@ public class RelationController extends GenericController {
 
 		System.out.println("/updateSystem json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> relationMap = new HashMap<String, Object>();
+		Map<String, String> relationMap = new HashMap<String, String>();
 
 		try {
 
 			relationMap = mapper.readValue(jsonForm, Map.class);
-			Integer id = (Integer) relationMap.get("id");
-			String factor = (String) relationMap.get("factor");
-			Integer operacion = (Integer) relationMap.get("operacion");
+			Integer id = Integer.parseInt(relationMap.get("id"));
+			String factor = relationMap.get("factor");
+			Integer operacion = Integer.parseInt(relationMap.get("operacion"));
 			
 			Integer status = relationService.updateRelation(factor, operacion, id);
 

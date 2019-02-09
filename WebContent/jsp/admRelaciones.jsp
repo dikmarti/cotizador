@@ -123,7 +123,66 @@
 			</div>
 			<div class="form-style-button">
 			   	<input type="button" value="Crear" id="btn-modal-create" class="btn btn-primary" style="width: 50%; margin-left: 65px;"/>
-			   	<input type="button" value="Modificar" id="btn-modal-update" class="btn btn-primary" style="width: 50%; margin-left: 65px; visibility: hidden;"/>
+			</div>
+		   	</form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal -->
+<div id="product-modal-relation-update" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal-title-text">Modificar Relación entre Productos</h4>
+      </div>
+      <div class="modal-body">
+      		<form id="updateRelationForm" class="form-content">
+			<input id="id" type="hidden" name="id"/>
+      		<div class="form-group row">
+      			<label for="sistema" class="col-sm-2 col-form-label">Sistema:</label>
+			    <div class="col-sm-10">
+			      <input type="text" readonly class="form-control-plaintext" id="sistema" value="" style="border: none;">
+			    </div>
+    		</div>
+    		<div class="form-group row">
+      			<label for="producto" class="col-sm-2 col-form-label">Producto:</label>
+			    <div class="col-sm-10">
+			      <input type="text" readonly class="form-control-plaintext" id="producto" value="" style="border: none;">
+			    </div>
+    		</div>
+      		<div class="form-group row">
+      			<label for="productoRelacion" class="col-sm-4 col-form-label">Producto Asociado:</label>
+			    <div class="col-sm-8">
+			      <input type="text" readonly class="form-control-plaintext" id="productoRelacion" value="" style="border: none;">
+			    </div>
+      		</div>
+      		<div class="form-group row">
+      			<div class="form-group col-md-4">
+				    <input class="form-control" id="factor" type="text" name="factor" placeholder="Factor" maxlength="200"/>
+      			</div>
+      			<div class="form-group col-md-6">
+				    <select class="form-control form-control-sm custom-color" id="operacion" name="operacion" >
+				    	<option class="placeholder-option" value="" disabled selected >Seleccion Operación</option>
+				    	<option value="0">Dividir</option>
+				    	<option value="1">Multiplicar</option>				    	
+				    </select>
+      			</div>
+      		</div>
+      		<div class="form-row">
+      			<div class="form-group col-md-10">
+				    <div class="msg-error">
+				   			Debe ingresar los datos.
+	      			</div>
+      			</div>
+			</div>
+			<div class="form-style-button">
+			   	<input type="button" value="Modificar" id="btn-modal-update" class="btn btn-primary" style="width: 50%; margin-left: 65px;"/>
 			</div>
 		   	</form>
       </div>
@@ -223,11 +282,6 @@ $(document).ready(function() {
 				$("#productoRelacion").val([""]);
 		    	$("#factor").val('');
 				$("#operacion").val([""]);
-				$('#product-modal-relation').find('#btn-modal-update').css('visibility', 'hidden');
-				$('#product-modal-relation').find('#btn-modal-update').css('display', 'none');
-				$('#product-modal-relation').find('#btn-modal-create').css('visibility', 'visible');
-				$('#product-modal-relation').find('#btn-modal-create').css('display', '');
-				$('#product-modal-relation').find('#modal-title-text').html('Crear Relación entre Productos');
 			
 				$.ajax({
 			    	  url: "/Cotizador/rest/system/all",
@@ -264,19 +318,14 @@ $(document).ready(function() {
 				} 
 				var $relationModify = table.rows('.selected').data()[0];
 				console.log("modify relation " + $relationModify);
-				$('#product-modal-relation').find('#id').val($relationModify.Id);
-				$('#product-modal-relation').find('#producto').val($relationModify.Producto);
-				$('#product-modal-relation').find('#productoRelacion').val($relationModify.ProductoRelacion);
-				$('#product-modal-relation').find('#factor').val($relationModify.Factor);
-				$('#product-modal-relation').find('#operacion').val(returnOperacionVal($relationModify.Operacion));
-				$('#product-modal-relation').find('#btn-modal-create').css('visibility', 'hidden');
-				$('#product-modal-relation').find('#btn-modal-create').css('display', 'none');
-				$('#product-modal-relation').find('#btn-modal-update').css('visibility', 'visible');
-				$('#product-modal-relation').find('#btn-modal-update').css('display', '');
-				$('#product-modal-relation').find('#clave').attr('disabled', 'true');
-				$('#product-modal-relation').find('#tipoUsuario').attr('disabled', 'true');
-				$('#product-modal-relation').find('#modal-title-text').html('Modificar Usuario');
-				$("#product-modal-relation").modal("show");
+				$('#product-modal-relation-update').find('#id').val($relationModify.Id);
+				$('#product-modal-relation-update').find('#sistema').val($relationModify.Sistema);
+				$('#product-modal-relation-update').find('#producto').val($relationModify.Producto);
+				$('#product-modal-relation-update').find('#productoRelacion').val($relationModify.ProductoRelacion);
+				$('#product-modal-relation-update').find('#factor').val($relationModify.Factor);
+				$('#product-modal-relation-update').find('#operacion').val(returnOperacion($relationModify.Operacion));
+				$('#product-modal-relation-update').find('#operacion').removeClass("custom-color");
+				$("#product-modal-relation-update").modal("show");
 			});
 			
 			$("#btn-relation-delete").click(function() {
@@ -412,9 +461,9 @@ $(document).ready(function() {
 		      });
 			
 			$("#btn-modal-update").click(function() {
-		    	 var $id =  $("#id").val();
-		    	 var $factor =  $("#factor").val();
-		    	 var $operacion =  $("#operacion option:selected").val();
+		    	 var $id =  $('#product-modal-relation-update').find("#id").val();
+		    	 var $factor =  $('#product-modal-relation-update').find("#factor").val();
+		    	 var $operacion = $('#product-modal-relation-update').find("#operacion option:selected").val();
 		    	 
 		    	 $(".msg-error").removeClass("on");
 			     $(".msg-error").html("Debe ingresar los datos.");
@@ -432,7 +481,7 @@ $(document).ready(function() {
 			    	 return false;
 			     }
 		    	 
-		    	 $("#product-modal-relation").css('z-index', '1');
+		    	 $("#product-modal-relation-update").css('z-index', '1');
 		    	 $.ajax({
 			    	  url: "/Cotizador/rest/relation/updateRelation",
 			    	  type: "POST",
@@ -448,7 +497,7 @@ $(document).ready(function() {
 			    	        $(".msg-error").removeClass("on");
 			    	        
 			    	        if(obj === undefined) {	    	  
-			    	        	$("#product-modal-relation").css('z-index', '2');
+			    	        	$("#product-modal-relation-update").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 			    	        	$(".msg-error").html("Ha ocurrido un error, la relación no pudo ser actualizada.");
 			    	        	$(".msg-error").addClass("on");	    	        	 
@@ -456,12 +505,12 @@ $(document).ready(function() {
 			    	        	if(result == 0) {
 				    	        	location.href = "admRelaciones";
 			    	        	} else if (result == 1) {
-			    	        		$("#product-modal-relation").css('z-index', '2');
+			    	        		$("#product-modal-relation-update").css('z-index', '2');
 				    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 			    	        		$(".msg-error").html("Ha ocurrido un error, la relación no pudo ser actualizada.");
 				    	        	$(".msg-error").addClass("on");	 
 			    	        	} else if (result == 2) {
-			    	        		$("#product-modal-relation").css('z-index', '2');
+			    	        		$("#product-modal-relation-update").css('z-index', '2');
 				    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 			    	        		$(".msg-error").html("Ha ocurrido un error, la relación no pudo ser actualizada.");
 				    	        	$(".msg-error").addClass("on");	 
