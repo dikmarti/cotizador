@@ -111,6 +111,14 @@
 	      <url-pattern>/admRelaciones</url-pattern>
 	 </servlet-mapping>	
 	 <servlet>
+      <servlet-name>admListaPrecios</servlet-name>
+      <jsp-file>/jsp/admListaPrecios.jsp</jsp-file>
+	 </servlet>
+	 <servlet-mapping>
+	      <servlet-name>admListaPrecios</servlet-name>
+	      <url-pattern>/admListaPrecios</url-pattern>
+	 </servlet-mapping>	
+	 <servlet>
 		 <servlet-name>index</servlet-name>
 	     <jsp-file>/jsp/index.jsp</jsp-file>
 	 </servlet>

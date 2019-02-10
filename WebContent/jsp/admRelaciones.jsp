@@ -132,7 +132,7 @@
 </div>
 <!-- End Modal -->
 
-<!-- Modal -->
+<!-- Modal Update-->
 <div id="product-modal-relation-update" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
@@ -299,6 +299,8 @@ $(document).ready(function() {
 			    	        
 			    	        });
 			    	        $("#product-modal-relation").modal("show");
+							$("#product-modal-relation").css('z-index', '2');
+				        	$(".modal-backdrop.fade.in").css('z-index', '1');
 			    	  },
 			    	  complete: function(result){
 			    	        console.log("complete");
