@@ -46,9 +46,9 @@ public class ModuleService {
 		@SuppressWarnings("unchecked")
 		List<Modulo> result = !allObject.isEmpty() ? (List<Modulo>) (Object) allObject : new ArrayList<Modulo>();	
 		genericRepository.getAllObjectByQuery("SELECT m FROM RelacionProducto m");
-	/*	
-		genericRepository.getAllObjectByQuery("SELECT m FROM Producto m");
-		genericRepository.getAllObjectByQuery("SELECT m FROM Sistema m");
+		
+		/*genericRepository.getAllObjectByQuery("SELECT m FROM Proyecto m");
+			genericRepository.getAllObjectByQuery("SELECT m FROM Sistema m");
 		genericRepository.getAllObjectByQuery("SELECT m FROM Proyecto m");
 		genericRepository.getAllObjectByQuery("SELECT m FROM Precio m");
 	*/

@@ -13,37 +13,36 @@
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Ficha T&eacute;nica</h3>
     
     
-  		<form id="createProyectForm" class="form-content">
+  		<form id="createProjectForm" class="form-content">
 	
     		<div class="form-row">
     			<div class="form-group col-md-4">
 		    		<input class="form-control" id="idCrmMCO" type="text" name="idCrmMCO" placeholder="Crm MCO" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-		    		<input class="form-control" id="ruc" type="text" name="ruc" placeholder="RUC" maxlength="200"/>
-    			</div>
+				    <input class="form-control" id="nombreCliente" type="text" name="nombreCliente" placeholder="Nombre del Cliente" maxlength="200"/>
+    			</div>  
     			<div class="form-group col-md-4">
-				    <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripcion" maxlength="200"/>
-    			</div>     			
+		    		<input class="form-control" id="ruc" type="text" name="ruc" placeholder="RUC" maxlength="200"/>
+    			</div>   			
   			</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-				    <input class="form-control" id="contratista" type="text" name="contratista" placeholder="Contratista" maxlength="200"/>
+				    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="nombre" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-		    		<input class="form-control" id="unidadEjecutora" type="text" name="unidadEjecutora" placeholder="Unidad ejecutora" maxlength="200"/>
-    			</div>
-    			
+		    		<input class="form-control" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
+    			</div>    			
     			<div class="form-group col-md-4">
-		    		<input class="form-control" id="nivelConstruccion" type="text" name="nivelConstruccion" placeholder="Nivel construcción" maxlength="200"/>
+		    		<input class="form-control" id="montoInversion" type="text" name="montoInversion" placeholder="Monto de inversión" maxlength="200"/>
     			</div>
     		</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-		    		<input class="form-control" id="montoInversion" type="text" name="montoInversion" placeholder="Monto de inversion" maxlength="200"/>
+				    <input class="form-control" id="montoPresupuesto" type="text" name="montoPresupuesto" placeholder="Monto de partida" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-				    <input class="form-control" id="montoPartida" type="text" name="montoPartida" placeholder="Monto de partida" maxlength="200"/>
+				    <input class="form-control" id="nivelConstruccion" type="text" name="nivelConstruccion" placeholder="Nivel de construccion" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
 				    <input class="form-control" id="areaConstruccion" type="text" name="areaConstruccion" placeholder="Área de construccion" maxlength="200"/>
@@ -51,43 +50,57 @@
     		</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-				     <select class="form-control form-control-sm custom-color" id="soporteTecnico" name="soporteTecnico" >
+				     <select class="form-control form-control-sm custom-color" id="soporte" name="soporte" >
 				    	<option class="placeholder-option" value="" disabled selected >Soporte</option>
 				    	<option value="0">Si</option>
 				    	<option value="1">No</option>				    	
 				    </select>
 		    	</div>
 		    	<div class="form-group col-md-4">
-				   <select class="form-control form-control-sm custom-color" id="garantiaCableado" name="garantiaCableado" >
-				    	<option class="placeholder-option" value="" disabled selected >Garantía Cableado</option>
+				   <select class="form-control form-control-sm custom-color" id="garantia" name="garantia" >
+				    	<option class="placeholder-option" value="" disabled selected >Garantía</option>
 				    	<option value="0">Sí</option>
 				    	<option value="1">No</option>				    	
 				    </select>
-		    	</div>
+				</div>
 		    	<div class="form-group col-md-4">
-				     <select class="form-control form-control-sm custom-color" id="garantiaEquipos" name="garantiaEquipos" >
-				    	<option class="placeholder-option" value="" disabled selected >Garantía Equipos</option>
-				    	<option value="0">Si</option>
-				    	<option value="1">No</option>				    	
-				    </select>
+				     <input class="form-control" id="tipoProyecto" type="text" name="tipoProyecto" placeholder="Tipo Proyecto" maxlength="200"/> 
     			</div>
     		</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-		    		<input class="form-control" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
-    			</div> 			
+				    <input class="form-control" id="categoriaConstruccion" type="text" name="categoriaConstruccion" placeholder="Categoria de Construcción" maxlength="200"/>
+    			</div>
+    			<div class="form-group col-md-4">
+				    <input class="form-control" id="porcentajeHolgura" type="text" name="porcentajeHolgura" placeholder="Porcentaje de Holgura" maxlength="200"/>
+    			</div>
+    			<div class="form-group col-md-4">
+    			 	<select class="form-control form-control-sm custom-color" id="tipoPrecio" name="tipoPrecio" >
+				    	<option class="placeholder-option" value="" disabled selected >Soporte</option>
+				    	<option value="0">Mínimo</option>
+				    	<option value="1">Máximo</option>	
+				    	<option value="2">Promedio</option>				    	
+				    </select>				    
+    			</div>
     		</div>
+
     		<div class="form-row">
     			<div class="form-group col-md-12">
-		    <div class="msg-error" id="msg-error-proyecto">
-		   			Debe ingresar los datos.
-     			</div>
+				    <div class="msg-error" id="msg-error-proyecto">
+				   			Debe ingresar los datos.
+	     			</div>
     			</div>
 			</div>
-			
+			<div class="form-row">
+    			<div class="form-group col-md-12">
+				    <div class="msg-exito" id="msg-exito-proyecto">
+				   			Se guardó el proyecto exitosamente.
+	     			</div>
+    			</div>
+			</div>
 			<div class="div-btns">
 			   	<input type="button" value="Guardar" id="btn-guardar-proyecto" class="btn btn-primary" />			   	
-			   	<input type="button" value="Crear Nivel" id="btn-crear-nivel" class="btn btn-primary" />
+			   	<input type="button" value="Crear Nivel" id="btn-crear-nivel" class="btn btn-primary" style="display:none;" />
 			</div>
 			
 		 </form>  
@@ -107,7 +120,10 @@
 <jsp:include page="/jsp/modalesProyecto.jsp" />
 
 <script type="text/javascript">
-			
+	
+	var nivelActual = "";
+	var proyectoActual = "";
+	
 	$(document).ready(function() {
 		
 		var color1 = "rgb(0, 72, 118)";
@@ -121,28 +137,73 @@
 		$("#btn-guardar-proyecto").click(function() {			
 
 			var idCrmMCO = $("#idCrmMCO").val();
+			var nombreCliente = $("#nombreCliente").val();
 			var ruc = $("#ruc").val();
-			var descripcion = $("#descripcion").val();
-			var contratista = $("#contratista").val();
-			var unidadEjecutora = $("#unidadEjecutora").val();
-			var nivelConstruccion = $("#nivelConstruccion").val();
-			var montoInversion = $("#montoInversion").val();
-			var montoPartida = $("#montoPartida").val();
-			var areaConstruccion = $("#areaConstruccion").val();
-			var soporteTecnico = $("#soporteTecnico").val();
-			var garantiaCableado = $("#garantiaCableado").val();
-			var garantiaEquipos = $("#garantiaEquipos").val();
+			var nombre = $("#nombre").val();
 			var localidad = $("#localidad").val();
+			var montoInversion = $("#montoInversion").val();
+			var montoPresupuesto = $("#montoPresupuesto").val();
+			var nivelConstruccion = $("#nivelConstruccion").val();
+			var areaConstruccion = $("#areaConstruccion").val();
+			var soporte = $("#soporte").val();
+			var garantia = $("#garantia").val();
+			var tipoProyecto = $("#tipoProyecto").val();
+			var categoriaConstruccion = $("#categoriaConstruccion").val();
+			var porcentajeHolgura = $("#porcentajeHolgura").val();
+			var tipoPrecio = $("#tipoPrecio").val();
 			
-			if(idCrmMCO.trim() == "" || ruc.trim() == "" || descripcion.trim() == "" ||
-				contratista.trim() == "" || unidadEjecutora.trim() == "" || nivelConstruccion.trim() == "" ||
-					montoInversion.trim() == "" || montoPartida.trim() == "" || areaConstruccion.trim() == "" ||
-						soporteTecnico.trim() == "" || garantiaCableado.trim() == "" || garantiaEquipos.trim() == "" ||
-							localidad.trim() == "") {
+			if(idCrmMCO.trim() == "" || ruc.trim() == "" || nombreCliente.trim() == "" || tipoPrecio.trim() == "" ||
+				nombre.trim() == "" || localidad.trim() == "" || nivelConstruccion.trim() == "" ||
+					montoInversion.trim() == "" || montoPresupuesto.trim() == "" || areaConstruccion.trim() == "" ||
+					 nivelConstruccion.trim() == "" || soporte.trim() == "" || garantia.trim() == "" || 
+					 	tipoProyecto.trim() == "" || categoriaConstruccion.trim() == "" || porcentajeHolgura.trim() == "") {
 				
 				$("#msg-error-proyecto").addClass("show");
 				return false;
-			}	
+			}
+			
+			  var $form = $("#createProjectForm").serializeArray();    	  	  
+		  	  var $formSerialized = objectifyForm($form);
+		  	  
+			 $.ajax({
+		    	  url: "/Cotizador/rest/project/createProject",
+		    	  type: "POST",
+		    	  data: JSON.stringify($formSerialized),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino creacion de projecto");
+		    	        console.log("result: " + result);
+		    	        var obj = JSON.stringify(result);
+		    	        console.log(" objeto " + obj);	    	        
+		    	        
+		    	        $(".msg-error").removeClass("on");
+		    	        
+		    	        if(obj === undefined) {	
+		    	        	$(".msg-error").html("Ha ocurrido un error, el proyecto no pudo ser creado.");
+		    	        	$(".msg-error").addClass("on");	    	        	 
+		    	        } else {
+		    	        	if(result != null) {
+		    	        		$("#msg-exito-proyecto").addClass("show");
+		    	        		proyectoActual = result;
+		    	        		
+		    	        		$("#btn-crear-nivel").css("display","inline-block");
+		    	        		
+		    	        	} else {	    	        	
+		    	        		$(".msg-error").html("Ha ocurrido un error, el proyecto no pudo ser creado.");
+			    	        	$(".msg-error").addClass("on");	 
+		    	        	}
+		    	        }
+		    	       
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
 		});
 		
 		$("#btn-crear-nivel").click(function() {
@@ -203,9 +264,49 @@
 			if(orden.trim() == "" || nombre.trim() == "" || descripcion.trim() == "") {
 				$("#msg-error-nivel").addClass("show");
 				return false;
-			}			
-
-// TODO Ir a bd y guardar el nivel
+			}	
+			
+			$("#idProyecto").val(proyectoActual);
+			 var $form = $("#createNivelForm").serializeArray();    	  	  
+		  	 var $formSerialized = objectifyForm($form);
+		  	  
+			 $.ajax({
+		    	  url: "/Cotizador/rest/nivel/createNivel",
+		    	  type: "POST",
+		    	  data: JSON.stringify($formSerialized),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino creacion de nivel");
+		    	        console.log("result: " + result);
+		    	        var obj = JSON.stringify(result);
+		    	        console.log(" objeto " + obj);	    	        
+		    	        
+		    	        $("#msg-error-nivel").removeClass("on");
+		    	        
+		    	        if(obj === undefined) {	
+		    	        	$("#msg-error-nivel").html("Ha ocurrido un error, el proyecto no pudo ser creado.");
+		    	        	$("#msg-error-nivel").addClass("on");	    	        	 
+		    	        } else {
+		    	        	if(result != null) {
+		    	        		$("#msg-exito-nivel").addClass("show");
+		    	        		nivelActual = result;		
+		    	        		
+		    	        	} else {	    	        	
+		    	        		$("#msg-error-nivel").html("Ha ocurrido un error, el proyecto no pudo ser creado.");
+			    	        	$("#msg-error-nivel").addClass("on");	 
+		    	        	}
+		    	        }
+		    	       
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
 
 			if( $("div.edit").length > 0) {
 				$("div.edit").find("p").html(nombre);				
@@ -219,7 +320,7 @@
 				colorFont = "dark";
 			}			
 			
-			var html = '<div data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
+			var html = '<div data-id="" data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
 			html += ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
 			html += '<p>' + nombre + '</p>';
 			html += '<a id="eliminarNivel" title="Eliminar nivel" onclick="eliminarNivel($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 0px;padding-left: 4px;"></a>';
@@ -288,7 +389,36 @@
 	
 	function metrarNivel(elem){
 		elem.parent().addClass("metric");	
-		$("#metrado-modal").modal("show");
+		
+		var idNivel = elem.parent("div").data("id");
+		$('#sistema').empty()
+	    .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Sistema</option>');
+		
+		$.ajax({
+    	  url: "/Cotizador/rest/system/all",
+    	  type: "GET",
+    	  dataType: "json",
+    	  contentType: "application/json; charset=utf-8",
+    	  success: function(result){	    		
+    	        console.log("termino");
+    	        console.log(result);
+    	        
+    	        $.each(result, function( index, element ) {	 
+    	        	var o = new Option(result[index].nombre, result[index].id);
+    	        	$(o).html(result[index].nombre);
+    	        	$("#sistema").append(o);
+    	        
+    	        });
+    	        nivelActual = idNivel;
+    			$("#metrado-modal").modal("show");
+    	  },
+    	  complete: function(result){
+    	        console.log("complete");
+    	  },
+    	  error: function(result){
+    	        console.log("error");
+    	  }	    	  
+    	});
 	}
 	
 	$("#btn-cancelar-metrado").click(function() {

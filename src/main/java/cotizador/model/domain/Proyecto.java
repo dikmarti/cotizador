@@ -4,6 +4,11 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name = "Proyecto.findById", query = "SELECT p FROM Proyecto p WHERE p.id = :id"),
+	@NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p")	
+})
+
 @Entity
 @Table(name="proyecto")
 public class Proyecto {
@@ -14,29 +19,28 @@ public class Proyecto {
 	private int id;
 	
 	@Column
-	private int idCrmMCO;
+	private String idCrmMCO;
+	
+	@Column(name="nombre_cliente")
+	private String nombreCliente;
 	
 	@Column
 	private String ruc;
 	
 	@Column
-	private String descripcion;
+	private String nombre;
 	
-	@ManyToOne
-	@PrimaryKeyJoinColumn(name="id_cliente", referencedColumnName="id")
-	private Cliente cliente;
-	
-	@Column(name="unidad_ejecutora")
-	private String unidadEjecutora;
+	@Column
+	private String localidad;
 	
 	@Column(name="monto_inversion")
 	private Double montoInversion;
 	
-	@Column(name="monto_partida")
-	private Double montoPartida;
+	@Column(name="monto_presupuesto")
+	private Double montoPresupuesto;
 	
-	@Column
-	private String nivel;
+	@Column(name="nivel_construccion")
+	private String nivelConstruccion;
 		
 	@Column(name="area_construccion")
 	private float areaConstruccion;
@@ -44,14 +48,20 @@ public class Proyecto {
 	@Column
 	private boolean soporte;
 	
-	@Column(name="garantia_cableado")
-	private boolean garantiaCableado;
-	
-	@Column(name="garantia_equipos")
-	private boolean garantiaEquipos;
-	
 	@Column
-	private String localidad;
+	private boolean garantia;
+	
+	@Column(name="tipo_proyecto")
+	private String tipoProyecto;
+
+	@Column(name="categoria_construccion")
+	private String categoriaConstruccion;
+	
+	@Column(name="porcentaje_holgura")
+	private float porcentajeHolgura;
+	
+	@Column(name="tipo_precio")
+	private int tipoPrecio;
 	
 	@Column(name="fecha_creacion")
 	private Date fechaCreacion;
@@ -67,12 +77,20 @@ public class Proyecto {
 		this.id = id;
 	}
 
-	public int getIdCrmMCO() {
+	public String getIdCrmMCO() {
 		return idCrmMCO;
 	}
 
-	public void setIdCrmMCO(int idCrmMCO) {
+	public void setIdCrmMCO(String idCrmMCO) {
 		this.idCrmMCO = idCrmMCO;
+	}
+
+	public String getNombreCliente() {
+		return nombreCliente;
+	}
+
+	public void setNombreCliente(String nombreCliente) {
+		this.nombreCliente = nombreCliente;
 	}
 
 	public String getRuc() {
@@ -83,28 +101,20 @@ public class Proyecto {
 		this.ruc = ruc;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public String getLocalidad() {
+		return localidad;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public String getUnidadEjecutora() {
-		return unidadEjecutora;
-	}
-
-	public void setUnidadEjecutora(String unidadEjecutora) {
-		this.unidadEjecutora = unidadEjecutora;
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
 	}
 
 	public Double getMontoInversion() {
@@ -115,20 +125,20 @@ public class Proyecto {
 		this.montoInversion = montoInversion;
 	}
 
-	public Double getMontoPartida() {
-		return montoPartida;
+	public Double getMontoPresupuesto() {
+		return montoPresupuesto;
 	}
 
-	public void setMontoPartida(Double montoPartida) {
-		this.montoPartida = montoPartida;
+	public void setMontoPresupuesto(Double montoPresupuesto) {
+		this.montoPresupuesto = montoPresupuesto;
 	}
 
-	public String getNivel() {
-		return nivel;
+	public String getNivelConstruccion() {
+		return nivelConstruccion;
 	}
 
-	public void setNivel(String nivel) {
-		this.nivel = nivel;
+	public void setNivelConstruccion(String nivelConstruccion) {
+		this.nivelConstruccion = nivelConstruccion;
 	}
 
 	public float getAreaConstruccion() {
@@ -147,28 +157,44 @@ public class Proyecto {
 		this.soporte = soporte;
 	}
 
-	public boolean isGarantiaCableado() {
-		return garantiaCableado;
+	public boolean isGarantia() {
+		return garantia;
 	}
 
-	public void setGarantiaCableado(boolean garantiaCableado) {
-		this.garantiaCableado = garantiaCableado;
+	public void setGarantia(boolean garantia) {
+		this.garantia = garantia;
 	}
 
-	public boolean isGarantiaEquipos() {
-		return garantiaEquipos;
+	public String getTipoProyecto() {
+		return tipoProyecto;
 	}
 
-	public void setGarantiaEquipos(boolean garantiaEquipos) {
-		this.garantiaEquipos = garantiaEquipos;
+	public void setTipoProyecto(String tipoProyecto) {
+		this.tipoProyecto = tipoProyecto;
 	}
 
-	public String getLocalidad() {
-		return localidad;
+	public String getCategoriaConstruccion() {
+		return categoriaConstruccion;
 	}
 
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
+	public void setCategoriaConstruccion(String categoriaConstruccion) {
+		this.categoriaConstruccion = categoriaConstruccion;
+	}
+
+	public float getPorcentajeHolgura() {
+		return porcentajeHolgura;
+	}
+
+	public void setPorcentajeHolgura(float porcentajeHolgura) {
+		this.porcentajeHolgura = porcentajeHolgura;
+	}
+
+	public int getTipoPrecio() {
+		return tipoPrecio;
+	}
+
+	public void setTipoPrecio(int tipoPrecio) {
+		this.tipoPrecio = tipoPrecio;
 	}
 
 	public Date getFechaCreacion() {
@@ -186,5 +212,5 @@ public class Proyecto {
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
-	
+
 }

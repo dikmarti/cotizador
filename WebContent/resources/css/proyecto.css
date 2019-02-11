@@ -78,6 +78,13 @@
     margin-top: 10px;
 }
 
+.msg-exito{
+	color: #052C56;
+    display: none;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
 @media screen and (max-width: 600px) {
   .div-btns {
     width: 300px;

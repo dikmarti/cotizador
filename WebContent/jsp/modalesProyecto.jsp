@@ -11,6 +11,8 @@
 	      <div class="modal-body">
 	      		<form id="createNivelForm" class="form-content">
 					
+					<input id="idProyecto" type="hidden" name="idProyecto" maxlength="200"/>
+					
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
 						    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
@@ -32,6 +34,13 @@
 						   			Debe ingresar los datos.
 			      			</div>
 		      			</div>
+					</div>
+					<div class="form-row">
+		    			<div class="form-group col-md-12">
+						    <div class="msg-exito" id="msg-exito-nivel">
+						   			Se guardó el nivel exitosamente.
+			     			</div>
+		    			</div>
 					</div>
 					<div class="form-style-button proyecto">
 					   	<input type="button" value="Guardar" id="btn-guardar-nivel" class="btn btn-primary" style="margin-left: 20%;"/>	
@@ -85,48 +94,36 @@
 	      </div>
 	      <div class="modal-body">
 	      		<form id="metradoForm" class="form-content">					
-		      		<div class="form-row">
-			      		<div class="form-group col-md-4">
+		      		<div class="form-group row">
+			      		<div class="col-md-6">
 						     <select class="form-control form-control-sm custom-color" id="sistema" name="sistema" >
-						    	<option class="placeholder-option" value="" disabled selected >Sistema</option>
-						    	<option value="0">Sistema 1</option>
-						    	<option value="1">Sistema 2</option>
-						    	<option value="2">Sistema 3</option>
-						    	<option value="3">Sistema 4</option>				    	
+						    	<option class="placeholder-option" value="" disabled selected >Seleccione el Sistema</option>
 						    </select>
 				    	</div>
-				    	<div class="form-group col-md-4">
+				    	<div class="col-md-6">
 						     <select class="form-control form-control-sm custom-color" id="producto" name="producto" >
-						    	<option class="placeholder-option" value="" disabled selected >Producto</option>
-						    	<option value="0">Producto 1</option>
-						    	<option value="1">Producto 2</option>
-						    	<option value="2">Producto 3</option>
-						    	<option value="3">Producto 4</option>				    	
+						    	<option class="placeholder-option" value="" disabled selected >Seleccione el Producto</option>
 						    </select>
-				    	</div>	
-				    	<div class="form-group col-md-4">
+				    	</div>
+				    	
+				    </div>
+				    <div class="form-group row">	
+				    	<div class="col-md-6">
 						     <select class="form-control form-control-sm custom-color" id="proveedor" name="proveedor" >
-						    	<option class="placeholder-option" value="" disabled selected >Proveedor</option>
-						    	<option value="0">Proveedor 1</option>
-						    	<option value="1">Proveedor 2</option>
-						    	<option value="2">Proveedor 3</option>
-						    	<option value="3">Proveedor 4</option>				    	
+						    	<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>
 						    </select>
 				    	</div>
-				    	<div class="form-group col-md-4">
+				    	<div class="col-md-6">
 						     <select class="form-control form-control-sm custom-color" id="precio" name="precio" >
-						    	<option class="placeholder-option" value="" disabled selected >Precio</option>
-						    	<option value="0">Precio minimo</option>
-						    	<option value="1">Precio promedio</option>
-						    	<option value="2">Precio maximo</option>					    	
+						    	<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>
 						    </select>
 				    	</div>
-				    	<div class="form-group col-md-4">
-						     <span>Unidad de Medida</span>	
-				    	</div>
-				    	<div class="form-group col-md-4">
+				    </div>
+				    <div class="form-group row">
+				    	<div class="col-md-6">
 						      <input class="form-control" id="cantidad" type="text" name="cantidad" placeholder="Cantidad" maxlength="200"/>
-				    	</div>		      			
+				    	</div>
+				    		      			
 		    		</div> 
 		    		
 		    		<div class="form-row">
@@ -135,13 +132,20 @@
 						   			Debe ingresar los datos.
 			      			</div>
 		      			</div>
-					</div>  				
-
-					<div class="form-style-button proyecto">
-					   	<input type="button" value="Agregar" id="btn-agregar-producto" class="btn btn-primary" style="margin-left: 20%;"/>	
-					   	<input type="button" value="Modificar" id="btn-modificar-producto" class="btn btn-primary" style="margin-left: 20%; display:none;"/>
-					   	<input type="button" value="Cancelar" id="btn-cancelar-producto" class="btn btn-primary" style="margin-left: 10%;"/>			   
+					</div> 
+						
+				   <div class="form-group row">				   
+				   		<div class="col-md-6">
+					   		<input type="button" value="Agregar" id="btn-agregar-producto" class="btn btn-primary" style="margin-left: 20%; width: 50%"/>						   
+		      			</div>	
+		      			<div class="col-md-6">
+						   	<input type="button" value="Modificar" id="btn-modificar-producto" class="btn btn-primary" style="margin-left: 20%; display:none; width: 50%"/>
+		      			</div>
+		      			<div class="col-md-6">
+						   	<input type="button" value="Cancelar" id="btn-cancelar-producto" class="btn btn-primary" style="margin-left: 10%;width: 50%"/>			   
+		      			</div>
 					</div>
+			      		
 			   	</form>
 			   	
 			   	<div class="form-row" id="sist-metrado" style="margin-top: 15px;">
@@ -163,11 +167,30 @@
 <script type="text/javascript">
 
 	var productosSelected = [];
+	var preciosXProveedor = [];
 
 	$(document).ready(function() {
 		
+		
+		$("#proveedor").change(function() {
+			
+			var proveedor = $("#proveedor option:selected").val();			
+			var precios = preciosXProveedor[proveedor];
+			
+			if(precios != undefined) {
+				
+				var listaPrecios = precios.split(",");
+				
+				 $.each(listaPrecios, function( index, element ) {	 
+				 	var o = new Option(element, index);
+    	        	$(o).html(element);
+    	        	$("#precio").append(o);		
+	 	        });			
+			}
+			
+		});
+		
 		$("#producto").change(function() {
-			$("#producto option:selected").prop('disabled', 'disabled');
 			
 			var sistema = $("#sistema option:selected").val();
 			var producto = $("#producto option:selected").val();
@@ -177,6 +200,45 @@
 			} else {
 				productosSelected[sistema] += "," + producto;
 			}
+			
+			$('#proveedores').empty()
+			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>');
+			$('#precio').empty()
+			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
+			$('#cantidad').val();
+			
+		  
+			var $val = $("#sistema option:selected").val();
+			$("#metrado-modal").css('z-index', '1');
+			$.ajax({
+		    	  url: "/Cotizador/rest/priceList/byProduct",
+		    	  type: "POST",
+		    	  data: JSON.stringify({idSystem: $val}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){	
+		    	        console.log("termino");
+		    	        console.log(result);
+		    	        
+		    	        $.each(result, function( index, element ) {	 
+		    	        	var o = new Option(result[index].nombre, result[index].id);
+		    	        	$(o).html(result[index].nombre);
+		    	        	$("#proveedor").append(o);	
+		    	        	
+		    	        	preciosXProveedor[result[index].id] = result[index].precioMinimoo + "," + result[index].precioMaximo + "," + result[index].precioPromedio;
+		    	        });
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+		    	
+				$("#metrado-modal").css('z-index', '2');
+	    	    $(".modal-backdrop.fade.in").css('z-index', '1');
 			
 		});
 		
@@ -189,7 +251,46 @@
 				 $.each(listaProductos , function( index, element ) {				 
 					 $("[value^=" + element + "]").prop('disabled', 'disabled');
 	 	         });
-			}			
+			}
+			
+			$('#producto').empty()
+		    .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Producto</option>');
+			$('#proveedores').empty()
+			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>');
+			$('#precio').empty()
+			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
+			$('#cantidad').val();
+			
+		  
+			var $val = $("#sistema option:selected").val();
+			$("#metrado-modal").css('z-index', '1');
+			$.ajax({
+		    	  url: "/Cotizador/rest/product/bySystem",
+		    	  type: "POST",
+		    	  data: JSON.stringify({idSystem: $val}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){	
+		    	        console.log("termino");
+		    	        console.log(result);
+		    	        
+		    	        $.each(result, function( index, element ) {	 
+		    	        	var o = new Option(result[index].nombre, result[index].id);
+		    	        	$(o).html(result[index].nombre);
+		    	        	$("#producto").append(o);		    	        	
+		    	        });
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+		    	
+				$("#metrado-modal").css('z-index', '2');
+	    	    $(".modal-backdrop.fade.in").css('z-index', '1');
 		});
 		
 			
@@ -270,7 +371,9 @@
 				$("#sist-metrado").append(html);	
 				$("#producto_" + producto).addClass("sep-first-products");
 		
-			}			
+			}
+			
+			$("#producto option:selected").prop('disabled', 'disabled');
 			
 		});	
 		
