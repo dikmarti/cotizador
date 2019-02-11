@@ -124,6 +124,23 @@ public class ProviderService {
 		return result;
 
 	}
+	
+	/**
+	 * Metodo que busca un proveedor en la base de datos por id
+	 * @param id
+	 * @return
+	 */
+	public Proveedor findProviderById(Integer id) {
+
+		System.out.println("Method findProviderById...");
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Proveedor.findById", "id", id);
+
+		Proveedor result = !allObject.isEmpty() ? (Proveedor) (Object) allObject.get(0) : null;
+		System.out.println("Proveedor: " + result);
+
+		return result;
+
+	}
 
 
 }

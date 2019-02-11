@@ -20,51 +20,53 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import cotizador.model.domain.RelacionProducto;
-import cotizador.model.domain.models.RelationModel;
-import cotizador.service.RelationService;
+import cotizador.model.domain.Precio;
+import cotizador.model.domain.models.PriceListModel;
+import cotizador.model.domain.models.PriceListResponseModel;
+import cotizador.service.PriceListService;
 
-@Path("/relation")
+@Path("/priceList")
 @Produces(MediaType.TEXT_HTML)
-public class RelationController extends GenericController {
+public class PriceListController extends GenericController {
 
 	@Inject
-	RelationService relationService;
+	PriceListService priceListService;
 	
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<RelacionProducto> allProviders() {
+	public List<PriceListResponseModel> allProviders() {
 
-		System.out.println("/all get all relationProduct from dataBase");
-		List<RelacionProducto> allRelations = new ArrayList<RelacionProducto>();
+		System.out.println("/all get all priceList from dataBase");
+		List<PriceListResponseModel> allPriceList = new ArrayList<PriceListResponseModel>();
 
 		try {
-			allRelations = relationService.retrieveAllRelation();
+			allPriceList = priceListService.retrieveAllPriceList();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("allRelations: " + allRelations);
-		return allRelations;
+		System.out.println("allPriceList: " + allPriceList);
+		return allPriceList;
 	}
 
 	@POST
-	@Path("/createRelation")
+	@Path("/createPriceList")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Integer create(String jsonForm, @Context HttpServletRequest httpRequest) {
 
-		System.out.println("/createRelation json form " + jsonForm);
+		System.out.println("/createPriceList json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
-		RelationModel relationModel = new RelationModel();
+		PriceListModel priceListModel = new PriceListModel();
 
 		try {
 
-			relationModel = mapper.readValue(jsonForm, RelationModel.class);
-			Integer status = relationService.createRelation(relationModel.getSistema(), relationModel.getProducto(), 
-					relationModel.getProductoRelacion(), relationModel.getFactor(), relationModel.getOperacion());
+			priceListModel = mapper.readValue(jsonForm, PriceListModel.class);
+			Integer status = priceListService.createPriceList(priceListModel.getProducto(), 
+					priceListModel.getProveedor(), priceListModel.getPrecioMinimo(), priceListModel.getPrecioMaximo(),
+					priceListModel.getPrecioPromedio());
 			
 			System.out.println("status: " + status);
 			return status;
@@ -87,21 +89,20 @@ public class RelationController extends GenericController {
 
 	@SuppressWarnings("unchecked")
 	@POST
-	@Path("/deleteRelation")
+	@Path("/deletePriceList")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Boolean delete(String jsonForm, @Context HttpServletRequest httpRequest) {
 
-		System.out.println("/deleteRelation json form " + jsonForm);
+		System.out.println("/deletePriceList json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Integer> relationMap = new HashMap<String, Integer>();
+		Map<String, Integer> providerMap = new HashMap<String, Integer>();
 
 		try {
 
-			relationMap = mapper.readValue(jsonForm, Map.class);
-			Integer id = relationMap.get("id");
-			
-			Boolean deleted = relationService.deleteRelation(id);
+			providerMap = mapper.readValue(jsonForm, Map.class);
+			Integer id = providerMap.get("id");
+			Boolean deleted = priceListService.deletePriceList(id);
 
 			System.out.println("deleted: " + deleted);
 			if (deleted) {
@@ -126,25 +127,22 @@ public class RelationController extends GenericController {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@POST
-	@Path("/updateRelation")
+	@Path("/updatePriceList")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Integer update(String jsonForm, @Context HttpServletRequest httpRequest) {
 
-		System.out.println("/updateSystem json form " + jsonForm);
+		System.out.println("/updatePriceList json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, String> relationMap = new HashMap<String, String>();
+		PriceListModel priceListModel = new PriceListModel();
 
 		try {
 
-			relationMap = mapper.readValue(jsonForm, Map.class);
-			Integer id = Integer.parseInt(relationMap.get("id"));
-			String factor = relationMap.get("factor");
-			Integer operacion = Integer.parseInt(relationMap.get("operacion"));
+			priceListModel = mapper.readValue(jsonForm, PriceListModel.class);
 			
-			Integer status = relationService.updateRelation(factor, operacion, id);
+			Integer status = priceListService.updatePriceList(priceListModel.getPrecioMinimo(),
+					priceListModel.getPrecioMaximo(), priceListModel.getPrecioPromedio(), priceListModel.getId());
 
 			System.out.println("status: " + status);
 			return status;
@@ -164,5 +162,30 @@ public class RelationController extends GenericController {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/byProduct")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Precio> allProductsBySystem(String jsonForm, @Context HttpServletRequest httpRequest) {
+		
+		System.out.println("/byProduct get all priceList from dataBase by product");
+		List<Precio> allPriceList = new ArrayList<Precio>();
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, String> providerMap = new HashMap<String, String>();
+
+		try {
+
+			providerMap = mapper.readValue(jsonForm, Map.class);
+			Integer idProduct = Integer.parseInt(providerMap.get("idProduct"));
+			allPriceList = priceListService.findByProduct(idProduct);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("allPriceList: " + allPriceList);
+		return allPriceList;
+	}
 
 }

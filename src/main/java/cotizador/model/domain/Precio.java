@@ -4,6 +4,12 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name = "Precio.findById", query = "SELECT s FROM Precio s WHERE s.id = :id"),
+	@NamedQuery(name = "Precio.findAll", query = "SELECT s FROM Precio s"),
+	@NamedQuery(name = "Precio.findByProduct", query = "SELECT s FROM Precio s WHERE s.producto.id = :id")	
+})
+
 @Entity
 @Table(name="precio")
 public class Precio {
