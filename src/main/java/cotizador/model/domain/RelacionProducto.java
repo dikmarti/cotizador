@@ -42,6 +42,7 @@ public class RelacionProducto {
 	
 	@Column(name="operacion")
 	private int operacion;
+	// 0 div, 1 mult
 
 	public int getId() {
 		return id;

@@ -207,12 +207,16 @@
 		$("#btn-crear-nivel").click(function() {
 			
 //TODO validar si es nuevo o esta modificando para mostrar los valores
-			$("#nombre").val("");
+			$("#nombre-nivel").val("");
 			$("#descripcion-nivel").val("");
 			$("#orden").val("")
 			
+			$("#msg-exito-nivel").removeClass("show");
 			$("#niveles").addClass("show");			
 			$("#nivel-modal").modal("show");
+			
+			$("#nivel-modal").css('z-index', '2');
+        	$(".modal-backdrop.fade.in").css('z-index', '1');
 		});
 		
 		$("#editarNivel").click(function() {
@@ -223,7 +227,7 @@
 		
 		$("#btn-cancelar-nivel").click(function() {
 			$("div.edit").removeClass("edit");
-			$("#nombre").val("");
+			$("#nombre-nivel").val("");
 			$("#descripcion-nivel").val("");
 			$("#orden").val("")
 			
@@ -327,9 +331,12 @@
 		    	    			
 		    	    			indexColorNivel++;
 		    	        		
+		    	    			$("#nivel-modal").css('z-index', '2');
+			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+			    	        	
 		    	    			$("#nivel-modal").modal("hide");
 		    	    			
-		    	    			$("#nombre").val("");
+		    	    			$("#nombre-nivel").val("");
 		    	    			$("#descripcion-nivel").val("");
 		    	    			$("#orden").val("");
 		    	    			
