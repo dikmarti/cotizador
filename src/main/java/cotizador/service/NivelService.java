@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import cotizador.model.domain.Nivel;
 import cotizador.model.domain.Proyecto;
 import cotizador.model.domain.Sistema;
 import cotizador.model.domain.Usuario;
@@ -81,13 +82,13 @@ public class NivelService {
 	 * @param id
 	 * @return
 	 */
-	public Sistema findSystemById(Integer id) {
+	public Nivel findNivelById(Integer id) {
 
-		System.out.println("Method findSystemById...");
-		List<Object> allObject = genericRepository.getAllObjectFiltered("Sistema.findById", "id", id);
+		System.out.println("Method findNivelById...");
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Nivel.findById", "id", id);
 
-		Sistema result = !allObject.isEmpty() ? (Sistema) (Object) allObject.get(0) : null;
-		System.out.println("Sistema: " + result);
+		Nivel result = !allObject.isEmpty() ? (Nivel) (Object) allObject.get(0) : null;
+		System.out.println("Nivel: " + result);
 
 		return result;
 

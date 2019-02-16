@@ -30,6 +30,18 @@ public class GenericRepository {
         
     }
     
+    public List<Object> addAllObject(List<Object> listObject){
+    	
+    	entityManager.getTransaction().begin();	
+    	List<Object> objectSaved = addAllObject(entityManager, listObject);
+    	
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+       return objectSaved;
+        
+    }
+    
     public void updateObject(Object object){
     	
     	entityManager.getTransaction().begin();	
@@ -51,6 +63,17 @@ public class GenericRepository {
         
     }
     
+    private List<Object> addAllObject(EntityManager entityManager, List<Object> listObject){
+        
+    	for (Object object : listObject) {
+    		entityManager.persist(object);
+        	entityManager.flush();
+		}
+    	
+		return listObject;
+        
+    }
+
     private Object addObject(EntityManager entityManager, Object object){
         
     	entityManager.persist(object);

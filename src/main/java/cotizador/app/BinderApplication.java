@@ -5,6 +5,7 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import cotizador.model.repository.GenericRepository;
 import cotizador.model.repository.ShapeRepository;
 import cotizador.service.GenericService;
+import cotizador.service.MetradoService;
 import cotizador.service.ModuleService;
 import cotizador.service.NivelService;
 import cotizador.service.PermissionService;
@@ -32,5 +33,6 @@ public class BinderApplication extends AbstractBinder {
         bind(ProjectService.class).to(ProjectService.class); 
         bind(NivelService.class).to(NivelService.class); 
         bind(PriceListService.class).to(PriceListService.class); 
+        bind(MetradoService.class).to(MetradoService.class);
     }
 }

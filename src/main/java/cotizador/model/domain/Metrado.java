@@ -20,7 +20,10 @@ public class Metrado {
 	private Precio precio;
 	
 	@Column(name="cantidad_producto")
-	private Double cantidadProducto;
+	private Integer cantidadProducto;
+	
+	@Column(name="precio_producto")
+	private Double precioProducto;
 	
 	@Column(name="monto_total")
 	private Double montoTotal;
@@ -49,11 +52,11 @@ public class Metrado {
 		this.precio = precio;
 	}
 
-	public Double getCantidadProducto() {
+	public Integer getCantidadProducto() {
 		return cantidadProducto;
 	}
 
-	public void setCantidadProducto(Double cantidadProducto) {
+	public void setCantidadProducto(Integer cantidadProducto) {
 		this.cantidadProducto = cantidadProducto;
 	}
 
@@ -63,5 +66,13 @@ public class Metrado {
 
 	public void setMontoTotal(Double montoTotal) {
 		this.montoTotal = montoTotal;
+	}
+
+	public Double getPrecioProducto() {
+		return precioProducto;
+	}
+
+	public void setPrecioProducto(Double precioProducto) {
+		this.precioProducto = precioProducto;
 	}	
 }

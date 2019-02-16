@@ -76,7 +76,7 @@
     			</div>
     			<div class="form-group col-md-4">
     			 	<select class="form-control form-control-sm custom-color" id="tipoPrecio" name="tipoPrecio" >
-				    	<option class="placeholder-option" value="" disabled selected >Soporte</option>
+				    	<option class="placeholder-option" value="" disabled selected >Tipo de Precio</option>
 				    	<option value="0">Mínimo</option>
 				    	<option value="1">Máximo</option>	
 				    	<option value="2">Promedio</option>				    	
@@ -116,8 +116,6 @@
 	</div>
 
 </div>
-
-<jsp:include page="/jsp/modalesProyecto.jsp" />
 
 <script type="text/javascript">
 	
@@ -258,7 +256,7 @@
 		$("#btn-guardar-nivel").click(function() {
 			
 			var orden = $("#orden").val();
-			var nombre = $("#nombre").val();
+			var nombre = $("#nombre-nivel").val();
 			var descripcion = $("#descripcion-nivel").val();
 			
 			if(orden.trim() == "" || nombre.trim() == "" || descripcion.trim() == "") {
@@ -270,6 +268,8 @@
 			 var $form = $("#createNivelForm").serializeArray();    	  	  
 		  	 var $formSerialized = objectifyForm($form);
 		  	  
+		  	 $("#nivel-modal").css('z-index', '1');
+		  	 
 			 $.ajax({
 		    	  url: "/Cotizador/rest/nivel/createNivel",
 		    	  type: "POST",
@@ -285,14 +285,59 @@
 		    	        $("#msg-error-nivel").removeClass("on");
 		    	        
 		    	        if(obj === undefined) {	
+		    	        	
+		    	        	$("#nivel-modal").css('z-index', '2');
+		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+		    	        	
 		    	        	$("#msg-error-nivel").html("Ha ocurrido un error, el proyecto no pudo ser creado.");
 		    	        	$("#msg-error-nivel").addClass("on");	    	        	 
 		    	        } else {
 		    	        	if(result != null) {
 		    	        		$("#msg-exito-nivel").addClass("show");
-		    	        		nivelActual = result;		
+		    	        		nivelActual = result;	
 		    	        		
-		    	        	} else {	    	        	
+		    	        		if( $("div.edit").length > 0) {
+		    	    				$("div.edit").find("p").html(nombre);				
+		    	    				return false;
+		    	    			}
+
+		    	    			var colorNivelCreado = colorArray[indexColorNivel];
+		    	    			var colorFont = "white";
+		    	    			
+		    	    			if (indexColorNivel >= cantMaxNiveles/2) {
+		    	    				colorFont = "dark";
+		    	    			}			
+		    	    			
+		    	    			var html = '<div data-id="" data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
+		    	    			html += ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
+		    	    			html += '<p>' + nombre + '</p>';
+		    	    			html += '<a id="eliminarNivel" title="Eliminar nivel" onclick="eliminarNivel($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 0px;padding-left: 4px;"></a>';
+		    	    			html += '<a id="metrarNivel" data-nivel-id="'+result+'" title="Metrar nivel" onclick="metrarNivel($(this));" href="javascript:void(0)" class="fa fa-calculator fa-3x home" style="font-size: 13px; text-decoration: none; position: relative;top: -27px;float:right;color:white;padding-left: 4px;"></a>';
+		    	    			html += '<a id="editarNivel" title="Editar nivel" onclick="editarNivel($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: -28px;float:right;color:white;"></a>';
+		    	    			html += '</div>';			
+		    	    			
+		    	    			$("#row-niveles").prepend(html);	
+		    	    									
+		    	    			var $test = $('#row-niveles div').sort(function(a,b) {
+		    	    			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
+		    	    			});
+		    	    			
+		    	    			$("#row-niveles").html("");			
+		    	    			$("#row-niveles").append($test);	
+		    	    			
+		    	    			indexColorNivel++;
+		    	        		
+		    	    			$("#nivel-modal").modal("hide");
+		    	    			
+		    	    			$("#nombre").val("");
+		    	    			$("#descripcion-nivel").val("");
+		    	    			$("#orden").val("");
+		    	    			
+		    	        	} else {
+		    	        		
+		    	        		$("#nivel-modal").css('z-index', '2');
+			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+			    	        	
 		    	        		$("#msg-error-nivel").html("Ha ocurrido un error, el proyecto no pudo ser creado.");
 			    	        	$("#msg-error-nivel").addClass("on");	 
 		    	        	}
@@ -308,36 +353,7 @@
 		    	  
 		    	});
 
-			if( $("div.edit").length > 0) {
-				$("div.edit").find("p").html(nombre);				
-				return false;
-			}
-
-			var colorNivelCreado = colorArray[indexColorNivel];
-			var colorFont = "white";
 			
-			if (indexColorNivel >= cantMaxNiveles/2) {
-				colorFont = "dark";
-			}			
-			
-			var html = '<div data-id="" data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
-			html += ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
-			html += '<p>' + nombre + '</p>';
-			html += '<a id="eliminarNivel" title="Eliminar nivel" onclick="eliminarNivel($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 0px;padding-left: 4px;"></a>';
-			html += '<a id="metrarNivel" title="Metrar nivel" onclick="metrarNivel($(this));" href="javascript:void(0)" class="fa fa-calculator fa-3x home" style="font-size: 13px; text-decoration: none; position: relative;top: -27px;float:right;color:white;padding-left: 4px;"></a>';
-			html += '<a id="editarNivel" title="Editar nivel" onclick="editarNivel($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: -28px;float:right;color:white;"></a>';
-			html += '</div>';			
-			
-			$("#row-niveles").prepend(html);	
-									
-			var $test = $('#row-niveles div').sort(function(a,b) {
-			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
-			});
-			
-			$("#row-niveles").html("");			
-			$("#row-niveles").append($test);		
-			
-			indexColorNivel++;
 		});	
 				
 		function interpolateColor(color1, color2, factor) {
@@ -389,6 +405,7 @@
 	
 	function metrarNivel(elem){
 		elem.parent().addClass("metric");	
+		$("#nivelId").val(elem.data("nivel-id"));
 		
 		var idNivel = elem.parent("div").data("id");
 		$('#sistema').empty()
@@ -428,5 +445,7 @@
 	
 	
 </script>
+
+<jsp:include page="/jsp/modalesProyecto.jsp" />
 
 </t:standardPage>

@@ -15,12 +15,12 @@
 					
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
-						    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
+						    <input class="form-control" id="nombre-nivel" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
 		      			</div>	      			
 		    		</div>
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
-						    <input class="form-control" id="descripcion-nivel" type="text" name="descripcion-nivel" placeholder="Descripción"  maxlength="200"/>
+						    <input class="form-control" id="descripcion-nivel" type="text" name="descripcion" placeholder="Descripción"  maxlength="200"/>
 		      			</div>	      			
 		      		</div>
 		      		<div class="form-row">
@@ -93,7 +93,8 @@
 	        <h4 class="modal-title" id="modal-title-text">Metrado</h4>
 	      </div>
 	      <div class="modal-body">
-	      		<form id="metradoForm" class="form-content">					
+	      		<form id="metradoForm" class="form-content">
+	      			<input id="nivelId" type="hidden">					
 		      		<div class="form-group row">
 			      		<div class="col-md-6">
 						     <select class="form-control form-control-sm custom-color" id="sistema" name="sistema" >
@@ -109,7 +110,7 @@
 				    </div>
 				    <div class="form-group row">	
 				    	<div class="col-md-6">
-						     <select class="form-control form-control-sm custom-color" id="proveedor" name="proveedor" >
+						     <select class="form-control form-control-sm custom-color" id="proveedor" name="proveedor" data-price-list>
 						    	<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>
 						    </select>
 				    	</div>
@@ -136,14 +137,20 @@
 						
 				   <div class="form-group row">				   
 				   		<div class="col-md-6">
-					   		<input type="button" value="Agregar" id="btn-agregar-producto" class="btn btn-primary" style="margin-left: 20%; width: 50%"/>						   
+					   		<input type="button" value="Agregar" id="btn-agregar-producto" class="btn btn-primary" style="margin-left: 10%; width: 50%"/>						   
 		      			</div>	
 		      			<div class="col-md-6">
-						   	<input type="button" value="Modificar" id="btn-modificar-producto" class="btn btn-primary" style="margin-left: 20%; display:none; width: 50%"/>
+						   	<input type="button" value="Modificar" id="btn-modificar-producto" class="btn btn-primary" style="margin-left: 15%; display:none; width: 50%"/>
 		      			</div>
 		      			<div class="col-md-6">
-						   	<input type="button" value="Cancelar" id="btn-cancelar-producto" class="btn btn-primary" style="margin-left: 10%;width: 50%"/>			   
+						   	<input type="button" value="Cancelar" id="btn-cancelar-producto" class="btn btn-primary" style="margin-left: 0%;width: 50%"/>			   
 		      			</div>
+					</div>
+					
+					<div class="form-group row">				   
+				   		<div class="col-md-6">
+					   		<a id="guardar-metrado" title="Guardar metrado" href="javascript:void(0)" class="fa fa-save fa-3x" style="position: relative;float: right;top: -36px;"></a>						   
+		      			</div>		      			
 					</div>
 			      		
 			   	</form>
@@ -168,14 +175,65 @@
 
 	var productosSelected = [];
 	var preciosXProveedor = [];
+	var priceList = [];
 
 	$(document).ready(function() {
 		
+		$("#guardar-metrado").click(function() {
+		
+			var productDivs = $(".js-product");
+			var result = "{\"listaMetrados\": [";
+			var lengthProducts = productDivs.length
+			
+			$.each(productDivs, function( index, element ) {	 
+			 	
+				var producto = $(element).find("#modificarProducto").data("producto");
+				var proveedor = $(element).find("#modificarProducto").data("proveedor");
+				var precio = $(element).find("#modificarProducto").data("precio");
+				var cantidad = $(element).find("#modificarProducto").data("cantidad");
+				var precioLista = priceList[producto + "_" + proveedor];				
+				
+				result += JSON.stringify({"nivel": parseInt($("#nivelId").val()), "producto": producto,"proveedor": proveedor,"precio": precio,"cantidad": cantidad, "precioLista": precioLista})
+					
+				if(lengthProducts > 1) {
+					result += ",";
+					lengthProducts--;
+				}
+ 	        });	
+			
+			result += "]}";
+			
+			$("#metrado-modal").css('z-index', '1');
+			$.ajax({
+		    	  url: "/Cotizador/rest/metrado/create",
+		    	  type: "POST",
+		    	  data: result,
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){	
+		    	        console.log("termino");
+		    	        console.log(result);
+		    	        
+		    	        
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+		});
 		
 		$("#proveedor").change(function() {
 			
 			var proveedor = $("#proveedor option:selected").val();			
 			var precios = preciosXProveedor[proveedor];
+			
+			$('#precio').empty()
+			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
+			$('#cantidad').val("");
 			
 			if(precios != undefined) {
 				
@@ -201,19 +259,19 @@
 				productosSelected[sistema] += "," + producto;
 			}
 			
-			$('#proveedores').empty()
+			$('#proveedor').empty()
 			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>');
 			$('#precio').empty()
 			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
-			$('#cantidad').val();
+			$('#cantidad').val("");
 			
 		  
-			var $val = $("#sistema option:selected").val();
+			var $val = $("#producto option:selected").val();
 			$("#metrado-modal").css('z-index', '1');
 			$.ajax({
 		    	  url: "/Cotizador/rest/priceList/byProduct",
 		    	  type: "POST",
-		    	  data: JSON.stringify({idSystem: $val}),
+		    	  data: JSON.stringify({idProduct: $val}),
 		    	  dataType: "json",
 		    	  contentType: "application/json; charset=utf-8",
 		    	  success: function(result){	
@@ -221,11 +279,11 @@
 		    	        console.log(result);
 		    	        
 		    	        $.each(result, function( index, element ) {	 
-		    	        	var o = new Option(result[index].nombre, result[index].id);
+		    	        	var o = new Option(result[index].proveedor.nombre, result[index].proveedor.id);
 		    	        	$(o).html(result[index].nombre);
-		    	        	$("#proveedor").append(o);	
-		    	        	
-		    	        	preciosXProveedor[result[index].id] = result[index].precioMinimoo + "," + result[index].precioMaximo + "," + result[index].precioPromedio;
+		    	        	$("#proveedor").append(o);		    	        	
+		    	        	priceList[result[index].producto.id + "_" + result[index].proveedor.id] = result[index].id;
+		    	        	preciosXProveedor[result[index].proveedor.id] = result[index].precioMinimoo + "," + result[index].precioMaximo + "," + result[index].precioPromedio;
 		    	        });
 		    	  },
 		    	  complete: function(result){
@@ -255,11 +313,11 @@
 			
 			$('#producto').empty()
 		    .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Producto</option>');
-			$('#proveedores').empty()
+			$('#proveedor').empty()
 			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>');
 			$('#precio').empty()
 			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
-			$('#cantidad').val();
+			$('#cantidad').val("");
 			
 		  
 			var $val = $("#sistema option:selected").val();
@@ -301,7 +359,7 @@
 			var sistema = $("#sistema option:selected").val();
 			var producto = $("#producto option:selected").val();
 			var proveedor = $("#proveedor option:selected").val();
-			var precio = $("#precio option:selected").val();
+			var precio = $("#precio option:selected").text();
 			var cantidad = $("#cantidad").val();
 			
 			if(sistema == "" || producto == "" || proveedor == "" || precio == "" || cantidad == "") { 
@@ -313,7 +371,7 @@
 			var html = "";
 			var htmlProducto = "";
 			
-			htmlProducto += "<div id='producto_"+ producto +"'>";			
+			htmlProducto += "<div id='producto_"+ producto +"' class='js-product'>";			
 
 			htmlProducto += '		<a id="eliminarProducto"  onclick="eliminarProducto(this);" data-sistema="' + sistema + '" data-producto="' + producto + '" title="Eliminar producto" onclick="" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
 			htmlProducto += '		<a id="modificarProducto" onclick="modificarProducto(this);" data-sistema="' + sistema + '" data-producto="' + producto + '" data-proveedor="' + proveedor + '" data-precio="' + precio + '" data-cantidad="' + cantidad + '" title="Editar producto" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
@@ -374,6 +432,12 @@
 			}
 			
 			$("#producto option:selected").prop('disabled', 'disabled');
+			$('#producto').val("");		    
+			$('#proveedor').empty()
+			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>');
+			$('#precio').empty()
+			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
+			$('#cantidad').val("");
 			
 		});	
 		

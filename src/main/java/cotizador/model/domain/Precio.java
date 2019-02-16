@@ -28,9 +28,6 @@ public class Precio {
 	private Proveedor proveedor;
 	
 	@Column
-	private Double precio;
-	
-	@Column
 	private Double precioMaximo;
 	
 	@Column
@@ -91,14 +88,6 @@ public class Precio {
 
 	public void setPrecioPromedio(Double precioPromedio) {
 		this.precioPromedio = precioPromedio;
-	}
-
-	public Double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(Double precio) {
-		this.precio = precio;
 	}
 
 	public Date getFechaInicio() {
