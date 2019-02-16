@@ -255,32 +255,6 @@ $(document).ready(function() {
 			$('#user-modal-permission').find('#idUser').val($id);
 			
 			$.ajax({
-		    	  url: "/Cotizador/rest/permission/modulesToUser",
-		    	  type: "POST",
-		    	  data: JSON.stringify({login: $login}),
-		    	  dataType: "json",
-		    	  contentType: "application/json; charset=utf-8",
-		    	  success: function(result){		    		
-		    	        console.log("termino");
-		    	        console.log(result);
-		    	        
-		    	        $.each(result, function( index, element ) {	 
-		    	        	var o = new Option(result[index].nombre, result[index].id);
-		    	        	$(o).html(result[index].nombre);
-		    	        	$("#permissionModules").append(o);
-		    	        
-		    	        });
-		    	  },
-		    	  complete: function(result){
-		    	        console.log("complete");
-		    	  },
-		    	  error: function(result){
-		    	        console.log("error");
-		    	  }
-		    	  
-		    	});
-			
-			$.ajax({
 		    	  url: "/Cotizador/rest/permission/retrieveUserPermission",
 		    	  type: "POST",
 		    	  data: JSON.stringify({login: $login}),
@@ -298,6 +272,32 @@ $(document).ready(function() {
 		    	        		    	   "Id": result[index].id
 		    	        		    	}]).draw(); 
 		    	        });
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+			
+			$.ajax({
+		    	  url: "/Cotizador/rest/permission/modulesToUser",
+		    	  type: "POST",
+		    	  data: JSON.stringify({login: $login}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino");
+		    	        console.log(result);
+		    	        
+		    	        $.each(result, function( index, element ) {	 
+		    	        	var o = new Option(result[index].nombre, result[index].id);
+		    	        	$(o).html(result[index].nombre);
+		    	        	$("#permissionModules").append(o);
+		    	        
+		    	        });
 		    	        $("#user-modal-permission").modal("show");
 		    	  },
 		    	  complete: function(result){
@@ -308,6 +308,7 @@ $(document).ready(function() {
 		    	  }
 		    	  
 		    	});
+			
 			
 		});
 		
