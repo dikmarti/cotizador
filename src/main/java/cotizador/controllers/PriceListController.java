@@ -167,7 +167,7 @@ public class PriceListController extends GenericController {
 	@Path("/byProduct")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Precio> allProductsBySystem(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public List<Precio> allPriceListByProduct(String jsonForm, @Context HttpServletRequest httpRequest) {
 		
 		System.out.println("/byProduct get all priceList from dataBase by product");
 		List<Precio> allPriceList = new ArrayList<Precio>();
