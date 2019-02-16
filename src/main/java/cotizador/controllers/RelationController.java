@@ -125,6 +125,44 @@ public class RelationController extends GenericController {
 		}
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/findByProduct")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<RelacionProducto> findRelationByProduct(String jsonForm, @Context HttpServletRequest httpRequest) {
+		
+		System.out.println("/findRelationByProduct json form " + jsonForm);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Integer> relationMap = new HashMap<String, Integer>();
+		
+		try {
+			
+			relationMap = mapper.readValue(jsonForm, Map.class);
+			Integer id = relationMap.get("id");
+			
+			List<RelacionProducto> result = relationService.findRelationByProductId(id);
+			
+			System.out.println("findRelationByProduct: " + result);
+			
+			return result;
+			
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@SuppressWarnings("unchecked")
 	@POST

@@ -619,11 +619,7 @@ $(document).ready(function() {
 			$(this).removeClass("custom-color");
 		});	
 
-		$("#precioMinimo").on('keypress', function (e) {
-			if(!/^([0-9])+\.([0-9])+$/.test(e.key)) {
-				return false;
-			}
-		});	  
+		$('#precioMinimo').mask("00.00");
 		
 	</script>
 	

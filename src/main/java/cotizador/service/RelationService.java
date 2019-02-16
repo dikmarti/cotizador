@@ -123,14 +123,31 @@ public class RelationService {
 	 */
 	public RelacionProducto findRelationById(Integer id) {
 
-		System.out.println("Method findSystemById...");
+		System.out.println("Method findRelationById...");
 		List<Object> allObject = genericRepository.getAllObjectFiltered("RelacionProducto.findById", "id", id);
 
 		RelacionProducto result = !allObject.isEmpty() ? (RelacionProducto) (Object) allObject.get(0) : null;
-		System.out.println("Sistema: " + result);
+		System.out.println("result: " + result);
 
 		return result;
 
+	}
+
+	/**
+	 * Metodo que retorna las relaciones existentes para un producto
+	 * @param id
+	 * @return
+	 */
+	public List<RelacionProducto> findRelationByProductId(Integer id) {
+		
+		System.out.println("Method findRelationByProductId...");
+		List<Object> allObject = genericRepository.getAllObjectFiltered("RelacionProducto.findByProduct", "id", id);
+		
+		List<RelacionProducto> result = !allObject.isEmpty() ? (List<RelacionProducto>) (Object) allObject.get(0) : null;
+		System.out.println("result: " + result);
+		
+		return result;
+		
 	}
 
 	public Boolean validRelation(Integer idSystem, Integer idProduct, Integer idProductRelation) {
