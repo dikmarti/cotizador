@@ -1,12 +1,15 @@
 package cotizador.service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import cotizador.model.domain.Precio;
 import cotizador.model.domain.Proyecto;
-import cotizador.model.domain.Sistema;
-import cotizador.model.domain.Usuario;
+import cotizador.model.domain.models.PriceListResponseModel;
+import cotizador.model.domain.models.ProjectModel;
 import cotizador.model.repository.GenericRepository;
 
 public class ProjectService {
@@ -14,6 +17,38 @@ public class ProjectService {
 	@Inject
 	GenericRepository genericRepository;
 	
+	public static SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+	
+	/**
+	 * Retorna todos los proyectos existentes en la base de datos
+	 * @return
+	 */
+	public List<ProjectModel> retrieveAllProjects() {
+
+		System.out.println("finding all projects from data base");
+
+		List<Object> allObject = genericRepository.getAllObjectByQuery("SELECT u FROM Proyecto u");
+
+		List<Proyecto> result = !allObject.isEmpty() ? (List<Proyecto>) (Object) allObject : null;
+		List<ProjectModel> projectModels = new ArrayList<ProjectModel>();
+		if(result != null && !result.isEmpty()) {
+			for (Proyecto p : result) {
+				ProjectModel projectModel = new ProjectModel();
+				projectModel.setId(p.getId());
+				projectModel.setIdCrmMCO(p.getIdCrmMCO());
+				projectModel.setNombreCliente(p.getNombreCliente());
+				projectModel.setRuc(p.getRuc());
+				projectModel.setLocalidad(p.getLocalidad());
+				projectModel.setNombre(p.getNombre());
+				projectModel.setFechaCreacion(p.getFechaCreacion() != null ? format.format(p.getFechaCreacion()) : "");
+				projectModel.setFechaModificacion(p.getFechaModificacion() != null ? format.format(p.getFechaModificacion()) : "");
+				
+				projectModels.add(projectModel);
+			}
+			return projectModels;
+		}
+		return null;
+	}
 
 	/**
 	 * Metodo que registra un nuevo sistema a la base de datos

@@ -2,6 +2,7 @@ package cotizador.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +69,7 @@ public class ProjectController extends GenericController {
 			proyecto.setCategoriaConstruccion(projectModel.getCategoriaConstruccion());
 			proyecto.setPorcentajeHolgura(Float.parseFloat(projectModel.getPorcentajeHolgura()));
 			proyecto.setTipoPrecio(Integer.parseInt(projectModel.getTipoPrecio()));
+			proyecto.setFechaCreacion(new Date());
 			
 			Integer idProyecto = ((Proyecto) projectService.createProject(proyecto)).getId();
 
@@ -129,6 +131,27 @@ public class ProjectController extends GenericController {
 		}
 		return null;
 	}
+	
+	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ProjectModel> allProjects() {
+
+		System.out.println("/all get all project from dataBase");
+		List<ProjectModel> allProjects = new ArrayList<ProjectModel>();
+
+		try {
+			allProjects = projectService.retrieveAllProjects();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("allProjects: " + allProjects);
+		return allProjects;
+	}
+	
+	
 /*
 	@POST
 	@Path("/updateSystem")

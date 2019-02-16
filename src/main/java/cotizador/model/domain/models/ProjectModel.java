@@ -27,6 +27,8 @@ public class ProjectModel {
 	private String categoriaConstruccion;
 	private String porcentajeHolgura;
 	private String tipoPrecio;
+	private String fechaCreacion;
+	private String fechaModificacion;
 	
 	public int getId() {
 		return id;
@@ -125,5 +127,26 @@ public class ProjectModel {
 	public void setTipoPrecio(String tipoPrecio) {
 		this.tipoPrecio = tipoPrecio;
 	}
-	
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+	public String getFechaModificacion() {
+		return fechaModificacion;
+	}
+	public void setFechaModificacion(String fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+	@Override
+	public String toString() {
+		return "ProjectModel [id=" + id + ", idCrmMCO=" + idCrmMCO + ", nombreCliente=" + nombreCliente + ", ruc=" + ruc
+				+ ", nombre=" + nombre + ", localidad=" + localidad + ", montoInversion=" + montoInversion
+				+ ", montoPresupuesto=" + montoPresupuesto + ", nivelConstruccion=" + nivelConstruccion
+				+ ", areaConstruccion=" + areaConstruccion + ", soporte=" + soporte + ", garantia=" + garantia
+				+ ", tipoProyecto=" + tipoProyecto + ", categoriaConstruccion=" + categoriaConstruccion
+				+ ", porcentajeHolgura=" + porcentajeHolgura + ", tipoPrecio=" + tipoPrecio + ", fechaCreacion="
+				+ fechaCreacion + ", fechaModificacion=" + fechaModificacion + "]";
+	}
 }

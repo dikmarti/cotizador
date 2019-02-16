@@ -16,6 +16,7 @@ public class ApplicationSecureMap {
 	        applicationSecureMap.put("Lista de Precios", "admListaPrecios");
 	        applicationSecureMap.put("Metrado", "admMetrado");
 	        applicationSecureMap.put("Relaciones Productos", "admRelaciones");
+	        applicationSecureMap.put("Proyectos", "admProyectos");
 	        // Paginas dentros de los modulos
 	        applicationSecureMap.put("Metrado_formProyecto", "formProyecto");
 	            
