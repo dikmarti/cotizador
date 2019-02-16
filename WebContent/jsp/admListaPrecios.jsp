@@ -126,7 +126,7 @@
       		</div>
       		<div class="form-row">
       			<div class="form-group col-md-10">
-				    <div class="msg-error">
+				    <div class="msg-error" id="msg-error">
 				   			Debe ingresar los datos.
 	      			</div>
       			</div>
@@ -186,7 +186,7 @@
       		</div>
       		<div class="form-row">
       			<div class="form-group col-md-10">
-				    <div class="msg-error">
+				    <div class="msg-error" id="msg-error-update">
 				   			Debe ingresar los datos.
 	      			</div>
       			</div>
@@ -290,7 +290,7 @@ $(document).ready(function() {
 			clear();
 			console.log("create priceList"); 
 			table.$('tr.selected').removeClass('selected');
-			$(".msg-error").removeClass("on");
+			$("#msg-error").removeClass("on");
 			$("#id").val('');
 	    	$("#producto").val([""]);
 	    	$("#proveedor").val([""]);
@@ -354,6 +354,8 @@ $(document).ready(function() {
 		
 		
 		$("#btn-priceList-modify").click(function() {
+			$('#modal-priceList-update').find("#msg-error-update").removeClass("on");
+			$('#modal-priceList-update').find("#msg-error-update").html("Debe ingresar los datos.");
 			console.log("modify priceList");   
 			if(table.$('tr.selected').length != 1) {
 				console.log("No hay lista de precios seleccionada");   	 
@@ -426,25 +428,25 @@ $(document).ready(function() {
 	    	 var $precioMinimo =  $("#precioMinimo").val();
 	    	 var $precioMaximo =  $("#precioMaximo").val();
 	    	 var $precioPromedio =  $("#precioPromedio").val();
-	    	 $(".msg-error").removeClass("on");
-		     $(".msg-error").html("Debe ingresar los datos.");
+	    	 $("#msg-error").removeClass("on");
+		     $("#msg-error").html("Debe ingresar los datos.");
 		     
 		     if($sistema == "") {
-		    	 $(".msg-error").html("Debe seleccionar el sistema.")
-		    	 $(".msg-error").addClass("on");
+		    	 $("#msg-error").html("Debe seleccionar el sistema.")
+		    	 $("#msg-error").addClass("on");
 		    	 return false;
 		     } else if ($producto == "") {
-		    	 $(".msg-error").html("Debe seleccionar el producto.")
-		    	 $(".msg-error").addClass("on");
+		    	 $("#msg-error").html("Debe seleccionar el producto.")
+		    	 $("#msg-error").addClass("on");
 		    	 return false;
 		     } else if($proveedor == ""){
-		    	 $(".msg-error").html("Debe seleccionar el proveedor.")
-		    	 $(".msg-error").addClass("on");
+		    	 $("#msg-error").html("Debe seleccionar el proveedor.")
+		    	 $("#msg-error").addClass("on");
 		    	 return false;
 		     } 
 	    	 
 	    	 if ($precioMinimo == "" || precioMaximo == "" || precioPromedio == "") {
-	    		  $(".msg-error").addClass("on");
+	    		  $("#msg-error").addClass("on");
 	    		  return false;
 	   		 } else {
 	   		      console.log("Hay valores");
@@ -466,26 +468,26 @@ $(document).ready(function() {
 		    	        var obj = JSON.stringify(result);
 		    	        console.log(" objeto " + obj);	    	        
 		    	        
-		    	        $(".msg-error").removeClass("on");
+		    	        $("#msg-error").removeClass("on");
 		    	        
 		    	        if(obj === undefined) {	    	  
 		    	        	$("#priceList-modal").css('z-index', '2');
 		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		    	        	$(".msg-error").html("Ha ocurrido un error, la lista de precios no pudo ser creada.");
-		    	        	$(".msg-error").addClass("on");	    	        	 
+		    	        	$("#msg-error").html("Ha ocurrido un error, la lista de precios no pudo ser creada.");
+		    	        	$("#msg-error").addClass("on");	    	        	 
 		    	        } else {
 		    	        	if(result == 0) {
 			    	        	location.href = "admListaPrecios";
 		    	        	} else if (result == 1) {
 		    	        		$("#priceList-modal").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		    	        		$(".msg-error").html("Ha ocurrido un error, la lista de precios con el producto y proveedor seleccionado ya existe.");
-			    	        	$(".msg-error").addClass("on");	 
+		    	        		$("#msg-error").html("Ha ocurrido un error, existe una lista de precios vigente para el producto y proveedor seleccionado.");
+			    	        	$("#msg-error").addClass("on");	 
 		    	        	} else if (result == 2) {
 		    	        		$("#priceList-modal").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		    	        		$(".msg-error").html("Ha ocurrido un error, la lista de precios no pudo ser creada.");
-			    	        	$(".msg-error").addClass("on");	 
+		    	        		$("#msg-error").html("Ha ocurrido un error, la lista de precios no pudo ser creada.");
+			    	        	$("#msg-error").addClass("on");	 
 		    	        	}
 		    	        }
 		    	       
@@ -505,11 +507,11 @@ $(document).ready(function() {
 	    	 var $precioMinimo =  $('#modal-priceList-update').find("#precioMinimo").val();
 	    	 var $precioMaximo =  $('#modal-priceList-update').find("#precioMaximo").val();
 	    	 var $precioPromedio =  $('#modal-priceList-update').find("#precioPromedio").val();
-	    	 $(".msg-error").removeClass("on");
-		     $(".msg-error").html("Debe ingresar los datos.");
+	    	 $('#modal-priceList-update').find("#msg-error-update").removeClass("on");
+	    	 $('#modal-priceList-update').find("#msg-error-update").html("Debe ingresar los datos.");
 		     
-	    	 if ($precioMinimo == "" || precioMaximo == "" || precioPromedio == "") {
-	    		  $(".msg-error").addClass("on");
+	    	 if ($precioMinimo == "" || $precioMaximo == "" || $precioPromedio == "") {
+	    		  $('#modal-priceList-update').find("#msg-error-update").addClass("on");
 	    		  return false;
 	   		 } else {
 	   		      console.log("Hay valores");
@@ -530,26 +532,26 @@ $(document).ready(function() {
 		    	        var obj = JSON.stringify(result);
 		    	        console.log(" objeto " + obj);	    	        
 		    	        
-		    	        $(".msg-error").removeClass("on");
+		    	        $('#modal-priceList-update').find("#msg-error-update").removeClass("on");
 		    	        
 		    	        if(obj === undefined) {	    	  
 		    	        	$("#modal-priceList-update").css('z-index', '2');
 		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		    	        	$(".msg-error").html("Ha ocurrido un error, la lista de precios no pudo ser actualizada.");
-		    	        	$(".msg-error").addClass("on");	    	        	 
+		    	        	$('#modal-priceList-update').find("#msg-error-update").html("Ha ocurrido un error, la lista de precios no pudo ser actualizada.");
+		    	        	$('#modal-priceList-update').find("#msg-error-update").addClass("on");	    	        	 
 		    	        } else {
 		    	        	if(result == 0) {
 			    	        	location.href = "admListaPrecios";
 		    	        	} else if (result == 1) {
 		    	        		$("#modal-priceList-update").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		    	        		$(".msg-error").html("Ha ocurrido un error, la lista de precios no pudo ser actualizada.");
-			    	        	$(".msg-error").addClass("on");	 
+			    	        	$('#modal-priceList-update').find("#msg-error-update").html("Ha ocurrido un error, la lista de precios no pudo ser actualizada.");
+			    	        	$('#modal-priceList-update').find("#msg-error-update").addClass("on");	 
 		    	        	} else if (result == 2) {
 		    	        		$("#modal-priceList-update").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		    	        		$(".msg-error").html("Ha ocurrido un error, la lista de precios no pudo ser actualizada.");
-			    	        	$(".msg-error").addClass("on");	 
+			    	        	$('#modal-priceList-update').find("#msg-error-update").html("Ha ocurrido un error, la lista de precios no pudo ser actualizada.");
+			    	        	$('#modal-priceList-update').find("#msg-error-update").addClass("on");	 
 		    	        	}
 		    	        }
 		    	       
@@ -619,7 +621,47 @@ $(document).ready(function() {
 			$(this).removeClass("custom-color");
 		});	
 
-		$('#precioMinimo').mask("00.00");
+		$("#precioMinimo").on('keypress', function (e) {
+			var regex = new RegExp("^([0-9]|\\.)$");
+			if(!regex.test(e.key)) {
+				return false;
+			}
+		});	  
+		
+		$("#precioMaximo").on('keypress', function (e) {
+			var regex = new RegExp("^([0-9]|\\.)$");
+			if(!regex.test(e.key)) {
+				return false;
+			}
+		});	  
+		
+		$("#precioPromedio").on('keypress', function (e) {
+			var regex = new RegExp("^([0-9]|\\.)$");
+			if(!regex.test(e.key)) {
+				return false;
+			}
+		});	 
+		
+		 $('#modal-priceList-update').find("#precioMinimo").on('keypress', function (e) {
+			var regex = new RegExp("^([0-9]|\\.)$");
+			if(!regex.test(e.key)) {
+				return false;
+			}
+		});	  
+		
+		 $('#modal-priceList-update').find("#precioMaximo").on('keypress', function (e) {
+			var regex = new RegExp("^([0-9]|\\.)$");
+			if(!regex.test(e.key)) {
+				return false;
+			}
+		});	  
+		
+		 $('#modal-priceList-update').find("#precioPromedio").on('keypress', function (e) {
+			var regex = new RegExp("^([0-9]|\\.)$");
+			if(!regex.test(e.key)) {
+				return false;
+			}
+		});	  
 		
 	</script>
 	

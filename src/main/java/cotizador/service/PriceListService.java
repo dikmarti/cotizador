@@ -71,6 +71,11 @@ public class PriceListService {
 			String precioMaximo, String precioPromedio) {
 
 		System.out.println("Method createPriceList...");
+		
+		if(!isValidPriceList(idProducto, idProveedor)) {
+			System.out.println("Existe priceList vigente para producto y proveedor...");
+			return 1;
+		}
 
 		Precio precio = new Precio();
 		
@@ -177,6 +182,28 @@ public class PriceListService {
 		
 		return result;
 		
+	}
+	
+	/**
+	 * Metodo que valida si existe una lista de precios activa para el producto y proveedor a crear
+	 * @param idSystem
+	 * @param idProduct
+	 * @param idProductRelation
+	 * @return
+	 */
+	public Boolean isValidPriceList(Integer idProduct, Integer idProveedor) {
+
+		System.out.println("Method validPriceList...");
+		List<Object> allObject = genericRepository
+				.getAllObjectByQuery("SELECT u FROM Precio u WHERE u.producto.id = '" 
+						+ idProduct +"' AND u.proveedor.id = '"
+						+ idProveedor +"' AND u.fechaFin IS NULL");
+
+		Boolean result = !allObject.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
+		System.out.println("result: " + result);
+
+		return result;
+
 	}
 
 }
