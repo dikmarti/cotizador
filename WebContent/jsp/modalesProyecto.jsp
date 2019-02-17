@@ -5,7 +5,7 @@
 	    <!-- Modal content-->
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title" id="modal-title-text">Crear Nivel</h4>
 	      </div>
 	      <div class="modal-body">
@@ -15,17 +15,17 @@
 					
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
-						    <input class="form-control" id="nombre-nivel" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
+						    <input class="form-control js-text" id="nombre-nivel" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
 		      			</div>	      			
 		    		</div>
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
-						    <input class="form-control" id="descripcion-nivel" type="text" name="descripcion" placeholder="Descripción"  maxlength="200"/>
+						    <input class="form-control js-text" id="descripcion-nivel" type="text" name="descripcion" placeholder="Descripción"  maxlength="200"/>
 		      			</div>	      			
 		      		</div>
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
-						    <input class="form-control" id="orden" type="text" name="orden" placeholder="Orden" maxlength="200"/>
+						    <input class="form-control js-numeric" id="orden" type="text" name="orden" placeholder="Orden" maxlength="200"/>
 		      			</div>	      			
 		      		</div>	      		
 		      		<div class="form-row">
@@ -61,7 +61,7 @@
 	    <!-- Modal content-->
 	    <div class="modal-content" style="height: 180px;">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title" id="modal-title-text">Confirmar</h4>
 	      </div>
 	      <div class="modal-body">
@@ -89,7 +89,7 @@
 	    <!-- Modal content-->
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title" id="modal-title-text">Metrado</h4>
 	      </div>
 	      <div class="modal-body">
@@ -122,7 +122,7 @@
 				    </div>
 				    <div class="form-group row">
 				    	<div class="col-md-6">
-						      <input class="form-control" id="cantidad" type="text" name="cantidad" placeholder="Cantidad" maxlength="200"/>
+						      <input class="form-control js-numeric" id="cantidad" type="text" name="cantidad" placeholder="Cantidad" maxlength="200"/>
 				    	</div>
 				    		      			
 		    		</div> 
@@ -136,23 +136,17 @@
 					</div> 
 						
 				   <div class="form-group row">				   
-				   		<div class="col-md-6">
-					   		<input type="button" value="Agregar" id="btn-agregar-producto" class="btn btn-primary" style="margin-left: 10%; width: 50%"/>						   
-		      			</div>	
-		      			<div class="col-md-6">
-						   	<input type="button" value="Modificar" id="btn-modificar-producto" class="btn btn-primary" style="margin-left: 15%; display:none; width: 50%"/>
-		      			</div>
-		      			<div class="col-md-6">
-						   	<input type="button" value="Cancelar" id="btn-cancelar-producto" class="btn btn-primary" style="margin-left: 0%;width: 50%"/>			   
-		      			</div>
+				   		
+					   		<input type="button" value="Agregar" id="btn-agregar-producto" class="btn btn-primary" style="margin-left: 12%; width: 15%"/>	
+					   		
+					   		<input type="button" value="Guardar Metrado" id="guardar-metrado" class="btn btn-primary" style="margin-left: 10%; width: 25%"/>
+		      			
+						   	<input type="button" value="Modificar" id="btn-modificar-producto" class="btn btn-primary" style="margin-left: 10%; display:none; width: 15%"/>
+		      			
+						   	<input type="button" value="Cancelar" id="btn-cancelar-producto" class="btn btn-primary" style="margin-left: 10%;width: 15%"/>			   
+		      			
 					</div>
-					
-					<div class="form-group row">				   
-				   		<div class="col-md-6">
-					   		<a id="guardar-metrado" title="Guardar metrado" href="javascript:void(0)" class="fa fa-save fa-3x" style="position: relative;float: right;top: -36px;"></a>						   
-		      			</div>		      			
-					</div>
-			      		
+					  		
 			   	</form>
 			   	
 			   	<div class="form-row" id="sist-metrado" style="margin-top: 15px;">
@@ -560,6 +554,9 @@
 			 $("#producto_"+ producto).find("#label-precio").val(precio);
 			 $("#producto_"+ producto).find("#label-cantidad").val(cantidad);
 			 
+			 $("#producto_"+ producto).find("#modificarProducto").data("proveedor",$("#proveedor option:selected").val());
+			 $("#producto_"+ producto).find("#modificarProducto").data("precio",precio);
+			 
 			 $("#sistema").removeAttr('disabled');
 			 $("#producto").removeAttr('disabled');
 			 $("#cantidad").removeAttr('disabled');
@@ -606,6 +603,56 @@
 			limpiarCombos();
 		});	
 		
+	});
+	
+	$(".js-numeric").on('keypress', function (e) {
+		var regex = new RegExp("^[0-9]$");
+		if(!regex.test(e.key)) {
+			return false;
+		}
+	});	 
+	
+	$(".js-decimal").on('keypress', function (e) {
+		var regex = new RegExp("^([0-9]|\\.)$");
+		if(!regex.test(e.key)) {
+			return false;
+		}
+	});	
+		
+	$(".js-text").on('keypress', function (e) {
+		var regex = new RegExp("^([a-z]|[A-Z]|[0-9]|\\.|\\,|\\(|\\)|\\_|\\-|\s\)$");
+		if(!regex.test(e.key)) {
+			return false;
+		}
+	});	
+	
+	
+	$('.js-numeric').on('paste', function (e) {
+	    var $this = $(this);
+	    setTimeout(function (e) {
+	        if (($this.val()).match(/[^0-9]/g)) {
+				$this.val("");        	
+	            setTimeout(function (e) {
+	                $this.val(null);
+	            },2500);
+	        }                   
+	    }, 5);
+	});
+	
+	$('.js-decimal').on('paste', function (e) {
+	    var $this = $(this);
+	    setTimeout(function (e) {
+	        if (($this.val()).match(/[^0-9]|\\./g)) {
+				$this.val("");        	
+	            setTimeout(function (e) {
+	                $this.val(null);
+	            },2500);
+	        }                   
+	    }, 5);
+	});
+	
+	$(".js-close").click(function(){
+	  $(this).parents(".modal").modal("hide");
 	});
 	
 	function limpiarCombos(){
