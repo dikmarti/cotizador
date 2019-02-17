@@ -143,7 +143,7 @@ public class RelationService {
 		System.out.println("Method findRelationByProductId...");
 		List<Object> allObject = genericRepository.getAllObjectFiltered("RelacionProducto.findByProduct", "id", id);
 		
-		List<RelacionProducto> result = !allObject.isEmpty() ? (List<RelacionProducto>) (Object) allObject.get(0) : null;
+		List<RelacionProducto> result = !allObject.isEmpty() ? (List<RelacionProducto>) (Object) allObject : null;
 		System.out.println("result: " + result);
 		
 		return result;

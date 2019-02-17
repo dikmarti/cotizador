@@ -5,7 +5,7 @@
 	    <!-- Modal content-->
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title" id="modal-title-text">Crear Nivel</h4>
 	      </div>
 	      <div class="modal-body">
@@ -15,17 +15,17 @@
 					
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
-						    <input class="form-control" id="nombre-nivel" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
+						    <input class="form-control js-text" id="nombre-nivel" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
 		      			</div>	      			
 		    		</div>
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
-						    <input class="form-control" id="descripcion-nivel" type="text" name="descripcion" placeholder="Descripción"  maxlength="200"/>
+						    <input class="form-control js-text" id="descripcion-nivel" type="text" name="descripcion" placeholder="Descripción"  maxlength="200"/>
 		      			</div>	      			
 		      		</div>
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
-						    <input class="form-control" id="orden" type="text" name="orden" placeholder="Orden" maxlength="200"/>
+						    <input class="form-control js-numeric" id="orden" type="text" name="orden" placeholder="Orden" maxlength="200"/>
 		      			</div>	      			
 		      		</div>	      		
 		      		<div class="form-row">
@@ -61,7 +61,7 @@
 	    <!-- Modal content-->
 	    <div class="modal-content" style="height: 180px;">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title" id="modal-title-text">Confirmar</h4>
 	      </div>
 	      <div class="modal-body">
@@ -89,7 +89,7 @@
 	    <!-- Modal content-->
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title" id="modal-title-text">Metrado</h4>
 	      </div>
 	      <div class="modal-body">
@@ -122,7 +122,7 @@
 				    </div>
 				    <div class="form-group row">
 				    	<div class="col-md-6">
-						      <input class="form-control" id="cantidad" type="text" name="cantidad" placeholder="Cantidad" maxlength="200"/>
+						      <input class="form-control js-numeric" id="cantidad" type="text" name="cantidad" placeholder="Cantidad" maxlength="200"/>
 				    	</div>
 				    		      			
 		    		</div> 
@@ -133,26 +133,27 @@
 						   			Debe ingresar los datos.
 			      			</div>
 		      			</div>
+					</div>
+					
+					<div class="form-group col-md-12">
+				    	<div class="msg-exito" id="msg-exito-metrado">
+				   			Se guardó la configuración del metrado exitosamente.
+			     			</div>
+		    			</div>
 					</div> 
 						
 				   <div class="form-group row">				   
-				   		<div class="col-md-6">
-					   		<input type="button" value="Agregar" id="btn-agregar-producto" class="btn btn-primary" style="margin-left: 10%; width: 50%"/>						   
-		      			</div>	
-		      			<div class="col-md-6">
-						   	<input type="button" value="Modificar" id="btn-modificar-producto" class="btn btn-primary" style="margin-left: 15%; display:none; width: 50%"/>
-		      			</div>
-		      			<div class="col-md-6">
-						   	<input type="button" value="Cancelar" id="btn-cancelar-producto" class="btn btn-primary" style="margin-left: 0%;width: 50%"/>			   
-		      			</div>
+				   		
+					   		<input type="button" value="Agregar" id="btn-agregar-producto" class="btn btn-primary" style="margin-left: 12%; width: 15%"/>	
+					   		
+					   		<input type="button" value="Guardar Metrado" id="guardar-metrado" class="btn btn-primary" style="margin-left: 10%; width: 25%"/>
+		      			
+						   	<input type="button" value="Modificar" id="btn-modificar-producto" class="btn btn-primary" style="margin-left: 10%; display:none; width: 15%"/>
+		      			
+						   	<input type="button" value="Cancelar" id="btn-cancelar-producto" class="btn btn-primary" style="margin-left: 10%;width: 15%"/>			   
+		      			
 					</div>
-					
-					<div class="form-group row">				   
-				   		<div class="col-md-6">
-					   		<a id="guardar-metrado" title="Guardar metrado" href="javascript:void(0)" class="fa fa-save fa-3x" style="position: relative;float: right;top: -36px;"></a>						   
-		      			</div>		      			
-					</div>
-			      		
+					  		
 			   	</form>
 			   	
 			   	<div class="form-row" id="sist-metrado" style="margin-top: 15px;">
@@ -182,8 +183,18 @@
 		$("#guardar-metrado").click(function() {
 		
 			var productDivs = $(".js-product");
+			var lengthProducts = productDivs.length			
+
+			if(lengthProducts == 0) {
+				$("#msg-error-metrado").addClass("show");
+				return false;
+			}
+			
+			$("#msg-exito-metrado").removeClass("show");
+			
 			var result = "{\"listaMetrados\": [";
-			var lengthProducts = productDivs.length
+
+			var errorProductos = false;
 			
 			$.each(productDivs, function( index, element ) {	 
 			 	
@@ -191,7 +202,15 @@
 				var proveedor = $(element).find("#modificarProducto").data("proveedor");
 				var precio = $(element).find("#modificarProducto").data("precio");
 				var cantidad = $(element).find("#modificarProducto").data("cantidad");
-				var precioLista = priceList[producto + "_" + proveedor];				
+				var precioLista = priceList[producto + "_" + proveedor];
+				
+				$("#producto_" + producto).find("#msg-error-producto").removeClass("show");
+				
+				if(proveedor == "" || precio == "") {
+					$("#producto_" + producto).find("#msg-error-producto").addClass("show");
+					errorProductos = true;
+					return false;
+				}
 				
 				result += JSON.stringify({"nivel": parseInt($("#nivelId").val()), "producto": producto,"proveedor": proveedor,"precio": precio,"cantidad": cantidad, "precioLista": precioLista})
 					
@@ -203,27 +222,34 @@
 			
 			result += "]}";
 			
-			$("#metrado-modal").css('z-index', '1');
-			$.ajax({
-		    	  url: "/Cotizador/rest/metrado/create",
-		    	  type: "POST",
-		    	  data: result,
-		    	  dataType: "json",
-		    	  contentType: "application/json; charset=utf-8",
-		    	  success: function(result){	
-		    	        console.log("termino");
-		    	        console.log(result);
-		    	        
-		    	        
-		    	  },
-		    	  complete: function(result){
-		    	        console.log("complete");
-		    	  },
-		    	  error: function(result){
-		    	        console.log("error");
-		    	  }
-		    	  
-		    	});
+			if(!errorProductos){
+				$("#metrado-modal").css('z-index', '1');
+				$.ajax({
+			    	  url: "/Cotizador/rest/metrado/create",
+			    	  type: "POST",
+			    	  data: result,
+			    	  dataType: "json",
+			    	  contentType: "application/json; charset=utf-8",
+			    	  success: function(result){	
+			    	        console.log("termino");
+			    	        console.log(result);
+			    	        
+			    	        $("#msg-exito-metrado").addClass("show");
+			    	        $("#metrado-modal").css('z-index', '2');
+				    	    $(".modal-backdrop.fade.in").css('z-index', '1');
+				    	    			    	        
+			    	  },
+			    	  complete: function(result){
+			    	        console.log("complete");
+			    	  },
+			    	  error: function(result){
+			    	        console.log("error");
+			    	  }
+			    	  
+			    	});
+			}
+			
+
 		});
 		
 		$("#proveedor").change(function() {
@@ -233,7 +259,10 @@
 			
 			$('#precio').empty()
 			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
-			$('#cantidad').val("");
+			
+			if($('#cantidad').data("mod-prod-rel") != undefined && $('#cantidad').data("mod-prod-rel") != "1"){
+				$('#cantidad').val("");	
+			}	
 			
 			if(precios != undefined) {
 				
@@ -250,8 +279,8 @@
 		
 		$("#producto").change(function() {
 			
-			var sistema = $("#sistema option:selected").val();
-			var producto = $("#producto option:selected").val();
+			var sistema = $("#sistema").val();
+			var producto = $("#producto").val();
 			
 			if(productosSelected[sistema ] == undefined) {
 				productosSelected[sistema] = producto;
@@ -263,8 +292,10 @@
 			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>');
 			$('#precio').empty()
 			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
-			$('#cantidad').val("");
 			
+			if($('#cantidad').data("mod-prod-rel") != undefined && $('#cantidad').data("mod-prod-rel") != "1"){
+				$('#cantidad').val("");	
+			}			
 		  
 			var $val = $("#producto option:selected").val();
 			$("#metrado-modal").css('z-index', '1');
@@ -374,7 +405,7 @@
 			htmlProducto += "<div id='producto_"+ producto +"' class='js-product'>";			
 
 			htmlProducto += '		<a id="eliminarProducto"  onclick="eliminarProducto(this);" data-sistema="' + sistema + '" data-producto="' + producto + '" title="Eliminar producto" onclick="" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
-			htmlProducto += '		<a id="modificarProducto" onclick="modificarProducto(this);" data-sistema="' + sistema + '" data-producto="' + producto + '" data-proveedor="' + proveedor + '" data-precio="' + precio + '" data-cantidad="' + cantidad + '" title="Editar producto" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
+			htmlProducto += '		<a id="modificarProducto" onclick="modificarProducto(this,0);" data-sistema="' + sistema + '" data-producto="' + producto + '" data-proveedor="' + proveedor + '" data-precio="' + precio + '" data-cantidad="' + cantidad + '" title="Editar producto" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
 			
 			htmlProducto += '<div class="form-group row font-products" style="margin-top: 15px;">';
 			htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Producto:</label>';
@@ -401,6 +432,12 @@
 			htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Cantidad:</label>';
 			htmlProducto += '   <div class="col-sm-10">';
 			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-cantidad" value="' + $("#cantidad").val()+ '" style="border: none;">';
+			htmlProducto += '    </div>';
+			htmlProducto += '</div>';
+	
+			htmlProducto += '<div class="form-group row font-products">';
+			htmlProducto += '   <div class="msg-error" id="msg-error-producto">';
+			htmlProducto += '      Debe ingresar los datos.';
 			htmlProducto += '    </div>';
 			htmlProducto += '</div>';
 			
@@ -438,6 +475,89 @@
 			$('#precio').empty()
 			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
 			$('#cantidad').val("");
+					
+			$.ajax({
+		    	  url: "/Cotizador/rest/relation/findByProduct",
+		    	  type: "POST",
+		    	  data: JSON.stringify({id: parseInt(producto)}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){	
+		    	        console.log("termino");
+		    	        console.log(result);
+		    	        
+		    	        var divSistema = $("#sistema_" + sistema);
+		    	        
+		    	        $.each(result, function( index, element ) {	 
+		    	        			    	        	
+		    	        	var cantidadRelacion = 0;
+		    	        	var operacion = element.operacion;
+		    	        	var factor = element.factor;
+		    	        	
+		    	        	if(operacion == 0){
+		    	        		cantidadRelacion = cantidad / factor;
+		    	        	}
+		    	        	
+							if(operacion == 1){
+								cantidadRelacion = cantidad * factor;
+		    	        	}
+		    	        	
+		    	        	htmlProducto = "";
+		    				
+		    				htmlProducto += "<div id='producto_"+ element.productoRelacion.id +"' class='js-product' data-operacion='" + operacion+ "' data-factor='"+ factor+"'  data-parent-product='" + producto+ "'>";			
+		    				
+		    				htmlProducto += '		<a id="modificarProducto" onclick="modificarProducto(this,1);" data-sistema="' + sistema + '" data-producto="' +  element.productoRelacion.id + '" data-proveedor="' + '' + '" data-precio="' + "" + '" data-cantidad="' + cantidadRelacion + '" title="Editar producto" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
+		    				
+		    				htmlProducto += '<div class="form-group row font-products" style="margin-top: 15px;">';
+		    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Producto:</label>';
+		    				htmlProducto += '   <div class="col-sm-10">';
+		    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + element.productoRelacion.nombre+ '" style="border: none;">';
+		    				htmlProducto += '    </div>';
+		    				htmlProducto += '</div>';
+
+		    				htmlProducto += '<div class="form-group row font-products">';
+		    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Proveedor:</label>';
+		    				htmlProducto += '   <div class="col-sm-10">';
+		    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-proveedor" value="' + '' + '" style="border: none;">';
+		    				htmlProducto += '    </div>';
+		    				htmlProducto += '</div>';
+
+		    				htmlProducto += '<div class="form-group row font-products">';
+		    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Precio:</label>';
+		    				htmlProducto += '   <div class="col-sm-10">';
+		    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-precio" value="' +''+ '" style="border: none;">';
+		    				htmlProducto += '    </div>';
+		    				htmlProducto += '</div>';
+		    				
+		    				htmlProducto += '<div class="form-group row font-products">';
+		    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Cantidad:</label>';
+		    				htmlProducto += '   <div class="col-sm-10">';
+		    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-cantidad" value="' + cantidadRelacion+ '" style="border: none;">';
+		    				htmlProducto += '    </div>';
+		    				htmlProducto += '</div>';
+		    				
+		    				htmlProducto += '<div class="form-group row font-products">';
+		    				htmlProducto += '   <div class="msg-error" id="msg-error-producto">';
+		    				htmlProducto += '      Debe ingresar los datos.';
+		    				htmlProducto += '    </div>';
+		    				htmlProducto += '</div>';
+		    				
+		    				htmlProducto += "</div>";
+		    				
+		    				if(divSistema.length > 0) {								
+		    					divSistema.find(".panel-body").append(htmlProducto);
+		    					$("#producto_" + element.productoRelacion.id).addClass("sep-products");
+		    				}
+		    	        });
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
 			
 		});	
 		
@@ -453,13 +573,40 @@
 			 $("#producto_"+ producto).find("#label-precio").val(precio);
 			 $("#producto_"+ producto).find("#label-cantidad").val(cantidad);
 			 
+			 $("#producto_"+ producto).find("#modificarProducto").data("proveedor",$("#proveedor option:selected").val());
+			 $("#producto_"+ producto).find("#modificarProducto").data("precio",precio);
+			 
 			 $("#sistema").removeAttr('disabled');
 			 $("#producto").removeAttr('disabled');
+			 $("#cantidad").removeAttr('disabled');
 			 
 			$("#btn-modificar-producto").css("display","none");
 			$("#btn-agregar-producto").css("display","inline-block");
 			
-			limpiarCombos();			
+			limpiarCombos();
+			
+			var productDivs = $("[data-parent-product="+producto+"]");
+			
+			$.each(productDivs, function( index, element ) {	
+		
+				var labelCantidad = $(element).find("#label-cantidad");
+				var cantidad = labelCantidad.val();
+				
+				var cantidadRelacion = 0;
+   	        	var operacion = $(element).data("operacion");
+   	        	var factor = $(element).data("factor");
+   	        	
+   	        	if(operacion == 0){
+   	        		cantidadRelacion = cantidad / factor;
+   	        	}
+   	        	
+				if(operacion == 1){
+					cantidadRelacion = cantidad * factor;
+   	        	}
+				
+				labelCantidad.val(cantidadRelacion);			
+			});		
+			
 		});	
 		
 		$("#btn-cancelar-producto").click(function() {
@@ -467,13 +614,70 @@
 			
 			$("#sistema").removeAttr('disabled');
 			$("#producto").removeAttr('disabled');
+			$("#cantidad").removeAttr('disabled');
 			
 			$("#btn-modificar-producto").css("display","none");
 			$("#btn-agregar-producto").css("display","inline-block");
 			
 			limpiarCombos();
+			$("#msg-error-metrado").removeClass("show");
+			$("#msg-exito-metrado").removeClass("show");
+			$(".js-product").find("#msg-error-producto").removeClass("show");
+			
+			$("#metrado-modal").modal("hide");
+			
 		});	
 		
+	});
+	
+	$(".js-numeric").on('keypress', function (e) {
+		var regex = new RegExp("^[0-9]$");
+		if(!regex.test(e.key)) {
+			return false;
+		}
+	});	 
+	
+	$(".js-decimal").on('keypress', function (e) {
+		var regex = new RegExp("^([0-9]|\\.)$");
+		if(!regex.test(e.key)) {
+			return false;
+		}
+	});	
+		
+	$(".js-text").on('keypress', function (e) {
+		var regex = new RegExp("^([a-z]|[A-Z]|[0-9]|\\.|\\,|\\(|\\)|\\_|\\-|\s\)$");
+		if(!regex.test(e.key)) {
+			return false;
+		}
+	});	
+	
+	
+	$('.js-numeric').on('paste', function (e) {
+	    var $this = $(this);
+	    setTimeout(function (e) {
+	        if (($this.val()).match(/[^0-9]/g)) {
+				$this.val("");        	
+	            setTimeout(function (e) {
+	                $this.val(null);
+	            },2500);
+	        }                   
+	    }, 5);
+	});
+	
+	$('.js-decimal').on('paste', function (e) {
+	    var $this = $(this);
+	    setTimeout(function (e) {
+	        if (($this.val()).match(/[^0-9]|\\./g)) {
+				$this.val("");        	
+	            setTimeout(function (e) {
+	                $this.val(null);
+	            },2500);
+	        }                   
+	    }, 5);
+	});
+	
+	$(".js-close").click(function(){
+	  $(this).parents(".modal").modal("hide");
 	});
 	
 	function limpiarCombos(){
@@ -484,7 +688,7 @@
 		$("#cantidad").val("");		
 	}
 	
-	function modificarProducto(element) {
+	function modificarProducto(element,rel) {
 		
 		var sistema = $(element).data("sistema");
 		var producto = $(element).data("producto");
@@ -503,6 +707,19 @@
 		
 		$("#sistema").prop('disabled', 'disabled');
 		$("#producto").prop('disabled', 'disabled');
+		
+		$("#cantidad").removeAttr('disabled');
+		
+		if(rel == 1){
+			$("#cantidad").prop('disabled', 'disabled');
+			$("#cantidad").data("mod-prod-rel","1")
+		} else {
+			$("#cantidad").data("mod-prod-rel","0")
+		}
+		
+		$("#producto_" + producto).find("#msg-error-producto").removeClass("show");
+		
+		$("#producto").trigger("change");		
 		
 	}
 	
@@ -526,7 +743,13 @@
 	 	         });	
 			}
 			 
-			 $("#producto_"+ producto).remove();			 
+			 $("#producto_"+ producto).remove();
+			
+			var productDivs = $("[data-parent-product="+producto+"]");			
+			$.each(productDivs, function( index, element ) {
+				element.remove();
+			});
+			 
 			 var contentSistemas = $.trim($("#sistema_"+ sistema).find("panel-body").text());
 			 
 			 if(contentSistemas == "") {

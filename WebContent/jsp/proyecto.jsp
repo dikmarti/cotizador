@@ -17,35 +17,35 @@
 	
     		<div class="form-row">
     			<div class="form-group col-md-4">
-		    		<input class="form-control" id="idCrmMCO" type="text" name="idCrmMCO" placeholder="Crm MCO" maxlength="200"/>
+		    		<input class="form-control js-numeric" id="idCrmMCO" type="text" name="idCrmMCO" placeholder="Crm MCO" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-				    <input class="form-control" id="nombreCliente" type="text" name="nombreCliente" placeholder="Nombre del Cliente" maxlength="200"/>
+				    <input class="form-control js-text" id="nombreCliente" type="text" name="nombreCliente" placeholder="Nombre del Cliente" maxlength="200"/>
     			</div>  
     			<div class="form-group col-md-4">
-		    		<input class="form-control" id="ruc" type="text" name="ruc" placeholder="RUC" maxlength="200"/>
+		    		<input class="form-control js-numeric" id="ruc" type="text" name="ruc" placeholder="RUC" maxlength="200"/>
     			</div>   			
   			</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-				    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="nombre" maxlength="200"/>
+				    <input class="form-control js-text" id="nombre" type="text" name="nombre" placeholder="nombre" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-		    		<input class="form-control" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
+		    		<input class="form-control js-text" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
     			</div>    			
     			<div class="form-group col-md-4">
-		    		<input class="form-control" id="montoInversion" type="text" name="montoInversion" placeholder="Monto de inversión" maxlength="200"/>
+		    		<input class="form-control js-decimal" id="montoInversion" type="text" name="montoInversion" placeholder="Monto de inversión" maxlength="200"/>
     			</div>
     		</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-				    <input class="form-control" id="montoPresupuesto" type="text" name="montoPresupuesto" placeholder="Monto de partida" maxlength="200"/>
+				    <input class="form-control js-decimal" id="montoPresupuesto" type="text" name="montoPresupuesto" placeholder="Monto de partida" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-				    <input class="form-control" id="nivelConstruccion" type="text" name="nivelConstruccion" placeholder="Nivel de construccion" maxlength="200"/>
+				    <input class="form-control js-text" id="nivelConstruccion" type="text" name="nivelConstruccion" placeholder="Nivel de construccion" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-				    <input class="form-control" id="areaConstruccion" type="text" name="areaConstruccion" placeholder="Área de construccion" maxlength="200"/>
+				    <input class="form-control js-decimal" id="areaConstruccion" type="text" name="areaConstruccion" placeholder="Área de construccion" maxlength="200"/>
     			</div>
     		</div>
     		<div class="form-row">
@@ -64,15 +64,15 @@
 				    </select>
 				</div>
 		    	<div class="form-group col-md-4">
-				     <input class="form-control" id="tipoProyecto" type="text" name="tipoProyecto" placeholder="Tipo Proyecto" maxlength="200"/> 
+				     <input class="form-control js-text" id="tipoProyecto" type="text" name="tipoProyecto" placeholder="Tipo Proyecto" maxlength="200"/> 
     			</div>
     		</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-				    <input class="form-control" id="categoriaConstruccion" type="text" name="categoriaConstruccion" placeholder="Categoria de Construcción" maxlength="200"/>
+				    <input class="form-control js-text" id="categoriaConstruccion" type="text" name="categoriaConstruccion" placeholder="Categoria de Construcción" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-				    <input class="form-control" id="porcentajeHolgura" type="text" name="porcentajeHolgura" placeholder="Porcentaje de Holgura" maxlength="200"/>
+				    <input class="form-control js-decimal" id="porcentajeHolgura" type="text" name="porcentajeHolgura" placeholder="Porcentaje de Holgura" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
     			 	<select class="form-control form-control-sm custom-color" id="tipoPrecio" name="tipoPrecio" >
@@ -207,23 +207,30 @@
 		$("#btn-crear-nivel").click(function() {
 			
 //TODO validar si es nuevo o esta modificando para mostrar los valores
-			$("#nombre").val("");
+			$("#nombre-nivel").val("");
 			$("#descripcion-nivel").val("");
 			$("#orden").val("")
 			
+			$("#msg-exito-nivel").removeClass("show");
 			$("#niveles").addClass("show");			
 			$("#nivel-modal").modal("show");
+			
+			$("#nivel-modal").off();
+			
+			$("#nivel-modal").css('z-index', '2');
+        	$(".modal-backdrop.fade.in").css('z-index', '1');
 		});
 		
 		$("#editarNivel").click(function() {
 			
 //TODO traer los de bd para mostrar los valores		
 			$("#nivel-modal").modal("show");
+			$("#nivel-modal").off();
 		});
 		
 		$("#btn-cancelar-nivel").click(function() {
 			$("div.edit").removeClass("edit");
-			$("#nombre").val("");
+			$("#nombre-nivel").val("");
 			$("#descripcion-nivel").val("");
 			$("#orden").val("")
 			
@@ -327,9 +334,12 @@
 		    	    			
 		    	    			indexColorNivel++;
 		    	        		
+		    	    			$("#nivel-modal").css('z-index', '2');
+			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+			    	        	
 		    	    			$("#nivel-modal").modal("hide");
 		    	    			
-		    	    			$("#nombre").val("");
+		    	    			$("#nombre-nivel").val("");
 		    	    			$("#descripcion-nivel").val("");
 		    	    			$("#orden").val("");
 		    	    			
@@ -395,7 +405,8 @@
 		$("#nombre").val(elem.parent().data("nombre"));
 		$("#descripcion-nivel").val(elem.parent().data("descripcion-nivel"));
 		
-		$("#nivel-modal").modal("show");	
+		$("#nivel-modal").modal("show");
+		$("#nivel-modal").off();
 	}
 	
 	function eliminarNivel(elem){
@@ -428,6 +439,11 @@
     	        });
     	        nivelActual = idNivel;
     			$("#metrado-modal").modal("show");
+    			$("#metrado-modal").off();
+    			$("#msg-exito-metrado").removeClass("show");
+    			$("#metrado-modal").css('z-index', '2');
+	    	    $(".modal-backdrop.fade.in").css('z-index', '1');
+    		
     	  },
     	  complete: function(result){
     	        console.log("complete");
@@ -443,6 +459,51 @@
 		$("#metrado-modal").modal("hide");
 	});
 	
+	$(".js-numeric").on('keypress', function (e) {
+		var regex = new RegExp("^[0-9]$");
+		if(!regex.test(e.key)) {
+			return false;
+		}
+	});	 
+	
+	$(".js-decimal").on('keypress', function (e) {
+		var regex = new RegExp("^([0-9]|\\.)$");
+		if(!regex.test(e.key)) {
+			return false;
+		}
+	});	
+		
+	$(".js-text").on('keypress', function (e) {
+		var regex = new RegExp("^([a-z]|[A-Z]|[0-9]|\\.|\\,|\\(|\\)|\\_|\\-|\s\)$");
+		if(!regex.test(e.key)) {
+			return false;
+		}
+	});	
+	
+	
+	$('.js-numeric').on('paste', function (e) {
+	    var $this = $(this);
+	    setTimeout(function (e) {
+	        if (($this.val()).match(/[^0-9]/g)) {
+				$this.val("");        	
+	            setTimeout(function (e) {
+	                $this.val(null);
+	            },2500);
+	        }                   
+	    }, 5);
+	});
+	
+	$('.js-decimal').on('paste', function (e) {
+	    var $this = $(this);
+	    setTimeout(function (e) {
+	        if (($this.val()).match(/[^0-9]|\\./g)) {
+				$this.val("");        	
+	            setTimeout(function (e) {
+	                $this.val(null);
+	            },2500);
+	        }                   
+	    }, 5);
+	});
 	
 </script>
 
