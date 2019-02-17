@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
@@ -299,6 +299,8 @@ $(document).ready(function() {
 		    	        
 		    	        });
 		    	        $("#user-modal-permission").modal("show");
+		    	        $("#user-modal-permission").css('z-index', '2');
+	    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");

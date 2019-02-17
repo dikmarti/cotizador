@@ -94,7 +94,7 @@ public class SystemController extends GenericController {
 	@Path("/deleteSystem")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Boolean delete(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public Integer delete(String jsonForm, @Context HttpServletRequest httpRequest) {
 
 		System.out.println("/deleteSystem json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
@@ -104,14 +104,10 @@ public class SystemController extends GenericController {
 
 			providerMap = mapper.readValue(jsonForm, Map.class);
 			Integer id = providerMap.get("id");
-			Boolean deleted = systemService.deleteSystem(id);
+			Integer status = systemService.deleteSystem(id);
 
-			System.out.println("deleted: " + deleted);
-			if (deleted) {
-				return Boolean.TRUE;
-			} else {
-				return Boolean.FALSE;
-			}
+			System.out.println("status: " + status);
+			return status;
 
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block

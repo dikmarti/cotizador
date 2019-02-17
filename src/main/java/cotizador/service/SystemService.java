@@ -89,14 +89,19 @@ public class SystemService {
 	 * @param id
 	 * @return
 	 */
-	public Boolean deleteSystem(Integer id) {
+	public Integer deleteSystem(Integer id) {
 
 		System.out.println("Method deleteSystem...");
+		
+		if(!isValidSystem(id)) {
+			System.out.println("El sistema tiene productos aspciados..");
+			return 1;
+		}
 
 		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Sistema u WHERE u.id = '" + id +"'");
 
 		System.out.println("deleted: " + deleted);
-		Boolean systemResult = deleted == 1 ? Boolean.TRUE : Boolean.FALSE;
+		Integer systemResult = deleted == 1 ? 0 : 2;
 
 		return  systemResult;
 	}
@@ -116,6 +121,18 @@ public class SystemService {
 
 		return result;
 
+	}
+	
+	public Boolean isValidSystem(Integer id) {
+		System.out.println("Method isValidSystem...");
+		List<Object> allObject = genericRepository
+				.getAllObjectByQuery("SELECT u FROM Producto u WHERE u.sistema.id = '" 
+						+ id +"'");
+
+		Boolean result = !allObject.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
+		System.out.println("result: " + result);
+
+		return result;
 	}
 
 }

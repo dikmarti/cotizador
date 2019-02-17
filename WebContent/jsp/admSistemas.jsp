@@ -259,12 +259,16 @@ $(document).ready(function() {
 		    	        	$("#error-table").html("Ha ocurrido un error, el sistema no pudo ser eliminado.");
 		    	        	$("#error-table").addClass("on");	
 		    	        } else {
-		    	        	if(result) {
+		    	        	if(result == 0) {
 		    	        		table.rows('.selected').remove().draw( false );
-		    	        	} else {
-		    	        		console.log("Ha ocurrido un error, el sistema no pudo ser eliminado.")
+		    	        	} else if (result == 1) {
+		    	        		console.log("Ha ocurrido un error, el sistema no pudo ser eliminado porque posee productos asociados.")
+		    	        		$("#error-table").html("Ha ocurrido un error, el sistema no pudo ser eliminado porque posee productos asociados.");
+			    	        	$("#error-table").addClass("on");
+		    	        	} else if (result == 2) {
+			    	        	console.log("Ha ocurrido un error, el sistema no pudo ser eliminado.")
 		    	        		$("#error-table").html("Ha ocurrido un error, el sistema no pudo ser eliminado.");
-			    	        	$("#error-table").addClass("on");	
+			    	        	$("#error-table").addClass("on");
 		    	        	}
 		    	        }
 		    	       
