@@ -43,7 +43,7 @@
 <script type="text/javascript">    
 	$(document).ready(function() {		
 	
-		var arrayColors = ["purple","red", "light-gray", "blue","orange","green","dark-blue", "yellow", "gray"];
+		var arrayColors = ["dark-blue","dark-blue", "dark-blue", "dark-blue","dark-blue","dark-blue","dark-blue", "dark-blue", "dark-blue", "dark-blue","dark-blue"];
 		
 		 var modulosUser = '<%=modulos != null ? modulos : null %>';     
 	 	 var $divModulesByUSer = $("#page-wrapper");
