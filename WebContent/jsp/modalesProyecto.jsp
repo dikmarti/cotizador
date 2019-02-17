@@ -133,6 +133,13 @@
 						   			Debe ingresar los datos.
 			      			</div>
 		      			</div>
+					</div>
+					
+					<div class="form-group col-md-12">
+				    	<div class="msg-exito" id="msg-exito-metrado">
+				   			Se guardó la configuración del metrado exitosamente.
+			     			</div>
+		    			</div>
 					</div> 
 						
 				   <div class="form-group row">				   
@@ -176,8 +183,17 @@
 		$("#guardar-metrado").click(function() {
 		
 			var productDivs = $(".js-product");
+			var lengthProducts = productDivs.length			
+
+			if(lengthProducts == 0) {
+				$("#msg-error-metrado").addClass("show");
+				return false;
+			}
+			
+			$("#msg-exito-metrado").removeClass("show");
+			
 			var result = "{\"listaMetrados\": [";
-			var lengthProducts = productDivs.length
+
 			var errorProductos = false;
 			
 			$.each(productDivs, function( index, element ) {	 
@@ -218,7 +234,10 @@
 			    	        console.log("termino");
 			    	        console.log(result);
 			    	        
-			    	        
+			    	        $("#msg-exito-metrado").addClass("show");
+			    	        $("#metrado-modal").css('z-index', '2');
+				    	    $(".modal-backdrop.fade.in").css('z-index', '1');
+				    	    			    	        
 			    	  },
 			    	  complete: function(result){
 			    	        console.log("complete");
@@ -601,6 +620,12 @@
 			$("#btn-agregar-producto").css("display","inline-block");
 			
 			limpiarCombos();
+			$("#msg-error-metrado").removeClass("show");
+			$("#msg-exito-metrado").removeClass("show");
+			$(".js-product").find("#msg-error-producto").removeClass("show");
+			
+			$("#metrado-modal").modal("hide");
+			
 		});	
 		
 	});

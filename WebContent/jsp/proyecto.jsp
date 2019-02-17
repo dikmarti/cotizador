@@ -440,6 +440,7 @@
     	        nivelActual = idNivel;
     			$("#metrado-modal").modal("show");
     			$("#metrado-modal").off();
+    			$("#msg-exito-metrado").removeClass("show");
     			$("#metrado-modal").css('z-index', '2');
 	    	    $(".modal-backdrop.fade.in").css('z-index', '1');
     		
