@@ -156,11 +156,7 @@ $(document).ready(function() {
 		    } );
 
 		$("#btn-project-create").click(function() {
-			console.log("create project");   
-			if(table.$('tr.selected').length != 1) {
-				console.log("No hay proyecto seleccionado");   	 
-				return false;
-			} 
+			location.href = "formProyecto";
 		});
 		
 		$("#btn-project-modify").click(function() {
