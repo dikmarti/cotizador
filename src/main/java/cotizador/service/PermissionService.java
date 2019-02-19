@@ -157,5 +157,23 @@ public class PermissionService {
 
 		return  userResult;
 	}
+	
+	/**
+	 * Metodo que elimina todos los permisos de un usuario
+	 * @param login
+	 * @return
+	 */
+	public Boolean deleteAllPermissionUser(String login) {
+		
+		System.out.println("Method deletePermissionUser...");
+		int deleted = -1;
+		deleted = genericRepository.executeUpdateQuery("DELETE FROM Permiso p WHERE p.usuario.login = '" + login 
+				+"'");
+		
+		System.out.println("permission user deleted: " + deleted);
+		Boolean userResult = deleted != -1 ? Boolean.TRUE : Boolean.FALSE;
+		
+		return  userResult;
+	}
 
 }

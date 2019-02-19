@@ -13,6 +13,9 @@ public class UserService {
 	@Inject
 	GenericRepository genericRepository;
 
+	@Inject
+	PermissionService permissionService;
+
 	/**
 	 * Metodo que buscar un usuario en la base de datos
 	 * 
@@ -147,6 +150,12 @@ public class UserService {
 
 		System.out.println("Method deleteUser...");
 
+		if(permissionService.deleteAllPermissionUser(login)) {
+			System.out.println("Permisos del usuario eliminados..");
+		} else {
+			return Boolean.FALSE;
+		}
+		
 		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Usuario u WHERE u.login = '" + login +"'");
 
 		System.out.println("deleted: " + deleted);

@@ -139,6 +139,29 @@
   </div>
 </div>
 <!-- End Modal -->
+
+<!-- Modal -->
+<div id="modal-confirm" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal-title-text">Confirmación</h4>
+      </div>
+      <div class="modal-body">
+			<h4 style="text-align: center;"><p>¿Está seguro que desea eliminar el usuario?</p></h4>
+			<div class="modal-footer" style="border-top: none">
+				<button type="button" id="btn-modal-confirm"  class="btn btn-primary">Confirmar</button>
+				<button type="button" id="btn-modal-cancel" class="btn btn-secundary">Cancelar</button>
+			</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- End Modal -->
   
 <!-- End page content -->
 </div>
@@ -272,6 +295,17 @@ $(document).ready(function() {
 				console.log("No hay usuario seleccionado");   	 
 				return false;
 			} 
+			$("#modal-confirm").modal("show");
+		});
+		$("#btn-modal-cancel").click(function() {
+			$("#modal-confirm").modal("hide");
+		});
+		$("#btn-modal-confirm").click(function() {
+			if(table.$('tr.selected').length != 1) {
+				console.log("No hay usuario seleccionado");   	 
+				return false;
+			} 
+			$("#modal-confirm").modal("hide");
 			var $userDelete = table.rows('.selected').data()[0]['Login'];
 			console.log("delete user " + $userDelete);   	 
 			
