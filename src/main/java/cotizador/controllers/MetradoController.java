@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -21,21 +20,12 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.Metrado;
-import cotizador.model.domain.Proveedor;
-import cotizador.model.domain.Proyecto;
-import cotizador.model.domain.Sistema;
+import cotizador.model.domain.Precio;
 import cotizador.model.domain.models.MetradoListModel;
 import cotizador.model.domain.models.MetradoModel;
-import cotizador.model.domain.models.ProjectModel;
-import cotizador.model.domain.models.ProviderModel;
-import cotizador.model.domain.models.SystemModel;
-import cotizador.model.domain.models.UserModel;
 import cotizador.service.MetradoService;
 import cotizador.service.NivelService;
 import cotizador.service.PriceListService;
-import cotizador.service.ProjectService;
-import cotizador.service.ProviderService;
-import cotizador.service.SystemService;
 
 @Path("/metrado")
 @Produces(MediaType.TEXT_HTML)
@@ -102,6 +92,32 @@ public class MetradoController extends GenericController {
 		}
 
 		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/byNivel")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Metrado> allMetradoByNivel(String jsonForm, @Context HttpServletRequest httpRequest) {
+		
+		System.out.println("/byNivel get all metrado from dataBase by nivel");
+		List<Metrado> allMetradoList = new ArrayList<Metrado>();
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, String> nivelMap = new HashMap<String, String>();
+
+		try {
+
+			nivelMap = mapper.readValue(jsonForm, Map.class);
+			String idNivel = nivelMap.get("idNivel");
+			allMetradoList = metradoService.findAllMetrado(idNivel);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("metradoList: " + allMetradoList);
+		return allMetradoList;
 	}
 
 }

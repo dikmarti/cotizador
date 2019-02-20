@@ -133,15 +133,15 @@ public class GenericRepository {
     
     }
     
-    public List<Object> getAllObjectFiltered(String query, String filter, Object parameterValue) {
+    public List<Object> getAllObjectFiltered(String query, String filter, Object idValue) {
     	
     	System.out.println("query " + query);
     	System.out.println("filter " + filter);
-    	System.out.println("parameterValue " + parameterValue);
+    	System.out.println("parameterValue " + idValue);
     	
     	@SuppressWarnings("unchecked")
 		List<Object> result = (List<Object>)entityManager.createNamedQuery(query)
-			    			.setParameter(filter, parameterValue)
+			    			.setParameter(filter, Integer.parseInt((String)idValue))
 			    			.getResultList();   
 
     	System.out.println("result " + result);

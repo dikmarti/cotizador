@@ -1,12 +1,12 @@
 package cotizador.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import cotizador.model.domain.Proyecto;
-import cotizador.model.domain.Sistema;
-import cotizador.model.domain.Usuario;
+import cotizador.model.domain.Metrado;
+import cotizador.model.domain.Precio;
 import cotizador.model.repository.GenericRepository;
 
 public class MetradoService {
@@ -37,6 +37,17 @@ public class MetradoService {
 		List<Object> result = genericRepository.addAllObject(listObject);
 		
 		return  result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Metrado> findAllMetrado(String idNivel){
+		
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Metrado.findByNivel", "id", idNivel);
+		
+		List<Metrado> metradoList = !allObject.isEmpty() ? (List<Metrado>) (Object) allObject : null;
+		
+		return metradoList;
+		
 	}
 
 	
