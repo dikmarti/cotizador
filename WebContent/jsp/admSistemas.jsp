@@ -71,7 +71,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" id="modal-title-text">Crear Sistema</h4>
       </div>
       <div class="modal-body">
@@ -111,6 +111,27 @@
   </div>
 </div>
 <!-- End Modal -->
+
+<!-- Modal Confirm-->
+<div id="modal-confirm" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal-title-text">Confirmación</h4>
+      </div>
+      <div class="modal-body">
+			<h4 style="text-align: center;"><p>¿Está seguro que desea eliminar el sistema seleccionado?</p></h4>
+			<div class="modal-footer" style="border-top: none">
+				<button type="button" id="btn-modal-confirm"  class="btn btn-primary">Confirmar</button>
+				<button type="button" id="btn-modal-cancel" class="btn btn-secundary">Cancelar</button>
+			</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Confirm -->
   
 <!-- End page content -->
 </div>
@@ -204,6 +225,7 @@ $(document).ready(function() {
 			$('#system-modal').find('#btn-modal-create').css('display', '');
 			$('#system-modal').find('#modal-title-text').html('Crear Sistema');
 			$("#system-modal").modal("show");
+			$("#system-modal").off();
 		});
 		
 		$("#btn-system-modify").click(function() {
@@ -233,6 +255,17 @@ $(document).ready(function() {
 		});
 		
 		$("#btn-system-delete").click(function() {
+			if(table.$('tr.selected').length != 1) {
+				console.log("No hay sistema seleccionado");   	 
+				return false;
+			} 
+			$("#modal-confirm").modal("show");
+		});
+		$("#btn-modal-cancel").click(function() {
+			$("#modal-confirm").modal("hide");
+		});
+		$("#btn-modal-confirm").click(function() {
+			$("#modal-confirm").modal("hide");
 			if(table.$('tr.selected').length != 1) {
 				console.log("No hay sistema seleccionado");   	 
 				return false;
@@ -418,6 +451,10 @@ $(document).ready(function() {
 		    	});
 	    	 
 	      });
+		
+		$(".js-close").click(function(){
+			  $(this).parents(".modal").modal("hide");
+		});
 	  });   
 		  
 	</script>

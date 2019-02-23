@@ -83,7 +83,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" id="modal-title-text">Crear Lista de Precios</h4>
       </div>
       <div class="modal-body">
@@ -201,6 +201,27 @@
   </div>
 </div>
 <!-- End Modal -->
+
+<!-- Modal Confirm-->
+<div id="modal-confirm" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal-title-text">Confirmación</h4>
+      </div>
+      <div class="modal-body">
+			<h4 style="text-align: center;"><p>¿Está seguro que desea eliminar caducar la lista de precios seleccionada?</p></h4>
+			<div class="modal-footer" style="border-top: none">
+				<button type="button" id="btn-modal-confirm"  class="btn btn-primary">Confirmar</button>
+				<button type="button" id="btn-modal-cancel" class="btn btn-secundary">Cancelar</button>
+			</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Confirm -->
   
   
 <!-- End page content -->
@@ -341,6 +362,7 @@ $(document).ready(function() {
 						$("#priceList-modal").modal("show");
 						$("#priceList-modal").css('z-index', '2');
 	    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+	    	        	$("#priceList-modal").off();
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");
@@ -373,8 +395,18 @@ $(document).ready(function() {
 			
 		});
 		
-		
 		$("#btn-priceList-delete").click(function() {
+			if(table.$('tr.selected').length != 1) {
+				console.log("No hay lista de precios seleccionada");   	 
+				return false;
+			} 
+			$("#modal-confirm").modal("show");
+		});
+		$("#btn-modal-cancel").click(function() {
+			$("#modal-confirm").modal("hide");
+		});
+		$("#btn-modal-confirm").click(function() {
+			$("#modal-confirm").modal("hide");
 			if(table.$('tr.selected').length != 1) {
 				console.log("No hay lista de precios seleccionado");   	 
 				return false;
@@ -609,8 +641,6 @@ $(document).ready(function() {
 			$('#proveedor').empty()
 		    .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>');
 		}
-	  });  
-		
 		$("#sistema").click(function() {
 			$(this).removeClass("custom-color");
 		});	
@@ -662,6 +692,12 @@ $(document).ready(function() {
 				return false;
 			}
 		});	  
+		 
+		 $(".js-close").click(function(){
+			  $(this).parents(".modal").modal("hide");
+		});
+	  });  
+		
 		
 	</script>
 	

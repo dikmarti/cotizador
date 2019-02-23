@@ -95,7 +95,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" id="modal-title-text">Crear Producto</h4>
       </div>
       <div class="modal-body">
@@ -169,6 +169,27 @@
   </div>
 </div>
 <!-- End Modal -->
+
+<!-- Modal Confirm-->
+<div id="modal-confirm" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal-title-text">Confirmación</h4>
+      </div>
+      <div class="modal-body">
+			<h4 style="text-align: center;"><p>¿Está seguro que desea eliminar el producto seleccionado?</p></h4>
+			<div class="modal-footer" style="border-top: none">
+				<button type="button" id="btn-modal-confirm"  class="btn btn-primary">Confirmar</button>
+				<button type="button" id="btn-modal-cancel" class="btn btn-secundary">Cancelar</button>
+			</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Confirm -->
   
 <!-- End page content -->
 </div>
@@ -334,6 +355,7 @@ $(document).ready(function() {
 		    	        
 		    	        });
 						$("#product-modal").modal("show");
+						$("#product-modal").off();
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");
@@ -404,6 +426,17 @@ $(document).ready(function() {
 		});
 		
 		$("#btn-product-delete").click(function() {
+			if(table.$('tr.selected').length != 1) {
+				console.log("No hay producto seleccionado");   	 
+				return false;
+			} 
+			$("#modal-confirm").modal("show");
+		});
+		$("#btn-modal-cancel").click(function() {
+			$("#modal-confirm").modal("hide");
+		});
+		$("#btn-modal-confirm").click(function() {
+			$("#modal-confirm").modal("hide");
 			if(table.$('tr.selected').length != 1) {
 				console.log("No hay producto seleccionado");   	 
 				return false;
@@ -632,7 +665,12 @@ $(document).ready(function() {
 		$("#unidadMedida").click(function() {
 			$(this).removeClass("custom-color");
 		});	
-	  });   
+		
+		$(".js-close").click(function(){
+			  $(this).parents(".modal").modal("hide");
+		});
+
+	});   
 		  
 	</script>
 	

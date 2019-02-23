@@ -76,7 +76,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" id="modal-title-text">Crear Usuario</h4>
       </div>
       <div class="modal-body">
@@ -140,10 +140,9 @@
 </div>
 <!-- End Modal -->
 
-<!-- Modal -->
+<!-- Modal Confirm-->
 <div id="modal-confirm" class="modal fade" role="dialog">
   <div class="modal-dialog">
-
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -151,17 +150,16 @@
         <h4 class="modal-title" id="modal-title-text">Confirmación</h4>
       </div>
       <div class="modal-body">
-			<h4 style="text-align: center;"><p>¿Está seguro que desea eliminar el usuario?</p></h4>
+			<h4 style="text-align: center;"><p>¿Está seguro que desea eliminar el usuario seleccionado?</p></h4>
 			<div class="modal-footer" style="border-top: none">
 				<button type="button" id="btn-modal-confirm"  class="btn btn-primary">Confirmar</button>
 				<button type="button" id="btn-modal-cancel" class="btn btn-secundary">Cancelar</button>
 			</div>
       </div>
     </div>
-
   </div>
 </div>
-<!-- End Modal -->
+<!-- End Modal Confirm -->
   
 <!-- End page content -->
 </div>
@@ -257,6 +255,7 @@ $(document).ready(function() {
 			$("#tipoUsuario").addClass("custom-color");
 			$('#user-modal').find('#modal-title-text').html('Crear Usuario');
 			$("#user-modal").modal("show");
+			$("#user-modal").off();
 		});
 		
 		$("#btn-user-modify").click(function() {
@@ -501,6 +500,10 @@ $(document).ready(function() {
 				return false;
 			}
 		});	
+		
+		$(".js-close").click(function(){
+			  $(this).parents(".modal").modal("hide");
+		});
 	  });   
 		  
 	</script>
