@@ -96,7 +96,7 @@ public class MetradoController extends GenericController {
 	
 	@SuppressWarnings("unchecked")
 	@POST
-	@Path("/byNivel")
+	@Path("/findByNivel")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Metrado> allMetradoByNivel(String jsonForm, @Context HttpServletRequest httpRequest) {
@@ -104,12 +104,12 @@ public class MetradoController extends GenericController {
 		System.out.println("/byNivel get all metrado from dataBase by nivel");
 		List<Metrado> allMetradoList = new ArrayList<Metrado>();
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, String> nivelMap = new HashMap<String, String>();
+		Map<String, Integer> nivelMap = new HashMap<String, Integer>();
 
 		try {
 
 			nivelMap = mapper.readValue(jsonForm, Map.class);
-			String idNivel = nivelMap.get("idNivel");
+			Integer idNivel = nivelMap.get("idNivel");
 			allMetradoList = metradoService.findAllMetrado(idNivel);
 			
 		} catch (Exception e) {

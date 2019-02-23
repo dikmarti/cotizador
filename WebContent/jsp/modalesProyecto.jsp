@@ -179,7 +179,7 @@
 	var priceList = [];
 
 	$(document).ready(function() {
-		
+				
 		$("#guardar-metrado").click(function() {
 		
 			var productDivs = $(".js-product");
@@ -338,7 +338,7 @@
 			if (productosSelected[sistema] != undefined) {
 				var listaProductos = productosSelected[sistema].split(",");
 				 $.each(listaProductos , function( index, element ) {				 
-					 $("[value^=" + element + "]").prop('disabled', 'disabled');
+					 $("select#producto").find("[value^=" + element + "]").prop('disabled', 'disabled');
 	 	         });
 			}
 			
@@ -350,7 +350,6 @@
 			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
 			$('#cantidad').val("");
 			
-		  
 			var $val = $("#sistema option:selected").val();
 			$("#metrado-modal").css('z-index', '1');
 			$.ajax({
@@ -368,6 +367,19 @@
 		    	        	$(o).html(result[index].nombre);
 		    	        	$("#producto").append(o);		    	        	
 		    	        });
+		    	        
+		    	        var metradoProducts = $("#sistema_" + sistema).find(".js-product");
+		    			
+		   			 	$.each(metradoProducts , function( index, element ) {				 
+			   				var product = $(element).find("#modificarProducto").data("producto");
+			   				$("select#producto").find("[value^=" + product + "]").prop('disabled', 'disabled');
+			   				
+		   					if(productosSelected[sistema ] == undefined) {
+		   						productosSelected[sistema] = product;
+		   					} else {
+		   						productosSelected[sistema] += "," + product;
+		   					}					
+		    	        });	
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");
@@ -628,6 +640,9 @@
 			
 		});	
 		
+		
+		
+		
 	});
 	
 	$(".js-numeric").on('keypress', function (e) {
@@ -645,7 +660,7 @@
 	});	
 		
 	$(".js-text").on('keypress', function (e) {
-		var regex = new RegExp("^([a-z]|[A-Z]|[0-9]|\\.|\\,|\\(|\\)|\\_|\\-|\s\)$");
+		var regex = new RegExp("^([a-zA-Z0-9 ]|\\.|\\,|\\(|\\)|\\_|\\-)$");
 		if(!regex.test(e.key)) {
 			return false;
 		}
@@ -723,6 +738,119 @@
 		
 	}
 	
+	function loadMetrado(){
+		//var nivel = $("#nivelId").val();
+		var nivel = 70;
+		
+		$.ajax({
+	    	  url: "/Cotizador/rest/metrado/findByNivel",
+	    	  type: "POST",
+	    	  data: JSON.stringify({idNivel: nivel}),
+	    	  dataType: "json",
+	    	  contentType: "application/json; charset=utf-8",
+	    	  success: function(result){	
+	    	        console.log("termino");
+	    	        console.log(result);
+    	        
+	    	        $.each(result, function( index, element ) {	 
+	    	        	var sistema = element.precio.producto.sistema.id;
+	    				var producto = element.precio.producto.id;
+	    				var proveedor = element.precio.proveedor.id;
+	    				var precio = element.precioProducto;
+	    				var cantidad = element.cantidadProducto;
+	    				
+	    				var sistemaNombre = element.precio.producto.sistema.nombre;
+	    				var productoNombre = element.precio.producto.nombre;
+	    				var proveedorNombre = element.precio.proveedor.nombre;
+
+	    				
+	    				if(sistema == "" || producto == "" || proveedor == "" || precio == "" || cantidad == "") { 
+	    					$("#msg-error-metrado").addClass("show");
+	    					return false;
+	    				}		
+	    				
+	    				var divSistema = $("#sistema_" + sistema);
+	    				var html = "";
+	    				var htmlProducto = "";
+	    				
+	    				htmlProducto += "<div id='producto_"+ producto +"' class='js-product'>";			
+
+	    				htmlProducto += '		<a id="eliminarProducto"  onclick="eliminarProducto(this);" data-sistema="' + sistema + '" data-producto="' + producto + '" title="Eliminar producto" onclick="" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
+	    				htmlProducto += '		<a id="modificarProducto" onclick="modificarProducto(this,0);" data-sistema="' + sistema + '" data-producto="' + producto + '" data-proveedor="' + proveedor + '" data-precio="' + precio + '" data-cantidad="' + cantidad + '" title="Editar producto" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
+	    				
+	    				htmlProducto += '<div class="form-group row font-products" style="margin-top: 15px;">';
+	    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Producto:</label>';
+	    				htmlProducto += '   <div class="col-sm-10">';
+	    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + productoNombre+ '" style="border: none;">';
+	    				htmlProducto += '    </div>';
+	    				htmlProducto += '</div>';
+
+	    				htmlProducto += '<div class="form-group row font-products">';
+	    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Proveedor:</label>';
+	    				htmlProducto += '   <div class="col-sm-10">';
+	    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-proveedor" value="' + proveedorNombre+ '" style="border: none;">';
+	    				htmlProducto += '    </div>';
+	    				htmlProducto += '</div>';
+
+	    				htmlProducto += '<div class="form-group row font-products">';
+	    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Precio:</label>';
+	    				htmlProducto += '   <div class="col-sm-10">';
+	    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-precio" value="' + precio+ '" style="border: none;">';
+	    				htmlProducto += '    </div>';
+	    				htmlProducto += '</div>';
+	    				
+	    				htmlProducto += '<div class="form-group row font-products">';
+	    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Cantidad:</label>';
+	    				htmlProducto += '   <div class="col-sm-10">';
+	    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-cantidad" value="' + cantidad+ '" style="border: none;">';
+	    				htmlProducto += '    </div>';
+	    				htmlProducto += '</div>';
+	    		
+	    				htmlProducto += '<div class="form-group row font-products">';
+	    				htmlProducto += '   <div class="msg-error" id="msg-error-producto">';
+	    				htmlProducto += '      Debe ingresar los datos.';
+	    				htmlProducto += '    </div>';
+	    				htmlProducto += '</div>';
+	    				
+	    				htmlProducto += "</div>";
+	    				
+	    				if(divSistema.length > 0) {								
+	    					divSistema.find(".panel-body").append(htmlProducto);
+	    					$("#producto_" + producto).addClass("sep-products");
+	    					
+	    					
+	    				} else {
+	    					
+	    					html += '<div class="panel panel-default" id="sistema_' + sistema + '">';
+	    					html += '  <div class="panel-heading">';
+	    					html += '    <h4 class="panel-title" style="height: 10px;">';
+	    					html += '      <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" style="position: absolute;left: 30px;">' + sistemaNombre +'</a>';
+	    					html += '     </h4>';
+	    					html += '</div>';
+	    					html += '<div id="collapse1" class="panel-collapse collapse in">';
+	    					html += '    <div class="panel-body">';
+	    					html += htmlProducto;
+	    					html += '	 </div>';
+	    					html += '</div>';
+	    					html += '</div>';
+	    				    
+	    					$("#sist-metrado").append(html);	
+	    					$("#producto_" + producto).addClass("sep-first-products");
+	    			
+	    				}  	        	
+	    	        
+	    	        });
+	    	  },
+	    	  complete: function(result){
+	    	        console.log("complete");
+	    	  },
+	    	  error: function(result){
+	    	        console.log("error");
+	    	  }
+	    	  
+	    	});
+	}
+	
 	function eliminarProducto(element) {
 		
 		var sistema = $(element).data("sistema");
@@ -732,16 +860,18 @@
 			var listaProductos = productosSelected[sistema].split(",");
 			
 			if(listaProductos.length == 1){
-				 $("[value^=" + producto + "]").prop('disabled', 'false');
+				$("select#producto").find("[value^=" + producto + "]").prop('disabled', 'false');
 				 productosSelected[sistema].replace(producto,'');
 			} else {
 				 $.each(listaProductos , function( index, element ) {				 
 					 if(element == producto) {
-						 $("[value^=" + element + "]").prop('disabled', 'false');
+						 $("select#producto").find("[value^=" + producto + "]").prop('disabled', 'false');
 						 productosSelected[sistema].replace("," + producto,'');
 					 }				
 	 	         });	
 			}
+			
+			
 			 
 			 $("#producto_"+ producto).remove();
 			

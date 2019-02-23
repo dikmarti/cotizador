@@ -117,6 +117,8 @@
 
 </div>
 
+<jsp:include page="/jsp/modalesProyecto.jsp" />
+
 <script type="text/javascript">
 	
 	var nivelActual = "";
@@ -452,6 +454,8 @@
     	        console.log("error");
     	  }	    	  
     	});
+		
+		loadMetrado();
 	}
 	
 	$("#btn-cancelar-metrado").click(function() {
@@ -474,7 +478,7 @@
 	});	
 		
 	$(".js-text").on('keypress', function (e) {
-		var regex = new RegExp("^([a-z]|[A-Z]|[0-9]|\\.|\\,|\\(|\\)|\\_|\\-|\s\)$");
+		var regex = new RegExp("^([a-z ]|[A-Z]|[0-9]|\\.|\\,|\\(|\\)|\\_|\\-)$");
 		if(!regex.test(e.key)) {
 			return false;
 		}
@@ -506,7 +510,5 @@
 	});
 	
 </script>
-
-<jsp:include page="/jsp/modalesProyecto.jsp" />
 
 </t:standardPage>

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @NamedQueries({
 	@NamedQuery(name = "Metrado.findById", query = "SELECT m FROM Metrado m WHERE m.id = :id"),
-	@NamedQuery(name = "Metrado.findByNivel", query = "SELECT m FROM Metrado m WHERE m.nivel.id = :id")	
+	@NamedQuery(name = "Metrado.findByNivel", query = "SELECT m FROM Metrado m WHERE m.nivel.id = :idNivel order by m.precio.producto.sistema asc")	
 })
 
 @Entity

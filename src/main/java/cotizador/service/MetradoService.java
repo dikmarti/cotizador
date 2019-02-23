@@ -40,14 +40,12 @@ public class MetradoService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Metrado> findAllMetrado(String idNivel){
+	public List<Metrado> findAllMetrado(Integer idNivel){
 		
-		List<Object> allObject = genericRepository.getAllObjectFiltered("Metrado.findByNivel", "id", idNivel);
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Metrado.findByNivel", "idNivel", idNivel);
 		
-		List<Metrado> metradoList = !allObject.isEmpty() ? (List<Metrado>) (Object) allObject : null;
-		
-		return metradoList;
-		
+		return !allObject.isEmpty() ? (List<Metrado>) (Object) allObject : null;
+	
 	}
 
 	
