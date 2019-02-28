@@ -32,6 +32,9 @@ public class Metrado {
 	
 	@Column(name="monto_total")
 	private Double montoTotal;
+	
+	@Column(name = "id_parent_product")
+	private Integer idParentProduct;
 
 	public int getId() {
 		return id;
@@ -80,4 +83,12 @@ public class Metrado {
 	public void setPrecioProducto(Double precioProducto) {
 		this.precioProducto = precioProducto;
 	}	
+	
+	public Integer getIdParentProduct() {
+		return idParentProduct;
+	}
+
+	public void setIdParentProduct(Integer idParentProduct) {
+		this.idParentProduct = idParentProduct;
+	}
 }

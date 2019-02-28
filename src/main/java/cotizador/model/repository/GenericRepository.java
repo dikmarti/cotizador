@@ -36,7 +36,19 @@ public class GenericRepository {
     	List<Object> objectSaved = addAllObject(entityManager, listObject);
     	
         entityManager.getTransaction().commit();
-        entityManager.close();
+        //entityManager.close();
+        
+       return objectSaved;
+        
+    }
+    
+    public List<Object> modifyAllObject(List<Object> listObject){
+    	
+    	entityManager.getTransaction().begin();	
+    	List<Object> objectSaved = modifyAllObject(entityManager, listObject);
+    	
+        entityManager.getTransaction().commit();
+        //entityManager.close();
         
        return objectSaved;
         
@@ -73,6 +85,16 @@ public class GenericRepository {
 		return listObject;
         
     }
+    
+    private List<Object> modifyAllObject(EntityManager entityManager, List<Object> listObject){
+        
+    	for (Object object : listObject) {
+    		entityManager.merge(object);
+        	entityManager.flush();
+		}
+    	
+		return listObject;
+    }    
 
     private Object addObject(EntityManager entityManager, Object object){
         

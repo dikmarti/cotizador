@@ -94,7 +94,7 @@
 	      </div>
 	      <div class="modal-body">
 	      		<form id="metradoForm" class="form-content">
-	      			<input id="nivelId" type="hidden">					
+	      			<input id="nivelId" type="hidden">	      						
 		      		<div class="form-group row">
 			      		<div class="col-md-6">
 						     <select class="form-control form-control-sm custom-color" id="sistema" name="sistema" >
@@ -197,7 +197,7 @@
 			var errorProductos = false;
 			
 			$.each(productDivs, function( index, element ) {	 
-			 	
+			 	var metrado = $(element).data("metrado");
 				var producto = $(element).find("#modificarProducto").data("producto");
 				var proveedor = $(element).find("#modificarProducto").data("proveedor");
 				var precio = $(element).find("#modificarProducto").data("precio");
@@ -212,7 +212,12 @@
 					return false;
 				}
 				
-				result += JSON.stringify({"nivel": parseInt($("#nivelId").val()), "producto": producto,"proveedor": proveedor,"precio": precio,"cantidad": cantidad, "precioLista": precioLista})
+				var id = "";
+				if(metrado != undefined) {
+					id = metrado;
+				} 
+				
+				result += JSON.stringify({"id": id,"nivel": parseInt($("#nivelId").val()), "producto": producto,"proveedor": proveedor,"precio": precio,"cantidad": cantidad, "precioLista": precioLista})
 					
 				if(lengthProducts > 1) {
 					result += ",";
@@ -753,16 +758,23 @@
 	    	        console.log(result);
     	        
 	    	        $.each(result, function( index, element ) {	 
+	    	        	var metrado = element.id;
 	    	        	var sistema = element.precio.producto.sistema.id;
 	    				var producto = element.precio.producto.id;
 	    				var proveedor = element.precio.proveedor.id;
 	    				var precio = element.precioProducto;
 	    				var cantidad = element.cantidadProducto;
+	    				var idParentProduct = "";
+	    				
+	    				if (element.idParentProduct != undefined && element.idParentProduct != null) {
+	    					idParentProduct = element.idParentProduct;
+	    				}	    				
 	    				
 	    				var sistemaNombre = element.precio.producto.sistema.nombre;
 	    				var productoNombre = element.precio.producto.nombre;
 	    				var proveedorNombre = element.precio.proveedor.nombre;
 
+	    				priceList[producto + "_" + proveedor] = element.precio.id;
 	    				
 	    				if(sistema == "" || producto == "" || proveedor == "" || precio == "" || cantidad == "") { 
 	    					$("#msg-error-metrado").addClass("show");
@@ -773,9 +785,12 @@
 	    				var html = "";
 	    				var htmlProducto = "";
 	    				
-	    				htmlProducto += "<div id='producto_"+ producto +"' class='js-product'>";			
+	    				htmlProducto += "<div id='producto_"+ producto +"' class='js-product' data-metrado='"+metrado+"' data-parent-product='" + idParentProduct+ "'>";			
 
-	    				htmlProducto += '		<a id="eliminarProducto"  onclick="eliminarProducto(this);" data-sistema="' + sistema + '" data-producto="' + producto + '" title="Eliminar producto" onclick="" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
+	    				if (idParentProduct == "") { 	
+	    					htmlProducto += '		<a id="eliminarProducto"  onclick="eliminarProducto(this);" data-sistema="' + sistema + '" data-producto="' + producto + '" title="Eliminar producto" onclick="" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
+	    				}
+	    				
 	    				htmlProducto += '		<a id="modificarProducto" onclick="modificarProducto(this,0);" data-sistema="' + sistema + '" data-producto="' + producto + '" data-proveedor="' + proveedor + '" data-precio="' + precio + '" data-cantidad="' + cantidad + '" title="Editar producto" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
 	    				
 	    				htmlProducto += '<div class="form-group row font-products" style="margin-top: 15px;">';

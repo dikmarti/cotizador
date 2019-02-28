@@ -152,10 +152,10 @@
 			var porcentajeHolgura = $("#porcentajeHolgura").val();
 			var tipoPrecio = $("#tipoPrecio").val();
 			
-			if(idCrmMCO.trim() == "" || ruc.trim() == "" || nombreCliente.trim() == "" || tipoPrecio.trim() == "" ||
+			if(idCrmMCO.trim() == "" || ruc.trim() == "" || nombreCliente.trim() == "" || tipoPrecio == null ||
 				nombre.trim() == "" || localidad.trim() == "" || nivelConstruccion.trim() == "" ||
 					montoInversion.trim() == "" || montoPresupuesto.trim() == "" || areaConstruccion.trim() == "" ||
-					 nivelConstruccion.trim() == "" || soporte.trim() == "" || garantia.trim() == "" || 
+					 nivelConstruccion.trim() == "" || soporte == null || garantia == null || 
 					 	tipoProyecto.trim() == "" || categoriaConstruccion.trim() == "" || porcentajeHolgura.trim() == "") {
 				
 				$("#msg-error-proyecto").addClass("show");

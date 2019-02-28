@@ -1,12 +1,10 @@
 package cotizador.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import cotizador.model.domain.Metrado;
-import cotizador.model.domain.Precio;
 import cotizador.model.repository.GenericRepository;
 
 public class MetradoService {
@@ -33,8 +31,16 @@ public class MetradoService {
 	
 	public List<Object> addAllMetrado(List<Object> listObject) {
 
-		System.out.println("Creating project in data base");
+		System.out.println("Creating metrado in data base");
 		List<Object> result = genericRepository.addAllObject(listObject);
+		
+		return  result;
+	}
+	
+	public List<Object> modifyAllMetrado(List<Object> listObject) {
+
+		System.out.println("modify metrado in data base");
+		List<Object> result = genericRepository.modifyAllObject(listObject);
 		
 		return  result;
 	}

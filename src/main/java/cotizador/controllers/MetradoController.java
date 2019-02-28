@@ -56,7 +56,9 @@ public class MetradoController extends GenericController {
 			metradoListModel = mapper.readValue(jsonForm, MetradoListModel.class);
 			
 			MetradoModel[] listaMetrados = metradoListModel.getListaMetrados();
-			List<Object> listMetrado = new ArrayList<Object>();
+			List<Object> listMetradoNew = new ArrayList<Object>();
+			List<Object> listMetradoModify = new ArrayList<Object>();
+			
 			
 			for (MetradoModel metradoModel : listaMetrados) {
 				Metrado metrado = new Metrado();
@@ -69,13 +71,21 @@ public class MetradoController extends GenericController {
 				int idPrecioLista = Integer.parseInt(metradoModel.getPrecioLista());
 				metrado.setPrecio(priceListService.findById(idPrecioLista));
 				metrado.setPrecioProducto(Double.parseDouble(metradoModel.getPrecio()));
+				metrado.setIdParentProduct(Integer.parseInt(metradoModel.getIdParentProduct()));				
 				
-				listMetrado.add(metrado);
+				if(metradoModel.getId() != null && !metradoModel.getId().isEmpty()) {
+					metrado.setId(Integer.parseInt(metradoModel.getId()));
+					listMetradoModify.add(metrado);
+				} else {
+					listMetradoNew.add(metrado);	
+				}
+				
 			}
-						
-			List<Object> listResult = ((List<Object>) metradoService.addAllMetrado(listMetrado));
+				
+			List<Object> listResultNew = ((List<Object>) metradoService.addAllMetrado(listMetradoNew));
+			List<Object> listResultModify = ((List<Object>) metradoService.modifyAllMetrado(listMetradoModify));
 			
-			return listResult != null && !listResult.isEmpty()  ? 0 : 2;
+			return listResultNew != null && listResultModify != null && (!listResultNew.isEmpty() || !listResultModify.isEmpty())   ? 0 : 2;
 
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block

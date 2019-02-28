@@ -18,6 +18,7 @@ public class MetradoModel {
 	private String cantidad;
 	private String precioLista;
 	private String nivel;
+	private String idParentProduct;
 	
 	public String getId() {
 		return id;
@@ -60,6 +61,12 @@ public class MetradoModel {
 	}
 	public void setNivel(String nivel) {
 		this.nivel = nivel;
+	}
+	public String getIdParentProduct() {
+		return idParentProduct;
+	}
+	public void setIdParentProduct(String idParentProduct) {
+		this.idParentProduct = idParentProduct;
 	}
 	
 }
