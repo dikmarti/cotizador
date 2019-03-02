@@ -118,7 +118,7 @@ public class ProductController extends GenericController {
 	@Path("/deleteProduct")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Boolean delete(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public Integer delete(String jsonForm, @Context HttpServletRequest httpRequest) {
 
 		System.out.println("/deleteProduct json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
@@ -128,15 +128,11 @@ public class ProductController extends GenericController {
 
 			providerMap = mapper.readValue(jsonForm, Map.class);
 			Integer id = providerMap.get("id");
-			Boolean deleted = productService.deleteProduct(id);
+			Integer deleted = productService.deleteProduct(id);
 
 			System.out.println("deleted: " + deleted);
-			if (deleted) {
-				return Boolean.TRUE;
-			} else {
-				return Boolean.FALSE;
-			}
-
+			return deleted;
+			
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

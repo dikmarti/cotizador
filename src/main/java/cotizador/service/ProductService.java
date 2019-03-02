@@ -142,16 +142,20 @@ public class ProductService {
 	 * @param id
 	 * @return
 	 */
-	public Boolean deleteProduct(Integer id) {
+	public Integer deleteProduct(Integer id) {
 
 		System.out.println("Method deleteProduct...");
-		//TODO: Eliminar todas las tablas donde se encuentre el id de producto antes de eliminar el producto
-		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Producto u WHERE u.id = '" + id +"'");
-
-		System.out.println("deleted: " + deleted);
-		Boolean productResult = deleted == 1 ? Boolean.TRUE : Boolean.FALSE;
-
-		return  productResult;
+		if(isValidProduct(id)) {
+			int deleted = genericRepository.executeUpdateQuery("DELETE FROM Producto u WHERE u.id = '" + id +"'");
+			
+			System.out.println("deleted: " + deleted);
+			Integer productResult = deleted == 1 ?  0 : 2;
+			
+			return  productResult;
+		} else {
+			System.out.println("El producto esta asociado a lista de precios y no puede ser eliminado");
+			return 1;
+		}
 	}
 	
 	/**
@@ -169,6 +173,18 @@ public class ProductService {
 
 		return result;
 
+	}
+	
+	public Boolean isValidProduct(Integer id) {
+		
+		System.out.println("Method isValidProduct...");
+		List<Object> allObject = genericRepository.getAllObjectByQuery("SELECT u FROM Precio u WHERE u.producto.id = '" + id +"'");
+		
+		Boolean result = !allObject.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
+		System.out.println("result: " + result);
+		
+		return result;
+		
 	}
 	
 }

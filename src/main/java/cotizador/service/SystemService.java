@@ -94,7 +94,7 @@ public class SystemService {
 		System.out.println("Method deleteSystem...");
 		
 		if(!isValidSystem(id)) {
-			System.out.println("El sistema tiene productos aspciados..");
+			System.out.println("El sistema tiene productos asociados..");
 			return 1;
 		}
 

@@ -103,11 +103,11 @@ public class ProviderService {
 		if(isValidProvider(id)) {
 			int deleted = genericRepository.executeUpdateQuery("DELETE FROM Proveedor u WHERE u.id = '" + id +"'");
 			System.out.println("deleted: " + deleted);
-			Integer providerResult = deleted == 1 ? 0 : 1;
+			Integer providerResult = deleted == 1 ? 0 : 2;
 			return  providerResult;
 		} else { 
 			System.out.println("El proveedor esta asociado a lista de precios y no puede ser eliminado");
-			return 2;
+			return 1;
 		}
 	}
 
