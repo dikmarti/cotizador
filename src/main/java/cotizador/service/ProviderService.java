@@ -96,16 +96,19 @@ public class ProviderService {
 	 * @param id
 	 * @return
 	 */
-	public Boolean deleteProvider(Integer id) {
+	public Integer deleteProvider(Integer id) {
 
 		System.out.println("Method deleteUser...");
-
-		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Proveedor u WHERE u.id = '" + id +"'");
-
-		System.out.println("deleted: " + deleted);
-		Boolean providerResult = deleted == 1 ? Boolean.TRUE : Boolean.FALSE;
-
-		return  providerResult;
+		
+		if(isValidProvider(id)) {
+			int deleted = genericRepository.executeUpdateQuery("DELETE FROM Proveedor u WHERE u.id = '" + id +"'");
+			System.out.println("deleted: " + deleted);
+			Integer providerResult = deleted == 1 ? 0 : 1;
+			return  providerResult;
+		} else { 
+			System.out.println("El proveedor esta asociado a lista de precios y no puede ser eliminado");
+			return 2;
+		}
 	}
 
 	/**
@@ -123,6 +126,23 @@ public class ProviderService {
 
 		return result;
 
+	}
+	
+	/**
+	 * Metodo que valida si un proveedor se encuentra asociado a una lista de precios
+	 * @param id
+	 * @return
+	 */
+	public Boolean isValidProvider(Integer id) {
+		
+		System.out.println("Method isValidProvider...");
+		List<Object> allObject = genericRepository.getAllObjectByQuery("SELECT u FROM Precio u WHERE u.proveedor.id = '" + id +"'");
+		
+		Boolean result = !allObject.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
+		System.out.println("result: " + result);
+		
+		return result;
+		
 	}
 	
 	/**

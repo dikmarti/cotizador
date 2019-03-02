@@ -283,11 +283,15 @@ $(document).ready(function() {
 		    	        	$("#error-table").html("Ha ocurrido un error, el proveedor no pudo ser eliminado.");
 		    	        	$("#error-table").addClass("on");	
 		    	        } else {
-		    	        	if(result) {
+		    	        	if(result == 0) {
 		    	        		table.rows('.selected').remove().draw( false );
-		    	        	} else {
+		    	        	} else if(result == 1){
 		    	        		console.log("Ha ocurrido un error, el proveedor no pudo ser eliminado.")
 		    	        		$("#error-table").html("Ha ocurrido un error, el proveedor no pudo ser eliminado.");
+			    	        	$("#error-table").addClass("on");	
+		    	        	} else if(result == 2) {
+		    	        		console.log("Ha ocurrido un error, el proveedor no pudo ser eliminado.")
+		    	        		$("#error-table").html("El proveedor no pudo ser eliminado porque se encuentra asociado a una lista de precios.");
 			    	        	$("#error-table").addClass("on");	
 		    	        	}
 		    	        }
