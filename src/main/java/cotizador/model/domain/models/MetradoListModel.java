@@ -11,7 +11,8 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 		fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class MetradoListModel {
 	
-	MetradoModel listaMetrados[];
+	private MetradoModel listaMetrados[];
+	private String listaMetradoEliminados;
 
 	public MetradoModel[] getListaMetrados() {
 		return listaMetrados;
@@ -20,5 +21,14 @@ public class MetradoListModel {
 	public void setListaMetrados(MetradoModel[] listaMetrados) {
 		this.listaMetrados = listaMetrados;
 	}
+
+	public String getListaMetradoEliminados() {
+		return listaMetradoEliminados;
+	}
+
+	public void setListaMetradoEliminados(String listaMetradoEliminados) {
+		this.listaMetradoEliminados = listaMetradoEliminados;
+	}
+
 	
 }

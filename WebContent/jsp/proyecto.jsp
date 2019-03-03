@@ -134,7 +134,9 @@
 		
 		var colorArray = interpolateColors(color1, color2, cantMaxNiveles);
 		
-		$("#btn-guardar-proyecto").click(function() {			
+		$("#btn-guardar-proyecto").click(function() {	
+			
+			 $(".msg-error").removeClass("on");
 
 			var idCrmMCO = $("#idCrmMCO").val();
 			var nombreCliente = $("#nombreCliente").val();
@@ -224,8 +226,6 @@
 		});
 		
 		$("#editarNivel").click(function() {
-			
-//TODO traer los de bd para mostrar los valores		
 			$("#nivel-modal").modal("show");
 			$("#nivel-modal").off();
 		});
@@ -404,10 +404,12 @@
 	function editarNivel(elem){
 		elem.parent().addClass("edit");
 		$("#orden").val(elem.parent().data("orden"));
-		$("#nombre").val(elem.parent().data("nombre"));
+		$("#nombre-nivel").val(elem.parent().data("nombre"));
 		$("#descripcion-nivel").val(elem.parent().data("descripcion-nivel"));
 		
 		$("#nivel-modal").modal("show");
+		$("#nivel-modal").css('z-index', '2');
+		$(".modal-backdrop.fade.in").css('z-index', '1');
 		$("#nivel-modal").off();
 	}
 	

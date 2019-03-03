@@ -177,6 +177,7 @@
 	var productosSelected = [];
 	var preciosXProveedor = [];
 	var priceList = [];
+	var metradoEliminados = "";
 
 	$(document).ready(function() {
 				
@@ -192,7 +193,7 @@
 			
 			$("#msg-exito-metrado").removeClass("show");
 			
-			var result = "{\"listaMetrados\": [";
+			var result = "{ \"listaMetradoEliminados \": "+ metradoEliminados +", \"listaMetrados\": [";
 
 			var errorProductos = false;
 			
@@ -258,7 +259,7 @@
 		});
 		
 		$("#proveedor").change(function() {
-			
+				
 			var proveedor = $("#proveedor option:selected").val();			
 			var precios = preciosXProveedor[proveedor];
 			
@@ -279,7 +280,7 @@
     	        	$("#precio").append(o);		
 	 	        });			
 			}
-			
+						
 		});
 		
 		$("#producto").change(function() {
@@ -333,11 +334,11 @@
 		    	
 				$("#metrado-modal").css('z-index', '2');
 	    	    $(".modal-backdrop.fade.in").css('z-index', '1');
-			
+	    	  	    	    			
 		});
 		
 		$("#sistema").change(function() {
-			
+						
 			var sistema = $("#sistema option:selected").val();
 			
 			if (productosSelected[sistema] != undefined) {
@@ -385,6 +386,10 @@
 		   						productosSelected[sistema] += "," + product;
 		   					}					
 		    	        });	
+		   			 	
+		   			 	$("#metrado-modal").css('z-index', '2');
+			    	    $(".modal-backdrop.fade.in").css('z-index', '1');
+			    	   		    	   
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");
@@ -393,10 +398,8 @@
 		    	        console.log("error");
 		    	  }
 		    	  
-		    	});
-		    	
-				$("#metrado-modal").css('z-index', '2');
-	    	    $(".modal-backdrop.fade.in").css('z-index', '1');
+		    	});	
+							
 		});
 		
 			
@@ -492,7 +495,7 @@
 			$('#precio').empty()
 			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
 			$('#cantidad').val("");
-					
+							
 			$.ajax({
 		    	  url: "/Cotizador/rest/relation/findByProduct",
 		    	  type: "POST",
@@ -565,7 +568,11 @@
 		    					divSistema.find(".panel-body").append(htmlProducto);
 		    					$("#producto_" + element.productoRelacion.id).addClass("sep-products");
 		    				}
+		    				
+		    				
 		    	        });
+		    	        
+		    	        
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");
@@ -575,6 +582,8 @@
 		    	  }
 		    	  
 		    	});
+			
+			
 			
 		});	
 		
@@ -607,7 +616,6 @@
 			$.each(productDivs, function( index, element ) {	
 		
 				var labelCantidad = $(element).find("#label-cantidad");
-				var cantidad = labelCantidad.val();
 				
 				var cantidadRelacion = 0;
    	        	var operacion = $(element).data("operacion");
@@ -644,9 +652,7 @@
 			$("#metrado-modal").modal("hide");
 			
 		});	
-		
-		
-		
+				
 		
 	});
 	
@@ -708,40 +714,7 @@
 		$("#cantidad").val("");		
 	}
 	
-	function modificarProducto(element,rel) {
-		
-		var sistema = $(element).data("sistema");
-		var producto = $(element).data("producto");
-		var proveedor = $(element).data("proveedor")
-		var precio = $(element).data("precio")
-		var cantidad = $(element).data("cantidad")
-		
-		$("#sistema").val(sistema);
-		$("#producto").val(producto);
-		$("#proveedor").val(proveedor);
-		$("#precio").val(precio);
-		$("#cantidad").val(cantidad);
-
-		$("#btn-modificar-producto").css("display","inline-block");
-		$("#btn-agregar-producto").css("display","none");
-		
-		$("#sistema").prop('disabled', 'disabled');
-		$("#producto").prop('disabled', 'disabled');
-		
-		$("#cantidad").removeAttr('disabled');
-		
-		if(rel == 1){
-			$("#cantidad").prop('disabled', 'disabled');
-			$("#cantidad").data("mod-prod-rel","1")
-		} else {
-			$("#cantidad").data("mod-prod-rel","0")
-		}
-		
-		$("#producto_" + producto).find("#msg-error-producto").removeClass("show");
-		
-		$("#producto").trigger("change");		
-		
-	}
+	
 	
 	function loadMetrado(){
 		//var nivel = $("#nivelId").val();
@@ -759,20 +732,25 @@
     	        
 	    	        $.each(result, function( index, element ) {	 
 	    	        	var metrado = element.id;
-	    	        	var sistema = element.precio.producto.sistema.id;
-	    				var producto = element.precio.producto.id;
-	    				var proveedor = element.precio.proveedor.id;
-	    				var precio = element.precioProducto;
-	    				var cantidad = element.cantidadProducto;
+	    	        	var sistema = element.sistema;
+	    				var producto = element.producto;
+	    				var proveedor = element.proveedor;
+	    				var precio = element.precio;
+	    				var cantidad = element.cantidad;
+	    				var factor = "";
+	    				var operacion = "";
+	    				
 	    				var idParentProduct = "";
 	    				
 	    				if (element.idParentProduct != undefined && element.idParentProduct != null) {
 	    					idParentProduct = element.idParentProduct;
+	    					factor = element.factor;
+		    				operacion = element.operacion;
 	    				}	    				
 	    				
-	    				var sistemaNombre = element.precio.producto.sistema.nombre;
-	    				var productoNombre = element.precio.producto.nombre;
-	    				var proveedorNombre = element.precio.proveedor.nombre;
+	    				var sistemaNombre = element.nombreSistema;
+	    				var productoNombre = element.nombreProducto;
+	    				var proveedorNombre = element.nombreProveedor;
 
 	    				priceList[producto + "_" + proveedor] = element.precio.id;
 	    				
@@ -785,7 +763,7 @@
 	    				var html = "";
 	    				var htmlProducto = "";
 	    				
-	    				htmlProducto += "<div id='producto_"+ producto +"' class='js-product' data-metrado='"+metrado+"' data-parent-product='" + idParentProduct+ "'>";			
+	    				htmlProducto += "<div id='producto_"+ producto +"' class='js-product' data-metrado='"+metrado+"' data-factor='"+factor+"' data-operacion='"+operacion+"' data-sistema='"+sistema+"' data-parent-product='" + idParentProduct+ "'>";			
 
 	    				if (idParentProduct == "") { 	
 	    					htmlProducto += '		<a id="eliminarProducto"  onclick="eliminarProducto(this);" data-sistema="' + sistema + '" data-producto="' + producto + '" title="Eliminar producto" onclick="" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
@@ -866,6 +844,177 @@
 	    	});
 	}
 	
+	function modificarProducto(element,rel) {
+				 
+		var sistema = $(element).data("sistema");
+		var producto = $(element).data("producto");
+		var proveedor = $(element).data("proveedor")
+		var precio = $(element).data("precio")
+		var cantidad = $(element).data("cantidad")
+		
+		$("#sistema").val(sistema);		
+		
+		loadCombos(sistema, producto, proveedor, precio, cantidad, rel);
+		
+	}
+	
+	function loadCombos(sistema, producto, proveedor, precio, cantidad, rel) {
+
+		if (productosSelected[sistema] != undefined) {
+			var listaProductos = productosSelected[sistema].split(",");
+			 $.each(listaProductos , function( index, element ) {				 
+				 $("select#producto").find("[value^=" + element + "]").prop('disabled', 'disabled');
+ 	         });
+		}
+		
+		$('#producto').empty()
+	    .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Producto</option>');
+		$('#proveedor').empty()
+		 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>');
+		$('#precio').empty()
+		 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
+		$('#cantidad').val("");
+		
+		var $val = sistema.toString();
+		$("#metrado-modal").css('z-index', '1');
+		$.ajax({
+	    	  url: "/Cotizador/rest/product/bySystem",
+	    	  type: "POST",
+	    	  data: JSON.stringify({idSystem: $val}),
+	    	  dataType: "json",
+	    	  contentType: "application/json; charset=utf-8",
+	    	  success: function(result){	
+	    	        console.log("termino");
+	    	        console.log(result);
+	    	        
+	    	        $.each(result, function( index, element ) {	 
+	    	        	var o = new Option(result[index].nombre, result[index].id);
+	    	        	$(o).html(result[index].nombre);
+	    	        	$("#producto").append(o);		    	        	
+	    	        });
+	    	        
+	    	        var metradoProducts = $("#sistema_" + sistema).find(".js-product");
+	    			
+	   			 	$.each(metradoProducts , function( index, element ) {				 
+		   				var product = $(element).find("#modificarProducto").data("producto");
+		   				$("select#producto").find("[value^=" + product + "]").prop('disabled', 'disabled');
+		   				
+	   					if(productosSelected[sistema ] == undefined) {
+	   						productosSelected[sistema] = product;
+	   					} else {
+	   						productosSelected[sistema] += "," + product;
+	   					}					
+	    	        });	
+	   			 	
+	   			 	$("#metrado-modal").css('z-index', '2');
+		    	    $(".modal-backdrop.fade.in").css('z-index', '1');
+		    	    
+		    	    $("#producto").val(producto);
+		    		
+					if(productosSelected[sistema ] == undefined) {
+						productosSelected[sistema] = producto;
+					} else {
+						productosSelected[sistema] += "," + producto;
+					}
+					
+					$('#proveedor').empty()
+					 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>');
+					$('#precio').empty()
+					 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
+					
+					if($('#cantidad').data("mod-prod-rel") != undefined && $('#cantidad').data("mod-prod-rel") != "1"){
+						$('#cantidad').val("");	
+					}			
+				  
+					var $val = producto.toString();;
+					$("#metrado-modal").css('z-index', '1');
+					$.ajax({
+				    	  url: "/Cotizador/rest/priceList/byProduct",
+				    	  type: "POST",
+				    	  data: JSON.stringify({idProduct: $val}),
+				    	  dataType: "json",
+				    	  contentType: "application/json; charset=utf-8",
+				    	  success: function(result){	
+				    	        console.log("termino");
+				    	        console.log(result);
+				    	        
+				    	        $.each(result, function( index, element ) {	 
+				    	        	var o = new Option(result[index].proveedor.nombre, result[index].proveedor.id);
+				    	        	$(o).html(result[index].nombre);
+				    	        	$("#proveedor").append(o);		    	        	
+				    	        	priceList[result[index].producto.id + "_" + result[index].proveedor.id] = result[index].id;
+				    	        	preciosXProveedor[result[index].proveedor.id] = result[index].precioMinimoo + "," + result[index].precioMaximo + "," + result[index].precioPromedio;
+				    	        });
+				    	        
+				    	        $("#proveedor").val(proveedor);
+				    	        
+				    			var precios = preciosXProveedor[proveedor];
+				    			
+				    			$('#precio').empty()
+				    			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
+				    			
+				    			if($('#cantidad').data("mod-prod-rel") != undefined && $('#cantidad').data("mod-prod-rel") != "1"){
+				    				$('#cantidad').val("");	
+				    			}	
+				    			
+				    			if(precios != undefined) {
+				    				
+				    				var listaPrecios = precios.split(",");
+				    				
+				    				 $.each(listaPrecios, function( index, element ) {	 
+				    				 	var o = new Option(element, index);
+				        	        	$(o).html(element);
+				        	        	$("#precio").append(o);	
+				        	        	
+				        	        	if ( element == precio) {		    								
+		    								$("#precio").val(index);	
+		    							}
+				    	 	        });			    				 
+				    					
+				    			}
+				    			
+				    			$("#cantidad").val(cantidad);
+				    				
+				    			$("#btn-modificar-producto").css("display","inline-block");
+				    			$("#btn-agregar-producto").css("display","none");
+				    			
+				    			$("#sistema").prop('disabled', 'disabled');
+				    			$("#producto").prop('disabled', 'disabled');		
+				    			$("#cantidad").removeAttr('disabled');
+				    			
+				    			if(rel == 1){
+				    				$("#cantidad").prop('disabled', 'disabled');
+				    				$("#cantidad").data("mod-prod-rel","1")
+				    			} else {
+				    				$("#cantidad").data("mod-prod-rel","0")
+				    			}
+				    			
+				    			$("#producto_" + producto).find("#msg-error-producto").removeClass("show");
+				    		
+				    	  },
+				    	  complete: function(result){
+				    	        console.log("complete");
+				    	  },
+				    	  error: function(result){
+				    	        console.log("error");
+				    	  }
+				    	  
+				    	});
+				    	
+						$("#metrado-modal").css('z-index', '2');
+			    	    $(".modal-backdrop.fade.in").css('z-index', '1');
+		    	   		    	   
+	    	  },
+	    	  complete: function(result){
+	    	        console.log("complete");
+	    	  },
+	    	  error: function(result){
+	    	        console.log("error");
+	    	  }
+	    	  
+	    	});
+	}
+	
 	function eliminarProducto(element) {
 		
 		var sistema = $(element).data("sistema");
@@ -886,12 +1035,21 @@
 	 	         });	
 			}
 			
+			var idMetrado = $(element).parent("div").data("metrado")
 			
+			if (idMetrado != undefined) {
+				metradoEliminados = "," + idMetrado.toString();		
+			}					
 			 
 			 $("#producto_"+ producto).remove();
 			
 			var productDivs = $("[data-parent-product="+producto+"]");			
 			$.each(productDivs, function( index, element ) {
+				var idMetradoRel = $(element).data("metrado");
+				
+				if (idMetradoRel != undefined) {
+					metradoEliminados = "," + idMetradoRel.toString();	
+				}						
 				element.remove();
 			});
 			 

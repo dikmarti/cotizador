@@ -19,6 +19,25 @@ public class MetradoModel {
 	private String precioLista;
 	private String nivel;
 	private String idParentProduct;
+	private String factor;
+	private String operacion;
+	private String sistema;
+	private String nombreSistema;
+	private String nombreProducto;
+	private String nombreProveedor;
+		
+	public String getFactor() {
+		return factor;
+	}
+	public void setFactor(String factor) {
+		this.factor = factor;
+	}
+	public String getOperacion() {
+		return operacion;
+	}
+	public void setOperacion(String operacion) {
+		this.operacion = operacion;
+	}
 	
 	public String getId() {
 		return id;
@@ -67,6 +86,30 @@ public class MetradoModel {
 	}
 	public void setIdParentProduct(String idParentProduct) {
 		this.idParentProduct = idParentProduct;
+	}
+	public String getSistema() {
+		return sistema;
+	}
+	public void setSistema(String sistema) {
+		this.sistema = sistema;
+	}
+	public String getNombreSistema() {
+		return nombreSistema;
+	}
+	public void setNombreSistema(String nombreSistema) {
+		this.nombreSistema = nombreSistema;
+	}
+	public String getNombreProducto() {
+		return nombreProducto;
+	}
+	public void setNombreProducto(String nombreProducto) {
+		this.nombreProducto = nombreProducto;
+	}
+	public String getNombreProveedor() {
+		return nombreProveedor;
+	}
+	public void setNombreProveedor(String nombreProveedor) {
+		this.nombreProveedor = nombreProveedor;
 	}
 	
 }
