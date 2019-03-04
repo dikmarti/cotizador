@@ -53,6 +53,14 @@ public class MetradoService {
 		return !allObject.isEmpty() ? (List<Metrado>) (Object) allObject : null;
 	
 	}
+	
+	public int removeAllListId(String listId) {
+
+		System.out.println("remove metrados in data base");
+		int result = genericRepository.executeUpdateQuery("DELETE FROM Metrado m WHERE m.id IN (" + listId + ")");
+		
+		return  result;
+	}
 
 	
 }

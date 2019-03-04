@@ -61,6 +61,7 @@ public class MetradoController extends GenericController {
 			metradoListModel = mapper.readValue(jsonForm, MetradoListModel.class);
 			
 			MetradoModel[] listaMetrados = metradoListModel.getListaMetrados();
+						
 			List<Object> listMetradoNew = new ArrayList<Object>();
 			List<Object> listMetradoModify = new ArrayList<Object>();
 			
@@ -76,7 +77,10 @@ public class MetradoController extends GenericController {
 				int idPrecioLista = Integer.parseInt(metradoModel.getPrecioLista());
 				metrado.setPrecio(priceListService.findById(idPrecioLista));
 				metrado.setPrecioProducto(Double.parseDouble(metradoModel.getPrecio()));
-				metrado.setIdParentProduct(Integer.parseInt(metradoModel.getIdParentProduct()));				
+				
+				if(metradoModel.getIdParentProduct() != null) {
+					metrado.setIdParentProduct(Integer.parseInt(metradoModel.getIdParentProduct()));
+				}				
 				
 				if(metradoModel.getId() != null && !metradoModel.getId().isEmpty()) {
 					metrado.setId(Integer.parseInt(metradoModel.getId()));
@@ -88,12 +92,25 @@ public class MetradoController extends GenericController {
 			}
 			
 			String listaProductosEliminados = metradoListModel.getListaMetradoEliminados();
+			String eliminadosFinal = "";
 			if(listaProductosEliminados != null && !listaProductosEliminados.isEmpty()) {
-				String[] split = listaProductosEliminados.split(",");
+				String[] productosEliminados = listaProductosEliminados.split(",");
+				
+				Boolean isFirst = true;
+				for (String prod : productosEliminados) {
+					
+					if (prod != null && !prod.isEmpty()) {
+						
+						eliminadosFinal += isFirst ? prod : "," + prod;						
+						isFirst = false;
+					}
+				}
+				
+				metradoService.removeAllListId(eliminadosFinal);
 			}
 				
 			List<Object> listResultNew = ((List<Object>) metradoService.addAllMetrado(listMetradoNew));
-			List<Object> listResultModify = ((List<Object>) metradoService.modifyAllMetrado(listMetradoModify));
+			List<Object> listResultModify = ((List<Object>) metradoService.modifyAllMetrado(listMetradoModify));			
 			
 			return listResultNew != null && listResultModify != null && (!listResultNew.isEmpty() || !listResultModify.isEmpty())   ? 0 : 2;
 

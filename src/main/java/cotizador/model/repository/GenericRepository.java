@@ -136,14 +136,13 @@ public class GenericRepository {
     	return result.get(0);
     }
 
-    public Object removeObjectByListId(String listId, String query) {
+    public List<Object> removeObjectByListId(String query) {
     	
     	@SuppressWarnings("unchecked")
-		List<Object> result = (List<Object>)entityManager.createNamedQuery(query)
-			    			.setParameter("id", listId)
+		List<Object> result = (List<Object>)entityManager.createQuery(query)
 			    			.getResultList();    	    	
         	    	
-    	return result.get(0);
+    	return result;
     }
     
     public List<Object> getAllObjectByNameQuery(String query) {

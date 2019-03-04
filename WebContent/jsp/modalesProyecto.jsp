@@ -193,7 +193,7 @@
 			
 			$("#msg-exito-metrado").removeClass("show");
 			
-			var result = "{ \"listaMetradoEliminados \": "+ metradoEliminados +", \"listaMetrados\": [";
+			var result = "{ \"listaMetradoEliminados\":  \""+ metradoEliminados.toString() +"\", \"listaMetrados\": [";
 
 			var errorProductos = false;
 			
@@ -740,6 +740,12 @@
 	    				var factor = "";
 	    				var operacion = "";
 	    				
+	    				if(productosSelected[sistema ] == undefined) {
+	   						productosSelected[sistema] = producto;
+	   					} else {
+	   						productosSelected[sistema] += "," + producto;
+	   					}		
+	    				
 	    				var idParentProduct = "";
 	    				
 	    				if (element.idParentProduct != undefined && element.idParentProduct != null) {
@@ -1038,7 +1044,7 @@
 			var idMetrado = $(element).parent("div").data("metrado")
 			
 			if (idMetrado != undefined) {
-				metradoEliminados = "," + idMetrado.toString();		
+				metradoEliminados += "," + idMetrado.toString();		
 			}					
 			 
 			 $("#producto_"+ producto).remove();
@@ -1048,7 +1054,7 @@
 				var idMetradoRel = $(element).data("metrado");
 				
 				if (idMetradoRel != undefined) {
-					metradoEliminados = "," + idMetradoRel.toString();	
+					metradoEliminados += "," + idMetradoRel.toString();	
 				}						
 				element.remove();
 			});
