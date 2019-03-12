@@ -180,7 +180,7 @@
 	var metradoEliminados = "";
 
 	$(document).ready(function() {
-				
+								
 		$("#guardar-metrado").click(function() {
 		
 			var productDivs = $(".js-product");

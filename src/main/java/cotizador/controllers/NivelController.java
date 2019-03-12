@@ -1,15 +1,12 @@
 package cotizador.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -21,18 +18,10 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.Nivel;
-import cotizador.model.domain.Proveedor;
 import cotizador.model.domain.Proyecto;
-import cotizador.model.domain.Sistema;
 import cotizador.model.domain.models.NivelModel;
-import cotizador.model.domain.models.ProjectModel;
-import cotizador.model.domain.models.ProviderModel;
-import cotizador.model.domain.models.SystemModel;
-import cotizador.model.domain.models.UserModel;
 import cotizador.service.NivelService;
 import cotizador.service.ProjectService;
-import cotizador.service.ProviderService;
-import cotizador.service.SystemService;
 
 @Path("/nivel")
 @Produces(MediaType.TEXT_HTML)

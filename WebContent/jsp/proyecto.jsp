@@ -134,6 +134,51 @@
 		
 		var colorArray = interpolateColors(color1, color2, cantMaxNiveles);
 		
+		var $idProyecto = ${param['idProyecto']};
+		
+		if ($idProyecto != undefined && $idProyecto != null) {
+			loadProyectData($idProyecto);
+		}	
+		
+		function loadProyectData(){
+			$.ajax({
+		    	  url: "/Cotizador/rest/project/byId",
+		    	  type: "POST",
+		    	  data: JSON.stringify({idProyecto: $idProyecto.toString()}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){	
+		    	        console.log("termino");
+		    	        console.log(result);
+		    	        
+		    	        $("#idCrmMCO").val(result.idCrmMCO);
+		    	        $("#nombreCliente").val(result.nombreCliente);
+		    	        $("#ruc").val(result.ruc);
+		    	        $("#nombre").val(result.nombre);
+		    	        $("#localidad").val(result.localidad);
+		    	        $("#montoInversion").val(result.montoInversion);
+		    	        $("#montoPresupuesto").val(result.montoPresupuesto);
+		    	        $("#nivelConstruccion").val(result.nivelConstruccion);
+		    	        $("#areaConstruccion").val(result.areaConstruccion);
+		    	        $("#soporte").val(result.soporte ? "0" : "1");
+		    	        $("#garantia").val(result.garantia ? "0" : "1");
+		    	        $("#tipoProyecto").val(result.tipoProyecto);
+		    	        $("#categoriaConstruccion").val(result.categoriaConstruccion);
+		    	        $("#porcentajeHolgura").val(result.porcentajeHolgura);
+		    	        $("#tipoPrecio").val(result.tipoPrecio);
+		    	        
+			    	    			    	        
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+		}
+		
 		$("#btn-guardar-proyecto").click(function() {	
 			
 			 $(".msg-error").removeClass("on");

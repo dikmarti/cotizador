@@ -21,16 +21,9 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import cotizador.model.domain.Proveedor;
 import cotizador.model.domain.Proyecto;
-import cotizador.model.domain.Sistema;
 import cotizador.model.domain.models.ProjectModel;
-import cotizador.model.domain.models.ProviderModel;
-import cotizador.model.domain.models.SystemModel;
-import cotizador.model.domain.models.UserModel;
 import cotizador.service.ProjectService;
-import cotizador.service.ProviderService;
-import cotizador.service.SystemService;
 
 @Path("/project")
 @Produces(MediaType.TEXT_HTML)
@@ -149,6 +142,32 @@ public class ProjectController extends GenericController {
 		}
 		System.out.println("allProjects: " + allProjects);
 		return allProjects;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/byId")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Proyecto getProyectById(String jsonForm, @Context HttpServletRequest httpRequest) {
+		
+		System.out.println("/byId get project by id");
+		Proyecto proyecto = new Proyecto();
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, String> providerMap = new HashMap<String, String>();
+
+		try {
+
+			providerMap = mapper.readValue(jsonForm, Map.class);
+			Integer idProject = Integer.parseInt(providerMap.get("idProyecto"));
+			proyecto = projectService.findProjectById(idProject);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("proyecto: " + proyecto);
+		return proyecto;
 	}
 	
 	

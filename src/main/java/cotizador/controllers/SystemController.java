@@ -20,12 +20,8 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import cotizador.model.domain.Proveedor;
 import cotizador.model.domain.Sistema;
-import cotizador.model.domain.models.ProviderModel;
 import cotizador.model.domain.models.SystemModel;
-import cotizador.model.domain.models.UserModel;
-import cotizador.service.ProviderService;
 import cotizador.service.SystemService;
 
 @Path("/system")
