@@ -177,6 +177,61 @@
 		    	  }
 		    	  
 		    	});
+			
+			$.ajax({
+		    	  url: "/Cotizador/rest/nivel/findNivelByProject",
+		    	  type: "POST",
+		    	  data: JSON.stringify({idProject: $idProyecto}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){	
+		    	        console.log("termino");
+		    	        console.log(result);
+		    	        
+		    	        $.each(result, function( index, element ) {	
+		    	        	var nombre = result[index].nombre;
+		    	        	var orden = result[index].orden;
+		    	        	var descripcion = result[index].descripcion;
+		    	        	
+	    	        		var colorNivelCreado = colorArray[indexColorNivel];
+	    	    			var colorFont = "white";
+	    	    			
+	    	    			if (indexColorNivel >= cantMaxNiveles/2) {
+	    	    				colorFont = "dark";
+	    	    			}	
+	    	    			
+	    	    			$("#niveles").addClass("show");	
+	    	    			
+	    	    			var html = '<div data-id="" data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
+	    	    			html += ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
+	    	    			html += '<p>' + nombre + '</p>';
+	    	    			html += '<a id="eliminarNivel" title="Eliminar nivel" onclick="eliminarNivel($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 0px;padding-left: 4px;"></a>';
+	    	    			html += '<a id="metrarNivel" data-nivel-id="'+result+'" title="Metrar nivel" onclick="metrarNivel($(this));" href="javascript:void(0)" class="fa fa-calculator fa-3x home" style="font-size: 13px; text-decoration: none; position: relative;top: -27px;float:right;color:white;padding-left: 4px;"></a>';
+	    	    			html += '<a id="editarNivel" title="Editar nivel" onclick="editarNivel($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: -28px;float:right;color:white;"></a>';
+	    	    			html += '</div>';			
+	    	    			
+	    	    			$("#row-niveles").prepend(html);	
+	    	    									
+	    	    			var $test = $('#row-niveles div').sort(function(a,b) {
+	    	    			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
+	    	    			});
+	    	    			
+	    	    			$("#row-niveles").html("");			
+	    	    			$("#row-niveles").append($test);	
+	    	    			
+	    	    			indexColorNivel++;		    	        	
+		    	        
+		    	        });		    	        
+			    	    			    	        
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
 		}
 		
 		$("#btn-guardar-proyecto").click(function() {	
