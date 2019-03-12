@@ -13,7 +13,8 @@ import javax.persistence.Table;
 
 @NamedQueries({
 	@NamedQuery(name = "RelacionProducto.findByProduct", query = "SELECT p FROM RelacionProducto p WHERE p.producto.id = :id"),
-	@NamedQuery(name = "RelacionProducto.findById", query = "SELECT p FROM RelacionProducto p WHERE p.id = :id")		
+	@NamedQuery(name = "RelacionProducto.findById", query = "SELECT p FROM RelacionProducto p WHERE p.id = :id"),
+	@NamedQuery(name = "RelacionProducto.findByProducts", query = "SELECT p FROM RelacionProducto p WHERE p.producto.id = :idProduct AND p.productoRelacion.id = :idProductRelation")	
 })
 
 @Entity

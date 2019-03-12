@@ -132,6 +132,18 @@ public class RelationService {
 		return result;
 
 	}
+	
+	public RelacionProducto findRelationByProducts(Integer idProduct, Integer idProductRelation) {
+
+		System.out.println("Method findRelationById...");
+		List<Object> allObject = genericRepository.getAllObjectFilteredParams("RelacionProducto.findByProducts", "idProduct", "idProductRelation", idProduct, idProductRelation);
+
+		RelacionProducto result = !allObject.isEmpty() ? (RelacionProducto) (Object) allObject.get(0) : null;
+		System.out.println("result: " + result);
+
+		return result;
+
+	}
 
 	/**
 	 * Metodo que retorna las relaciones existentes para un producto

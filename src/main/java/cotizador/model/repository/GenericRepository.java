@@ -135,6 +135,15 @@ public class GenericRepository {
         	    	
     	return result.get(0);
     }
+
+    public List<Object> removeObjectByListId(String query) {
+    	
+    	@SuppressWarnings("unchecked")
+		List<Object> result = (List<Object>)entityManager.createQuery(query)
+			    			.getResultList();    	    	
+        	    	
+    	return result;
+    }
     
     public List<Object> getAllObjectByNameQuery(String query) {
      	
@@ -169,5 +178,20 @@ public class GenericRepository {
     	System.out.println("result " + result);
     	return result;
     }
-  
+    
+    public List<Object> getAllObjectFilteredParams(String query, String filter, String filterTwo, Object parameterValueTwo, Object parameterValue) {
+    	
+    	System.out.println("query " + query);
+    	System.out.println("filter " + filter);
+    	System.out.println("parameterValue " + parameterValue);
+    	
+    	@SuppressWarnings("unchecked")
+		List<Object> result = (List<Object>)entityManager.createNamedQuery(query)
+			    			.setParameter(filter, parameterValue)
+			    			.setParameter(filterTwo, parameterValueTwo)
+			    			.getResultList();   
+
+    	System.out.println("result " + result);
+    	return result;
+    }
 }
