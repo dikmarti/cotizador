@@ -1,7 +1,6 @@
 package cotizador.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +8,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -21,18 +19,10 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.Nivel;
-import cotizador.model.domain.Proveedor;
 import cotizador.model.domain.Proyecto;
-import cotizador.model.domain.Sistema;
 import cotizador.model.domain.models.NivelModel;
-import cotizador.model.domain.models.ProjectModel;
-import cotizador.model.domain.models.ProviderModel;
-import cotizador.model.domain.models.SystemModel;
-import cotizador.model.domain.models.UserModel;
 import cotizador.service.NivelService;
 import cotizador.service.ProjectService;
-import cotizador.service.ProviderService;
-import cotizador.service.SystemService;
 
 @Path("/nivel")
 @Produces(MediaType.TEXT_HTML)
@@ -110,6 +100,42 @@ public class NivelController extends GenericController {
 			} else {
 				return Boolean.FALSE;
 			}
+
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/findNivelByProject")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Nivel> finNivelByProject(String jsonForm, @Context HttpServletRequest httpRequest) {
+
+		System.out.println("/findNivelByProject json form " + jsonForm);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Integer> map = new HashMap<String, Integer>();
+
+		try {
+
+			map = mapper.readValue(jsonForm, Map.class);
+			Integer idProject = map.get("idProject");
+			List<Nivel> niveles = nivelService.findNivelByProject(idProject);
+			System.out.println("niveles: " + niveles);
+			
+			return niveles;
 
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
