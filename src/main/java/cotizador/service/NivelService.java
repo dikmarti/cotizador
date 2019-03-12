@@ -78,7 +78,7 @@ public class NivelService {
 	}
 	
 	/**
-	 * Metodo que retorna un sistema de la base por id
+	 * Metodo que retorna un nivel de la base por id
 	 * @param id
 	 * @return
 	 */
@@ -92,6 +92,23 @@ public class NivelService {
 
 		return result;
 
+	}
+
+	/**
+	 * Metodo que retorna lista de niveles por id de proyecto
+	 * @param idProject
+	 * @return
+	 */
+	public List<Nivel> findNivelByProject(Integer idProject) {
+		
+		System.out.println("Method findNivelById...");
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Nivel.findByIdProject", "id", idProject);
+		
+		List<Nivel> result = !allObject.isEmpty() ? (List<Nivel>) (Object) allObject : null;
+		System.out.println("NivelList: " + result);
+		
+		return result;
+		
 	}
 
 }
