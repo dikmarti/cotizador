@@ -156,6 +156,7 @@ $(document).ready(function() {
 		    } );
 
 		$("#btn-project-create").click(function() {
+			table.$('tr.selected').removeClass('selected');
 			location.href = "formProyecto";
 		});
 		
@@ -165,6 +166,10 @@ $(document).ready(function() {
 				console.log("No hay proyecto seleccionado");   	 
 				return false;
 			} 
+			
+			var $projectModify = table.rows('.selected').data()[0];
+			var $idProyecto =  $projectModify.Id;
+			location.href = "formProyecto?idProyecto="+$idProyecto;
 			
 		});
 	  });   
