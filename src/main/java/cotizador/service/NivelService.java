@@ -6,8 +6,6 @@ import javax.inject.Inject;
 
 import cotizador.model.domain.Nivel;
 import cotizador.model.domain.Proyecto;
-import cotizador.model.domain.Sistema;
-import cotizador.model.domain.Usuario;
 import cotizador.model.repository.GenericRepository;
 
 public class NivelService {
@@ -17,7 +15,7 @@ public class NivelService {
 	
 
 	/**
-	 * Metodo que registra un nuevo sistema a la base de datos
+	 * Metodo que registra un nuevo nivel a la base de datos
 	 * @param nombre
 	 * @param descripcion
 	 * @param elementos
@@ -31,34 +29,20 @@ public class NivelService {
 		
 		return  result;
 	}
-
-	/**
-	 * Metodo que actualiza un sistema en la base de datos
+	
+	 /* Metodo que modifica un nivel a la base de datos
 	 * @param nombre
 	 * @param descripcion
 	 * @param elementos
 	 * @param materiales
-	 * @param id
 	 * @return
 	 */
-	public Integer updateProject(Proyecto proyecto) {
+	public void updateNivel(Object object) {
 
-		/*System.out.println("Method updateProject...");
-		
-		int status = genericRepository.executeUpdateQuery("UPDATE Proyecto u SET u.nombre = '" + nombre + "', "
-						+ "u.descripcion = '" + descripcion 
-						+ "', u.elementos = '" + elementos 
-						+ "', u.materiales = '" + materiales + "' WHERE u.id = '" + id + "'");
-		
-		System.out.println("finish system update");
-		System.out.println("status: " + status);
-		Integer result = status == 1 ? 0 : 2;
-		
-		return result;*/
-		
-		return null;
+		System.out.println("Modifying nivel in data base");
+		genericRepository.updateObject(object);		
 	}
-
+	
 
 	/**
 	 * Metodo que elimina un proveedor de la base de datos

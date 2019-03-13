@@ -141,6 +141,11 @@
 		}	
 		
 		function loadProyectData(){
+			
+			proyectoActual = $idProyecto;
+			
+			$("#btn-crear-nivel").css("display","inline-block");
+			
 			$.ajax({
 		    	  url: "/Cotizador/rest/project/byId",
 		    	  type: "POST",
@@ -192,6 +197,7 @@
 		    	        	var nombre = result[index].nombre;
 		    	        	var orden = result[index].orden;
 		    	        	var descripcion = result[index].descripcion;
+		    	        	var id = result[index].id;
 		    	        	
 	    	        		var colorNivelCreado = colorArray[indexColorNivel];
 	    	    			var colorFont = "white";
@@ -202,7 +208,7 @@
 	    	    			
 	    	    			$("#niveles").addClass("show");	
 	    	    			
-	    	    			var html = '<div data-id="" data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
+	    	    			var html = '<div data-id="' + id + '" data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
 	    	    			html += ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
 	    	    			html += '<p>' + nombre + '</p>';
 	    	    			html += '<a id="eliminarNivel" title="Eliminar nivel" onclick="eliminarNivel($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 0px;padding-left: 4px;"></a>';
@@ -406,7 +412,21 @@
 		    	        		nivelActual = result;	
 		    	        		
 		    	        		if( $("div.edit").length > 0) {
-		    	    				$("div.edit").find("p").html(nombre);				
+		    	    				$("div.edit").find("p").html(nombre);
+		    	    				
+		    	    				$("div.edit").data("id",result);
+		    	    				$("div.edit").data("orden", orden);
+		    	    				$("div.edit").data("nombre", nombre);
+		    	    				$("div.edit").data("descripcion-nivel", descripcion);
+		    	    				
+		    	    				$("#nivel-modal").css('z-index', '2');
+				    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+				    	        	
+			    	    			$("#nivel-modal").modal("hide");
+			    	    			
+			    	    			$("#nombre-nivel").val("");
+			    	    			$("#descripcion-nivel").val("");
+			    	    			$("#orden").val("");
 		    	    				return false;
 		    	    			}
 
@@ -417,7 +437,7 @@
 		    	    				colorFont = "dark";
 		    	    			}			
 		    	    			
-		    	    			var html = '<div data-id="" data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
+		    	    			var html = '<div data-id="' + result + '" data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
 		    	    			html += ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
 		    	    			html += '<p>' + nombre + '</p>';
 		    	    			html += '<a id="eliminarNivel" title="Eliminar nivel" onclick="eliminarNivel($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 0px;padding-left: 4px;"></a>';
@@ -506,6 +526,7 @@
 		$("#orden").val(elem.parent().data("orden"));
 		$("#nombre-nivel").val(elem.parent().data("nombre"));
 		$("#descripcion-nivel").val(elem.parent().data("descripcion-nivel"));
+		$("#idNivel").val(elem.parent().data("id"));
 		
 		$("#nivel-modal").modal("show");
 		$("#nivel-modal").css('z-index', '2');

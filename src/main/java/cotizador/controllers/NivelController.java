@@ -56,7 +56,16 @@ public class NivelController extends GenericController {
 			Proyecto proyecto = projectService.findProjectById(Integer.parseInt(nivelModel.getIdProyecto()));
 			nivel.setProyecto(proyecto);
 			
-			Integer idNivel = ((Nivel) nivelService.createNivel(nivel)).getId();
+			Integer idNivel = null;
+			String idNiv = nivelModel.getId();
+			
+			if(idNiv != null && idNiv.isEmpty()) {
+				idNivel = ((Nivel) nivelService.createNivel(nivel)).getId();	
+			} else {
+				nivel.setId(Integer.parseInt(idNiv));
+				nivelService.updateNivel(nivel);
+				idNivel = nivel.getId();				
+			}			
 
 			return idNivel;
 

@@ -11,7 +11,8 @@
 	      <div class="modal-body">
 	      		<form id="createNivelForm" class="form-content">
 					
-					<input id="idProyecto" type="hidden" name="idProyecto" maxlength="200"/>
+					<input id="idProyecto" type="hidden" name="idProyecto"/>
+					<input id="idNivel" type="hidden" name="id" />
 					
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
