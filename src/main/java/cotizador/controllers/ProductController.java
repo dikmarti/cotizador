@@ -89,10 +89,9 @@ public class ProductController extends GenericController {
 		try {
 
 			productModel = mapper.readValue(jsonForm, ProductModel.class);
-			Integer status = productService.createProduct(productModel.getIdMco(), productModel.getIdFabricante(), 
-					productModel.getCodigo(), productModel.getNombre(), productModel.getNombreCorto(), 
-					productModel.getDescripcion(), productModel.getPorcentajeResguardo(), productModel.getObservacion(), 
-					productModel.getUnidadMedida(), productModel.getSistema());
+			Integer status = productService.createProduct(productModel.getIdMco(), productModel.getNumParteFabricante(), 
+					productModel.getNombre(), productModel.getDescripcion(), productModel.getPorcentajeResguardo(), 
+					productModel.getObservacion(), productModel.getUnidadMedida(), productModel.getSistema());
 			
 			System.out.println("status: " + status);
 			return status;
@@ -163,10 +162,9 @@ public class ProductController extends GenericController {
 
 			productModel = mapper.readValue(jsonForm, ProductModel.class);
 			
-			Integer status = productService.updateProduct(productModel.getIdMco(), productModel.getIdFabricante(), 
-					productModel.getCodigo(), productModel.getNombre(), productModel.getNombreCorto(), 
-					productModel.getDescripcion(), productModel.getPorcentajeResguardo(), productModel.getObservacion(), 
-					productModel.getUnidadMedida(), productModel.getSistema(), productModel.getId());
+			Integer status = productService.updateProduct(productModel.getIdMco(), productModel.getNumParteFabricante(), 
+					productModel.getNombre(), productModel.getDescripcion(), productModel.getPorcentajeResguardo(), 
+					productModel.getObservacion(), productModel.getUnidadMedida(), productModel.getSistema(), productModel.getId());
 
 			System.out.println("status: " + status);
 			return status;

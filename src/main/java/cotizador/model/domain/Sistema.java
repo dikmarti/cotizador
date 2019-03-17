@@ -20,13 +20,7 @@ public class Sistema {
 
 	@Column
 	private String descripcion;
-	
-	@Column
-	private String elementos;
-	
-	@Column
-	private String materiales;
-	
+		
 	public int getId() {
 		return id;
 	}
@@ -51,26 +45,9 @@ public class Sistema {
 		this.descripcion = descripcion;
 	}
 
-	public String getElementos() {
-		return elementos;
-	}
-
-	public void setElementos(String elementos) {
-		this.elementos = elementos;
-	}
-
-	public String getMateriales() {
-		return materiales;
-	}
-
-	public void setMateriales(String materiales) {
-		this.materiales = materiales;
-	}
-
 	@Override
 	public String toString() {
-		return "Sistema [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", elementos=" + elementos
-				+ ", materiales=" + materiales + "]";
+		return "Sistema [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
 	}
 	
 }

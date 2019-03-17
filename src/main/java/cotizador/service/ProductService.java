@@ -63,7 +63,7 @@ public class ProductService {
 	 * @param sistema
 	 * @return
 	 */
-	public Integer createProduct(Integer idMco, Integer idFabricante, String codigo, String nombre, String nombreCorto, 
+	public Integer createProduct(Integer idMco, Integer numParteFabricante, String nombre,  
 			String descripcion, Integer porcentajeResguardo, String observacion, Integer unidadMedida, 
 			Integer sistema) {
 
@@ -72,10 +72,8 @@ public class ProductService {
 		Producto producto = new Producto();
 		
 		producto.setIdProductoMCO(idMco);
-		producto.setIdFabricante(idFabricante);
-		producto.setCodigo(codigo);
+		producto.setNumParteFabricante(numParteFabricante);
 		producto.setNombre(nombre);
-		producto.setNombreCorto(nombreCorto);
 		producto.setDescripcion(descripcion);
 		producto.setPorcentajeResguardo(porcentajeResguardo);
 		producto.setObservacion(observacion);
@@ -97,7 +95,7 @@ public class ProductService {
 	/**
 	 * Metodo que actualiza un producto en la base de datos
 	 * @param idMco
-	 * @param idFabricante
+	 * @param numParteFabricante
 	 * @param codigo
 	 * @param nombre
 	 * @param nombreCorto
@@ -109,7 +107,7 @@ public class ProductService {
 	 * @param id
 	 * @return
 	 */
-	public Integer updateProduct(Integer idMco, Integer idFabricante, String codigo, String nombre, String nombreCorto, 
+	public Integer updateProduct(Integer idMco, Integer numParteFabricante, String nombre, 
 			String descripcion, Integer porcentajeResguardo, String observacion, Integer unidadMedida, 
 			Integer sistema, Integer id) {
 
@@ -119,10 +117,8 @@ public class ProductService {
 		Sistema system = systemService.findSystemById(sistema);
 		
 		int status = genericRepository.executeUpdateQuery("UPDATE Producto u SET u.idProductoMCO = '" + idMco + "', "
-						+ "u.idFabricante = '" + idFabricante 
-						+ "', u.codigo = '" + codigo 
-						+ "', u.nombre = '" + nombre 
-						+ "', u.nombreCorto = '" + nombreCorto 
+						+ "u.numParteFabricante = '" + numParteFabricante 
+						+ "', u.nombre = '" + nombre						 
 						+ "', u.descripcion = '" + descripcion 
 						+ "', u.porcentajeResguardo = '" + porcentajeResguardo 
 						+ "', u.observacion = '" + observacion 

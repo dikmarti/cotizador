@@ -34,10 +34,6 @@
       </th>
       <th class="th-sm">Descripción
       </th>
-      <th class="th-sm">Elementos
-      </th>
-      <th class="th-sm">Materiales
-      </th>
     </tr>
   </thead>
   <tbody id="system-table-data">
@@ -49,10 +45,6 @@
       <th>Nombre
       </th>
       <th>Descripción
-      </th>
-      <th>Elementos
-      </th>
-      <th>Materiales
       </th>
     </tr>
   </tfoot>
@@ -85,14 +77,7 @@
 				    <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripción" maxlength="200"/>
       			</div>
     		</div>
-      		<div class="form-row">
-      			<div class="form-group col-md-6">
-				    <input class="form-control" id="elementos" type="text" name="elementos" placeholder="Elementos" maxlength="200"/>
-      			</div>
-      			<div class="form-group col-md-6">
-				    <input class="form-control" id="materiales" type="text" name="materiales" placeholder="Materiales" maxlength="200"/>
-      			</div>
-      		</div>
+      		
       		<div class="form-row">
       			<div class="form-group col-md-10">
 				    <div class="msg-error">
@@ -153,9 +138,7 @@ $(document).ready(function() {
     	        	table.rows.add(
  	        		       [{ "Id": result[index].id, 
  	        		    	   "Nombre": result[index].nombre,
- 	        		    	   "Descripcion": result[index].descripcion,
- 	        		    	   "Elementos": result[index].elementos,
- 	        		    	   "Materiales": result[index].materiales
+ 	        		    	   "Descripcion": result[index].descripcion 	        		    	   
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -188,9 +171,7 @@ $(document).ready(function() {
 		        columns:[
             	    {data: 'Id'},
             	    {data: 'Nombre'},
-            	    {data: 'Descripcion'},
-            	    {data: 'Elementos'},
-            	    {data: 'Materiales'}],
+            	    {data: 'Descripcion'}],
 	       	    "columnDefs": [
 	                   {
 	                       "targets": [ 0 ],
@@ -216,9 +197,7 @@ $(document).ready(function() {
 			$(".msg-error").removeClass("on");
 			$("#id").val('');
 	    	$("#nombre").val('');
-	    	$("#descripcion").val('');
-	    	$("#elementos").val('');
-	    	$("#materiales").val('');
+	    	$("#descripcion").val('');	    	
 			$('#system-modal').find('#btn-modal-update').css('visibility', 'hidden');
 			$('#system-modal').find('#btn-modal-update').css('display', 'none');
 			$('#system-modal').find('#btn-modal-create').css('visibility', 'visible');
@@ -238,14 +217,10 @@ $(document).ready(function() {
 			console.log("modify system " + $systemModify);
 	    	var $nombre =  $systemModify.Nombre;
 			var $descripcion =  $systemModify.Descripcion;
-	    	var $elementos =  $systemModify.Elementos;
-	    	var $materiales =  $systemModify.Materiales;
 	    	var $id =  $systemModify.Id;
 			$('#system-modal').find('#id').val($id);
 			$('#system-modal').find('#nombre').val($nombre);
 			$('#system-modal').find('#descripcion').val($descripcion);
-			$('#system-modal').find('#elementos').val($elementos);
-			$('#system-modal').find('#materiales').val($materiales);
 			$('#system-modal').find('#btn-modal-create').css('visibility', 'hidden');
 			$('#system-modal').find('#btn-modal-create').css('display', 'none');
 			$('#system-modal').find('#btn-modal-update').css('visibility', 'visible');
@@ -319,14 +294,11 @@ $(document).ready(function() {
 		$("#btn-modal-create").click(function() {
 	    	 var $nombre =  $("#nombre").val();
 	    	 var $descripcion =  $("#descripcion").val();
-	    	 var $elementos =  $("#elementos").val();
-	    	 var $materiales =  $("#materiales").val();
-
+	
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Debe ingresar los datos.");
-		     
-	    	 
-	    	 if ($nombre == "" || $descripcion == "" || $elementos == "" || $materiales == "") {
+		    	    	
+	    	 if ($nombre == "" || $descripcion == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
 	   		 } else {
@@ -387,19 +359,16 @@ $(document).ready(function() {
 		$("#btn-modal-update").click(function() {
 	    	 var $nombre =  $("#nombre").val();
 	    	 var $descripcion =  $("#descripcion").val();
-	    	 var $elementos =  $("#elementos").val();
-	    	 var $materiales =  $("#materiales").val();
 	    	 
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Debe ingresar los datos.");
 		     
-	    	 if ($nombre == "" || $descripcion == "" || $elementos == "" || $materiales == "") {
+	    	 if ($nombre == "" || $descripcion == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
 	   		 } else {
 	   		      console.log("Hay valores");
 	   		 }
-
 	    	 
 	    	 var $form = $("#createSystemForm").serializeArray();    	  	  
 		  	 var $formSerialized = objectifyForm($form);

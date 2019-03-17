@@ -36,6 +36,24 @@
       </th>
       <th class="th-sm">Dirección
       </th>
+      <th class="th-sm">Nombre Contacto 1
+      </th>
+      <th class="th-sm">Correo Contacto 1
+      </th>
+      <th class="th-sm">Teléfono Contacto 1
+      </th>
+      <th class="th-sm">Nombre Contacto 2
+      </th>
+      <th class="th-sm">Correo Contacto 2
+      </th>
+      <th class="th-sm">Teléfono Contacto 2
+      </th>
+      <th class="th-sm">Nombre Contacto 3
+      </th>
+      <th class="th-sm">Correo Contacto 3
+      </th>
+      <th class="th-sm">Teléfono Contacto 3
+      </th>
     </tr>
   </thead>
   <tbody id="provider-table-data">
@@ -49,6 +67,24 @@
       <th>Nombre
       </th>
       <th>Dirección
+      </th>
+      <th>Nombre Contacto 1
+      </th>
+      <th >Correo Contacto 1
+      </th>
+      <th >Teléfono Contacto 1
+      </th>
+      <th>Nombre Contacto 2
+      </th>
+      <th >Correo Contacto 2
+      </th>
+      <th >Teléfono Contacto 2
+      </th>
+      <th >Nombre Contacto 3
+      </th>
+      <th >Correo Contacto 3
+      </th>
+      <th >Teléfono Contacto 3
       </th>
     </tr>
   </tfoot>
@@ -81,10 +117,41 @@
       			<div class="form-group col-md-6">
 				    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
       			</div>
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="direccion" type="text" name="direccion" placeholder="Dirección" maxlength="200"/>
+      			</div>
     		</div>
       		<div class="form-row">
       			<div class="form-group col-md-6">
-				    <input class="form-control" id="direccion" type="text" name="direccion" placeholder="Dirección" maxlength="200"/>
+				    <input class="form-control" id="nombreContacto1" type="text" name="nombreContacto1" placeholder="Nombre Contacto 1" maxlength="200"/>
+      			</div>
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="correoContacto1" type="text" name="correoContacto1" placeholder="Correo Contacto 1" maxlength="200"/>
+      			</div>
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="telefonoContacto1" type="text" name="telefonoContacto1" placeholder="Teléfono Contacto 1" maxlength="200"/>
+      			</div>
+      		</div>
+      		<div class="form-row">
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="nombreContacto2" type="text" name="nombreContacto2" placeholder="Nombre Contacto 2" maxlength="200"/>
+      			</div>
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="correoContacto2" type="text" name="correoContacto2" placeholder="Correo Contacto 2" maxlength="200"/>
+      			</div>
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="telefonoContacto2" type="text" name="telefonoContacto2" placeholder="Teléfono Contacto 2" maxlength="200"/>
+      			</div>
+      		</div>
+      		<div class="form-row">
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="nombreContacto3" type="text" name="nombreContacto3" placeholder="Nombre Contacto 3" maxlength="200"/>
+      			</div>
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="correoContacto3" type="text" name="correoContacto3" placeholder="Correo Contacto 3" maxlength="200"/>
+      			</div>
+      			<div class="form-group col-md-6">
+				    <input class="form-control" id="telefonoContacto3" type="text" name="telefonoContacto3" placeholder="Teléfono Contacto 3" maxlength="200"/>
       			</div>
       		</div>
       		<div class="form-row">
@@ -148,7 +215,16 @@ $(document).ready(function() {
  	        		       [{ "Id": result[index].id, 
  	        		    	   "Codigo": result[index].codigo,
  	        		    	   "Nombre": result[index].nombre,
- 	        		    	   "Direccion": result[index].direccion
+ 	        		    	   "Direccion": result[index].direccion,
+ 	        		    	   "NombreContacto1": result[index].nombreContacto1,
+ 	        		    	   "CorreoContacto1": result[index].correoContacto1,
+ 	        		    	   "TelefonoContacto1": result[index].telefonoContacto1,
+ 	        		    	   "NombreContacto2": result[index].nombreContacto2,
+	        		    	   "CorreoContacto2": result[index].correoContacto2,
+	        		    	   "TelefonoContacto2": result[index].telefonoContacto2,
+	        		    	   "NombreContacto3": result[index].nombreContacto3,
+	        		    	   "CorreoContacto3": result[index].correoContacto3,
+	        		    	   "TelefonoContacto3": result[index].telefonoContacto3 	        		    	
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -182,7 +258,16 @@ $(document).ready(function() {
             	    {data: 'Id'},
             	    {data: 'Codigo'},
             	    {data: 'Nombre'},
-            	    {data: 'Direccion'}],
+            	    {data: 'Direccion'},
+            	    {data: 'NombreContacto1'},
+            	    {data: 'CorreoContacto1'},
+            	    {data: 'TelefonoContacto1'},
+            	    {data: 'NombreContacto2'},
+            	    {data: 'CorreoContacto2'},
+            	    {data: 'TelefonoContacto2'},
+            	    {data: 'NombreContacto3'},
+            	    {data: 'CorreoContacto3'},
+            	    {data: 'TelefonoContacto3'}],
 	       	    "columnDefs": [
 	                   {
 	                       "targets": [ 0 ],
@@ -211,6 +296,15 @@ $(document).ready(function() {
 	    	$("#codigo").val('');
 	    	$("#nombre").val('');
 	    	$("#direccion").val('');
+	    	$("#nombreContacto1").val('');
+	    	$("#correoContacto1").val('');
+	    	$("#telefonoContacto1").val('');
+	    	$("#nombreContacto2").val('');
+	    	$("#correoContacto2").val('');
+	    	$("#telefonoContacto2").val('');
+	    	$("#nombreContacto3").val('');
+	    	$("#correoContacto3").val('');
+	    	$("#telefonoContacto3").val('');
 			$('#provider-modal').find('#btn-modal-update').css('visibility', 'hidden');
 			$('#provider-modal').find('#btn-modal-update').css('display', 'none');
 			$('#provider-modal').find('#btn-modal-create').css('visibility', 'visible');
@@ -232,11 +326,29 @@ $(document).ready(function() {
 	    	var $nombre =  $providerModify.Nombre;
 	    	var $direccion =  $providerModify.Direccion;
 	    	var $id =  $providerModify.Id;
+	    	var $nombreContacto1 =  $providerModify.NombreContacto1;
+	    	var $correoContacto1 =  $providerModify.CorreoContacto1;
+	    	var $telefonoContacto1 =  $providerModify.TelefonoContacto1;
+	    	var $nombreContacto2 =  $providerModify.NombreContacto2;
+	    	var $correoContacto2 =  $providerModify.CorreoContacto2;
+	    	var $telefonoContacto2 =  $providerModify.TelefonoContacto2;
+	    	var $nombreContacto3 =  $providerModify.NombreContacto3;
+	    	var $correoContacto3 =  $providerModify.CorreoContacto3;
+	    	var $telefonoContacto3 =  $providerModify.TelefonoContacto3;
 			$('#provider-modal').find('#id').val($id);
 			$('#provider-modal').find('#codigo').val($codigo);
 			$('#provider-modal').find('#codigoAnterior').val($codigo);
 			$('#provider-modal').find('#nombre').val($nombre);
 			$('#provider-modal').find('#direccion').val($direccion);
+			$('#provider-modal').find('#nombreContacto1').val($nombreContacto1);
+			$('#provider-modal').find('#correoContacto1').val($correoContacto1);
+			$('#provider-modal').find('#telefonoContacto1').val($telefonoContacto1);
+			$('#provider-modal').find('#nombreContacto2').val($nombreContacto2);
+			$('#provider-modal').find('#correoContacto2').val($correoContacto2);
+			$('#provider-modal').find('#telefonoContacto2').val($telefonoContacto2);
+			$('#provider-modal').find('#nombreContacto3').val($nombreContacto3);
+			$('#provider-modal').find('#correoContacto3').val($correoContacto3);
+			$('#provider-modal').find('#telefonoContacto3').val($telefonoContacto3);
 			$('#provider-modal').find('#btn-modal-create').css('visibility', 'hidden');
 			$('#provider-modal').find('#btn-modal-create').css('display', 'none');
 			$('#provider-modal').find('#btn-modal-update').css('visibility', 'visible');
@@ -308,15 +420,26 @@ $(document).ready(function() {
 		});
 		
 		$("#btn-modal-create").click(function() {
-	    	 var $codigo =  $("#codigo").val();
-	    	 var $nombre =  $("#nombre").val();
-	    	 var $direccion =  $("#direccion").val();
+	    	var $codigo =  $("#codigo").val();
+	    	var $nombre =  $("#nombre").val();
+	    	var $direccion =  $("#direccion").val();
+    		var $nombreContacto1 =  $("#nombreContacto1").val();
+	    	var $correoContacto1 =  $("#correoContacto1").val();
+	    	var $telefonoContacto1 = $("#telefonoContacto1").val();
+	    	var $nombreContacto2 =  $("#nombreContacto2").val();
+	    	var $correoContacto2 =  $("#correoContacto2").val();
+	    	var $telefonoContacto2 = $("#telefonoContacto2").val();
+	    	var $nombreContacto3 =  $("#nombreContacto3").val();
+	    	var $correoContacto3 =  $("#correoContacto3").val();
+	    	var $telefonoContacto3 = $("#telefonoContacto3").val();
 
 	    	 $(".msg-error").removeClass("on");
-		     $(".msg-error").html("Debe ingresar los datos.");
-		     
+		     $(".msg-error").html("Debe ingresar los datos.");		     
 	    	 
-	    	 if ($codigo == "" || $nombre == "" || $direccion == "") {
+	    	 if ($codigo == "" || $nombre == "" || $direccion == "" ||
+	    		 $nombreContacto1 == "" || $correoContacto1 == "" || $telefonoContacto1 == "" ||
+	    			 $nombreContacto2 == "" || $nombreContacto2 == "" || $telefonoContacto2 == "" ||
+	    				 $nombreContacto3 == "" || $correoContacto3 == "" || $telefonoContacto3 == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
 	   		 } else {
@@ -375,20 +498,31 @@ $(document).ready(function() {
 	      });
 		
 		$("#btn-modal-update").click(function() {
-	    	 var $codigo =  $("#codigo").val();
-	    	 var $nombre =  $("#nombre").val();
-	    	 var $direccion =  $("#direccion").val();
+	    	var $codigo =  $("#codigo").val();
+	    	var $nombre =  $("#nombre").val();
+	    	var $direccion =  $("#direccion").val();
+	    	var $nombreContacto1 =  $("#nombreContacto1").val();
+	    	var $correoContacto1 =  $("#correoContacto1").val();
+	    	var $telefonoContacto1 = $("#telefonoContacto1").val();
+	    	var $nombreContacto2 =  $("#nombreContacto2").val();
+	    	var $correoContacto2 =  $("#correoContacto2").val();
+	    	var $telefonoContacto2 = $("#telefonoContacto2").val();
+	    	var $nombreContacto3 =  $("#nombreContacto3").val();
+	    	var $correoContacto3 =  $("#correoContacto3").val();
+	    	var $telefonoContacto3 = $("#telefonoContacto3").val();
 	    	 
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Debe ingresar los datos.");
 		     
-	    	 if ($codigo == "" || $nombre == "" || $direccion == "") {
+	    	 if ($codigo == "" || $nombre == "" || $direccion == "" ||
+	    		 $nombreContacto1 == "" || $correoContacto1 == "" || $telefonoContacto1 == "" ||
+	    			 $nombreContacto2 == "" || $nombreContacto2 == "" || $telefonoContacto2 == "" ||
+	    				 $nombreContacto3 == "" || $correoContacto3 == "" || $telefonoContacto3 == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
 	   		 } else {
 	   		      console.log("Hay valores");
 	   		 }
-
 	    	 
 	    	 var $form = $("#createProviderForm").serializeArray();    	  	  
 		  	 var $formSerialized = objectifyForm($form);

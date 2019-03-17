@@ -31,10 +31,7 @@ public class NivelService {
 	}
 	
 	 /* Metodo que modifica un nivel a la base de datos
-	 * @param nombre
-	 * @param descripcion
-	 * @param elementos
-	 * @param materiales
+	 * @param object
 	 * @return
 	 */
 	public void updateNivel(Object object) {

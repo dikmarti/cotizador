@@ -63,8 +63,7 @@ public class SystemController extends GenericController {
 		try {
 
 			systemModel = mapper.readValue(jsonForm, SystemModel.class);
-			Integer status = systemService.createSystem(systemModel.getNombre(), systemModel.getDescripcion(), 
-					systemModel.getElementos(), systemModel.getMateriales());
+			Integer status = systemService.createSystem(systemModel.getNombre(), systemModel.getDescripcion());
 			
 			System.out.println("status: " + status);
 			return status;
@@ -135,8 +134,7 @@ public class SystemController extends GenericController {
 
 			systemModel = mapper.readValue(jsonForm, SystemModel.class);
 			
-			Integer status = systemService.updateSystem(systemModel.getNombre(), systemModel.getDescripcion(),
-					systemModel.getElementos(), systemModel.getMateriales(), systemModel.getId());
+			Integer status = systemService.updateSystem(systemModel.getNombre(), systemModel.getDescripcion(), systemModel.getId());
 
 			System.out.println("status: " + status);
 			return status;

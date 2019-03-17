@@ -19,17 +19,11 @@ public class Producto {
 	@Column
 	private int idProductoMCO;
 	
-	@Column
-	private int idFabricante;
-	
-	@Column
-	private String codigo;
-	
+	@Column(name="num_parte_fabricante")
+	private int numParteFabricante;
+			
 	@Column
 	private String nombre;
-	
-	@Column
-	private String nombreCorto;
 	
 	@Column
 	private String descripcion;
@@ -63,36 +57,12 @@ public class Producto {
 		this.idProductoMCO = idProductoMCO;
 	}
 
-	public int getIdFabricante() {
-		return idFabricante;
-	}
-
-	public void setIdFabricante(int idFabricante) {
-		this.idFabricante = idFabricante;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getNombreCorto() {
-		return nombreCorto;
-	}
-
-	public void setNombreCorto(String nombreCorto) {
-		this.nombreCorto = nombreCorto;
 	}
 
 	public String getDescripcion() {
@@ -134,11 +104,19 @@ public class Producto {
 	public void setSistema(Sistema sistema) {
 		this.sistema = sistema;
 	}
+		
+	public int getNumParteFabricante() {
+		return numParteFabricante;
+	}
+
+	public void setNumParteFabricante(int numParteFabricante) {
+		this.numParteFabricante = numParteFabricante;
+	}
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", idProductoMCO=" + idProductoMCO + ", idFabricante=" + idFabricante
-				+ ", codigo=" + codigo + ", nombre=" + nombre + ", nombreCorto=" + nombreCorto + ", descripcion="
+		return "Producto [id=" + id + ", idProductoMCO=" + idProductoMCO 
+				+ ", nombre=" + nombre + ", descripcion="
 				+ descripcion + ", porcentajeResguardo=" + porcentajeResguardo + ", observacion=" + observacion
 				+ ", unidadMedida=" + unidadMedida + ", sistema=" + sistema + "]";
 	}

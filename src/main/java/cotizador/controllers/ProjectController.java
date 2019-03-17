@@ -21,6 +21,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import cotizador.model.domain.Nivel;
 import cotizador.model.domain.Proyecto;
 import cotizador.model.domain.models.ProjectModel;
 import cotizador.service.ProjectService;
@@ -64,8 +65,17 @@ public class ProjectController extends GenericController {
 			proyecto.setTipoPrecio(Integer.parseInt(projectModel.getTipoPrecio()));
 			proyecto.setFechaCreacion(new Date());
 			
-			Integer idProyecto = ((Proyecto) projectService.createProject(proyecto)).getId();
-
+			Integer idProyecto = null;
+			int idProj = projectModel.getId();
+			
+			if(idProj == 0) {
+				idProyecto = ((Proyecto) projectService.createProject(proyecto)).getId();	
+			} else {
+				proyecto.setId(idProj);
+				projectService.updateProject(proyecto);
+				idProyecto = proyecto.getId();				
+			}	
+			
 			return idProyecto;
 
 		} catch (JsonParseException e) {

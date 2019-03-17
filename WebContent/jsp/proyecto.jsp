@@ -12,9 +12,10 @@
   <div class="w3-container w3-padding-32" id="contact">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Ficha T&eacute;nica</h3>
     
-    
+ 
   		<form id="createProjectForm" class="form-content">
 	
+			<input id="idProject" type="hidden" name="id"/>
     		<div class="form-row">
     			<div class="form-group col-md-4">
 		    		<input class="form-control js-numeric" id="idCrmMCO" type="text" name="idCrmMCO" placeholder="Crm MCO" maxlength="200"/>
@@ -134,7 +135,7 @@
 		
 		var colorArray = interpolateColors(color1, color2, cantMaxNiveles);
 		
-		var $idProyecto = ${param['idProyecto']};
+		var $idProyecto = "${param['idProyecto']}";
 		
 		if ($idProyecto != undefined && $idProyecto != null) {
 			loadProyectData($idProyecto);
@@ -143,6 +144,10 @@
 		function loadProyectData(){
 			
 			proyectoActual = $idProyecto;
+			
+			if($idProyecto == undefined || $idProyecto == ""){
+				return false;
+			}
 			
 			$("#btn-crear-nivel").css("display","inline-block");
 			
@@ -259,6 +264,7 @@
 			var categoriaConstruccion = $("#categoriaConstruccion").val();
 			var porcentajeHolgura = $("#porcentajeHolgura").val();
 			var tipoPrecio = $("#tipoPrecio").val();
+			$("#idProject").val(proyectoActual);
 			
 			if(idCrmMCO.trim() == "" || ruc.trim() == "" || nombreCliente.trim() == "" || tipoPrecio == null ||
 				nombre.trim() == "" || localidad.trim() == "" || nivelConstruccion.trim() == "" ||

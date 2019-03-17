@@ -3,8 +3,6 @@ package cotizador.model.domain.models;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import cotizador.model.domain.Sistema;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonAutoDetect(setterVisibility = JsonAutoDetect.Visibility.ANY,
 		getterVisibility = JsonAutoDetect.Visibility.ANY, 
@@ -14,10 +12,8 @@ public class ProductModel {
 	
 	public Integer id;
 	public Integer idMco;
-	public Integer idFabricante;
-	public String codigo;
+	public Integer numParteFabricante;
 	public String nombre;
-	public String nombreCorto;
 	public String descripcion;
 	public Integer porcentajeResguardo;
 	public String observacion;
@@ -35,30 +31,23 @@ public class ProductModel {
 	public void setIdMco(Integer idMco) {
 		this.idMco = idMco;
 	}
-	public Integer getIdFabricante() {
-		return idFabricante;
-	}
-	public void setIdFabricante(Integer idFabricante) {
-		this.idFabricante = idFabricante;
-	}
-	public String getCodigo() {
-		return codigo;
-	}
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
+
 	public String getNombre() {
 		return nombre;
+	}
+	public Integer getNumParteFabricante() {
+		return numParteFabricante;
+	}
+	public void setNumParteFabricante(Integer numParteFabricante) {
+		this.numParteFabricante = numParteFabricante;
+	}
+	public void setSistema(int sistema) {
+		this.sistema = sistema;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getNombreCorto() {
-		return nombreCorto;
-	}
-	public void setNombreCorto(String nombreCorto) {
-		this.nombreCorto = nombreCorto;
-	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -91,8 +80,7 @@ public class ProductModel {
 	}
 	@Override
 	public String toString() {
-		return "ProductModel [id=" + id + ", idMco=" + idMco + ", idFabricante=" + idFabricante + ", codigo=" + codigo
-				+ ", nombre=" + nombre + ", nombreCorto=" + nombreCorto + ", descripcion=" + descripcion
+		return "ProductModel [id=" + id + ", idMco=" + idMco + ", nombre=" + nombre + ", descripcion=" + descripcion
 				+ ", porcentajeResguardo=" + porcentajeResguardo + ", observacion=" + observacion + ", unidadMedida="
 				+ unidadMedida + ", sistema=" + sistema + "]";
 	}

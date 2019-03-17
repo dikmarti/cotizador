@@ -5,7 +5,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import cotizador.model.domain.Sistema;
-import cotizador.model.domain.Usuario;
 import cotizador.model.repository.GenericRepository;
 
 public class SystemService {
@@ -37,7 +36,7 @@ public class SystemService {
 	 * @param materiales
 	 * @return
 	 */
-	public Integer createSystem(String nombre, String descripcion, String elementos, String materiales) {
+	public Integer createSystem(String nombre, String descripcion) {
 
 		System.out.println("Method createSystem...");
 
@@ -45,8 +44,6 @@ public class SystemService {
 		
 		sistema.setNombre(nombre);
 		sistema.setDescripcion(descripcion);
-		sistema.setElementos(elementos);
-		sistema.setMateriales(materiales);
 
 		System.out.println("Creating system from data base");
 		Object object = genericRepository.addObject(sistema);
@@ -66,15 +63,14 @@ public class SystemService {
 	 * @param id
 	 * @return
 	 */
-	public Integer updateSystem(String nombre, String descripcion, String elementos, String materiales, Integer id) {
+	public Integer updateSystem(String nombre, String descripcion, Integer id) {
 
 		System.out.println("Method updateSystem...");
 		System.out.println("Updating system from data base");
 		
 		int status = genericRepository.executeUpdateQuery("UPDATE Sistema u SET u.nombre = '" + nombre + "', "
 						+ "u.descripcion = '" + descripcion 
-						+ "', u.elementos = '" + elementos 
-						+ "', u.materiales = '" + materiales + "' WHERE u.id = '" + id + "'");
+						+ "' WHERE u.id = '" + id + "'");
 		
 		System.out.println("finish system update");
 		System.out.println("status: " + status);

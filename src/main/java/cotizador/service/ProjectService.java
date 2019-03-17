@@ -66,33 +66,16 @@ public class ProjectService {
 		return  result;
 	}
 
-	/**
-	 * Metodo que actualiza un sistema en la base de datos
-	 * @param nombre
-	 * @param descripcion
-	 * @param elementos
-	 * @param materiales
-	 * @param id
+
+	 /* Metodo que modifica un nivel a la base de datos
+	 * @param object
 	 * @return
 	 */
-	public Integer updateProject(Proyecto proyecto) {
+	public void updateProject(Object object) {
 
-		/*System.out.println("Method updateProject...");
-		
-		int status = genericRepository.executeUpdateQuery("UPDATE Proyecto u SET u.nombre = '" + nombre + "', "
-						+ "u.descripcion = '" + descripcion 
-						+ "', u.elementos = '" + elementos 
-						+ "', u.materiales = '" + materiales + "' WHERE u.id = '" + id + "'");
-		
-		System.out.println("finish system update");
-		System.out.println("status: " + status);
-		Integer result = status == 1 ? 0 : 2;
-		
-		return result;*/
-		
-		return null;
+		System.out.println("Modifying project in data base");
+		genericRepository.updateObject(object);		
 	}
-
 
 	/**
 	 * Metodo que elimina un proveedor de la base de datos

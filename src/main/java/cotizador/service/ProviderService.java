@@ -34,21 +34,16 @@ public class ProviderService {
 	 * @param direccion
 	 * @return
 	 */
-	public Integer createProvider(String codigo, String nombre, String direccion) {
+	public Integer createProvider(Proveedor proveedor) {
 
 		System.out.println("Method createProvider...");
 
 		System.out.println("Verificando si el codigo de proveedor no existe...");
 
-		if(!validCode(codigo)) {
+		if(!validCode(proveedor.getCodigo())) {
 			System.out.println("Ya existe codigo de proveedor");
 			return 1;
 		}
-
-		Proveedor proveedor = new Proveedor();
-		proveedor.setCodigo(codigo);
-		proveedor.setNombre(nombre);
-		proveedor.setDireccion(direccion);
 
 		System.out.println("Creating provider from data base");
 		Object object = genericRepository.addObject(proveedor);
@@ -68,26 +63,28 @@ public class ProviderService {
 	 * @param id
 	 * @return
 	 */
-	public Integer updateProvider(String codigo, String codigoAnterior, String nombre, String direccion, Integer id) {
+	public Integer updateProvider(Proveedor proveedor, String codigoAnterior) {
 
 		System.out.println("Method updateProvider...");
 		System.out.println("Updating provider from data base");
 		
-		if(!codigoAnterior.equals(codigo)) {
-			if(!validCode(codigo)) {
+		if(!codigoAnterior.equals(proveedor.getCodigo())) {
+			if(!validCode(proveedor.getCodigo())) {
 				System.out.println("Ya existe codigo de proveedor");
+				//Codigo repetido
 				return 1;
 			}
 		}
 
-		int status = genericRepository.executeUpdateQuery("UPDATE Proveedor u SET u.nombre = '" + nombre + "', "
-						+ "u.codigo = '" + codigo + "', u.direccion = '" + direccion + "' WHERE u.id = '" + id + "'");
+		try {
+			genericRepository.updateObject(proveedor);
+		} catch (Exception e) {
+			//Cualquier error
+			return 2;
+		}
 		
-		System.out.println("finish provider update");
-		System.out.println("status: " + status);
-		Integer result = status == 1 ? 0 : 2;
-		
-		return result;
+		//Exito
+		return 0;
 	}
 
 

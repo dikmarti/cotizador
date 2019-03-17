@@ -32,13 +32,9 @@
       </th>
       <th class="th-sm">Id MCO
       </th>
-      <th class="th-sm">Id Fabricante
-      </th>
-      <th class="th-sm">Código
+      <th class="th-sm">Número de Parte de Fabricante
       </th>
       <th class="th-sm">Nombre
-      </th>
-      <th class="th-sm">Nombre Corto
       </th>
       <th class="th-sm">Descripción
       </th>
@@ -60,13 +56,9 @@
       </th>
       <th>Id MCO
       </th>
-      <th>Id Fabricante
-      </th>
-      <th>Código
+      <th>Número de Parte de Fabricante
       </th>
       <th>Nombre
-      </th>
-      <th>Nombre Corto
       </th>
       <th>Descripción
       </th>
@@ -106,28 +98,20 @@
 				    <input class="form-control" id="idMco" type="text" name="idMco" placeholder="Id MCO" maxlength="200"/>
       			</div>
       			<div class="form-group col-md-6">
-				    <input class="form-control" id="idFabricante" type="text" name="idFabricante" placeholder="Id Fabricante" maxlength="200"/>
+				    <input class="form-control" id="numParteFabricante" type="text" name="numParteFabricante" placeholder="Número de parte de fabricante" maxlength="200"/>
       			</div>
     		</div>
       		<div class="form-row">
-      			<div class="form-group col-md-6">
-				    <input class="form-control" id="codigo" type="text" name="codigo" placeholder="Código" maxlength="200"/>
-      			</div>
       			<div class="form-group col-md-6">
 				    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
       			</div>
-    		</div>
-      		<div class="form-row">
       			<div class="form-group col-md-6">
-				    <input class="form-control" id="nombreCorto" type="text" name="nombreCorto" placeholder="Nombre Corto" maxlength="200"/>
-      			</div>
-      			<div class="form-group col-md-6">
-				    <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripción" maxlength="200"/>
+				   <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripción" maxlength="200"/>
       			</div>
     		</div>
       		<div class="form-row">
       			<div class="form-group col-md-6">
-				    <input class="form-control" id="porcentajeResguardo" type="text" name="porcentajeResguardo" placeholder="Porcentaje de Resguardo" maxlength="200"/>
+				    <input class="form-control" id="porcentajeResguardo" type="text" name="porcentajeResguardo" placeholder="Porcentaje de Resguardo" value="0" maxlength="200"/>
       			</div>
       			<div class="form-group col-md-6">
 				    <input class="form-control" id="observacion" type="text" name="observacion" placeholder="Observación" maxlength="200"/>
@@ -137,12 +121,17 @@
       			<div class="form-group col-md-6">
 				    <select class="form-control form-control-sm custom-color" id="unidadMedida" name="unidadMedida" >
 				    	<option class="placeholder-option" value="" disabled selected >Seleccione Tipo de Medida</option>
-				    	<option value="0">Galón</option>				    	
-				    	<option value="1">Metros</option>				    	
-				    	<option value="2">Metros Cuadrados</option>				    	
-				    	<option value="3">Metros Cúbicos</option>				    	
-				    	<option value="4">Rollos</option>				    	
-				    	<option value="5">Unidad</option>
+				    	<option value="0">Galón</option>
+				    	<option value="1">Litros</option>
+				    	<option value="2">Pulgadas</option>				    	
+				    	<option value="3">Pies</option>
+				    	<option value="4">Metros</option>
+				    	<option value="5">Kilómetros</option>
+				    	<option value="6">Yardas</option>				    	
+				    	<option value="7">Metros Cuadrados</option>				    	
+				    	<option value="8">Metros Cúbicos</option>				    	
+				    	<option value="9">Rollos</option>				    	
+				    	<option value="10">Unidad</option>
 				    </select>
       			</div>
      			<div class="form-group col-md-6">
@@ -211,10 +200,8 @@ $(document).ready(function() {
     	        	table.rows.add(
  	        		       [{ "Id": result[index].id, 
  	        		    	   "IdMco": result[index].idProductoMCO,
- 	        		    	   "IdFabricante": result[index].idFabricante,
- 	        		    	   "Codigo": result[index].codigo,
+ 	        		    	   "NumParteFabricante": result[index].numParteFabricante,
  	        		    	   "Nombre": result[index].nombre,
- 	        		    	   "NombreCorto": result[index].nombreCorto,
  	        		    	   "Descripcion": result[index].descripcion,
  	        		    	   "PorcentajeResguardo": result[index].porcentajeResguardo,
  	        		    	   "Observacion": result[index].observacion,
@@ -290,10 +277,8 @@ $(document).ready(function() {
 		        columns:[
             	    {data: 'Id'},
             	    {data: 'IdMco'},
-            	    {data: 'IdFabricante'},
-            	    {data: 'Codigo'},
+            	    {data: 'NumParteFabricante'},
             	    {data: 'Nombre'},
-            	    {data: 'NombreCorto'},
             	    {data: 'Descripcion'},
             	    {data: 'PorcentajeResguardo'},
             	    {data: 'Observacion'},
@@ -324,10 +309,8 @@ $(document).ready(function() {
 			$(".msg-error").removeClass("on");
 			$("#id").val('');
 			$("#idMco").val('');
-			$("#idFabricante").val('');
-	    	$("#codigo").val('');
+			$("#numParteFabricante").val('');
 	    	$("#nombre").val('');
-	    	$("#nombreCorto").val('');
 	    	$("#descripcion").val('');
 	    	$("#porcentajeResguardo").val('');
 	    	$("#observacion").val('');
@@ -379,10 +362,8 @@ $(document).ready(function() {
 			
 			$('#product-modal').find('#id').val($productModify.Id);
 			$('#product-modal').find('#idMco').val($productModify.IdMco);
-			$('#product-modal').find('#idFabricante').val($productModify.IdFabricante);
-			$('#product-modal').find('#codigo').val($productModify.Codigo);
+			$('#product-modal').find('#numParteFabricante').val($productModify.numParteFabricante);
 			$('#product-modal').find('#nombre').val($productModify.Nombre);
-			$('#product-modal').find('#nombreCorto').val($productModify.NombreCorto);
 			$('#product-modal').find('#descripcion').val($productModify.Descripcion);
 			$('#product-modal').find('#porcentajeResguardo').val($productModify.PorcentajeResguardo);
 			$('#product-modal').find('#observacion').val($productModify.Observacion);
@@ -489,10 +470,8 @@ $(document).ready(function() {
 		
 		$("#btn-modal-create").click(function() {
 	    	 var $idMco =  $("#idMco").val();
-	    	 var $idFabricante =  $("#idFabricante").val();
-	    	 var $codigo =  $("#codigo").val();
+	    	 var $numParteFabricante =  $("#numParteFabricante").val();
 	    	 var $nombre =  $("#nombre").val();
-	    	 var $nombreCorto =  $("#nombreCorto").val();
 	    	 var $descripcion =  $("#descripcion").val();
 	    	 var $porcentajeResguardo =  $("#porcentajeResguardo").val();
 	    	 var $observacion =  $("#observacion").val();
@@ -503,7 +482,7 @@ $(document).ready(function() {
 		     $(".msg-error").html("Debe ingresar los datos.");
 		     
 	    	 
-	    	 if ($idMco == "" || $idFabricante == "" || $codigo == "" || $nombre == "" || $nombreCorto == "" 
+	    	 if ($idMco == "" || $numParteFabricante == "" || $nombre == "" 
 	    			 || $descripcion == "" || $porcentajeResguardo == "" || $observacion == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
@@ -577,10 +556,8 @@ $(document).ready(function() {
 		$("#btn-modal-update").click(function() {
 			 var $id =  $("#id").val();
 			 var $idMco =  $("#idMco").val();
-	    	 var $idFabricante =  $("#idFabricante").val();
-	    	 var $codigo =  $("#codigo").val();
+	    	 var $numParteFabricante =  $("#numParteFabricante").val();
 	    	 var $nombre =  $("#nombre").val();
-	    	 var $nombreCorto =  $("#nombreCorto").val();
 	    	 var $descripcion =  $("#descripcion").val();
 	    	 var $porcentajeResguardo =  $("#porcentajeResguardo").val();
 	    	 var $observacion =  $("#observacion").val();
@@ -591,7 +568,7 @@ $(document).ready(function() {
 		     $(".msg-error").html("Debe ingresar los datos.");
 		     
 	    	 
-	    	 if ($idMco == "" || $idFabricante == "" || $codigo == "" || $nombre == "" || $nombreCorto == "" 
+	    	 if ($idMco == "" || $numParteFabricante == "" || $nombre == "" 
 	    			 || $descripcion == "" || $porcentajeResguardo == "" || $observacion == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;

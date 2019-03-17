@@ -22,7 +22,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.Proveedor;
 import cotizador.model.domain.models.ProviderModel;
-import cotizador.model.domain.models.UserModel;
 import cotizador.service.ProviderService;
 
 @Path("/provider")
@@ -64,8 +63,22 @@ public class ProviderController extends GenericController {
 		try {
 
 			providerModel = mapper.readValue(jsonForm, ProviderModel.class);
-			Integer status = providerService.createProvider(providerModel.getCodigo(), providerModel.getNombre(), 
-					providerModel.getDireccion());
+			
+			Proveedor proveedor = new Proveedor();			
+			proveedor.setCodigo(providerModel.getCodigo());
+			proveedor.setNombre(providerModel.getNombre());
+			proveedor.setDireccion(providerModel.getDireccion());
+			proveedor.setNombreContacto1(providerModel.getNombreContacto1());
+			proveedor.setCorreoContacto1(providerModel.getCorreoContacto1());
+			proveedor.setTelefonoContacto1(providerModel.getTelefonoContacto1());
+			proveedor.setNombreContacto2(providerModel.getNombreContacto2());
+			proveedor.setCorreoContacto2(providerModel.getCorreoContacto2());
+			proveedor.setTelefonoContacto2(providerModel.getTelefonoContacto2());
+			proveedor.setNombreContacto3(providerModel.getNombreContacto3());
+			proveedor.setCorreoContacto3(providerModel.getCorreoContacto3());
+			proveedor.setTelefonoContacto3(providerModel.getTelefonoContacto3());
+			
+			Integer status = providerService.createProvider(proveedor);
 			
 			System.out.println("status: " + status);
 			return status;
@@ -134,9 +147,23 @@ public class ProviderController extends GenericController {
 		try {
 
 			providerModel = mapper.readValue(jsonForm, ProviderModel.class);
+						
+			Proveedor proveedor = new Proveedor();	
+			proveedor.setId(providerModel.getId());
+			proveedor.setCodigo(providerModel.getCodigo());
+			proveedor.setNombre(providerModel.getNombre());
+			proveedor.setDireccion(providerModel.getDireccion());
+			proveedor.setNombreContacto1(providerModel.getNombreContacto1());
+			proveedor.setCorreoContacto1(providerModel.getCorreoContacto1());
+			proveedor.setTelefonoContacto1(providerModel.getTelefonoContacto1());
+			proveedor.setNombreContacto2(providerModel.getNombreContacto2());
+			proveedor.setCorreoContacto2(providerModel.getCorreoContacto2());
+			proveedor.setTelefonoContacto2(providerModel.getTelefonoContacto2());
+			proveedor.setNombreContacto3(providerModel.getNombreContacto3());
+			proveedor.setCorreoContacto3(providerModel.getCorreoContacto3());
+			proveedor.setTelefonoContacto3(providerModel.getTelefonoContacto3());
 			
-			Integer status = providerService.updateProvider(providerModel.getCodigo(), providerModel.getCodigoAnterior(),
-					providerModel.getNombre(), providerModel.getDireccion(), providerModel.getId());
+			Integer status = providerService.updateProvider(proveedor, providerModel.getCodigoAnterior());
 
 			System.out.println("status: " + status);
 			return status;

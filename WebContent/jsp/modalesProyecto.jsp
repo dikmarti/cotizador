@@ -718,8 +718,7 @@
 	
 	
 	function loadMetrado(){
-		//var nivel = $("#nivelId").val();
-		var nivel = 70;
+		var nivel = $("#nivelId").val();
 		
 		$.ajax({
 	    	  url: "/Cotizador/rest/metrado/findByNivel",

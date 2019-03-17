@@ -13,8 +13,6 @@ public class SystemModel {
 	public Integer id;
 	public String nombre;
 	public String descripcion;
-	public String elementos;
-	public String materiales;
 	
 	public Integer getId() {
 		return id;
@@ -40,26 +38,9 @@ public class SystemModel {
 		this.descripcion = descripcion;
 	}
 	
-	public String getElementos() {
-		return elementos;
-	}
-	
-	public void setElementos(String elementos) {
-		this.elementos = elementos;
-	}
-	
-	public String getMateriales() {
-		return materiales;
-	}
-	
-	public void setMateriales(String materiales) {
-		this.materiales = materiales;
-	}
-	
 	@Override
 	public String toString() {
-		return "SystemModel [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", elementos="
-				+ elementos + ", materiales=" + materiales + "]";
+		return "SystemModel [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
 	}
 	
 }
