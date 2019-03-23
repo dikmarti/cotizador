@@ -36,6 +36,25 @@ public class UserService {
 
 		return  usuarioResult;
 	}
+	
+	public Integer changePassword(String usuario, String clave, String claveNueva) {
+		
+		char[] charArrayPassword = clave.toCharArray();
+		char[] charArrayPasswordNueva = claveNueva.toCharArray();
+		byte[] salt = new byte[20];	
+		
+		String claveEncriptada = PasswordUtils.hashPassword(charArrayPassword, salt);
+		String claveEncriptadaNueva = PasswordUtils.hashPassword(charArrayPasswordNueva, salt);
+		
+		System.out.println("pass: " + claveEncriptada);
+		
+		int status = genericRepository.executeUpdateQuery("UPDATE Usuario u SET u.clave = '"+claveEncriptadaNueva+"' WHERE u.login = '" + 
+				usuario + "' AND u.clave = '" + claveEncriptada + "'");
+		
+		Integer result = status == 1 ? 0 : 2;
+		
+		return result;
+	}
 
 	/**
 	 * Metodo que retorna la data de los usuarios existentes en la base de datos

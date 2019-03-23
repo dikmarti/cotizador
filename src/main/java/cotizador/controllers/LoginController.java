@@ -1,6 +1,8 @@
 package cotizador.controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -108,6 +110,42 @@ public class LoginController extends GenericController{
 		}       
               
         return new Usuario();
+    }
+	
+	@SuppressWarnings("unchecked")
+	@POST
+    @Path("/changePassword")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+    public Integer changePass(String jsonForm, @Context HttpServletRequest httpRequest) {
+		
+        System.out.println("/changePassword json form " + jsonForm);
+    	ObjectMapper mapper=new ObjectMapper();
+    	Map<String, String> map = new HashMap<String, String>();
+    	
+		try {
+			
+			map = mapper.readValue(jsonForm, Map.class);
+			String usuario = map.get("usuario");
+			String clave = map.get("clave");
+			String claveNueva = map.get("claveNueva");
+			
+			Integer status = userService.changePassword(usuario, clave, claveNueva);
+			return status;
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}       
+        return null;
     }
   
 }
