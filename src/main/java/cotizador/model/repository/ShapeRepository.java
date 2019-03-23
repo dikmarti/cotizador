@@ -61,6 +61,7 @@ public class ShapeRepository {
     	entityManager.createQuery("SELECT p FROM Producto p").getResultList();
     	entityManager.createQuery("SELECT p FROM Proyecto p").getResultList();
     	entityManager.createQuery("SELECT m FROM Metrado m").getResultList();
+    	entityManager.createQuery("SELECT m FROM Marca m").getResultList();
     	
     	    	
     	return result.get(0);

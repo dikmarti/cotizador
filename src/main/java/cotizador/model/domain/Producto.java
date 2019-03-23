@@ -41,6 +41,10 @@ public class Producto {
 	@PrimaryKeyJoinColumn(name="id_sistema", referencedColumnName="id")
 	private Sistema sistema;
 
+	@ManyToOne
+	@PrimaryKeyJoinColumn(name="id_marca", referencedColumnName="id")
+	private Marca marca;
+
 	public int getId() {
 		return id;
 	}
@@ -104,7 +108,15 @@ public class Producto {
 	public void setSistema(Sistema sistema) {
 		this.sistema = sistema;
 	}
-		
+	
+	public Marca getMarca() {
+		return marca;
+	}
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
+
 	public int getNumParteFabricante() {
 		return numParteFabricante;
 	}
@@ -115,10 +127,10 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", idProductoMCO=" + idProductoMCO 
-				+ ", nombre=" + nombre + ", descripcion="
-				+ descripcion + ", porcentajeResguardo=" + porcentajeResguardo + ", observacion=" + observacion
-				+ ", unidadMedida=" + unidadMedida + ", sistema=" + sistema + "]";
+		return "Producto [id=" + id + ", idProductoMCO=" + idProductoMCO + ", numParteFabricante=" + numParteFabricante
+				+ ", nombre=" + nombre + ", descripcion=" + descripcion + ", porcentajeResguardo=" + porcentajeResguardo
+				+ ", observacion=" + observacion + ", unidadMedida=" + unidadMedida + ", sistema=" + sistema
+				+ ", marca=" + marca + "]";
 	}
-	
+
 }

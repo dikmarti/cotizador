@@ -127,6 +127,14 @@
 	      <url-pattern>/admProyectos</url-pattern>
 	 </servlet-mapping>	
 	 <servlet>
+      <servlet-name>admMarcas</servlet-name>
+      <jsp-file>/jsp/admMarcas.jsp</jsp-file>
+	 </servlet>
+	 <servlet-mapping>
+	      <servlet-name>admMarcas</servlet-name>
+	      <url-pattern>/admMarcas</url-pattern>
+	 </servlet-mapping>	
+	 <servlet>
 		 <servlet-name>index</servlet-name>
 	     <jsp-file>/jsp/index.jsp</jsp-file>
 	 </servlet>
