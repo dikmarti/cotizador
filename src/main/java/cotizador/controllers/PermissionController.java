@@ -21,6 +21,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.controllers.models.PermisoResponseModel;
+import cotizador.controllers.models.UsuarioPermisoResponseModel;
 import cotizador.model.domain.Modulo;
 import cotizador.model.domain.Permiso;
 import cotizador.model.domain.Usuario;
@@ -34,6 +35,26 @@ public class PermissionController extends GenericController {
 
 	@Inject
 	PermissionService permissionService;
+	
+	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<UsuarioPermisoResponseModel> allUsers() {
+
+		System.out.println("/allUsers get all user from dataBase");
+		List<UsuarioPermisoResponseModel> allUsers = new ArrayList<UsuarioPermisoResponseModel>();
+
+		try {
+			allUsers = permissionService.retrieveAllUsersPermissions();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("allUsers: " + allUsers);
+		return allUsers;
+	}
+
 
 	@POST
 	@Path("/addPermission")

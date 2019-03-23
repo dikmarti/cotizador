@@ -7,7 +7,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
+
 import cotizador.controllers.models.PermisoResponseModel;
+import cotizador.controllers.models.UsuarioPermisoResponseModel;
 import cotizador.model.domain.Modulo;
 import cotizador.model.domain.Permiso;
 import cotizador.model.domain.Usuario;
@@ -174,6 +177,40 @@ public class PermissionService {
 		Boolean userResult = deleted != -1 ? Boolean.TRUE : Boolean.FALSE;
 		
 		return  userResult;
+	}
+	
+	/**
+	 * Metodo que retorna todos los usuarios con sus permisos
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<UsuarioPermisoResponseModel> retrieveAllUsersPermissions() {
+
+		System.out.println("finding all user from data base");
+
+		List<Object> allObject = genericRepository.getAllObjectByQuery("SELECT u FROM Usuario u");
+		List<Usuario> usersResult = !allObject.isEmpty() ? (List<Usuario>) (Object) allObject : null;
+		List<UsuarioPermisoResponseModel> result = new ArrayList<UsuarioPermisoResponseModel>();
+		
+		for (Usuario usuario : usersResult) {
+			UsuarioPermisoResponseModel user = new UsuarioPermisoResponseModel();
+			user.setid(usuario.getId());
+			user.setNombre(usuario.getNombre());
+			user.setLogin(usuario.getLogin());
+			user.setCargo(usuario.getCargo());
+			List<Object> allPermission = genericRepository.getAllObjectByQuery("SELECT p.modulo.nombre "
+					+ "FROM Permiso p WHERE p.usuario.id ='" + usuario.getId() + "'");
+			
+			List<String> permissionResult = !allPermission.isEmpty() ? (List<String>) (Object) allPermission : null;
+			
+			if(permissionResult != null && !permissionResult.isEmpty()) {
+				user.setPermisos(StringUtils.join(permissionResult, ","));
+			} else {
+				user.setPermisos("");
+			}
+			result.add(user);
+		}
+		return  result;
 	}
 
 }

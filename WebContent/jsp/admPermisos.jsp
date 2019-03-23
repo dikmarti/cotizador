@@ -28,6 +28,8 @@
       </th>
       <th class="th-sm">Cargo
       </th>
+      <th class="th-sm">Permisos
+      </th>
     </tr>
   </thead>
   <tbody id="user-table-data-permission">
@@ -41,6 +43,8 @@
       <th>Login
       </th>
       <th>Cargo
+      </th>
+      <th>Permisos
       </th>
     </tr>
   </tfoot>
@@ -153,7 +157,7 @@
 
 $(document).ready(function() {
    	 $.ajax({
-    	  url: "/Cotizador/rest/userModule/all",
+    	  url: "/Cotizador/rest/permission/all",
     	  type: "GET",
     	  dataType: "json",
     	  contentType: "application/json; charset=utf-8",
@@ -166,7 +170,8 @@ $(document).ready(function() {
     	        		       [{ "Id": result[index].id, 
     	        		       	  "Nombre": result[index].nombre, 
     	        		    	   "Login": result[index].login,
-    	        		    	   "Cargo": result[index].cargo
+    	        		    	   "Cargo": result[index].cargo,
+    	        		    	   "Permisos": result[index].permisos
     	        		    	}]).draw(); 
     	        });
     	  },
@@ -200,7 +205,8 @@ $(document).ready(function() {
             	    {data: 'Id'},
             	    {data: 'Nombre'},
             	    {data: 'Login'},
-            	    {data: 'Cargo'}],
+            	    {data: 'Cargo'},
+            	    {data: 'Permisos'}],
         	    "columnDefs": [
                     {
                         "targets": [ 0 ],
