@@ -141,7 +141,7 @@ public class UserModuleController extends GenericController {
 			userModel = mapper.readValue(jsonForm, UserModel.class);
 			
 			Integer status = userService.updateUser(userModel.getNombre(), userModel.getLogin(), userModel.getLoginAnterior(), userModel.getEmail(), 
-					userModel.getTelefono(), userModel.getDireccion(), userModel.getCargo());
+					userModel.getTelefono(), userModel.getDireccion(), userModel.getCargo(), userModel.getClave(), userModel.getTipoUsuario());
 
 			System.out.println("status: " + status);
 			return status;

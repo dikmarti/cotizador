@@ -29,22 +29,18 @@
   <thead>
     <tr>
       <th class="th-sm">Nombre
-
       </th>
       <th class="th-sm">Login
-
       </th>
       <th class="th-sm">Dirección
-
       </th>
       <th class="th-sm">Email
-
       </th>
       <th class="th-sm">Teléfono
-
       </th>
       <th class="th-sm">Cargo
-
+      </th>
+      <th class="th-sm">Tipo de Usuario
       </th>
     </tr>
   </thead>
@@ -63,6 +59,8 @@
       <th>Teléfono
       </th>
       <th>Cargo
+      </th>
+      <th>Tipo de Usuario
       </th>
     </tr>
   </tfoot>
@@ -184,7 +182,8 @@ $(document).ready(function() {
  	        		    	   "Direccion": result[index].direccion,
  	        		    	   "Email": result[index].email,
  	        		    	   "Telefono": result[index].telefono,
- 	        		    	   "Cargo": result[index].cargo
+ 	        		    	   "Cargo": result[index].cargo,
+ 	        		    	   "TipoUsuario": returnTipoUsuario(result[index].tipoUsuario)
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -196,6 +195,28 @@ $(document).ready(function() {
     	  }
     	  
     	});
+   	 
+   	function returnTipoUsuario(tipoUsuario){
+	       switch (tipoUsuario) {
+		case 0:  return "Administrador";
+			break;
+		case 1: return "Básico";
+			break;
+		default: return "";
+			break;
+		}
+	}
+	 
+	function returnTipoUsuarioVal(tipoUsuario){
+	       switch (tipoUsuario) {
+		case "Administrador":  return "0";
+			break;
+		case "Básico": return "1";
+			break;
+		default: return "";
+			break;
+		}
+	}
    	 
    	var table = $('#dtUserModule').DataTable({
 			  responsive: true,
@@ -220,7 +241,8 @@ $(document).ready(function() {
             	    {data: 'Direccion'},
             	    {data: 'Email'},
             	    {data: 'Telefono'},
-            	    {data: 'Cargo'}]
+            	    {data: 'Cargo'},
+            	    {data: 'TipoUsuario'}]
 		  }); 
 		  $('.dataTables_length').addClass('bs-select');
 		  
@@ -246,13 +268,10 @@ $(document).ready(function() {
 	    	$("#telefono").val('');
 	    	$("#cargo").val('');
 			$("#tipoUsuario").val([""]);
-	    	$('#user-modal').find('#clave').removeAttr('disabled');
-			$('#user-modal').find('#tipoUsuario').removeAttr('disabled');
 			$('#user-modal').find('#btn-modal-update').css('visibility', 'hidden');
 			$('#user-modal').find('#btn-modal-update').css('display', 'none');
 			$('#user-modal').find('#btn-modal-create').css('visibility', 'visible');
 			$('#user-modal').find('#btn-modal-create').css('display', '');
-			$("#tipoUsuario").addClass("custom-color");
 			$('#user-modal').find('#modal-title-text').html('Crear Usuario');
 			$("#user-modal").modal("show");
 			$("#user-modal").off();
@@ -272,6 +291,7 @@ $(document).ready(function() {
 	    	 var $email =  $userModify.Email;
 	    	 var $telefono =  $userModify.Telefono;
 	    	 var $cargo =  $userModify.Cargo;
+	    	 var $tipoUsuario =  $userModify.TipoUsuario;
 			$('#user-modal').find('#nombre').val($nombre);
 			$('#user-modal').find('#login').val($login);
 			$('#user-modal').find('#loginAnterior').val($login);
@@ -283,8 +303,8 @@ $(document).ready(function() {
 			$('#user-modal').find('#btn-modal-create').css('display', 'none');
 			$('#user-modal').find('#btn-modal-update').css('visibility', 'visible');
 			$('#user-modal').find('#btn-modal-update').css('display', '');
-			$('#user-modal').find('#clave').attr('disabled', 'true');
-			$('#user-modal').find('#tipoUsuario').attr('disabled', 'true');
+			$('#user-modal').find('#tipoUsuario').val(returnTipoUsuarioVal($tipoUsuario));
+			$("#tipoUsuario").removeClass("custom-color");
 			$('#user-modal').find('#modal-title-text').html('Modificar Usuario');
 			$("#user-modal").modal("show");
 		});
@@ -427,6 +447,7 @@ $(document).ready(function() {
 	    	 var $direccion =  $("#direccion").val();
 	    	 var $telefono =  $("#telefono").val();
 	    	 var $cargo =  $("#cargo").val();
+	    	 var $tipoUsuario =  $("#tipoUsuario option:selected").val();
 	    	 
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Debe ingresar los datos.");

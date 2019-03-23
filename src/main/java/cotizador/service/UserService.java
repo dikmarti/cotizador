@@ -127,7 +127,7 @@ public class UserService {
 	 * @return
 	 */
 	public Integer updateUser(String nombre, String login, String loginAnterior, String email, String telefono, String direccion,
-			String cargo) {
+			String cargo, String clave, int tipoUsuario) {
 
 		System.out.println("Method updateUser...");
 		System.out.println("Updating user from data base");
@@ -138,10 +138,24 @@ public class UserService {
 				return 1;
 			}
 		}
-
-		int status = genericRepository.executeUpdateQuery("UPDATE Usuario u SET u.nombre = '" + nombre + "', "
-						+ "u.login = '" + login + "', u.email = '" + email + "', u.telefono = '" + telefono + "', "
-						+ "u.direccion = '" + direccion + "', u.cargo = '" + cargo + "' WHERE u.login = '" + loginAnterior + "'");
+		String query = "";
+		if(clave != null && !clave.isEmpty()) {
+			char[] charArrayPassword = clave.toCharArray();
+			byte[] salt = new byte[20];	
+			
+			String claveEncriptada = PasswordUtils.hashPassword(charArrayPassword, salt);
+			query = "UPDATE Usuario u SET u.nombre = '" + nombre + "', "
+					+ "u.login = '" + login + "', u.email = '" + email + "', u.telefono = '" + telefono + "', "
+					+ "u.clave ='"+ claveEncriptada +"', u.tipoUsuario ='"+ tipoUsuario +"', "
+					+ "u.direccion = '" + direccion + "', u.cargo = '" + cargo + "' WHERE u.login = '" + loginAnterior + "'";
+		} else {
+			query = "UPDATE Usuario u SET u.nombre = '" + nombre + "', "
+					+ "u.login = '" + login + "', u.email = '" + email + "', u.telefono = '" + telefono + "', "
+					+ "u.tipoUsuario ='"+ tipoUsuario +"', "
+					+ "u.direccion = '" + direccion + "', u.cargo = '" + cargo + "' WHERE u.login = '" + loginAnterior + "'";
+		}
+		
+		int status = genericRepository.executeUpdateQuery(query);
 		
 		System.out.println("finish user update");
 		System.out.println("status: " + status);
