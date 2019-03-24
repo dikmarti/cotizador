@@ -114,5 +114,22 @@ public class BrandService {
 
 		return result;
 	}
+	
+	/**
+	 * Metodo que retorna una marca de la base por id
+	 * @param id
+	 * @return
+	 */
+	public Marca findBrandById(Integer id) {
+
+		System.out.println("Method findBrandById...");
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Marca.findById", "id", id);
+
+		Marca result = !allObject.isEmpty() ? (Marca) (Object) allObject.get(0) : null;
+		System.out.println("Marca: " + result);
+
+		return result;
+
+	}
 
 }

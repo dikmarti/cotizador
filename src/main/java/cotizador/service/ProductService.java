@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import cotizador.model.domain.Marca;
 import cotizador.model.domain.Producto;
 import cotizador.model.domain.Sistema;
 import cotizador.model.repository.GenericRepository;
@@ -15,6 +16,9 @@ public class ProductService {
 
 	@Inject
 	SystemService systemService;
+	
+	@Inject
+	BrandService brandService;
 	
 	/**
 	 * Metodo que retorna todos los producto de la base de datos
@@ -65,7 +69,7 @@ public class ProductService {
 	 */
 	public Integer createProduct(Integer idMco, Integer numParteFabricante, String nombre,  
 			String descripcion, Integer porcentajeResguardo, String observacion, Integer unidadMedida, 
-			Integer sistema) {
+			Integer sistema, Integer marca) {
 
 		System.out.println("Method createProduct...");
 
@@ -80,8 +84,10 @@ public class ProductService {
 		producto.setUnidadMedida(unidadMedida);
 		
 		Sistema system = systemService.findSystemById(sistema);
-		
 		producto.setSistema(system);
+		
+		Marca brand = brandService.findBrandById(marca);
+		producto.setMarca(brand);
 		
 		System.out.println("Creating product from data base");
 		Object object = genericRepository.addObject(producto);
@@ -109,12 +115,13 @@ public class ProductService {
 	 */
 	public Integer updateProduct(Integer idMco, Integer numParteFabricante, String nombre, 
 			String descripcion, Integer porcentajeResguardo, String observacion, Integer unidadMedida, 
-			Integer sistema, Integer id) {
+			Integer sistema, Integer id, Integer marca) {
 
 		System.out.println("Method updateProduct...");
 		System.out.println("Updating product from data base");
 		
 		Sistema system = systemService.findSystemById(sistema);
+		Marca brand = brandService.findBrandById(marca);
 		
 		int status = genericRepository.executeUpdateQuery("UPDATE Producto u SET u.idProductoMCO = '" + idMco + "', "
 						+ "u.numParteFabricante = '" + numParteFabricante 
@@ -123,7 +130,8 @@ public class ProductService {
 						+ "', u.porcentajeResguardo = '" + porcentajeResguardo 
 						+ "', u.observacion = '" + observacion 
 						+ "', u.unidadMedida = '" + unidadMedida 
-						+ "', u.sistema = " + system + " WHERE u.id = '" + id + "'");
+						+ "', u.marca = " + brand 
+						+ ", u.sistema = " + system + " WHERE u.id = '" + id + "'");
 		
 		System.out.println("finish product update");
 		System.out.println("status: " + status);

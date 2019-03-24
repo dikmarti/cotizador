@@ -46,6 +46,8 @@
       </th>
       <th class="th-sm">Sistema
       </th>
+      <th class="th-sm">Marca
+      </th>
     </tr>
   </thead>
   <tbody id="product-table-data">
@@ -69,6 +71,8 @@
       <th>Unidad de Medida
       </th>
       <th>Sistema
+      </th>
+      <th>Marca
       </th>
     </tr>
   </tfoot>
@@ -141,6 +145,13 @@
       			</div>
       		</div>
       		<div class="form-row">
+     			<div class="form-group col-md-6">
+				    <select class="form-control form-control-sm custom-color" id="marca" name="marca" >
+				    	<option class="placeholder-option" value="" disabled selected >Seleccione la Marca</option>
+				    </select>
+      			</div>
+      		</div>
+      		<div class="form-row">
       			<div class="form-group col-md-10">
 				    <div class="msg-error">
 				   			Debe ingresar los datos.
@@ -206,7 +217,8 @@ $(document).ready(function() {
  	        		    	   "PorcentajeResguardo": result[index].porcentajeResguardo,
  	        		    	   "Observacion": result[index].observacion,
  	        		    	   "UnidadMedida": returnUnidadMedida(result[index].unidadMedida),
- 	        		    	   "Sistema": result[index].sistema.nombre
+ 	        		    	   "Sistema": result[index].sistema.nombre,
+ 	        		    	   "Marca": result[index].marca != null ? result[index].marca.nombre : ''
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -283,7 +295,8 @@ $(document).ready(function() {
             	    {data: 'PorcentajeResguardo'},
             	    {data: 'Observacion'},
             	    {data: 'UnidadMedida'},
-            	    {data: 'Sistema'}],
+            	    {data: 'Sistema'},
+            	    {data: 'Marca'}],
 	       	    "columnDefs": [
 	                   {
 	                       "targets": [ 0 ],
@@ -304,6 +317,7 @@ $(document).ready(function() {
 		    } );
 
 		$("#btn-product-create").click(function() {
+			clear();
 			console.log("create product"); 
 			table.$('tr.selected').removeClass('selected');
 			$(".msg-error").removeClass("on");
@@ -316,6 +330,7 @@ $(document).ready(function() {
 	    	$("#observacion").val('');
 	    	$("#unidadMedida").val([""]);
 	    	$("#sistema").val([""]);
+	    	$("#marca").val([""]);
 			$('#product-modal').find('#btn-modal-update').css('visibility', 'hidden');
 			$('#product-modal').find('#btn-modal-update').css('display', 'none');
 			$('#product-modal').find('#btn-modal-create').css('visibility', 'visible');
@@ -337,8 +352,34 @@ $(document).ready(function() {
 		    	        	$("#sistema").append(o);
 		    	        
 		    	        });
-						$("#product-modal").modal("show");
-						$("#product-modal").off();
+		    	        
+		    	        $.ajax({
+		  		    	  url: "/Cotizador/rest/brand/all",
+		  		    	  type: "GET",
+		  		    	  dataType: "json",
+		  		    	  contentType: "application/json; charset=utf-8",
+		  		    	  success: function(result){	    		
+		  		    	        console.log("termino buscar marca");
+		  		    	        console.log(result);
+		  		    	        
+		  		    	        $.each(result, function( index, element ) {	 
+		  		    	        	var o = new Option(result[index].nombre, result[index].id);
+		  		    	        	$(o).html(result[index].nombre);
+		  		    	        	$("#marca").append(o);
+		  		    	        
+		  		    	        });
+		  						$("#product-modal").modal("show");
+		  						$("#product-modal").off();
+		  		    	  },
+		  		    	  complete: function(result){
+		  		    	        console.log("complete");
+		  		    	  },
+		  		    	  error: function(result){
+		  		    	        console.log("error");
+		  		    	  }
+		  		    	  
+		  		    	});
+		    	        
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");
@@ -352,6 +393,7 @@ $(document).ready(function() {
 		});
 		
 		$("#btn-product-modify").click(function() {
+			clear();
 			console.log("modify product");   
 			if(table.$('tr.selected').length != 1) {
 				console.log("No hay producto seleccionado");   	 
@@ -362,7 +404,7 @@ $(document).ready(function() {
 			
 			$('#product-modal').find('#id').val($productModify.Id);
 			$('#product-modal').find('#idMco').val($productModify.IdMco);
-			$('#product-modal').find('#numParteFabricante').val($productModify.numParteFabricante);
+			$('#product-modal').find('#numParteFabricante').val($productModify.NumParteFabricante);
 			$('#product-modal').find('#nombre').val($productModify.Nombre);
 			$('#product-modal').find('#descripcion').val($productModify.Descripcion);
 			$('#product-modal').find('#porcentajeResguardo').val($productModify.PorcentajeResguardo);
@@ -393,7 +435,34 @@ $(document).ready(function() {
 		    	        		$("#sistema").removeClass("custom-color");
 		    	        	}
 		    	        });
-						$("#product-modal").modal("show");
+		    	        $.ajax({
+		  		    	  url: "/Cotizador/rest/brand/all",
+		  		    	  type: "GET",
+		  		    	  dataType: "json",
+		  		    	  contentType: "application/json; charset=utf-8",
+		  		    	  success: function(result){	    		
+		  		    	        console.log("termino marca");
+		  		    	        console.log(result);
+		  		    	        
+		  		    	        $.each(result, function( index, element ) {	 
+		  		    	        	var o = new Option(result[index].nombre, result[index].id);
+		  		    	        	$(o).html(result[index].nombre);
+		  		    	        	$("#marca").append(o);
+		  		    	        	if($productModify.Marca === result[index].nombre) {
+		  		    	        		$('#product-modal').find('#marca').val(result[index].id);
+		  		    	        		$("#marca").removeClass("custom-color");
+		  		    	        	} 
+		  		    	        });
+		  						$("#product-modal").modal("show");
+		  		    	  },
+		  		    	  complete: function(result){
+		  		    	        console.log("complete");
+		  		    	  },
+		  		    	  error: function(result){
+		  		    	        console.log("error");
+		  		    	  }
+		  		    	  
+		  		    	});
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");
@@ -477,6 +546,7 @@ $(document).ready(function() {
 	    	 var $observacion =  $("#observacion").val();
 	    	 var $unidadMedida =  $("#unidadMedida option:selected").val();
 	    	 var $sistema =  $("#sistema option:selected").val();
+	    	 var $marca =  $("#marca option:selected").val();
 
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Debe ingresar los datos.");
@@ -497,7 +567,13 @@ $(document).ready(function() {
 		     }
 	    	 
 	    	 if($sistema == "") {
-		    	 $(".msg-error").html("Debe seleccionar el sistema al que corresponde el producto.")
+		    	 $(".msg-error").html("Debe seleccionar el sistema que corresponde al producto.")
+		    	 $(".msg-error").addClass("on");
+		    	 return false;
+		     }
+	    	 
+	    	 if($marca == "") {
+		    	 $(".msg-error").html("Debe seleccionar la marca que corresponde al producto.")
 		    	 $(".msg-error").addClass("on");
 		    	 return false;
 		     }
@@ -563,6 +639,7 @@ $(document).ready(function() {
 	    	 var $observacion =  $("#observacion").val();
 	    	 var $unidadMedida =  $("#unidadMedida option:selected").val();
 	    	 var $sistema =  $("#sistema option:selected").val();
+	    	 var $marca =  $("#marca option:selected").val();
 
 	    	 $(".msg-error").removeClass("on");
 		     $(".msg-error").html("Debe ingresar los datos.");
@@ -583,7 +660,12 @@ $(document).ready(function() {
 		     }
 	    	 
 	    	 if($sistema == "") {
-		    	 $(".msg-error").html("Debe seleccionar el sistema al que corresponde el producto.")
+		    	 $(".msg-error").html("Debe seleccionar el sistema que corresponde al producto.")
+		    	 $(".msg-error").addClass("on");
+		    	 return false;
+		     }
+	    	 if($marca == "") {
+		    	 $(".msg-error").html("Debe seleccionar la marca que corresponde al producto.")
 		    	 $(".msg-error").addClass("on");
 		    	 return false;
 		     }
@@ -642,6 +724,9 @@ $(document).ready(function() {
 		$("#sistema").click(function() {
 			$(this).removeClass("custom-color");
 		});	
+		$("#marca").click(function() {
+			$(this).removeClass("custom-color");
+		});	
 		
 		$("#unidadMedida").click(function() {
 			$(this).removeClass("custom-color");
@@ -650,6 +735,14 @@ $(document).ready(function() {
 		$(".js-close").click(function(){
 			  $(this).parents(".modal").modal("hide");
 		});
+		
+		function clear() {
+			$('#sistema').empty()
+		    .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Sistema</option>');
+			$('#marca').empty()
+		    .append('<option class="placeholder-option" value="" disabled selected >Seleccione la Marca</option>');
+		}
+		
 
 	});   
 		  

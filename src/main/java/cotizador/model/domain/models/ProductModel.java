@@ -19,6 +19,7 @@ public class ProductModel {
 	public String observacion;
 	public Integer unidadMedida;
 	public int sistema;
+	public int marca;
 	public Integer getId() {
 		return id;
 	}
@@ -41,13 +42,9 @@ public class ProductModel {
 	public void setNumParteFabricante(Integer numParteFabricante) {
 		this.numParteFabricante = numParteFabricante;
 	}
-	public void setSistema(int sistema) {
-		this.sistema = sistema;
-	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -78,11 +75,18 @@ public class ProductModel {
 	public void setSistema(Integer sistema) {
 		this.sistema = sistema;
 	}
+	public Integer getMarca() {
+		return marca;
+	}
+	public void setMarca(Integer marca) {
+		this.marca = marca;
+	}
 	@Override
 	public String toString() {
-		return "ProductModel [id=" + id + ", idMco=" + idMco + ", nombre=" + nombre + ", descripcion=" + descripcion
-				+ ", porcentajeResguardo=" + porcentajeResguardo + ", observacion=" + observacion + ", unidadMedida="
-				+ unidadMedida + ", sistema=" + sistema + "]";
+		return "ProductModel [id=" + id + ", idMco=" + idMco + ", numParteFabricante=" + numParteFabricante
+				+ ", nombre=" + nombre + ", descripcion=" + descripcion + ", porcentajeResguardo=" + porcentajeResguardo
+				+ ", observacion=" + observacion + ", unidadMedida=" + unidadMedida + ", sistema=" + sistema
+				+ ", marca=" + marca + "]";
 	}
 	
 }
