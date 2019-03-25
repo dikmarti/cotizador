@@ -40,6 +40,8 @@
       </th>
       <th class="th-sm">Fecha Modificación
       </th>
+      <th class="th-sm">Generar Metrado
+      </th>
     </tr>
   </thead>
   <tbody id="system-table-data">
@@ -61,6 +63,8 @@
       <th>Fecha Creación
       </th>
       <th>Fecha Modificación
+      </th>
+      <th>Generar Metrado
       </th>
     </tr>
   </tfoot>
@@ -97,7 +101,8 @@ $(document).ready(function() {
  	        		    	   "Localidad": result[index].localidad,
  	        		    	   "NombreProyecto": result[index].nombre,
  	        		    	   "FechaCreacion": result[index].fechaCreacion,
- 	        		    	   "FechaModificacion": result[index].fechaModificacion
+ 	        		    	   "FechaModificacion": result[index].fechaModificacion,
+ 	        		    	   "GenerarMetrado": "<a  href='rest/project/generateFile?idProject="+result[index].id+"' class='btn btn-primary'>Generar</a>"
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -135,11 +140,17 @@ $(document).ready(function() {
             	    {data: 'Localidad'},
             	    {data: 'NombreProyecto'},
             	    {data: 'FechaCreacion'},
-            	    {data: 'FechaModificacion'}],
+            	    {data: 'FechaModificacion'},
+            	    {data: 'GenerarMetrado'}],
 	       	    "columnDefs": [
 	                   {
 	                       "targets": [ 0 ],
 	                       "visible": false,
+	                       "searchable": false
+	                   },
+	                   {
+	                       "targets": [ 8 ],
+	                       "className": 'dt-body-center',
 	                       "searchable": false
 	                   }]
 		  }); 
@@ -154,6 +165,14 @@ $(document).ready(function() {
 		            $(this).addClass('selected'); 
 		        }
 		    } );
+		  
+		  $('#dtProjectModule tbody').on( 'click', 'a', function () {
+		        var $idProject = table.row( $(this).parents('tr') ).data().Id;
+		        $(this).href = 'rest/project/generateFile?idProject=' + $idProject;
+		        $(this).trigger("click");
+		        console.log('id: ' + $idProject);
+		        
+		    });
 
 		$("#btn-project-create").click(function() {
 			table.$('tr.selected').removeClass('selected');

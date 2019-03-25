@@ -1,10 +1,26 @@
 package cotizador.service;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import cotizador.model.domain.Precio;
 import cotizador.model.domain.Proyecto;
@@ -109,6 +125,42 @@ public class ProjectService {
 
 		return result;
 
+	}
+	
+	public File generateFile(String idProject) {
+		try {
+			Proyecto project = findProjectById(Integer.valueOf(idProject));
+			
+			String fileName = "Metrado Final.xls";
+			HSSFWorkbook workbook = new HSSFWorkbook();
+			HSSFSheet sheet = workbook.createSheet("Metrado");
+
+			HSSFRow rowhead = sheet.createRow((short) 0);
+			rowhead.createCell(0).setCellValue("Id");
+			rowhead.createCell(1).setCellValue("Nombre Proyecto");
+			rowhead.createCell(2).setCellValue("Nombre Cliente");
+			rowhead.createCell(3).setCellValue("Localidad");
+
+			HSSFRow row = sheet.createRow((short) 1);
+			row.createCell(0).setCellValue(project.getId());
+			row.createCell(1).setCellValue(project.getNombre());
+			row.createCell(2).setCellValue(project.getNombreCliente());
+			row.createCell(3).setCellValue(project.getLocalidad());
+
+			FileOutputStream fileOut = new FileOutputStream(fileName);
+			workbook.write(fileOut);
+			fileOut.close();
+			System.out.println("excel file has been generated!");
+
+			//Code to download
+			File fileToDownload = new File(fileName);
+			return fileToDownload;
+
+		} catch (Exception e) {
+			System.out.println("Error al crear el archivo: " + e);
+		}
+		
+		return null;
 	}
 
 }
