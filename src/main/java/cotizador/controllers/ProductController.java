@@ -162,13 +162,18 @@ public class ProductController extends GenericController {
 
 			productModel = mapper.readValue(jsonForm, ProductModel.class);
 			
-			Integer status = productService.updateProduct(productModel.getIdMco(), productModel.getNumParteFabricante(), 
-					productModel.getNombre(), productModel.getDescripcion(), productModel.getPorcentajeResguardo(), 
-					productModel.getObservacion(), productModel.getUnidadMedida(), productModel.getSistema(), 
-					productModel.getId(), productModel.getMarca());
-
-			System.out.println("status: " + status);
-			return status;
+			Producto producto = new Producto();
+			producto.setId(productModel.getId());			
+			producto.setIdProductoMCO(productModel.getIdMco());
+			producto.setNombre(productModel.getNombre());
+			producto.setDescripcion(productModel.getDescripcion());
+			producto.setPorcentajeResguardo(productModel.getPorcentajeResguardo());
+			producto.setObservacion(productModel.getObservacion());
+			producto.setUnidadMedida(productModel.getUnidadMedida());
+			
+			productService.updateProduct(producto, productModel.getSistema(), productModel.getMarca());
+								
+			return 0;
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -182,7 +187,7 @@ public class ProductController extends GenericController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return 2;
 	}
 
 

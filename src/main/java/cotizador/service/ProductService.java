@@ -113,31 +113,21 @@ public class ProductService {
 	 * @param id
 	 * @return
 	 */
-	public Integer updateProduct(Integer idMco, Integer numParteFabricante, String nombre, 
-			String descripcion, Integer porcentajeResguardo, String observacion, Integer unidadMedida, 
-			Integer sistema, Integer id, Integer marca) {
+	public void updateProduct(Producto producto, Integer sistema, Integer marca) {
 
 		System.out.println("Method updateProduct...");
 		System.out.println("Updating product from data base");
 		
 		Sistema system = systemService.findSystemById(sistema);
 		Marca brand = brandService.findBrandById(marca);
+	
+		producto.setMarca(brand);
+		producto.setSistema(system);
 		
-		int status = genericRepository.executeUpdateQuery("UPDATE Producto u SET u.idProductoMCO = '" + idMco + "', "
-						+ "u.numParteFabricante = '" + numParteFabricante 
-						+ "', u.nombre = '" + nombre						 
-						+ "', u.descripcion = '" + descripcion 
-						+ "', u.porcentajeResguardo = '" + porcentajeResguardo 
-						+ "', u.observacion = '" + observacion 
-						+ "', u.unidadMedida = '" + unidadMedida 
-						+ "', u.marca = " + brand 
-						+ ", u.sistema = " + system + " WHERE u.id = '" + id + "'");
+		genericRepository.updateObject(producto);
 		
 		System.out.println("finish product update");
-		System.out.println("status: " + status);
-		Integer result = status == 1 ? 0 : 2;
 		
-		return result;
 	}
 
 
