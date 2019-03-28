@@ -113,16 +113,26 @@ public class ProductService {
 	 * @param id
 	 * @return
 	 */
-	public void updateProduct(Producto producto, Integer sistema, Integer marca) {
+	public void updateProduct(Producto producto, Integer sistema, Integer sistemaAnterior, Integer marca) throws Exception {
 
 		System.out.println("Method updateProduct...");
 		System.out.println("Updating product from data base");
 		
-		Sistema system = systemService.findSystemById(sistema);
-		Marca brand = brandService.findBrandById(marca);
+		if(sistema != sistemaAnterior) {
+			if(isValidProductChangeSystem(producto.getId())) {
+				Sistema system = systemService.findSystemById(sistema);
+				producto.setSistema(system);
+			} else {
+				throw new Exception("No se puede actualizar el sistema porque el producto pertenece a un metrado");
+			}
+			
+		} else {
+			Sistema system = systemService.findSystemById(sistema);
+			producto.setSistema(system);
+		}
 	
+		Marca brand = brandService.findBrandById(marca);
 		producto.setMarca(brand);
-		producto.setSistema(system);
 		
 		genericRepository.updateObject(producto);
 		
@@ -173,6 +183,18 @@ public class ProductService {
 		
 		System.out.println("Method isValidProduct...");
 		List<Object> allObject = genericRepository.getAllObjectByQuery("SELECT u FROM Precio u WHERE u.producto.id = '" + id +"'");
+		
+		Boolean result = !allObject.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
+		System.out.println("result: " + result);
+		
+		return result;
+		
+	}
+	
+	public Boolean isValidProductChangeSystem(Integer id) {
+		
+		System.out.println("Method isValidProductChangeSystem...");
+		List<Object> allObject = genericRepository.getAllObjectByQuery("SELECT u FROM Metrado u WHERE u.precio.producto.id = '" + id +"'");
 		
 		Boolean result = !allObject.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
 		System.out.println("result: " + result);

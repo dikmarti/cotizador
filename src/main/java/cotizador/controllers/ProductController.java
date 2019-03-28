@@ -171,7 +171,7 @@ public class ProductController extends GenericController {
 			producto.setObservacion(productModel.getObservacion());
 			producto.setUnidadMedida(productModel.getUnidadMedida());
 			
-			productService.updateProduct(producto, productModel.getSistema(), productModel.getMarca());
+			productService.updateProduct(producto, productModel.getSistema(), productModel.getSistemaAnterior(), productModel.getMarca());
 								
 			return 0;
 		} catch (JsonParseException e) {
