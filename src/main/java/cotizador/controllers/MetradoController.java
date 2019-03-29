@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -21,12 +22,14 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.Metrado;
 import cotizador.model.domain.Precio;
+import cotizador.model.domain.Proyecto;
 import cotizador.model.domain.RelacionProducto;
 import cotizador.model.domain.models.MetradoListModel;
 import cotizador.model.domain.models.MetradoModel;
 import cotizador.service.MetradoService;
 import cotizador.service.NivelService;
 import cotizador.service.PriceListService;
+import cotizador.service.ProjectService;
 import cotizador.service.RelationService;
 
 @Path("/metrado")
@@ -44,6 +47,9 @@ public class MetradoController extends GenericController {
 	
 	@Inject
 	RelationService relationService;
+	
+	@Inject
+	ProjectService projectService;
 	
 	@POST
 	@Path("/create")
@@ -185,4 +191,79 @@ public class MetradoController extends GenericController {
 		return listMetradoModel;
 	}
 
+	@SuppressWarnings("unchecked")
+	@GET
+	@Path("/getMetradoByProject")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<MetradoModel> getMetradoByProject(String jsonForm, @Context HttpServletRequest httpRequest) {
+		
+		System.out.println("/get all metrado from dataBase by project");
+		List<Metrado> allMetradoList = new ArrayList<Metrado>();
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Integer> projectMap = new HashMap<String, Integer>();
+		List<MetradoModel> listMetradoModel = new ArrayList<MetradoModel>();
+
+		// TODO: verificar que este ordenado por sistema
+		try {
+
+			projectMap = mapper.readValue(jsonForm, Map.class);
+			Integer idProject = projectMap.get("idProyecto");
+			
+			Proyecto proyecto = projectService.findProjectById(idProject);
+			float porcentajeHolgura = proyecto.getPorcentajeHolgura();   
+			int tipoPrecio = proyecto.getTipoPrecio();
+						                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   allMetradoList = metradoService.getAllMetradoByProject(idProject);
+			Double total = 0.0;
+						
+			for (Metrado metrado : allMetradoList) {
+				
+				Double precioProducto = metrado.getPrecioProducto();
+				Integer cantidadProducto = metrado.getCantidadProducto();
+				int porcentajeResguardoProducto = metrado.getPrecio().getProducto().getPorcentajeResguardo();
+				Double porcentajeHolguraTotal = 0.0;
+				Double precioTotal = 0.0;
+				
+				if(porcentajeHolgura > 0.0) {
+					porcentajeHolguraTotal = (cantidadProducto * ( new Double (porcentajeHolgura))) / 100.0;
+				} else {
+					porcentajeHolguraTotal = (cantidadProducto * ( new Double (porcentajeResguardoProducto))) / 100.0;
+				}
+				
+				if (tipoPrecio > 0) {
+					
+					switch (tipoPrecio) {
+						case 0:
+							precioTotal = metrado.getPrecio().getPrecioMinimoo();
+							break;
+						case 1:
+							precioTotal = metrado.getPrecio().getPrecioMaximo();
+							break;
+						case 2:
+							precioTotal = metrado.getPrecio().getPrecioPromedio();
+							break;
+					}				
+					
+				} else {
+					precioTotal = precioProducto;
+				}
+				
+				Double resultByNivel = (cantidadProducto + porcentajeHolguraTotal) * precioTotal;
+				
+				// TODO: Este valor se debe colocar en un registro en el excel
+				
+				total += resultByNivel;
+				
+			}
+			
+			// TODO: total se debe colocar al final del calculo en el excel
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("metradoList: " + allMetradoList);
+		return listMetradoModel;
+	}
+
+	
 }

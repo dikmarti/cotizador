@@ -77,7 +77,7 @@
     			</div>
     			<div class="form-group col-md-4">
     			 	<select class="form-control form-control-sm custom-color" id="tipoPrecio" name="tipoPrecio" >
-				    	<option class="placeholder-option" value="" disabled selected >Tipo de Precio</option>
+				    	<option class="placeholder-option" value="-1" disabled selected >Tipo de Precio</option>
 				    	<option value="0">Mínimo</option>
 				    	<option value="1">Máximo</option>	
 				    	<option value="2">Promedio</option>				    	
@@ -266,11 +266,11 @@
 			var tipoPrecio = $("#tipoPrecio").val();
 			$("#idProject").val(proyectoActual);
 			
-			if(idCrmMCO.trim() == "" || ruc.trim() == "" || nombreCliente.trim() == "" || tipoPrecio == null ||
+			if(idCrmMCO.trim() == "" || ruc.trim() == "" || nombreCliente.trim() == "" ||
 				nombre.trim() == "" || localidad.trim() == "" || nivelConstruccion.trim() == "" ||
 					montoInversion.trim() == "" || montoPresupuesto.trim() == "" || areaConstruccion.trim() == "" ||
 					 nivelConstruccion.trim() == "" || soporte == null || garantia == null || 
-					 	tipoProyecto.trim() == "" || categoriaConstruccion.trim() == "" || porcentajeHolgura.trim() == "") {
+					 	tipoProyecto.trim() == "" || categoriaConstruccion.trim() == "") {
 				
 				$("#msg-error-proyecto").addClass("show");
 				return false;

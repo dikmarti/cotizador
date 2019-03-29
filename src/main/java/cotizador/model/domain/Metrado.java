@@ -6,6 +6,8 @@ import javax.persistence.*;
 	@NamedQuery(name = "Metrado.findById", query = "SELECT m FROM Metrado m WHERE m.id = :id"),
 	@NamedQuery(name = "Metrado.findByNivel", query = "SELECT m FROM Metrado m WHERE m.nivel.id = :idNivel order by m.precio.producto.sistema asc"),
 	@NamedQuery(name = "Metrado.removeByListId", query = "DELETE FROM Metrado m WHERE m.id IN :id"),
+	@NamedQuery(name = "Metrado.getAllMetradoByProject", query = "SELECT * FROM Metrado m WHERE m.nivel.proyecto.id = :idProyecto order By m.nivel.producto.sistema")
+	
 })
 
 @Entity
