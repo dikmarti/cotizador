@@ -97,6 +97,7 @@
       <div class="modal-body">
       		<form id="createProductForm" class="form-content">
 			<input id="id" type="hidden" name="id"/>
+			<input id="sistemaAnterior" type="hidden" name=sistemaAnterior"/>
       		<div class="form-row">
       			<div class="form-group col-md-6">
 				    <input class="form-control" id="idMco" type="text" name="idMco" placeholder="Id MCO" maxlength="200"/>
@@ -432,6 +433,7 @@ $(document).ready(function() {
 		    	        	$("#sistema").append(o);
 		    	        	if($productModify.Sistema === result[index].nombre) {
 		    	        		$('#product-modal').find('#sistema').val(result[index].id);
+		    	        		$('#product-modal').find('#sistemaAnterior').val(result[index].id);
 		    	        		$("#sistema").removeClass("custom-color");
 		    	        	}
 		    	        });
