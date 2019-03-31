@@ -65,7 +65,7 @@ public class MetradoService {
 	@SuppressWarnings("unchecked")
 	public List<Metrado> getAllMetradoByProject(Integer idProject){
 		
-		List<Object> allObject = genericRepository.getAllObjectFiltered("Metrado.getAllMetradoByProject", "idProject", idProject);
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Metrado.allMetradoByProject", "idProyecto", idProject);
 		
 		return !allObject.isEmpty() ? (List<Metrado>) (Object) allObject : null;
 	

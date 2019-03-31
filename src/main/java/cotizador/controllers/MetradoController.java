@@ -13,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -195,24 +196,20 @@ public class MetradoController extends GenericController {
 	@GET
 	@Path("/getMetradoByProject")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<MetradoModel> getMetradoByProject(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public List<MetradoModel> getMetradoByProject(@QueryParam("idProject") String idProject) {
 		
 		System.out.println("/get all metrado from dataBase by project");
 		List<Metrado> allMetradoList = new ArrayList<Metrado>();
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Integer> projectMap = new HashMap<String, Integer>();
 		List<MetradoModel> listMetradoModel = new ArrayList<MetradoModel>();
 
 		// TODO: verificar que este ordenado por sistema
 		try {
 
-			projectMap = mapper.readValue(jsonForm, Map.class);
-			Integer idProject = projectMap.get("idProyecto");
-			
-			Proyecto proyecto = projectService.findProjectById(idProject);
+			Proyecto proyecto = projectService.findProjectById(Integer.valueOf(idProject));
 			float porcentajeHolgura = proyecto.getPorcentajeHolgura();   
 			int tipoPrecio = proyecto.getTipoPrecio();
-						                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   allMetradoList = metradoService.getAllMetradoByProject(idProject);
+			allMetradoList = metradoService.getAllMetradoByProject(Integer.valueOf(idProject));
 			Double total = 0.0;
 						
 			for (Metrado metrado : allMetradoList) {

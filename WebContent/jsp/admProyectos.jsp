@@ -102,7 +102,8 @@ $(document).ready(function() {
  	        		    	   "NombreProyecto": result[index].nombre,
  	        		    	   "FechaCreacion": result[index].fechaCreacion,
  	        		    	   "FechaModificacion": result[index].fechaModificacion,
- 	        		    	   "GenerarMetrado": "<a  href='rest/project/generateFile?idProject="+result[index].id+"' class='btn btn-primary'>Generar</a>"
+ 	        		    	   "GenerarMetrado": "<a id='archivo_" +result[index].id +"' href='rest/project/generateFile?idProject="+result[index].id+
+ 	        		    			   			 "' onclick='downloadFile(this);' class='btn btn-primary'>Generar</a>"
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -165,15 +166,7 @@ $(document).ready(function() {
 		            $(this).addClass('selected'); 
 		        }
 		    } );
-		  
-		  $('#dtProjectModule tbody').on( 'click', 'a', function () {
-		        var $idProject = table.row( $(this).parents('tr') ).data().Id;
-		        $(this).href = 'rest/project/generateFile?idProject=' + $idProject;
-		        $(this).trigger("click");
-		        console.log('id: ' + $idProject);
-		        
-		    });
-
+		    
 		$("#btn-project-create").click(function() {
 			table.$('tr.selected').removeClass('selected');
 			location.href = "formProyecto";
@@ -192,6 +185,16 @@ $(document).ready(function() {
 			
 		});
 	  });   
+	  
+		function downloadFile(elem) {
+			
+			$body = $("body");
+			
+			$body.addClass("loading");	
+			setTimeout(function(){ 
+				$body.removeClass("loading"); 
+			}, 20000);
+		}
 		  
 	</script>
 	
