@@ -1,7 +1,10 @@
 package cotizador.controllers;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,6 +25,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.poi.util.IOUtils;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -188,8 +193,7 @@ public class ProjectController extends GenericController {
 	
 	@GET
 	@Path("/generateFile")
-	@Produces("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-	public Response generateFile(@QueryParam("idProject") String id) {
+	public byte[] generateFile(@QueryParam("idProject") String id) {
 
 		System.out.println("/generateFile");
 
@@ -198,9 +202,10 @@ public class ProjectController extends GenericController {
 			File fileDownload = projectService.generateFile(id);
 			fileDownload.createNewFile();
 			System.out.println("name: " + fileDownload.getName());
-			ResponseBuilder response = Response.ok((Object) fileDownload);  
-			response.header("Content-Disposition","attachment; filename=\""+ fileDownload.getName() +"\"");  
-			return response.build();  
+			InputStream inputStream = new FileInputStream(fileDownload);
+			byte[] byteArray = IOUtils.toByteArray(inputStream);
+			Base64 codec = new Base64();
+			return codec.encode(byteArray);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

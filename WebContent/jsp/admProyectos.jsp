@@ -102,8 +102,7 @@ $(document).ready(function() {
  	        		    	   "NombreProyecto": result[index].nombre,
  	        		    	   "FechaCreacion": result[index].fechaCreacion,
  	        		    	   "FechaModificacion": result[index].fechaModificacion,
- 	        		    	   "GenerarMetrado": "<a id='archivo_" +result[index].id +"' href='rest/project/generateFile?idProject="+result[index].id+
- 	        		    			   			 "' onclick='downloadFile(this);' class='btn btn-primary'>Generar</a>"
+ 	        		    	   "GenerarMetrado": "<a href='javascript:void(0)' onclick='downloadFile("+result[index].id+");' class='btn btn-primary'>Generar</a>"
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -186,16 +185,39 @@ $(document).ready(function() {
 		});
 	  });   
 	  
-		function downloadFile(elem) {
-			
-			$body = $("body");
-			
-			$body.addClass("loading");	
-			setTimeout(function(){ 
-				$body.removeClass("loading"); 
-			}, 20000);
+		function downloadFile(id) {
+			$.ajax({
+		    	  url: "/Cotizador/rest/project/generateFile?idProject="+id,
+		    	  type: "GET",
+		    	  success: function(result){	
+		    		  var decodedString = atob(result);
+		    		  saveByteArray("Metrado.xls", s2ab(decodedString));
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
 		}
-		  
+		
+		function saveByteArray(reportName, file) {
+		    var blob = new Blob([file], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+		    var link = document.createElement('a');
+		    link.href = window.URL.createObjectURL(blob);
+		    var fileName = reportName;
+		    link.download = fileName;
+		    link.click();
+		};
+		
+		function s2ab(s) {
+			  var buf = new ArrayBuffer(s.length);
+			  var view = new Uint8Array(buf);
+			  for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+			  return buf;
+			}
 	</script>
 	
 </t:standardPage>
