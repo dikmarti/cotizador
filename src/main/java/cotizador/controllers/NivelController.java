@@ -135,12 +135,12 @@ public class NivelController extends GenericController {
 
 		System.out.println("/findNivelByProject json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, String> map = new HashMap<String, String>();
 
 		try {
 
 			map = mapper.readValue(jsonForm, Map.class);
-			Integer idProject = map.get("idProject");
+			Integer idProject = Integer.valueOf(map.get("idProject"));
 			List<Nivel> niveles = nivelService.findNivelByProject(idProject);
 			System.out.println("niveles: " + niveles);
 			

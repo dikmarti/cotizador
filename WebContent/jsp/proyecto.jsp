@@ -29,7 +29,7 @@
   			</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-				    <input class="form-control js-text" id="nombre" type="text" name="nombre" placeholder="nombre" maxlength="200"/>
+				    <input class="form-control js-text" id="nombre" type="text" name="nombre" placeholder="Nombre del Proyecto" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
 		    		<input class="form-control js-text" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
@@ -217,7 +217,7 @@
 	    	    			html += ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
 	    	    			html += '<p>' + nombre + '</p>';
 	    	    			html += '<a id="eliminarNivel" title="Eliminar nivel" onclick="eliminarNivel($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 0px;padding-left: 4px;"></a>';
-	    	    			html += '<a id="metrarNivel" data-nivel-id="'+result+'" title="Metrar nivel" onclick="metrarNivel($(this));" href="javascript:void(0)" class="fa fa-calculator fa-3x home" style="font-size: 13px; text-decoration: none; position: relative;top: -27px;float:right;color:white;padding-left: 4px;"></a>';
+	    	    			html += '<a id="metrarNivel" data-nivel-id="'+id+'" title="Metrar nivel" onclick="metrarNivel($(this));" href="javascript:void(0)" class="fa fa-calculator fa-3x home" style="font-size: 13px; text-decoration: none; position: relative;top: -27px;float:right;color:white;padding-left: 4px;"></a>';
 	    	    			html += '<a id="editarNivel" title="Editar nivel" onclick="editarNivel($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: -28px;float:right;color:white;"></a>';
 	    	    			html += '</div>';			
 	    	    			
@@ -244,7 +244,15 @@
 		    	  
 		    	});
 		}
-		
+		$("#garantia").click(function() {
+			$(this).removeClass("custom-color");
+		});	
+		$("#soporte").click(function() {
+			$(this).removeClass("custom-color");
+		});	
+		$("#tipoPrecio").click(function() {
+			$(this).removeClass("custom-color");
+		});	
 		$("#btn-guardar-proyecto").click(function() {	
 			
 			 $(".msg-error").removeClass("on");
@@ -607,7 +615,7 @@
 	});	
 		
 	$(".js-text").on('keypress', function (e) {
-		var regex = new RegExp("^([a-z ]|[A-Z]|[0-9]|\\.|\\,|\\(|\\)|\\_|\\-)$");
+		var regex = new RegExp("^([·ÈÌÛ˙Òa-z ]|[¡…Õ”⁄ÒA-Z]|[0-9]|\\.|\\,|\\(|\\)|\\_|\\-)$");
 		if(!regex.test(e.key)) {
 			return false;
 		}
