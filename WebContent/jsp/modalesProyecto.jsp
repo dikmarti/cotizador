@@ -256,6 +256,13 @@
 			    	});
 			}
 			
+			$('#producto').empty()
+		    .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Producto</option>');
+			$('#proveedor').empty()
+			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>');
+			$('#precio').empty()
+			 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Precio</option>');
+			$('#cantidad').val("");			
 
 		});
 		
@@ -720,6 +727,8 @@
 	function loadMetrado(){
 		var nivel = $("#nivelId").val();
 		
+		 $("#sist-metrado").empty();
+		 
 		$.ajax({
 	    	  url: "/Cotizador/rest/metrado/findByNivel",
 	    	  type: "POST",
@@ -729,6 +738,8 @@
 	    	  success: function(result){	
 	    	        console.log("termino");
 	    	        console.log(result);
+	    	        
+	    	       
     	        
 	    	        $.each(result, function( index, element ) {	 
 	    	        	var metrado = element.id;

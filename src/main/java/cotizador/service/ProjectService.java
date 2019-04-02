@@ -1,30 +1,34 @@
 package cotizador.service;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
-import javax.activation.MimetypesFileTypeMap;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.codehaus.jackson.map.ObjectMapper;
 
-import cotizador.model.domain.Precio;
+import cotizador.model.domain.Metrado;
 import cotizador.model.domain.Proyecto;
-import cotizador.model.domain.models.PriceListResponseModel;
+import cotizador.model.domain.Sistema;
+import cotizador.model.domain.enums.UnidadMedidaEnum;
+import cotizador.model.domain.helpers.NivelConfiguration;
+import cotizador.model.domain.helpers.ProductConfiguration;
+import cotizador.model.domain.models.MetradoModel;
 import cotizador.model.domain.models.ProjectModel;
 import cotizador.model.repository.GenericRepository;
 
@@ -32,6 +36,9 @@ public class ProjectService {
 
 	@Inject
 	GenericRepository genericRepository;
+	
+	@Inject
+	MetradoService metradoService;
 	
 	public static SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 	
@@ -146,6 +153,171 @@ public class ProjectService {
 			row.createCell(1).setCellValue(project.getNombre());
 			row.createCell(2).setCellValue(project.getNombreCliente());
 			row.createCell(3).setCellValue(project.getLocalidad());
+			
+			System.out.println("/get all metrado from dataBase by project");
+			List<Metrado> allMetradoList = new ArrayList<Metrado>();
+			Map<Integer, ProductConfiguration> productsMetrado = new HashMap<Integer, ProductConfiguration>();
+			Map<Sistema, Map<Integer, ProductConfiguration>> productSystemMetrado = new HashMap<Sistema, Map<Integer, ProductConfiguration>>();
+
+			try {
+
+			
+				float porcentajeHolgura = project.getPorcentajeHolgura();   
+				int tipoPrecio = project.getTipoPrecio();
+				allMetradoList = metradoService.getAllMetradoByProject(Integer.valueOf(idProject));
+				Double total = 0.0;
+				
+				NivelConfiguration nivelConfiguration = new NivelConfiguration();
+							
+				for (Metrado metrado : allMetradoList) {
+					
+					Double precioProducto = metrado.getPrecioProducto();
+					Integer cantidadProducto = metrado.getCantidadProducto();
+					int porcentajeResguardoProducto = metrado.getPrecio().getProducto().getPorcentajeResguardo();
+					Double porcentajeHolguraTotal = 0.0;
+					Double precioTotalPorNivel = 0.0;
+					
+					if(porcentajeHolgura > 0.0) {
+						porcentajeHolguraTotal = (cantidadProducto * ( new Double (porcentajeHolgura))) / 100.0;
+					} else {
+						porcentajeHolguraTotal = (cantidadProducto * ( new Double (porcentajeResguardoProducto))) / 100.0;
+					}
+					
+					if (tipoPrecio > 0) {
+						
+						switch (tipoPrecio) {
+							case 0:
+								precioTotalPorNivel = metrado.getPrecio().getPrecioMinimoo();
+								break;
+							case 1:
+								precioTotalPorNivel = metrado.getPrecio().getPrecioMaximo();
+								break;
+							case 2:
+								precioTotalPorNivel = metrado.getPrecio().getPrecioPromedio();
+								break;
+						}				
+						
+					} else {
+						precioTotalPorNivel = precioProducto;
+					}
+					
+					Double resultByNivel = (cantidadProducto + porcentajeHolguraTotal) * precioTotalPorNivel;
+					
+					total += resultByNivel;
+					
+					nivelConfiguration.setNivel(metrado.getNivel());
+					nivelConfiguration.setPrecioTotalNivel(precioTotalPorNivel);
+					
+					int idProducto = metrado.getPrecio().getProducto().getId();
+					
+					if (!productsMetrado.containsKey(idProducto)) {
+
+						ProductConfiguration productConfiguration = new ProductConfiguration(); 
+						productConfiguration.setProducto(metrado.getPrecio().getProducto());
+						productsMetrado.put(idProducto, productConfiguration);
+					}
+					
+					Double precioAcumProducto = productsMetrado.get(idProducto).getPrecioTotalProducto() + precioTotalPorNivel;
+					productsMetrado.get(idProducto).setPrecioTotalProducto(precioAcumProducto);
+							
+					if(productsMetrado.get(idProducto).getNiveles() == null || productsMetrado.get(idProducto).getNiveles().isEmpty()) {
+						List<NivelConfiguration> nivelConfigurations = new ArrayList<NivelConfiguration>();
+						nivelConfigurations.add(nivelConfiguration);
+						
+						productsMetrado.get(idProducto).setNiveles(nivelConfigurations);
+					} else {
+						productsMetrado.get(idProducto).getNiveles().add(nivelConfiguration);
+					}
+						
+					nivelConfiguration = new NivelConfiguration();
+					
+					Sistema sistema = metrado.getPrecio().getProducto().getSistema();
+					
+					productSystemMetrado.put(sistema, productsMetrado);
+									
+				}
+				
+				Boolean cabeceraNivelesCreada = false;
+				Set<Entry<Sistema, Map<Integer, ProductConfiguration>>> entrySet = productSystemMetrado.entrySet();
+				
+				int fila = 8;
+				int columna = 0;
+				int columnasTotales = 0;
+				
+				// Fila cabecera
+				
+				HSSFRow cabeceraProducts = sheet.createRow((short) 8);
+				cabeceraProducts.createCell(0).setCellValue("Codigo");
+				cabeceraProducts.createCell(1).setCellValue("Descripción");
+				cabeceraProducts.createCell(2).setCellValue("Unidad / Medida");
+				
+				for (Entry<Sistema, Map<Integer, ProductConfiguration>> entry : entrySet) {
+					
+					Sistema sistema = entry.getKey();
+					Map<Integer, ProductConfiguration> productsBySystem = entry.getValue();
+					
+					// crear fila de sistema
+					HSSFRow sistemaRow = sheet.createRow((short) fila++);
+					sistemaRow.createCell(0).setCellValue(sistema.getId());
+					sistemaRow.createCell(1).setCellValue(sistema.getNombre());
+								
+					Set<Entry<Integer, ProductConfiguration>> entryProducts = productsBySystem.entrySet();
+					
+					
+					for (Entry<Integer, ProductConfiguration> entry2 : entryProducts) {
+						Integer idProduct = entry2.getKey();
+						ProductConfiguration productConfiguration = entry2.getValue();
+						
+						List<NivelConfiguration> niveles = productConfiguration.getNiveles();
+						
+						Collections.sort(niveles, new Comparator<NivelConfiguration>() {
+						    @Override
+						    public int compare(NivelConfiguration o1, NivelConfiguration o2) {
+						        return Integer.valueOf(o1.getNivel().getOrden()).compareTo(Integer.valueOf(o2.getNivel().getOrden()));
+						    }
+						});	
+						
+						if (!cabeceraNivelesCreada) {
+							// crear fila de niveles en excel
+							
+							columna = 2;
+							for (NivelConfiguration nivel : niveles) {
+								cabeceraProducts.createCell(columna++).setCellValue(nivel.getNivel().getNombre());
+							}
+							
+							cabeceraProducts.createCell(columna++).setCellValue("TOTAL");
+							
+							cabeceraNivelesCreada = true;
+							columnasTotales = columna;
+						}
+						
+						columna = 0;
+						
+						// Escribir producto, unidad, niveles y el total por producto
+						HSSFRow productoRow = sheet.createRow((short) fila++);
+						productoRow.createCell(columna).setCellValue(productConfiguration.getProducto().getIdProductoMCO());
+						productoRow.createCell(columna++).setCellValue(productConfiguration.getProducto().getNombre());
+						
+						productoRow.createCell(columna++).setCellValue(getUnidadMedidaName(productConfiguration.getProducto().getUnidadMedida()));
+						
+						List<NivelConfiguration> nivelesProducto = productConfiguration.getNiveles();
+						
+						for (NivelConfiguration nivelProd : nivelesProducto) {
+							productoRow.createCell(columna++).setCellValue(nivelProd.getPrecioTotalNivel());
+						}
+						
+						productoRow.createCell(columna++).setCellValue(productConfiguration.getPrecioTotalProducto());
+					}
+				}
+				
+				
+				// TODO: total se debe colocar al final del calculo en el excel
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("metradoList: " + allMetradoList);
 
 			FileOutputStream fileOut = new FileOutputStream(fileName);
 			workbook.write(fileOut);
@@ -162,5 +334,24 @@ public class ProjectService {
 		
 		return null;
 	}
+
+	private String getUnidadMedidaName(int unidadMedida) {
+		
+		String unidad = String.valueOf(unidadMedida);
+		
+		if(UnidadMedidaEnum.LITROS.getValue().equals(unidad)) return "Litros";
+		if(UnidadMedidaEnum.PULGADAS.getValue().equals(unidad)) return "Pulgadas"; 
+		if(UnidadMedidaEnum.PIES.getValue().equals(unidad)) return "Pies"; 
+		if(UnidadMedidaEnum.METROS.getValue().equals(unidad)) return "Metros"; 
+		if(UnidadMedidaEnum.KILOMETROS.getValue().equals(unidad)) return "Kilómetros"; 
+		if(UnidadMedidaEnum.YARDAS.getValue().equals(unidad)) return "Yardas"; 
+		if(UnidadMedidaEnum.METROS_CUADRADOS.getValue().equals(unidad)) return "Metros cuadrados"; 
+		if(UnidadMedidaEnum.METROS_CUBICOS.getValue().equals(unidad)) return "Metros cúbicos"; 
+		if(UnidadMedidaEnum.ROLLOS.getValue().equals(unidad)) return "Rollos"; 
+		if(UnidadMedidaEnum.UNIDAD.getValue().equals(unidad)) return "Unidad"; 
+			
+		return "";
+	}
+
 
 }
