@@ -148,41 +148,43 @@ public class MetradoController extends GenericController {
 		System.out.println("/byNivel get all metrado from dataBase by nivel");
 		List<Metrado> allMetradoList = new ArrayList<Metrado>();
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Integer> nivelMap = new HashMap<String, Integer>();
+		Map<String, String> nivelMap = new HashMap<String, String>();
 		List<MetradoModel> listMetradoModel = new ArrayList<MetradoModel>();
 
 		try {
-
+			System.out.println("ID NIVEL " + nivelMap.get("idNivel"));
 			nivelMap = mapper.readValue(jsonForm, Map.class);
-			Integer idNivel = nivelMap.get("idNivel");
+			Integer idNivel = Integer.valueOf(nivelMap.get("idNivel"));
 			allMetradoList = metradoService.findAllMetrado(idNivel);
 			
-			for (Metrado metrado : allMetradoList) {
-				MetradoModel metradoModel = new MetradoModel();
-				metradoModel.setId(Integer.toString(metrado.getId()));
-				metradoModel.setNivel(Integer.toString(metrado.getNivel().getId()));
-				metradoModel.setSistema(Integer.toString(metrado.getPrecio().getProducto().getSistema().getId()));
-				metradoModel.setProducto(Integer.toString(metrado.getPrecio().getProducto().getId()));
-				metradoModel.setProveedor(Integer.toString(metrado.getPrecio().getProveedor().getId()));
-				metradoModel.setPrecio(Double.toString(metrado.getPrecioProducto()));
-				metradoModel.setCantidad(Integer.toString(metrado.getCantidadProducto()));
-				metradoModel.setPrecioLista(Integer.toString(metrado.getPrecio().getId()));
-				metradoModel.setNombreProducto(metrado.getPrecio().getProducto().getNombre());
-				metradoModel.setNombreProveedor(metrado.getPrecio().getProveedor().getNombre());
-				metradoModel.setNombreSistema(metrado.getPrecio().getProducto().getSistema().getNombre());
-				
-				if(metrado.getIdParentProduct() != null) {
-					
-					metradoModel.setIdParentProduct(Integer.toString(metrado.getIdParentProduct()));					
-					RelacionProducto relacionProducto = relationService.findRelationByProducts(metrado.getPrecio().getProducto().getId(), metrado.getIdParentProduct());
-					
-					metradoModel.setFactor(relacionProducto.getFactor());
-					metradoModel.setOperacion(Integer.toString(relacionProducto.getOperacion()));					
-				}
-				
-				listMetradoModel.add(metradoModel);
-			}
+			if(allMetradoList != null) {
 			
+				for (Metrado metrado : allMetradoList) {
+					MetradoModel metradoModel = new MetradoModel();
+					metradoModel.setId(Integer.toString(metrado.getId()));
+					metradoModel.setNivel(Integer.toString(metrado.getNivel().getId()));
+					metradoModel.setSistema(Integer.toString(metrado.getPrecio().getProducto().getSistema().getId()));
+					metradoModel.setProducto(Integer.toString(metrado.getPrecio().getProducto().getId()));
+					metradoModel.setProveedor(Integer.toString(metrado.getPrecio().getProveedor().getId()));
+					metradoModel.setPrecio(Double.toString(metrado.getPrecioProducto()));
+					metradoModel.setCantidad(Integer.toString(metrado.getCantidadProducto()));
+					metradoModel.setPrecioLista(Integer.toString(metrado.getPrecio().getId()));
+					metradoModel.setNombreProducto(metrado.getPrecio().getProducto().getNombre());
+					metradoModel.setNombreProveedor(metrado.getPrecio().getProveedor().getNombre());
+					metradoModel.setNombreSistema(metrado.getPrecio().getProducto().getSistema().getNombre());
+					
+					if(metrado.getIdParentProduct() != null) {
+						
+						metradoModel.setIdParentProduct(Integer.toString(metrado.getIdParentProduct()));					
+						RelacionProducto relacionProducto = relationService.findRelationByProducts(metrado.getPrecio().getProducto().getId(), metrado.getIdParentProduct());
+						
+						metradoModel.setFactor(relacionProducto.getFactor());
+						metradoModel.setOperacion(Integer.toString(relacionProducto.getOperacion()));					
+					}
+					
+					listMetradoModel.add(metradoModel);
+				}
+			}
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

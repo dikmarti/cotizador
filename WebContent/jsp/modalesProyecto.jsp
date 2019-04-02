@@ -679,7 +679,7 @@
 	});	
 		
 	$(".js-text").on('keypress', function (e) {
-		var regex = new RegExp("^([a-zA-Z0-9 ]|\\.|\\,|\\(|\\)|\\_|\\-)$");
+		var regex = new RegExp("^([áéíóúñaa-zÁÉÍÓÚñA-Z0-9 ]|\\.|\\,|\\(|\\)|\\_|\\-)$");
 		if(!regex.test(e.key)) {
 			return false;
 		}
