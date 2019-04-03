@@ -88,20 +88,20 @@ public class NivelController extends GenericController {
 
 	@SuppressWarnings("unchecked")
 	@POST
-	@Path("/deleteSystem")
+	@Path("/deleteNivel")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Boolean delete(String jsonForm, @Context HttpServletRequest httpRequest) {
 
-		System.out.println("/deleteSystem json form " + jsonForm);
+		System.out.println("/deleteNivel json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Integer> providerMap = new HashMap<String, Integer>();
 
 		try {
 
 			providerMap = mapper.readValue(jsonForm, Map.class);
-			Integer id = providerMap.get("id");
-			Boolean deleted = nivelService.deleteSystem(id);
+			Integer id = providerMap.get("idNivel");
+			Boolean deleted = nivelService.deleteNivel(id);
 
 			System.out.println("deleted: " + deleted);
 			if (deleted) {
@@ -161,41 +161,6 @@ public class NivelController extends GenericController {
 		}
 		return null;
 	}
-/*
-	@POST
-	@Path("/updateSystem")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Integer update(String jsonForm, @Context HttpServletRequest httpRequest) {
 
-		System.out.println("/updateSystem json form " + jsonForm);
-		ObjectMapper mapper = new ObjectMapper();
-		SystemModel systemModel = new SystemModel();
-
-		try {
-
-			systemModel = mapper.readValue(jsonForm, SystemModel.class);
-			
-			Integer status = projectService.updateSystem(systemModel.getNombre(), systemModel.getDescripcion(),
-					systemModel.getElementos(), systemModel.getMateriales(), systemModel.getId());
-
-			System.out.println("status: " + status);
-			return status;
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-*/
 
 }

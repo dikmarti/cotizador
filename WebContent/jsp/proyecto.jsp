@@ -366,20 +366,52 @@
 		
 		$("#btn-confirm-elim").click(function() {
 
-// TODO eliminar de bd
+			$("#msg-error-elim-nivel").removeClass("on");
+			
+			var $idNivel = $("div.remove").data("id");
+			
+			$("#confirm-elim-modal").css('z-index', '1');
+			
+ 			$.ajax({
+		    	  url: "/Cotizador/rest/nivel/deleteNivel",
+		    	  type: "POST",
+		    	  data: JSON.stringify({idNivel: $idNivel}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino eliminacion de nivel");
+		    	        console.log(result);
+		    	        
+		    	        if (result) {
+		    	        	
+		    	        	$("#confirm-elim-modal").css('z-index', '2');
+		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');  
+		    	        	
+		    	            $("div.remove").remove();
+			    			
+			    			var $test = $('#row-niveles div').sort(function(a,b) {
+			    			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
+			    			});
+			    			
+			    			$("#row-niveles").html("");			
+			    			$("#row-niveles").append($test);	
+			    			
+			    			$("#confirm-elim-modal").modal("hide");
+		    	        } else {
+		    	        	$("#msg-error-elim-nivel").addClass("on");
+		    	        }
+		    	       
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
 
-// eliminar div y ordenar divs
-
-			$("div.remove").remove();
 			
-			var $test = $('#row-niveles div').sort(function(a,b) {
-			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
-			});
-			
-			$("#row-niveles").html("");			
-			$("#row-niveles").append($test);	
-			
-			$("#confirm-elim-modal").modal("hide");
 		});
 
 		$("#btn-guardar-nivel").click(function() {

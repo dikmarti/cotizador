@@ -46,11 +46,11 @@ public class NivelService {
 	 * @param id
 	 * @return
 	 */
-	public Boolean deleteSystem(Integer id) {
+	public Boolean deleteNivel(Integer id) {
 
-		System.out.println("Method deleteSystem...");
+		System.out.println("Method deleteNivel...");
 
-		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Sistema u WHERE u.id = '" + id +"'");
+		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Nivel u WHERE u.id = '" + id +"'");
 
 		System.out.println("deleted: " + deleted);
 		Boolean systemResult = deleted == 1 ? Boolean.TRUE : Boolean.FALSE;

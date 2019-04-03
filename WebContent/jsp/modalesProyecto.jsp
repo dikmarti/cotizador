@@ -70,7 +70,14 @@
 		      		<div class="form-group col-md-6" style="width: 100%;">
 						  <span class="confirm">¿ Est&aacute; seguro que desea eliminar el nivel?</span>						    
       				</div>	      			
-	    		</div>		      		
+	    		</div>
+	    		<div class="form-row">
+	      			<div class="form-group col-md-12">
+					    <div class="msg-error" id="msg-error-elim-nivel">
+					   			Ocurrió un error al eliminar el nivel.
+		      			</div>
+	      			</div>
+				</div>		      		
 				<div class="form-style-button proyecto">
 				   	<input type="button" value="Aceptar" id="btn-confirm-elim" class="btn btn-primary confirm-ok" />	
 				   	<input type="button" value="Cancelar" id="btn-confirm-cancel" class="btn btn-primary confirm-no" />			   
