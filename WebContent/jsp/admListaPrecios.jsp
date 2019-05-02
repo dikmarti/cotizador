@@ -121,7 +121,7 @@
       		<div class="form-row">
       			<div class="form -group col-md-6">
 				    <input class="form-control" id="precioPromedio" type="text" name="precioPromedio" 
-				    	placeholder="Precio Promedio" maxlength="200"  style="margin-top: 15px;"/>
+				    	placeholder="Precio Promedio" maxlength="200"  style="margin-top: 15px;" disabled/>
       			</div>
       		</div>
       		<div class="form-row">
@@ -175,7 +175,7 @@
       		<div class="form-group row">
       			<label for="precioMaximo" class="col-sm-4 col-form-label">Precio Máximo:</label>
 			    <div class="col-sm-4">
-			      <input class="form-control" id="precioMaximo" type="text" name="precioMaximo" placeholder="Precio Máximo" maxlength="200"/>
+			      <input class="form-control" id="precioMaximo" type="text" name="precioMaximo" placeholder="Precio Máximo" maxlength="200" onkeyup="calcularPromedio(this);"/>
 			    </div>
       		</div>
       		<div class="form-group row">
@@ -229,7 +229,19 @@
 
 <script type="text/javascript">
 
+function calcularPromedio (element){
+	var precioMin = parseFloat($(element).parent("div").parent("div").siblings().find("#precioMinimo").val());
+	var precioMax = parseFloat($(element).val());
+	var precioProm = 0;
+	
+	if (precioMin != "" && precioMax != "") {
+		precioProm = (precioMin + precioMax) / 2;
+		$(element).parent("div").parent("div").siblings().find("#precioPromedio").val(precioProm);
+	}
+}
+
 $(document).ready(function() {
+	
    	 $.ajax({
     	  url: "/Cotizador/rest/priceList/all",
     	  type: "GET",

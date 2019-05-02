@@ -132,6 +132,11 @@
 				    	<div class="col-md-6">
 						      <input class="form-control js-numeric" id="cantidad" type="text" name="cantidad" placeholder="Cantidad" maxlength="200"/>
 				    	</div>
+				    	<div class="col-md-6">
+						      <span class="form-control" id="medida">
+						      
+						      </span>						      
+				    	</div>
 				    		      			
 		    		</div> 
 		    		
@@ -293,7 +298,9 @@
 				 	var o = new Option(element, index);
     	        	$(o).html(element);
     	        	$("#precio").append(o);		
-	 	        });			
+	 	        });	
+				 
+				 $("#precio").val(precioActual); 
 			}
 						
 		});
@@ -329,14 +336,42 @@
 		    	  success: function(result){	
 		    	        console.log("termino");
 		    	        console.log(result);
-		    	        
+		    	        var unidadMedida = "";
 		    	        $.each(result, function( index, element ) {	 
 		    	        	var o = new Option(result[index].proveedor.nombre, result[index].proveedor.id);
 		    	        	$(o).html(result[index].nombre);
-		    	        	$("#proveedor").append(o);		    	        	
+		    	        	$("#proveedor").append(o);	
+		    	        	unidadMedida = result[index].producto.unidadMedida;
 		    	        	priceList[result[index].producto.id + "_" + result[index].proveedor.id] = result[index].id;
 		    	        	preciosXProveedor[result[index].proveedor.id] = result[index].precioMinimoo + "," + result[index].precioMaximo + "," + result[index].precioPromedio;
 		    	        });
+		    	       
+		    	        switch(unidadMedida) {
+			    	        case "1":
+			    	        	unidadMedida = "Galón"; break;
+			    	        case "2":
+			    	        	unidadMedida = "Litros"; break;
+			    	        case "3":
+			    	        	unidadMedida = "Pulgadas"; break;
+			    	        case "4":
+			    	        	unidadMedida = "Pies"; break;
+			    	        case "5":
+			    	        	unidadMedida = "Metros"; break;
+			    	        case "5":
+			    	        	unidadMedida = "Kilómetros"; break;
+			    	        case "6":
+			    	        	unidadMedida = "Yardas"; break;
+			    	        case "7":
+			    	        	unidadMedida = "Metros Cuadrados"; break;
+			    	        case "8":
+				    	        unidadMedida = "Mtros Cúbicos"; break;
+			    	        case "9":
+			    	        	unidadMedida = "Rollos"; break;
+			    	        case "10":
+			    	        	unidadMedida = "Unidad"; break;
+		    	      	}
+		    	        
+		    	        $("#medida").val(unidadMedida);
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");

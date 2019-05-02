@@ -171,8 +171,6 @@ public class ProjectService {
 
 			try {
 
-			
-				float porcentajeHolgura = project.getPorcentajeHolgura();   
 				int tipoPrecio = project.getTipoPrecio();
 				allMetradoList = metradoService.getAllMetradoByProject(Integer.valueOf(idProject));
 				Double total = 0.0;
@@ -200,11 +198,9 @@ public class ProjectService {
 					Double porcentajeHolguraTotal = 0.0;
 					Double precioTotalPorNivel = 0.0;
 					
-					if(porcentajeHolgura > 0.0) {
-						porcentajeHolguraTotal = (cantidadProducto * ( new Double (porcentajeHolgura))) / 100.0;
-					} else {
-						porcentajeHolguraTotal = (cantidadProducto * ( new Double (porcentajeResguardoProducto))) / 100.0;
-					}
+					
+					porcentajeHolguraTotal = (cantidadProducto * ( new Double (porcentajeResguardoProducto))) / 100.0;
+					
 					
 					if (tipoPrecio > 0) {
 						

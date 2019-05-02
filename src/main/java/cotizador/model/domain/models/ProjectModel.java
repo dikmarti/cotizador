@@ -22,10 +22,11 @@ public class ProjectModel {
 	private String nivelConstruccion;
 	private String areaConstruccion;
 	private String soporte;
+	private String mcoCare;
 	private String garantia;
+	private String garantiaCableado;
 	private String tipoProyecto;
 	private String categoriaConstruccion;
-	private String porcentajeHolgura;
 	private String tipoPrecio;
 	private String fechaCreacion;
 	private String fechaModificacion;
@@ -97,6 +98,18 @@ public class ProjectModel {
 	public void setSoporte(String soporte) {
 		this.soporte = soporte;
 	}
+	public String getMcoCare() {
+		return mcoCare;
+	}
+	public void setMcoCare(String mcoCare) {
+		this.mcoCare = mcoCare;
+	}
+	public String getGarantiaCableado() {
+		return garantiaCableado;
+	}
+	public void setGarantiaCableado(String garantiaCableado) {
+		this.garantiaCableado = garantiaCableado;
+	}
 	public String getGarantia() {
 		return garantia;
 	}
@@ -114,12 +127,6 @@ public class ProjectModel {
 	}
 	public void setCategoriaConstruccion(String categoriaConstruccion) {
 		this.categoriaConstruccion = categoriaConstruccion;
-	}
-	public String getPorcentajeHolgura() {
-		return porcentajeHolgura;
-	}
-	public void setPorcentajeHolgura(String porcentajeHolgura) {
-		this.porcentajeHolgura = porcentajeHolgura;
 	}
 	public String getTipoPrecio() {
 		return tipoPrecio;
@@ -146,7 +153,7 @@ public class ProjectModel {
 				+ ", montoPresupuesto=" + montoPresupuesto + ", nivelConstruccion=" + nivelConstruccion
 				+ ", areaConstruccion=" + areaConstruccion + ", soporte=" + soporte + ", garantia=" + garantia
 				+ ", tipoProyecto=" + tipoProyecto + ", categoriaConstruccion=" + categoriaConstruccion
-				+ ", porcentajeHolgura=" + porcentajeHolgura + ", tipoPrecio=" + tipoPrecio + ", fechaCreacion="
+				+ ", tipoPrecio=" + tipoPrecio + ", fechaCreacion="
 				+ fechaCreacion + ", fechaModificacion=" + fechaModificacion + "]";
 	}
 }

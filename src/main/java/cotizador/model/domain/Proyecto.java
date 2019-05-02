@@ -49,16 +49,16 @@ public class Proyecto {
 	private boolean soporte;
 	
 	@Column
+	private String mcoCare;
+	
+	@Column
+	private String garantiaCableado;
+	
+	@Column
 	private boolean garantia;
 	
 	@Column(name="tipo_proyecto")
 	private String tipoProyecto;
-
-	@Column(name="categoria_construccion")
-	private String categoriaConstruccion;
-	
-	@Column(name="porcentaje_holgura")
-	private float porcentajeHolgura;
 	
 	@Column(name="tipo_precio")
 	private int tipoPrecio;
@@ -157,6 +157,22 @@ public class Proyecto {
 		this.soporte = soporte;
 	}
 
+	public String isMcoCare() {
+		return mcoCare;
+	}
+
+	public void setMcoCare(String mcoCare) {
+		this.mcoCare = mcoCare;
+	}
+
+	public String isGarantiaCableado() {
+		return garantiaCableado;
+	}
+
+	public void setGarantiaCableado(String garantiaCableado) {
+		this.garantiaCableado = garantiaCableado;
+	}
+
 	public boolean isGarantia() {
 		return garantia;
 	}
@@ -171,22 +187,6 @@ public class Proyecto {
 
 	public void setTipoProyecto(String tipoProyecto) {
 		this.tipoProyecto = tipoProyecto;
-	}
-
-	public String getCategoriaConstruccion() {
-		return categoriaConstruccion;
-	}
-
-	public void setCategoriaConstruccion(String categoriaConstruccion) {
-		this.categoriaConstruccion = categoriaConstruccion;
-	}
-
-	public float getPorcentajeHolgura() {
-		return porcentajeHolgura;
-	}
-
-	public void setPorcentajeHolgura(float porcentajeHolgura) {
-		this.porcentajeHolgura = porcentajeHolgura;
 	}
 
 	public int getTipoPrecio() {

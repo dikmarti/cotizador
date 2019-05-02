@@ -7,9 +7,7 @@ import javax.inject.Inject;
 
 import cotizador.model.domain.Modulo;
 import cotizador.model.domain.Permiso;
-import cotizador.model.domain.Usuario;
 import cotizador.model.repository.GenericRepository;
-import cotizador.utils.PasswordUtils;
 
 public class ModuleService {
 

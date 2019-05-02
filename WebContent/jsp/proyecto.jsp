@@ -58,22 +58,36 @@
 				    </select>
 		    	</div>
 		    	<div class="form-group col-md-4">
+				     <select class="form-control form-control-sm custom-color" id="mcoCare" name="mcoCare" >
+				    	<option class="placeholder-option" value="" disabled selected >MCO Care</option>
+				    	<option value="1">1 año</option>
+				    	<option value="2">2 años</option>				    	
+				    	<option value="3">3 años</option>
+				    	<option value="4">4 años</option>			    	
+				    	<option value="5">5 años</option>
+				    	<option value="6">Mayor a 5 años</option>
+				    </select>
+		    	</div>
+		    	<div class="form-group col-md-4">
 				   <select class="form-control form-control-sm custom-color" id="garantia" name="garantia" >
-				    	<option class="placeholder-option" value="" disabled selected >Garantía</option>
+				    	<option class="placeholder-option" value="" disabled selected >Garantía de fábrica</option>
 				    	<option value="0">Sí</option>
 				    	<option value="1">No</option>				    	
 				    </select>
 				</div>
-		    	<div class="form-group col-md-4">
-				     <input class="form-control js-text" id="tipoProyecto" type="text" name="tipoProyecto" placeholder="Tipo Proyecto" maxlength="200"/> 
-    			</div>
     		</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-				    <input class="form-control js-text" id="categoriaConstruccion" type="text" name="categoriaConstruccion" placeholder="Categoria de Construcción" maxlength="200"/>
-    			</div>
+				     <select class="form-control form-control-sm custom-color" id="garantiaCableado" name="garantiaCableado" >
+				    	<option class="placeholder-option" value="" disabled selected >Garantía de cableado estructurado</option>
+				    	<option value="5">5 años</option>
+				    	<option value="10">10 años</option>				    	
+				    	<option value="15">15 años</option>
+				    	<option value="20">20 años</option>
+				    </select>
+		    	</div>
     			<div class="form-group col-md-4">
-				    <input class="form-control js-decimal" id="porcentajeHolgura" type="text" name="porcentajeHolgura" placeholder="Porcentaje de Holgura" maxlength="200"/>
+				     <input class="form-control js-text" id="tipoProyecto" type="text" name="tipoProyecto" placeholder="Tipo Proyecto" maxlength="200"/> 
     			</div>
     			<div class="form-group col-md-4">
     			 	<select class="form-control form-control-sm custom-color" id="tipoPrecio" name="tipoPrecio" >
@@ -84,7 +98,19 @@
 				    </select>				    
     			</div>
     		</div>
-
+    		<div class="form-row">
+    			<div class="form-group col-md-12">
+				    <div class="msg-exito" id="fechaCreacion" name="fechaCreacion">
+				   		Fecha de Creaci&oacute;n:&nbsp;
+	     			</div>
+    			</div>
+    			<div class="form-group col-md-12">
+				    <div class="msg-exito" id="fechaModificacion" name="fechaModificacion">
+				   		Fecha de Modificaci&oacute;n:&nbsp;		
+	     			</div>
+    			</div>
+			</div>
+    		    		
     		<div class="form-row">
     			<div class="form-group col-md-12">
 				    <div class="msg-error" id="msg-error-proyecto">
@@ -124,6 +150,7 @@
 	
 	var nivelActual = "";
 	var proyectoActual = "";
+	var precioActual = "";
 	
 	$(document).ready(function() {
 		
@@ -171,10 +198,10 @@
 		    	        $("#nivelConstruccion").val(result.nivelConstruccion);
 		    	        $("#areaConstruccion").val(result.areaConstruccion);
 		    	        $("#soporte").val(result.soporte ? "0" : "1");
+		    	        $("#mcoCare").val(result.mcoCare);
 		    	        $("#garantia").val(result.garantia ? "0" : "1");
+		    	        $("#garantiaCableado").val(result.garantiaCableado);
 		    	        $("#tipoProyecto").val(result.tipoProyecto);
-		    	        $("#categoriaConstruccion").val(result.categoriaConstruccion);
-		    	        $("#porcentajeHolgura").val(result.porcentajeHolgura);
 		    	        $("#tipoPrecio").val(result.tipoPrecio);
 		    	        
 			    	    			    	        
@@ -255,7 +282,7 @@
 		});	
 		$("#btn-guardar-proyecto").click(function() {	
 			
-			 $(".msg-error").removeClass("on");
+			$("#msg-error-proyecto").removeClass("on");
 
 			var idCrmMCO = $("#idCrmMCO").val();
 			var nombreCliente = $("#nombreCliente").val();
@@ -269,8 +296,8 @@
 			var soporte = $("#soporte").val();
 			var garantia = $("#garantia").val();
 			var tipoProyecto = $("#tipoProyecto").val();
-			var categoriaConstruccion = $("#categoriaConstruccion").val();
-			var porcentajeHolgura = $("#porcentajeHolgura").val();
+			var garantiaCableado = $("#garantiaCableado").val();
+			var mcoCare = $("#mcoCare").val();
 			var tipoPrecio = $("#tipoPrecio").val();
 			$("#idProject").val(proyectoActual);
 			
@@ -278,7 +305,7 @@
 				nombre.trim() == "" || localidad.trim() == "" || nivelConstruccion.trim() == "" ||
 					montoInversion.trim() == "" || montoPresupuesto.trim() == "" || areaConstruccion.trim() == "" ||
 					 nivelConstruccion.trim() == "" || soporte == null || garantia == null || 
-					 	tipoProyecto.trim() == "" || categoriaConstruccion.trim() == "") {
+					 	tipoProyecto.trim() == "" || garantiaCableado.trim() == "" || mcoCare.trim() == "") {
 				
 				$("#msg-error-proyecto").addClass("show");
 				return false;
@@ -307,7 +334,17 @@
 		    	        } else {
 		    	        	if(result != null) {
 		    	        		$("#msg-exito-proyecto").addClass("show");
-		    	        		proyectoActual = result;
+		    	        		proyectoActual = result.id;
+
+		    	        		$("#fechaCreacion").append(result.fechaCreacion.substring(0, 10));
+		    	        		$("#fechaCreacion").addClass("show");
+		    	        		
+		    	        		precioActual = tipoPrecio;
+		    	        		
+		    	        		if(result.fechaModificacion != undefined && result.fechaModificacion != "") {
+		    	        			$("#fechaModificacion").append(result.fechaModificacion.substring(0, 10));	
+		    	        			$("#fechaModificacion").addClass("show");
+		    	        		}
 		    	        		
 		    	        		$("#btn-crear-nivel").css("display","inline-block");
 		    	        		
@@ -573,6 +610,8 @@
 		$("#nombre-nivel").val(elem.parent().data("nombre"));
 		$("#descripcion-nivel").val(elem.parent().data("descripcion-nivel"));
 		$("#idNivel").val(elem.parent().data("id"));
+		
+		$("#msg-exito-nivel").removeClass("show");
 		
 		$("#nivel-modal").modal("show");
 		$("#nivel-modal").css('z-index', '2');

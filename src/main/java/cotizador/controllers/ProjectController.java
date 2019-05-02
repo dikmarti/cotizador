@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,7 +12,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -22,16 +20,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.util.IOUtils;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import cotizador.model.domain.Nivel;
 import cotizador.model.domain.Proyecto;
 import cotizador.model.domain.models.ProjectModel;
 import cotizador.service.ProjectService;
@@ -47,7 +43,7 @@ public class ProjectController extends GenericController {
 	@Path("/createProject")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Integer create(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public Proyecto create(String jsonForm, @Context HttpServletRequest httpRequest) {
 
 		System.out.println("/createProject json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
@@ -70,9 +66,13 @@ public class ProjectController extends GenericController {
 			proyecto.setSoporte(projectModel.getSoporte().equals("0") ? false : true);
 			proyecto.setGarantia(projectModel.getGarantia().equals("0") ? false : true);
 			proyecto.setTipoProyecto(projectModel.getTipoProyecto());
-			proyecto.setCategoriaConstruccion(projectModel.getCategoriaConstruccion());
-			proyecto.setPorcentajeHolgura(Float.parseFloat(projectModel.getPorcentajeHolgura()));
-			proyecto.setTipoPrecio(Integer.parseInt(projectModel.getTipoPrecio()));
+			proyecto.setMcoCare(projectModel.getMcoCare());
+			proyecto.setGarantiaCableado(projectModel.getGarantiaCableado());
+			
+			if (!StringUtils.isEmpty(projectModel.getTipoPrecio())) {
+				proyecto.setTipoPrecio(Integer.parseInt(projectModel.getTipoPrecio()));	
+			}
+			
 			proyecto.setFechaCreacion(new Date());
 			
 			Integer idProyecto = null;
@@ -86,7 +86,7 @@ public class ProjectController extends GenericController {
 				idProyecto = proyecto.getId();				
 			}	
 			
-			return idProyecto;
+			return proyecto;
 
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
