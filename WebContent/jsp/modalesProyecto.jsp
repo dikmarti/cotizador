@@ -133,7 +133,7 @@
 						      <input class="form-control js-numeric" id="cantidad" type="text" name="cantidad" placeholder="Cantidad" maxlength="200"/>
 				    	</div>
 				    	<div class="col-md-6">
-						      <span class="form-control" id="medida">
+						      <span id="medida">
 						      
 						      </span>						      
 				    	</div>
@@ -347,31 +347,31 @@
 		    	        });
 		    	       
 		    	        switch(unidadMedida) {
-			    	        case "1":
+			    	        case 1:
 			    	        	unidadMedida = "Galón"; break;
-			    	        case "2":
+			    	        case 2:
 			    	        	unidadMedida = "Litros"; break;
-			    	        case "3":
+			    	        case 3:
 			    	        	unidadMedida = "Pulgadas"; break;
-			    	        case "4":
+			    	        case 4:
 			    	        	unidadMedida = "Pies"; break;
-			    	        case "5":
+			    	        case 5:
 			    	        	unidadMedida = "Metros"; break;
-			    	        case "5":
+			    	        case 5:
 			    	        	unidadMedida = "Kilómetros"; break;
-			    	        case "6":
+			    	        case 6:
 			    	        	unidadMedida = "Yardas"; break;
-			    	        case "7":
+			    	        case 7:
 			    	        	unidadMedida = "Metros Cuadrados"; break;
-			    	        case "8":
+			    	        case 8:
 				    	        unidadMedida = "Mtros Cúbicos"; break;
-			    	        case "9":
+			    	        case 9:
 			    	        	unidadMedida = "Rollos"; break;
-			    	        case "10":
+			    	        case 10:
 			    	        	unidadMedida = "Unidad"; break;
 		    	      	}
 		    	        
-		    	        $("#medida").val(unidadMedida);
+		    	        $("#medida").html(unidadMedida);
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");

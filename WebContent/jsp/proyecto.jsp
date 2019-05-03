@@ -171,7 +171,7 @@
 		function loadProyectData(){
 			
 			proyectoActual = $idProyecto;
-			
+						
 			if($idProyecto == undefined || $idProyecto == ""){
 				return false;
 			}
@@ -203,7 +203,8 @@
 		    	        $("#garantiaCableado").val(result.garantiaCableado);
 		    	        $("#tipoProyecto").val(result.tipoProyecto);
 		    	        $("#tipoPrecio").val(result.tipoPrecio);
-		    	        
+		    			
+		    	        precioActual = $("#tipoPrecio").val();
 			    	    			    	        
 		    	  },
 		    	  complete: function(result){
