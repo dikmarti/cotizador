@@ -563,63 +563,92 @@
 		    	        	var cantidadRelacion = 0;
 		    	        	var operacion = element.operacion;
 		    	        	var factor = element.factor;
+		    	        	var variableRelacion = element.cantidadRelacion;
+		    	        	
+		    	        	if (variableRelacion == 0) variableRelacion = 1;
 		    	        	
 		    	        	if(operacion == 0){
-		    	        		cantidadRelacion = cantidad / factor;
+		    	        		cantidadRelacion = variableRelacion * (cantidad / factor);
 		    	        	}
 		    	        	
 							if(operacion == 1){
-								cantidadRelacion = cantidad * factor;
+								cantidadRelacion = variableRelacion * ( cantidad * factor);
 		    	        	}
+							
+							var prodRel = $("#producto_"+element.productoRelacion.id);
+							
+							if (prodRel.length > 0){
+								var oldCantidad = prodRel.find("label-cantidad");								
+								cantidadRelacion += oldCantidad.val();
+								
+								var operacionAnterior = prodRel.data("operacion");
+								var factorAnterior = prodRel.data("factor");
+								var cantidadAnterior = prodRel.data("cantidad");
+								var variableAnterior = prodRel.data("variable");
+								var parentAnterior = prodRel.data("parent-product");
+								
+								operacionAnterior += "," + operacion;
+								factorAnterior += "," + factor;
+								cantidadAnterior += "," + cantidad;
+								variableAnterior  += "," + variable;
+								
+								prodRel.data("operacion", operacionAnterior);
+								prodRel.data("factor", factorAnterior);
+								prodRel.data("cantidad", cantidadAnterior);
+								prodRel.data("variable", variableAnterior);
+								prodRel.data("parent-product", parentAnterior);
+								
+								oldCantidad.val(cantidadRelacion);
+								
+							} else {
 		    	        	
-		    	        	htmlProducto = "";
-		    				
-		    				htmlProducto += "<div id='producto_"+ element.productoRelacion.id +"' class='js-product' data-operacion='" + operacion+ "' data-factor='"+ factor+"'  data-parent-product='" + producto+ "'>";			
-		    				
-		    				htmlProducto += '		<a id="modificarProducto" onclick="modificarProducto(this,1);" data-sistema="' + sistema + '" data-producto="' +  element.productoRelacion.id + '" data-proveedor="' + '' + '" data-precio="' + "" + '" data-cantidad="' + cantidadRelacion + '" title="Editar producto" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
-		    				
-		    				htmlProducto += '<div class="form-group row font-products" style="margin-top: 15px;">';
-		    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Producto:</label>';
-		    				htmlProducto += '   <div class="col-sm-10">';
-		    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + element.productoRelacion.nombre+ '" style="border: none;">';
-		    				htmlProducto += '    </div>';
-		    				htmlProducto += '</div>';
-
-		    				htmlProducto += '<div class="form-group row font-products">';
-		    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Proveedor:</label>';
-		    				htmlProducto += '   <div class="col-sm-10">';
-		    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-proveedor" value="' + '' + '" style="border: none;">';
-		    				htmlProducto += '    </div>';
-		    				htmlProducto += '</div>';
-
-		    				htmlProducto += '<div class="form-group row font-products">';
-		    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Precio:</label>';
-		    				htmlProducto += '   <div class="col-sm-10">';
-		    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-precio" value="' +''+ '" style="border: none;">';
-		    				htmlProducto += '    </div>';
-		    				htmlProducto += '</div>';
-		    				
-		    				htmlProducto += '<div class="form-group row font-products">';
-		    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Cantidad:</label>';
-		    				htmlProducto += '   <div class="col-sm-10">';
-		    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-cantidad" value="' + cantidadRelacion+ '" style="border: none;">';
-		    				htmlProducto += '    </div>';
-		    				htmlProducto += '</div>';
-		    				
-		    				htmlProducto += '<div class="form-group row font-products">';
-		    				htmlProducto += '   <div class="msg-error" id="msg-error-producto">';
-		    				htmlProducto += '      Debe ingresar los datos.';
-		    				htmlProducto += '    </div>';
-		    				htmlProducto += '</div>';
-		    				
-		    				htmlProducto += "</div>";
-		    				
-		    				if(divSistema.length > 0) {								
-		    					divSistema.find(".panel-body").append(htmlProducto);
-		    					$("#producto_" + element.productoRelacion.id).addClass("sep-products");
-		    				}
-		    				
-		    				
+			    	        	htmlProducto = "";
+			    				
+			    				htmlProducto += "<div id='producto_"+ element.productoRelacion.id +"' class='js-product' data-operacion='" + operacion+ "' data-factor='"+ factor+"' data-variable='"+variableRelacion+"' data-cantidad='"+ cantidad+"'  data-parent-product='" + producto+ "'>";			
+			    				
+			    				htmlProducto += '		<a id="modificarProducto" onclick="modificarProducto(this,1);" data-sistema="' + sistema + '" data-producto="' +  element.productoRelacion.id + '" data-proveedor="' + '' + '" data-precio="' + "" + '" data-cantidad="' + cantidadRelacion + '" title="Editar producto" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
+			    				
+			    				htmlProducto += '<div class="form-group row font-products" style="margin-top: 15px;">';
+			    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Producto:</label>';
+			    				htmlProducto += '   <div class="col-sm-10">';
+			    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + element.productoRelacion.nombre+ '" style="border: none;">';
+			    				htmlProducto += '    </div>';
+			    				htmlProducto += '</div>';
+	
+			    				htmlProducto += '<div class="form-group row font-products">';
+			    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Proveedor:</label>';
+			    				htmlProducto += '   <div class="col-sm-10">';
+			    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-proveedor" value="' + '' + '" style="border: none;">';
+			    				htmlProducto += '    </div>';
+			    				htmlProducto += '</div>';
+	
+			    				htmlProducto += '<div class="form-group row font-products">';
+			    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Precio:</label>';
+			    				htmlProducto += '   <div class="col-sm-10">';
+			    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-precio" value="' +''+ '" style="border: none;">';
+			    				htmlProducto += '    </div>';
+			    				htmlProducto += '</div>';
+			    				
+			    				htmlProducto += '<div class="form-group row font-products">';
+			    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Cantidad:</label>';
+			    				htmlProducto += '   <div class="col-sm-10">';
+			    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-cantidad" value="' + cantidadRelacion+ '" style="border: none;">';
+			    				htmlProducto += '    </div>';
+			    				htmlProducto += '</div>';
+			    				
+			    				htmlProducto += '<div class="form-group row font-products">';
+			    				htmlProducto += '   <div class="msg-error" id="msg-error-producto">';
+			    				htmlProducto += '      Debe ingresar los datos.';
+			    				htmlProducto += '    </div>';
+			    				htmlProducto += '</div>';
+			    				
+			    				htmlProducto += "</div>";
+			    				
+			    				if(divSistema.length > 0) {								
+			    					divSistema.find(".panel-body").append(htmlProducto);
+			    					$("#producto_" + element.productoRelacion.id).addClass("sep-products");
+			    				}
+							}
 		    	        });
 		    	        
 		    	        
@@ -668,18 +697,54 @@
 				var labelCantidad = $(element).find("#label-cantidad");
 				
 				var cantidadRelacion = 0;
-   	        	var operacion = $(element).data("operacion");
-   	        	var factor = $(element).data("factor");
-   	        	
-   	        	if(operacion == 0){
-   	        		cantidadRelacion = cantidad / factor;
-   	        	}
-   	        	
-				if(operacion == 1){
-					cantidadRelacion = cantidad * factor;
-   	        	}
 				
-				labelCantidad.val(cantidadRelacion);			
+				var operacionAnterior = $(element).data("operacion");
+				var factorAnterior = $(element).data("factor");
+				var cantidadAnterior = $(element).data("cantidad");
+				var variableAnterior = $(element).data("variable");
+				var parentAnterior = $(element).data("parent-product");
+				
+				var listaParent = parentAnterior.split(",");
+				
+				 $.each(listaParent, function( index, element ) {	
+					 
+					 if(element == producto) {
+						var cantSinProducto = labelCantidad.val() - cantidadAnterior[index];
+								   	        	
+		   	        	if(operacionAnterior[index] == 0){
+		   	        		cantidadRelacion = variableAnterior[index] * (cantidad / factorAnterior[index]);
+		   	        	}
+		   	        	
+						if(operacionAnterior[index] == 1){
+							cantidadRelacion = variableAnterior[index] * (cantidad * factorAnterior[index]);
+		   	        	}
+						
+						cantidadAnterior[index] = cantidadRelacion;
+						cantSinProducto += cantidadRelacion;
+						labelCantidad.val(cantSinProducto);	
+						
+						 $(element).data("cantidad", cantidadAnterior);
+					 }
+				 	
+	 	        });	
+				
+				if (listaParent.length == 1) {
+					var operacion = $(element).data("operacion");
+	   	        	var factor = $(element).data("factor");
+	   	        	var variable = $(element).data("variable");
+	   	        	
+	   	        	if(operacion == 0){
+	   	        		cantidadRelacion = variable * (cantidad / factor);
+	   	        	}
+	   	        	
+					if(operacion == 1){
+						cantidadRelacion = variable * (cantidad * factor);
+	   	        	}
+					
+					$(element).data("cantidad", cantidadRelacion);
+					labelCantidad.val(cantidadRelacion);
+				}
+				   	        		
 			});		
 			
 		});	
@@ -1002,7 +1067,8 @@
 				    	        	$(o).html(result[index].nombre);
 				    	        	$("#proveedor").append(o);		    	        	
 				    	        	priceList[result[index].producto.id + "_" + result[index].proveedor.id] = result[index].id;
-				    	        	preciosXProveedor[result[index].proveedor.id] = result[index].precioMinimoo + "," + result[index].precioMaximo + "," + result[index].precioPromedio;
+				    	        	preciosXProveedor[result[index].proveedor.id] = result[index].precioMinimoo + "," + result[index].precioMaximo + "," + 
+				    	        	result[index].precioPromedio;
 				    	        });
 				    	        
 				    	        $("#proveedor").val(proveedor);
@@ -1096,20 +1162,48 @@
 			
 			var idMetrado = $(element).parent("div").data("metrado")
 			
-			if (idMetrado != undefined) {
+			if ghubj (idMetrado != undefined) {
 				metradoEliminados += "," + idMetrado.toString();		
 			}					
 			 
 			 $("#producto_"+ producto).remove();
+			 
+			 // recorrer todos los div de proyecto y hacer split de parent 
+			 // para verificatr los hijos de ese padre
+			 // si esta ahi restar la cantidad de la relacion con el padre
 			
-			var productDivs = $("[data-parent-product="+producto+"]");			
-			$.each(productDivs, function( index, element ) {
-				var idMetradoRel = $(element).data("metrado");
+			var productDivs = $(".js-product");			
+			$.each(productDivs, function( index, elementProd ) {
 				
-				if (idMetradoRel != undefined) {
-					metradoEliminados += "," + idMetradoRel.toString();	
-				}						
-				element.remove();
+				var parentData = $(elementProd).data("parent-product");	
+				
+				var parents = parentData.split(",");
+				var cantidades = $(elementProd).data("cantidad").split(",");	
+				
+				$.each(parents, function( index, element ) {
+					
+					if(element == producto) {
+						
+						var cantProd =  cantidades[index];	
+						var labelCantidad = $(element).find("#label-cantidad");
+						var cantSinProducto = labelCantidad.val() - cantProd;
+						
+						labelCantidad.val(cantSinProducto);
+						
+						var idMetradoRel = $(element).data("metrado");
+						var cantProducto = $(element).data("cantidad");
+						
+						if (idMetradoRel != undefined) {
+							metradoEliminados += "," + idMetradoRel.toString();	
+						}
+						
+						if (parents.length == 1) {
+							$(elementProd).remove();	
+						}											
+					}
+					
+				});				
+				
 			});
 			 
 			 var contentSistemas = $.trim($("#sistema_"+ sistema).find("panel-body").text());

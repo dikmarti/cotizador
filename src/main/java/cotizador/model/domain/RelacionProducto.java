@@ -44,6 +44,9 @@ public class RelacionProducto {
 	@Column(name="operacion")
 	private int operacion;
 	// 0 div, 1 mult
+	
+	@Column
+	private Double cantidadRelacion;
 
 	public int getId() {
 		return id;
@@ -91,6 +94,14 @@ public class RelacionProducto {
 
 	public void setOperacion(int operacion) {
 		this.operacion = operacion;
+	}
+
+	public Double getCantidadRelacion() {
+		return cantidadRelacion;
+	}
+
+	public void setCantidadRelacion(Double cantidadRelacion) {
+		this.cantidadRelacion = cantidadRelacion;
 	}
 
 	@Override

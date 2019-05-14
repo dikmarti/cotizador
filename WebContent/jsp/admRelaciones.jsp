@@ -40,6 +40,8 @@
       </th>
       <th class="th-sm">Operación
       </th>
+      <th class="th-sm">Cantidad
+      </th>
     </tr>
   </thead>
   <tbody id="user-table-data-permission">
@@ -57,6 +59,8 @@
       <th>Factor
       </th>
       <th>Operación
+      </th>
+      <th>Cantidad
       </th>
     </tr>
   </tfoot>
@@ -100,6 +104,9 @@
 				    		name="productoRelacion">
 				    	<option class="placeholder-option" value="" disabled selected >Seleccione el Producto a Relacionar</option>
 				    </select>
+      			</div>
+      			<div class="form-group col-md-4">
+				    <input class="form-control" id="cantidadRelacion" type="text" name="cantidadRelacion" placeholder="Cantidad" maxlength="200" value="1"/>
       			</div>
       		</div>
       		<div class="form-row">
@@ -161,6 +168,9 @@
 			    <div class="col-sm-8">
 			      <input type="text" readonly class="form-control-plaintext" id="productoRelacion" value="" style="border: none;">
 			    </div>
+			    <div class="form-group col-md-4">
+				    <input class="form-control" id="cantidadRelacion" type="text" name="cantidadRelacion" placeholder="Cantidad" maxlength="200" value="1"/>
+      			</div>
       		</div>
       		<div class="form-group row">
       			<div class="form-group col-md-4">
@@ -235,7 +245,8 @@ $(document).ready(function() {
     	        		       	  "Producto": result[index].producto.nombre, 
     	        		    	  "ProductoRelacion": result[index].productoRelacion.nombre,
     	        		    	  "Factor": result[index].factor,
-    	        		    	  "Operacion": returnOperacionVal(result[index].operacion)
+    	        		    	  "Operacion": returnOperacionVal(result[index].operacion),
+    	        		    	  "Cantidad": result[index].cantidadRelacion
     	        		    	}]).draw(); 
     	        });
     	  },
@@ -271,7 +282,8 @@ $(document).ready(function() {
             	    {data: 'Producto'},
             	    {data: 'ProductoRelacion'},
             	    {data: 'Factor'},
-            	    {data: 'Operacion'}],
+            	    {data: 'Operacion'},
+            	    {data: 'Cantidad'}],
         	    "columnDefs": [
                     {
                         "targets": [ 0 ],
@@ -303,7 +315,8 @@ $(document).ready(function() {
 				$("#productoRelacion").val([""]);
 		    	$("#factor").val('');
 				$("#operacion").val([""]);
-			
+				$("#cantidad").val("1");
+				
 				$.ajax({
 			    	  url: "/Cotizador/rest/system/all",
 			    	  type: "GET",
@@ -348,6 +361,7 @@ $(document).ready(function() {
 				$('#product-modal-relation-update').find('#productoRelacion').val($relationModify.ProductoRelacion);
 				$('#product-modal-relation-update').find('#factor').val($relationModify.Factor);
 				$('#product-modal-relation-update').find('#operacion').val(returnOperacion($relationModify.Operacion));
+				$('#product-modal-relation-update').find('#cantidad').val($relationModify.Cantidad);
 				$('#product-modal-relation-update').find('#operacion').removeClass("custom-color");
 				$("#product-modal-relation-update").modal("show");
 			});
@@ -416,6 +430,8 @@ $(document).ready(function() {
 		    	 var $productoRelacion =  $("#productoRelacion option:selected").val();
 		    	 var $factor =  $("#factor").val();
 		    	 var $operacion =  $("#operacion option:selected").val();
+		    	 var $cantidad =  $("#cantidad").val();
+		    	 
 		    	 $(".msg-error").removeClass("on");
 			     $(".msg-error").html("Debe ingresar los datos.");
 			     
@@ -512,6 +528,12 @@ $(document).ready(function() {
 
 		    	 if($operacion == "") {
 			    	 $(".msg-error").html("Debe seleccionar el tipo de operación.")
+			    	 $(".msg-error").addClass("on");
+			    	 return false;
+			     }
+		    	 
+		    	 if($cantidad == "") {
+			    	 $(".msg-error").html("Debe seleccionar la cantidad.")
 			    	 $(".msg-error").addClass("on");
 			    	 return false;
 			     }
