@@ -72,18 +72,15 @@ public class ProjectController extends GenericController {
 			if (!StringUtils.isEmpty(projectModel.getTipoPrecio())) {
 				proyecto.setTipoPrecio(Integer.parseInt(projectModel.getTipoPrecio()));	
 			}
-			
-			proyecto.setFechaCreacion(new Date());
-			
-			Integer idProyecto = null;
+					
 			int idProj = projectModel.getId();
 			
 			if(idProj == 0) {
-				idProyecto = ((Proyecto) projectService.createProject(proyecto)).getId();	
+				proyecto.setFechaCreacion(new Date());
 			} else {
 				proyecto.setId(idProj);
+				proyecto.setFechaModificacion(new Date());
 				projectService.updateProject(proyecto);
-				idProyecto = proyecto.getId();				
 			}	
 			
 			return proyecto;

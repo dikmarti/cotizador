@@ -50,7 +50,7 @@ public class ModuleService {
 		genericRepository.getAllObjectByQuery("SELECT m FROM Proyecto m");*/
 		genericRepository.getAllObjectByQuery("SELECT m FROM Marca m");
 		genericRepository.getAllObjectByQuery("SELECT m FROM Producto m");
-		genericRepository.getAllObjectByQuery("SELECT m FROM Sistema m");
+		genericRepository.getAllObjectByQuery("SELECT m FROM Precio m");
 	
 		
 		return  result;

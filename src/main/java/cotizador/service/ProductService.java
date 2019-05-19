@@ -55,7 +55,7 @@ public class ProductService {
 	
 	/**
 	 * Metodo que registra un nuevo producto a la base de datos
-	 * @param idMco
+	 * @param idMcb
 	 * @param idFabricante
 	 * @param codigo
 	 * @param nombre
@@ -67,27 +67,22 @@ public class ProductService {
 	 * @param sistema
 	 * @return
 	 */
-	public Integer createProduct(Integer idMco, Integer numParteFabricante, String nombre,  
-			String descripcion, Integer porcentajeResguardo, String observacion, Integer unidadMedida, 
+	public Integer createProduct(String idMcb, Integer numParteFabricante, String nombre,  
+			Double porcentajeResguardo, String observacion, Integer unidadMedida, 
 			Integer sistema, Integer marca) {
 
 		System.out.println("Method createProduct...");
 
 		Producto producto = new Producto();
 		
-		producto.setIdProductoMCO(idMco);
-		producto.setNumParteFabricante(numParteFabricante);
+		producto.setIdProductoMCB(idMcb);
 		producto.setNombre(nombre);
-		producto.setDescripcion(descripcion);
 		producto.setPorcentajeResguardo(porcentajeResguardo);
 		producto.setObservacion(observacion);
 		producto.setUnidadMedida(unidadMedida);
 		
 		Sistema system = systemService.findSystemById(sistema);
 		producto.setSistema(system);
-		
-		Marca brand = brandService.findBrandById(marca);
-		producto.setMarca(brand);
 		
 		System.out.println("Creating product from data base");
 		Object object = genericRepository.addObject(producto);
@@ -130,9 +125,6 @@ public class ProductService {
 			Sistema system = systemService.findSystemById(sistema);
 			producto.setSistema(system);
 		}
-	
-		Marca brand = brandService.findBrandById(marca);
-		producto.setMarca(brand);
 		
 		genericRepository.updateObject(producto);
 		

@@ -45,7 +45,7 @@ public class PriceListService {
 				priceListResponseModel.setId(p.getId());
 				priceListResponseModel.setProducto(p.getProducto().getNombre());
 				priceListResponseModel.setProveedor(p.getProveedor().getNombre());
-				priceListResponseModel.setPrecioMinimo(String.valueOf(p.getPrecioMinimoo()));
+				priceListResponseModel.setPrecioMinimo(String.valueOf(p.getPrecioMinimo()));
 				priceListResponseModel.setPrecioMaximo(String.valueOf(p.getPrecioMaximo()));
 				priceListResponseModel.setPrecioPromedio(String.valueOf(p.getPrecioPromedio()));
 				priceListResponseModel.setFechaInicio(p.getFechaInicio() != null ? format.format(p.getFechaInicio()) : "");

@@ -17,19 +17,13 @@ public class Producto {
 	private int id;
 	
 	@Column
-	private int idProductoMCO;
-	
-	@Column(name="num_parte_fabricante")
-	private int numParteFabricante;
+	private String idProductoMCB;
 			
 	@Column
 	private String nombre;
 	
-	@Column
-	private String descripcion;
-	
 	@Column(name="porcentaje_resguardo")
-	private int porcentajeResguardo;
+	private double porcentajeResguardo;
 	
 	@Column
 	private String observacion;
@@ -41,10 +35,6 @@ public class Producto {
 	@PrimaryKeyJoinColumn(name="id_sistema", referencedColumnName="id")
 	private Sistema sistema;
 
-	@ManyToOne
-	@PrimaryKeyJoinColumn(name="id_marca", referencedColumnName="id")
-	private Marca marca;
-
 	public int getId() {
 		return id;
 	}
@@ -53,12 +43,12 @@ public class Producto {
 		this.id = id;
 	}
 
-	public int getIdProductoMCO() {
-		return idProductoMCO;
+	public String getIdProductoMCB() {
+		return idProductoMCB;
 	}
 
-	public void setIdProductoMCO(int idProductoMCO) {
-		this.idProductoMCO = idProductoMCO;
+	public void setIdProductoMCB(String idProductoMCB) {
+		this.idProductoMCB = idProductoMCB;
 	}
 
 	public String getNombre() {
@@ -69,19 +59,11 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public int getPorcentajeResguardo() {
+	public double getPorcentajeResguardo() {
 		return porcentajeResguardo;
 	}
 
-	public void setPorcentajeResguardo(int porcentajeResguardo) {
+	public void setPorcentajeResguardo(double porcentajeResguardo) {
 		this.porcentajeResguardo = porcentajeResguardo;
 	}
 
@@ -109,28 +91,12 @@ public class Producto {
 		this.sistema = sistema;
 	}
 	
-	public Marca getMarca() {
-		return marca;
-	}
-
-	public void setMarca(Marca marca) {
-		this.marca = marca;
-	}
-
-	public int getNumParteFabricante() {
-		return numParteFabricante;
-	}
-
-	public void setNumParteFabricante(int numParteFabricante) {
-		this.numParteFabricante = numParteFabricante;
-	}
-
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", idProductoMCO=" + idProductoMCO + ", numParteFabricante=" + numParteFabricante
-				+ ", nombre=" + nombre + ", descripcion=" + descripcion + ", porcentajeResguardo=" + porcentajeResguardo
+		return "Producto [id=" + id + ", idProductoMCB=" + idProductoMCB 
+				+ ", nombre=" + nombre + ", porcentajeResguardo=" + porcentajeResguardo
 				+ ", observacion=" + observacion + ", unidadMedida=" + unidadMedida + ", sistema=" + sistema
-				+ ", marca=" + marca + "]";
+				+ "]";
 	}
 
 }
