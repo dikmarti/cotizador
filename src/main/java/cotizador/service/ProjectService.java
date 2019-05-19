@@ -136,7 +136,7 @@ public class ProjectService {
 	}
 	
 	/**
-	 * Metodo que retorna un proyecto de la base por id
+	 * Metodo que retorna los niveles de un proyecto de la base por id
 	 * @param id
 	 * @return
 	 */
@@ -162,19 +162,9 @@ public class ProjectService {
 			return 1;
 		}
 		Proyecto project = findProjectById(Integer.parseInt(idProject));
-		Proyecto newProject = new Proyecto();
-		Proyecto projectResult = (Proyecto) genericRepository.addObject(newProject);
-		List<Object> levels = genericRepository
-				.getAllObjectByQuery("SELECT u FROM Nivel n WHERE n.proyecto.id = '" 
-						+ idProject +"'");
-		List<Nivel> newLevels = (List<Nivel>) (Object) levels;
-		for (Nivel nivel : newLevels) {
-			nivel.setProyecto(newProject);
-			genericRepository.addObject(nivel);
-		}
-		
-		
-		
+		Proyecto newProject = duplicateProject(project);
+		List<Nivel> levels = findNivelesByIdProject(Integer.parseInt(idProject));
+		List<Nivel> newLevels = duplicateLevels(levels, newProject);
 		
 		System.out.println("Updating project version from data base");
 		int status = genericRepository.executeUpdateQuery("UPDATE Proyecto u SET u.fechaFin = '" + new Date() + "', "
@@ -190,10 +180,67 @@ public class ProjectService {
 	
 	private Proyecto duplicateProject(Proyecto oldProject) {
 		Proyecto project = new Proyecto();
-		project.setAreaConstruccion(oldProject.getAreaConstruccion());
+		
+		project.setCargoContacto(oldProject.getCargoContacto());
+		project.setCorreoContacto(oldProject.getCorreoContacto());
+		project.setDireccion(oldProject.getDireccion());
 		project.setFechaCreacion(new Date());
-		project.setGarantia(oldProject.isGarantia());
-		return project;
+		project.setIdCrmMCO(oldProject.getIdCrmMCO());
+		project.setLocalidad(oldProject.getLocalidad());
+		project.setNombreContacto(oldProject.getNombreContacto());
+		project.setNombreCliente(oldProject.getNombreCliente());
+		project.setRuc(oldProject.getRuc());
+		project.setTelefonoContacto(oldProject.getTelefonoContacto());
+		project.setTipoPrecio(oldProject.getTipoPrecio());
+		
+		Proyecto projectReturn = (Proyecto) genericRepository.addObject(project);
+
+		return projectReturn;
+	}
+	
+	private List<Nivel> duplicateLevels(List<Nivel> oldLevels, Proyecto project) {
+		List<Nivel> levelsReturn = new ArrayList<Nivel>();
+		
+		for (Nivel nivel : oldLevels) {
+			Nivel level = new Nivel();
+			level.setDescripcion(nivel.getDescripcion());
+			level.setNombre(nivel.getNombre());
+			level.setOrden(nivel.getOrden());
+			level.setProyecto(project);
+			
+			Nivel newLevel = (Nivel) genericRepository.addObject(level);
+			
+			duplicateMetrado(nivel, newLevel);
+			
+			levelsReturn.add(newLevel);
+		}
+	
+		return levelsReturn;
+	}
+	
+	private List<Metrado> duplicateMetrado(Nivel oldLevel, Nivel level) {
+		
+		List<Metrado> allObject = (List<Metrado>) (Object) genericRepository
+				.getAllObjectByQuery("SELECT u FROM Metrado m WHERE m.nivel.id = '"+ oldLevel +"'");
+		
+		List<Metrado> newMetradoList = new ArrayList<Metrado>();
+		
+		for (Metrado metrado : allObject) {
+			Metrado newMetrado = new Metrado();
+			
+			newMetrado.setCantidadProducto(metrado.getCantidadProducto());
+			newMetrado.setIdParentProduct(metrado.getIdParentProduct());
+			newMetrado.setMontoTotal(metrado.getMontoTotal());
+			newMetrado.setNivel(level);
+			newMetrado.setPrecio(metrado.getPrecio());
+			newMetrado.setPrecioProducto(metrado.getPrecioProducto());
+			
+			newMetradoList.add(newMetrado);
+		}
+		
+		List<Metrado> newMetradoListReturn = (List<Metrado>) (Object) genericRepository.addAllObject(listObject);
+		
+		return newMetradoListReturn;
 	}
 	
 	private boolean isValidProject(String idProject) {
