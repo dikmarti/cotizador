@@ -110,109 +110,107 @@
     </display>  
   </class>  
   <association id="13">    
-    <bendpoint x="878" y="1160"/>    
-    <bendpoint x="646" y="1160"/>    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="14" name="cliente">        
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="14" name="nivel">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="15" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="16">    
-    <bendpoint x="830" y="1189"/>    
-    <bendpoint x="830" y="1635"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="17" name="modulo">        
+    <bendpoint x="2437" y="247"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="17" name="precio">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="18" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="19">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="20" name="proyecto">        
+    <bendpoint x="2875" y="1339"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="20" name="sistema">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="21" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="22">    
-    <bendpoint x="1107" y="248"/>    
-    <bendpoint x="1107" y="519"/>    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="23" name="proyecto">        
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="23" name="proveedor">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="24" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="25">    
-    <bendpoint x="2437" y="247"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="26" name="precio">        
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="26" name="proyecto">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="27" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="28">    
-    <bendpoint x="2875" y="1339"/>    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="29" name="sistema">        
+    <bendpoint x="1107" y="248"/>    
+    <bendpoint x="1107" y="519"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="29" name="proyecto">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="30" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="31">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="32" name="nivel">        
+    <bendpoint x="1412" y="1189"/>    
+    <bendpoint x="1412" y="1001"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="32" name="usuario">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="33" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="34">    
-    <bendpoint x="1412" y="1189"/>    
-    <bendpoint x="1412" y="1001"/>    
+    <bendpoint x="830" y="1189"/>    
+    <bendpoint x="830" y="1635"/>    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="35" name="usuario">        
+      <attribute id="35" name="modulo">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="36" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="37">    
@@ -227,18 +225,6 @@
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="40">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="41" name="proveedor">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="42" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

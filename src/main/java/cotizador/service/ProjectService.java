@@ -162,7 +162,7 @@ public class ProjectService {
 			return 1;
 		}
 		Proyecto project = findProjectById(Integer.parseInt(idProject));
-		Proyecto newProject = new Proyecto();
+		Proyecto newProject = duplicateProject(project);
 		Proyecto projectResult = (Proyecto) genericRepository.addObject(newProject);
 		List<Object> levels = genericRepository
 				.getAllObjectByQuery("SELECT u FROM Nivel n WHERE n.proyecto.id = '" 
@@ -193,6 +193,10 @@ public class ProjectService {
 		project.setAreaConstruccion(oldProject.getAreaConstruccion());
 		project.setFechaCreacion(new Date());
 		project.setGarantia(oldProject.isGarantia());
+//		project.setGarantiaCableado(oldProject.getGarantiaCableado());
+		project.setIdCrmMCO(oldProject.getIdCrmMCO());
+		project.setLocalidad(oldProject.getLocalidad());
+//		project.setMcoCare(oldProject.get);
 		return project;
 	}
 	
