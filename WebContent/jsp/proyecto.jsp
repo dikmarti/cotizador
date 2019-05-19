@@ -35,60 +35,26 @@
 		    		<input class="form-control js-text" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
     			</div>    			
     			<div class="form-group col-md-4">
-		    		<input class="form-control js-decimal" id="montoInversion" type="text" name="montoInversion" placeholder="Monto de inversión" maxlength="200"/>
+		    		<input class="form-control js-decimal" id="direccion" type="text" name="direccion" placeholder="Dirección" maxlength="200"/>
     			</div>
     		</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-				    <input class="form-control js-decimal" id="montoPresupuesto" type="text" name="montoPresupuesto" placeholder="Monto de partida" maxlength="200"/>
+				    <input class="form-control js-decimal" id="nombreContacto" type="text" name="nombreContacto" placeholder="Nombre de Contacto" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-				    <input class="form-control js-text" id="nivelConstruccion" type="text" name="nivelConstruccion" placeholder="Nivel de construccion" maxlength="200"/>
+				    <input class="form-control js-decimal" id="cargoContacto" type="text" name="cargoContacto" placeholder="Cargo de Contacto" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-				    <input class="form-control js-decimal" id="areaConstruccion" type="text" name="areaConstruccion" placeholder="Área de construccion" maxlength="200"/>
+				    <input class="form-control js-text" id="correoContacto" type="text" name="correoContacto" placeholder="Correo de Contatco" maxlength="200"/>
     			</div>
     		</div>
+    		
     		<div class="form-row">
     			<div class="form-group col-md-4">
-				     <select class="form-control form-control-sm custom-color" id="soporte" name="soporte" >
-				    	<option class="placeholder-option" value="" disabled selected >Soporte</option>
-				    	<option value="0">Si</option>
-				    	<option value="1">No</option>				    	
-				    </select>
-		    	</div>
-		    	<div class="form-group col-md-4">
-				     <select class="form-control form-control-sm custom-color" id="mcoCare" name="mcoCare" >
-				    	<option class="placeholder-option" value="" disabled selected >MCO Care</option>
-				    	<option value="1">1 año</option>
-				    	<option value="2">2 años</option>				    	
-				    	<option value="3">3 años</option>
-				    	<option value="4">4 años</option>			    	
-				    	<option value="5">5 años</option>
-				    	<option value="6">Mayor a 5 años</option>
-				    </select>
-		    	</div>
-		    	<div class="form-group col-md-4">
-				   <select class="form-control form-control-sm custom-color" id="garantia" name="garantia" >
-				    	<option class="placeholder-option" value="" disabled selected >Garantía de fábrica</option>
-				    	<option value="0">Sí</option>
-				    	<option value="1">No</option>				    	
-				    </select>
-				</div>
-    		</div>
-    		<div class="form-row">
-    			<div class="form-group col-md-4">
-				     <select class="form-control form-control-sm custom-color" id="garantiaCableado" name="garantiaCableado" >
-				    	<option class="placeholder-option" value="" disabled selected >Garantía de cableado estructurado</option>
-				    	<option value="5">5 años</option>
-				    	<option value="10">10 años</option>				    	
-				    	<option value="15">15 años</option>
-				    	<option value="20">20 años</option>
-				    </select>
-		    	</div>
-    			<div class="form-group col-md-4">
-				     <input class="form-control js-text" id="tipoProyecto" type="text" name="tipoProyecto" placeholder="Tipo Proyecto" maxlength="200"/> 
+				    <input class="form-control js-text" id="telefonoContacto" type="text" name="telefonoContacto" placeholder="Teléfono de Contatco" maxlength="200"/>
     			</div>
+    			
     			<div class="form-group col-md-4">
     			 	<select class="form-control form-control-sm custom-color" id="tipoPrecio" name="tipoPrecio" >
 				    	<option class="placeholder-option" value="-1" disabled selected >Tipo de Precio</option>

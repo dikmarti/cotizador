@@ -32,6 +32,9 @@ public class Proyecto {
 	
 	@Column
 	private String direccion;
+	
+	@Column
+	private String localidad;
 
 	@Column
 	private String nombreContacto;
@@ -45,9 +48,6 @@ public class Proyecto {
 	@Column
 	private String telefonoContacto;
 	
-	@Column
-	private String localidad;
-	
 	@Column(name="tipo_precio")
 	private int tipoPrecio;
 	
@@ -59,7 +59,6 @@ public class Proyecto {
 	
 	@Column(name="fecha_fin")
 	private Date fechaFin;
-	
 	
 	@Column
 	private boolean generarMetrado;
@@ -182,6 +181,14 @@ public class Proyecto {
 
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
+	}
+
+	public String getNombreProyecto() {
+		return nombreProyecto;
+	}
+
+	public void setNombreProyecto(String nombreProyecto) {
+		this.nombreProyecto = nombreProyecto;
 	}
 
 }
