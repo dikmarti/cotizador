@@ -89,8 +89,8 @@ public class ProductController extends GenericController {
 		try {
 
 			productModel = mapper.readValue(jsonForm, ProductModel.class);
-			Integer status = productService.createProduct(productModel.getIdMco(), productModel.getNumParteFabricante(), 
-					productModel.getNombre(), productModel.getDescripcion(), productModel.getPorcentajeResguardo(), 
+			Integer status = productService.createProduct(productModel.getIdMcb(), productModel.getNumParteFabricante(), 
+					productModel.getNombre(), productModel.getPorcentajeResguardo(), 
 					productModel.getObservacion(), productModel.getUnidadMedida(), productModel.getSistema(), productModel.getMarca());
 			
 			System.out.println("status: " + status);
@@ -164,9 +164,8 @@ public class ProductController extends GenericController {
 			
 			Producto producto = new Producto();
 			producto.setId(productModel.getId());			
-			producto.setIdProductoMCO(productModel.getIdMco());
+			producto.setIdProductoMCB(productModel.getIdMcb());
 			producto.setNombre(productModel.getNombre());
-			producto.setDescripcion(productModel.getDescripcion());
 			producto.setPorcentajeResguardo(productModel.getPorcentajeResguardo());
 			producto.setObservacion(productModel.getObservacion());
 			producto.setUnidadMedida(productModel.getUnidadMedida());

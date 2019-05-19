@@ -30,13 +30,9 @@
     <tr>
       <th class="th-sm">Id
       </th>
-      <th class="th-sm">Id MCO
-      </th>
-      <th class="th-sm">Número de Parte de Fabricante
+      <th class="th-sm">Id MCB
       </th>
       <th class="th-sm">Nombre
-      </th>
-      <th class="th-sm">Descripción
       </th>
       <th class="th-sm">Porcentaje de Resguardo
       </th>
@@ -56,13 +52,9 @@
     <tr>
       <th>Id
       </th>
-      <th>Id MCO
-      </th>
-      <th>Número de Parte de Fabricante
+      <th>Id MCB
       </th>
       <th>Nombre
-      </th>
-      <th>Descripción
       </th>
       <th>Porcentaje de Resguardo
       </th>
@@ -100,7 +92,7 @@
 			<input id="sistemaAnterior" type="hidden" name="sistemaAnterior"/>
       		<div class="form-row">
       			<div class="form-group col-md-6">
-				    <input class="form-control" id="idMco" type="text" name="idMco" placeholder="Id MCO" maxlength="200"/>
+				    <input class="form-control" id="idMcb" type="text" name="idMcb" placeholder="Id MCB" maxlength="200"/>
       			</div>
       			<div class="form-group col-md-6">
 				    <input class="form-control" id="numParteFabricante" type="text" name="numParteFabricante" placeholder="Número de parte de fabricante" maxlength="200"/>
@@ -109,10 +101,7 @@
       		<div class="form-row">
       			<div class="form-group col-md-6">
 				    <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
-      			</div>
-      			<div class="form-group col-md-6">
-				   <input class="form-control" id="descripcion" type="text" name="descripcion" placeholder="Descripción" maxlength="200"/>
-      			</div>
+      			</div>      			
     		</div>
       		<div class="form-row">
       			<div class="form-group col-md-6">
@@ -137,6 +126,7 @@
 				    	<option value="8">Metros Cúbicos</option>				    	
 				    	<option value="9">Rollos</option>				    	
 				    	<option value="10">Unidad</option>
+				    	<option value="11">Global</option>
 				    </select>
       			</div>
      			<div class="form-group col-md-6">
@@ -211,10 +201,8 @@ $(document).ready(function() {
     	        	
     	        	table.rows.add(
  	        		       [{ "Id": result[index].id, 
- 	        		    	   "IdMco": result[index].idProductoMCO,
- 	        		    	   "NumParteFabricante": result[index].numParteFabricante,
+ 	        		    	   "IdMcb": result[index].idProductoMCB,
  	        		    	   "Nombre": result[index].nombre,
- 	        		    	   "Descripcion": result[index].descripcion,
  	        		    	   "PorcentajeResguardo": result[index].porcentajeResguardo,
  	        		    	   "Observacion": result[index].observacion,
  	        		    	   "UnidadMedida": returnUnidadMedida(result[index].unidadMedida),
@@ -236,38 +224,63 @@ $(document).ready(function() {
 	       switch (unidadMedida) {
 		case 0:  return "Galón";
 			break;
-		case 1: return "Metros";
+		case 1: return "Litros";
 			break;
-		case 2: return "Metros Cuadrados";
+		case 2: return "Pulgadas";
 			break;
-		case 3: return "Metros Cúbicos";
+		case 3: return "Pies";
 			break;
-		case 4: return "Rollos";
+		case 4: return "Metros";
 			break;
-		case 5: return "Unidad";
+		case 5: return "Kilómetros";
+			break;
+		case 6: return "Yardas";
+			break;
+		case 7: return "Metros Cuadrados";
+			break;
+		case 8: return "Metros Cúbicos";
+			break;
+		case 9: return "Rollos";
+			break;
+		case 10: return "Unidades";
+			break;
+		case 11: return "Global";
 			break;
 		default: return "";
 			break;
-		}
+		}	    
   	}
    	 
    	function returnUnidadMedidaVal(unidadMedida){
 	       switch (unidadMedida) {
 		case "Galón":  return "0";
 			break;
-		case "Metros": return "1";
+		case "Litros": return "1";
 			break;
-		case "Metros Cuadrados": return "2";
+		case "Pulgadas": return "2";
 			break;
-		case "Metros Cúbicos": return "3";
+		case "Pies": return "3";
 			break;
-		case "Rollos": return "4";
+		case "Metros": return "4";
 			break;
-		case "Unidad": return "5";
+		case "Kilómetros": return "5";
+			break;
+		case "Yardas":  return "6";
+			break;
+		case "Metros Cuadrados": return "7";
+			break;
+		case "Metros Cúbicos": return "8";
+			break;
+		case "Rollos": return "9";
+			break;
+		case "Unidades": return "10";
+			break;
+		case "Global": return "11";
 			break;
 		default: return "";
 			break;
 		}
+	 
 	}
    	
    	var table = $('#dtProductModule').DataTable({
@@ -289,10 +302,8 @@ $(document).ready(function() {
 		        },
 		        columns:[
             	    {data: 'Id'},
-            	    {data: 'IdMco'},
-            	    {data: 'NumParteFabricante'},
+            	    {data: 'IdMcb'},
             	    {data: 'Nombre'},
-            	    {data: 'Descripcion'},
             	    {data: 'PorcentajeResguardo'},
             	    {data: 'Observacion'},
             	    {data: 'UnidadMedida'},
@@ -323,10 +334,9 @@ $(document).ready(function() {
 			table.$('tr.selected').removeClass('selected');
 			$(".msg-error").removeClass("on");
 			$("#id").val('');
-			$("#idMco").val('');
+			$("#idMcb").val('');
 			$("#numParteFabricante").val('');
 	    	$("#nombre").val('');
-	    	$("#descripcion").val('');
 	    	$("#porcentajeResguardo").val('');
 	    	$("#observacion").val('');
 	    	$("#unidadMedida").val([""]);
@@ -404,10 +414,9 @@ $(document).ready(function() {
 			console.log("modify product " + $productModify);
 			
 			$('#product-modal').find('#id').val($productModify.Id);
-			$('#product-modal').find('#idMco').val($productModify.IdMco);
+			$('#product-modal').find('#idMcb').val($productModify.IdMcb);
 			$('#product-modal').find('#numParteFabricante').val($productModify.NumParteFabricante);
 			$('#product-modal').find('#nombre').val($productModify.Nombre);
-			$('#product-modal').find('#descripcion').val($productModify.Descripcion);
 			$('#product-modal').find('#porcentajeResguardo').val($productModify.PorcentajeResguardo);
 			$('#product-modal').find('#observacion').val($productModify.Observacion);
 			$('#product-modal').find('#unidadMedida').val(returnUnidadMedidaVal($productModify.UnidadMedida));
@@ -540,10 +549,9 @@ $(document).ready(function() {
 		});
 		
 		$("#btn-modal-create").click(function() {
-	    	 var $idMco =  $("#idMco").val();
+	    	 var $idMcb =  $("#idMcb").val();
 	    	 var $numParteFabricante =  $("#numParteFabricante").val();
 	    	 var $nombre =  $("#nombre").val();
-	    	 var $descripcion =  $("#descripcion").val();
 	    	 var $porcentajeResguardo =  $("#porcentajeResguardo").val();
 	    	 var $observacion =  $("#observacion").val();
 	    	 var $unidadMedida =  $("#unidadMedida option:selected").val();
@@ -554,8 +562,8 @@ $(document).ready(function() {
 		     $(".msg-error").html("Debe ingresar los datos.");
 		     
 	    	 
-	    	 if ($idMco == "" || $numParteFabricante == "" || $nombre == "" 
-	    			 || $descripcion == "" || $porcentajeResguardo == "" || $observacion == "") {
+	    	 if ($idMcb == "" || $numParteFabricante == "" || $nombre == "" 
+	    			 || $porcentajeResguardo == "" || $observacion == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
 	   		 } else {
@@ -633,10 +641,9 @@ $(document).ready(function() {
 		
 		$("#btn-modal-update").click(function() {
 			 var $id =  $("#id").val();
-			 var $idMco =  $("#idMco").val();
+			 var $idMcb =  $("#idMcb").val();
 	    	 var $numParteFabricante =  $("#numParteFabricante").val();
 	    	 var $nombre =  $("#nombre").val();
-	    	 var $descripcion =  $("#descripcion").val();
 	    	 var $porcentajeResguardo =  $("#porcentajeResguardo").val();
 	    	 var $observacion =  $("#observacion").val();
 	    	 var $unidadMedida =  $("#unidadMedida option:selected").val();
@@ -647,8 +654,8 @@ $(document).ready(function() {
 		     $(".msg-error").html("Debe ingresar los datos.");
 		     
 	    	 
-	    	 if ($idMco == "" || $numParteFabricante == "" || $nombre == "" 
-	    			 || $descripcion == "" || $porcentajeResguardo == "" || $observacion == "") {
+	    	 if ($idMcb == "" || $numParteFabricante == "" || $nombre == "" 
+	    			 || $porcentajeResguardo == "" || $observacion == "") {
 	    		  $(".msg-error").addClass("on");
 	    		  return false;
 	   		 } else {

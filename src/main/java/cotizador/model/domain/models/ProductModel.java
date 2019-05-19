@@ -11,11 +11,10 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 public class ProductModel {
 	
 	public Integer id;
-	public Integer idMco;
+	public String idMcb;
 	public Integer numParteFabricante;
 	public String nombre;
-	public String descripcion;
-	public Integer porcentajeResguardo;
+	public Double porcentajeResguardo;
 	public String observacion;
 	public Integer unidadMedida;
 	public int sistema;
@@ -27,11 +26,11 @@ public class ProductModel {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getIdMco() {
-		return idMco;
+	public String getIdMcb() {
+		return idMcb;
 	}
-	public void setIdMco(Integer idMco) {
-		this.idMco = idMco;
+	public void setIdMco(String idMcb) {
+		this.idMcb = idMcb;
 	}
 
 	public String getNombre() {
@@ -46,16 +45,11 @@ public class ProductModel {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	public Integer getPorcentajeResguardo() {
+
+	public Double getPorcentajeResguardo() {
 		return porcentajeResguardo;
 	}
-	public void setPorcentajeResguardo(Integer porcentajeResguardo) {
+	public void setPorcentajeResguardo(Double porcentajeResguardo) {
 		this.porcentajeResguardo = porcentajeResguardo;
 	}
 	public String getObservacion() {
@@ -91,8 +85,8 @@ public class ProductModel {
 	}
 	@Override
 	public String toString() {
-		return "ProductModel [id=" + id + ", idMco=" + idMco + ", numParteFabricante=" + numParteFabricante
-				+ ", nombre=" + nombre + ", descripcion=" + descripcion + ", porcentajeResguardo=" + porcentajeResguardo
+		return "ProductModel [id=" + id + ", idMcb=" + idMcb + ", numParteFabricante=" + numParteFabricante
+				+ ", nombre=" + nombre + ", porcentajeResguardo=" + porcentajeResguardo
 				+ ", observacion=" + observacion + ", unidadMedida=" + unidadMedida + ", sistema=" + sistema
 				+ ", sistemaAnterior=" + sistemaAnterior + ", marca=" + marca + "]";
 	}

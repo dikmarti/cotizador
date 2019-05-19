@@ -194,7 +194,7 @@ public class ProjectService {
 					
 					Double precioProducto = metrado.getPrecioProducto();
 					Integer cantidadProducto = metrado.getCantidadProducto();
-					int porcentajeResguardoProducto = metrado.getPrecio().getProducto().getPorcentajeResguardo();
+					double porcentajeResguardoProducto = metrado.getPrecio().getProducto().getPorcentajeResguardo();
 					Double porcentajeHolguraTotal = 0.0;
 					Double precioTotalPorNivel = 0.0;
 					
@@ -206,7 +206,7 @@ public class ProjectService {
 						
 						switch (tipoPrecio) {
 							case 0:
-								precioTotalPorNivel = metrado.getPrecio().getPrecioMinimoo();
+								precioTotalPorNivel = metrado.getPrecio().getPrecioMinimo();
 								break;
 							case 1:
 								precioTotalPorNivel = metrado.getPrecio().getPrecioMaximo();
@@ -305,7 +305,7 @@ public class ProjectService {
 						// Escribir producto, unidad, niveles y el total por producto
 						fila++;
 						HSSFRow productoRow = sheet.createRow((short) fila);
-						productoRow.createCell(columna).setCellValue(productConfiguration.getProducto().getIdProductoMCO());
+						productoRow.createCell(columna).setCellValue(productConfiguration.getProducto().getIdProductoMCB());
 						columna++;
 						productoRow.createCell(columna).setCellValue(productConfiguration.getProducto().getNombre());
 						columna++;
