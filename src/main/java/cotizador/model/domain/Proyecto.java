@@ -28,7 +28,7 @@ public class Proyecto {
 	private String ruc;
 	
 	@Column
-	private String nombre;
+	private String nombreProyecto;
 	
 	@Column
 	private String direccion;
@@ -47,33 +47,6 @@ public class Proyecto {
 	
 	@Column
 	private String localidad;
-	
-	@Column(name="monto_inversion")
-	private Double montoInversion;
-	
-	@Column(name="monto_presupuesto")
-	private Double montoPresupuesto;
-	
-	@Column(name="nivel_construccion")
-	private String nivelConstruccion;
-		
-	@Column(name="area_construccion")
-	private float areaConstruccion;
-	
-	@Column
-	private boolean soporte;
-	
-	@Column
-	private String mcoCare;
-	
-	@Column
-	private String garantiaCableado;
-	
-	@Column
-	private boolean garantia;
-	
-	@Column(name="tipo_proyecto")
-	private String tipoProyecto;
 	
 	@Column(name="tipo_precio")
 	private int tipoPrecio;
@@ -123,92 +96,12 @@ public class Proyecto {
 		this.ruc = ruc;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public String getLocalidad() {
 		return localidad;
 	}
 
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
-	}
-
-	public Double getMontoInversion() {
-		return montoInversion;
-	}
-
-	public void setMontoInversion(Double montoInversion) {
-		this.montoInversion = montoInversion;
-	}
-
-	public Double getMontoPresupuesto() {
-		return montoPresupuesto;
-	}
-
-	public void setMontoPresupuesto(Double montoPresupuesto) {
-		this.montoPresupuesto = montoPresupuesto;
-	}
-
-	public String getNivelConstruccion() {
-		return nivelConstruccion;
-	}
-
-	public void setNivelConstruccion(String nivelConstruccion) {
-		this.nivelConstruccion = nivelConstruccion;
-	}
-
-	public float getAreaConstruccion() {
-		return areaConstruccion;
-	}
-
-	public void setAreaConstruccion(float areaConstruccion) {
-		this.areaConstruccion = areaConstruccion;
-	}
-
-	public boolean isSoporte() {
-		return soporte;
-	}
-
-	public void setSoporte(boolean soporte) {
-		this.soporte = soporte;
-	}
-
-	public String isMcoCare() {
-		return mcoCare;
-	}
-
-	public void setMcoCare(String mcoCare) {
-		this.mcoCare = mcoCare;
-	}
-
-	public String isGarantiaCableado() {
-		return garantiaCableado;
-	}
-
-	public void setGarantiaCableado(String garantiaCableado) {
-		this.garantiaCableado = garantiaCableado;
-	}
-
-	public boolean isGarantia() {
-		return garantia;
-	}
-
-	public void setGarantia(boolean garantia) {
-		this.garantia = garantia;
-	}
-
-	public String getTipoProyecto() {
-		return tipoProyecto;
-	}
-
-	public void setTipoProyecto(String tipoProyecto) {
-		this.tipoProyecto = tipoProyecto;
 	}
 
 	public int getTipoPrecio() {
@@ -283,14 +176,6 @@ public class Proyecto {
 		this.generarMetrado = generarMetrado;
 	}
 
-	public String getMcoCare() {
-		return mcoCare;
-	}
-
-	public String getGarantiaCableado() {
-		return garantiaCableado;
-	}
-	
 	public Date getFechaFin() {
 		return fechaFin;
 	}
