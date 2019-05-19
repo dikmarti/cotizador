@@ -84,6 +84,10 @@ public class Proyecto {
 	@Column(name="fecha_modificacion")
 	private Date fechaModificacion;
 	
+	@Column(name="fecha_fin")
+	private Date fechaFin;
+	
+	
 	@Column
 	private boolean generarMetrado;
 
@@ -285,6 +289,14 @@ public class Proyecto {
 
 	public String getGarantiaCableado() {
 		return garantiaCableado;
+	}
+	
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 
 }
