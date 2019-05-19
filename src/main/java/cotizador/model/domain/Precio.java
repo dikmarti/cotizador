@@ -28,9 +28,6 @@ public class Precio {
 	private Proveedor proveedor;
 	
 	@Column
-	private Double precioMaximo;
-	
-	@Column
 	private Double precio1;
 	
 	@Column
@@ -65,6 +62,9 @@ public class Precio {
 	
 	@Column
 	private Double precioPromedio;
+	
+	@Column
+	private Double precioMaximo;
 	
 	@Column(name="fecha_inicio")
 	private Date fechaInicio;
