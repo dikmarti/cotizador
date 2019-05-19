@@ -31,6 +31,21 @@ public class Proyecto {
 	private String nombre;
 	
 	@Column
+	private String direccion;
+
+	@Column
+	private String nombreContacto;
+	
+	@Column
+	private String cargoContacto;
+
+	@Column
+	private String correoContacto;
+	
+	@Column
+	private String telefonoContacto;
+	
+	@Column
 	private String localidad;
 	
 	@Column(name="monto_inversion")
@@ -68,6 +83,9 @@ public class Proyecto {
 	
 	@Column(name="fecha_modificacion")
 	private Date fechaModificacion;
+	
+	@Column
+	private boolean generarMetrado;
 
 	public int getId() {
 		return id;
@@ -211,6 +229,62 @@ public class Proyecto {
 
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getNombreContacto() {
+		return nombreContacto;
+	}
+
+	public void setNombreContacto(String nombreContacto) {
+		this.nombreContacto = nombreContacto;
+	}
+
+	public String getCargoContacto() {
+		return cargoContacto;
+	}
+
+	public void setCargoContacto(String cargoContacto) {
+		this.cargoContacto = cargoContacto;
+	}
+
+	public String getCorreoContacto() {
+		return correoContacto;
+	}
+
+	public void setCorreoContacto(String correoContacto) {
+		this.correoContacto = correoContacto;
+	}
+
+	public String getTelefonoContacto() {
+		return telefonoContacto;
+	}
+
+	public void setTelefonoContacto(String telefonoContacto) {
+		this.telefonoContacto = telefonoContacto;
+	}
+
+	public boolean isGenerarMetrado() {
+		return generarMetrado;
+	}
+
+	public void setGenerarMetrado(boolean generarMetrado) {
+		this.generarMetrado = generarMetrado;
+	}
+
+	public String getMcoCare() {
+		return mcoCare;
+	}
+
+	public String getGarantiaCableado() {
+		return garantiaCableado;
 	}
 
 }
