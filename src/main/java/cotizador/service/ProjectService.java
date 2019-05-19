@@ -63,7 +63,7 @@ public class ProjectService {
 				projectModel.setNombreCliente(p.getNombreCliente());
 				projectModel.setRuc(p.getRuc());
 				projectModel.setLocalidad(p.getLocalidad());
-				projectModel.setNombre(p.getNombre());
+				projectModel.setNombreProyecto(p.getNombreProyecto());
 				projectModel.setFechaCreacion(p.getFechaCreacion() != null ? format.format(p.getFechaCreacion()) : "");
 				projectModel.setFechaModificacion(p.getFechaModificacion() != null ? format.format(p.getFechaModificacion()) : "");
 				

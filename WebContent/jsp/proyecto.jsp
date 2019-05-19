@@ -29,7 +29,7 @@
   			</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-				    <input class="form-control js-text" id="nombre" type="text" name="nombre" placeholder="Nombre del Proyecto" maxlength="200"/>
+				    <input class="form-control js-text" id="nombreProyecto" type="text" name="nombreProyecto" placeholder="Nombre del Proyecto" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
 		    		<input class="form-control js-text" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
@@ -157,18 +157,14 @@
 		    	        $("#idCrmMCO").val(result.idCrmMCO);
 		    	        $("#nombreCliente").val(result.nombreCliente);
 		    	        $("#ruc").val(result.ruc);
-		    	        $("#nombre").val(result.nombre);
+		    	        $("#nombreProyecto").val(result.nombreProyecto);
 		    	        $("#localidad").val(result.localidad);
-		    	        $("#montoInversion").val(result.montoInversion);
-		    	        $("#montoPresupuesto").val(result.montoPresupuesto);
-		    	        $("#nivelConstruccion").val(result.nivelConstruccion);
-		    	        $("#areaConstruccion").val(result.areaConstruccion);
-		    	        $("#soporte").val(result.soporte ? "0" : "1");
-		    	        $("#mcoCare").val(result.mcoCare);
-		    	        $("#garantia").val(result.garantia ? "0" : "1");
-		    	        $("#garantiaCableado").val(result.garantiaCableado);
-		    	        $("#tipoProyecto").val(result.tipoProyecto);
-		    	        $("#tipoPrecio").val(result.tipoPrecio);
+		    	        $("#direccion").val(result.direccion);
+		    	        $("#nombreContacto").val(result.nombreContacto);
+		    	        $("#cargoContacto").val(result.cargoContacto);
+		    	        $("#correoContacto").val(result.correoContacto);
+		    	        $("#telefonoContacto").val(result.telefonoContacto);
+		    		    $("#tipoPrecio").val(result.tipoPrecio);
 		    			
 		    	        precioActual = $("#tipoPrecio").val();
 			    	    			    	        
@@ -254,25 +250,19 @@
 			var idCrmMCO = $("#idCrmMCO").val();
 			var nombreCliente = $("#nombreCliente").val();
 			var ruc = $("#ruc").val();
-			var nombre = $("#nombre").val();
+			var nombreProyecto = $("#nombreProyecto").val();
 			var localidad = $("#localidad").val();
-			var montoInversion = $("#montoInversion").val();
-			var montoPresupuesto = $("#montoPresupuesto").val();
-			var nivelConstruccion = $("#nivelConstruccion").val();
-			var areaConstruccion = $("#areaConstruccion").val();
-			var soporte = $("#soporte").val();
-			var garantia = $("#garantia").val();
-			var tipoProyecto = $("#tipoProyecto").val();
-			var garantiaCableado = $("#garantiaCableado").val();
-			var mcoCare = $("#mcoCare").val();
+			var direccion = $("#direccion").val();
+			var nombreContacto = $("#nombreContacto").val();
+			var cargoContacto = $("#cargoContacto").val();
+			var correoContacto = $("#correoContacto").val();
+			var telefonoContacto = $("#nombreContacto").val();
 			var tipoPrecio = $("#tipoPrecio").val();
 			$("#idProject").val(proyectoActual);
 			
 			if(idCrmMCO.trim() == "" || ruc.trim() == "" || nombreCliente.trim() == "" ||
-				nombre.trim() == "" || localidad.trim() == "" || nivelConstruccion.trim() == "" ||
-					montoInversion.trim() == "" || montoPresupuesto.trim() == "" || areaConstruccion.trim() == "" ||
-					 nivelConstruccion.trim() == "" || soporte == null || garantia == null || 
-					 	tipoProyecto.trim() == "" || garantiaCableado.trim() == "" || mcoCare.trim() == "") {
+				nombreProyecto.trim() == "" || localidad.trim() == "" || nombreContacto.trim() == ""
+					|| cargoContacto.trim() == "" || correoContacto.trim() == "" || telefonoContacto.trim() == "") {
 				
 				$("#msg-error-proyecto").addClass("show");
 				return false;

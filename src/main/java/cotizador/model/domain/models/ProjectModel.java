@@ -15,18 +15,13 @@ public class ProjectModel {
 	private String idCrmMCO;
 	private String nombreCliente;
 	private String ruc;
-	private String nombre;
+	private String nombreProyecto;
 	private String localidad;
-	private String montoInversion;
-	private String montoPresupuesto;
-	private String nivelConstruccion;
-	private String areaConstruccion;
-	private String soporte;
-	private String mcoCare;
-	private String garantia;
-	private String garantiaCableado;
-	private String tipoProyecto;
-	private String categoriaConstruccion;
+	private String direccion;
+	private String nombreContacto;
+	private String cargoContacto;
+	private String correoContacto;
+	private String telefonoContacto;	
 	private String tipoPrecio;
 	private String fechaCreacion;
 	private String fechaModificacion;
@@ -55,79 +50,7 @@ public class ProjectModel {
 	public void setRuc(String ruc) {
 		this.ruc = ruc;
 	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getLocalidad() {
-		return localidad;
-	}
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
-	}
-	public String getMontoInversion() {
-		return montoInversion;
-	}
-	public void setMontoInversion(String montoInversion) {
-		this.montoInversion = montoInversion;
-	}
-	public String getMontoPresupuesto() {
-		return montoPresupuesto;
-	}
-	public void setMontoPresupuesto(String montoPresupuesto) {
-		this.montoPresupuesto = montoPresupuesto;
-	}
-	public String getNivelConstruccion() {
-		return nivelConstruccion;
-	}
-	public void setNivelConstruccion(String nivelConstruccion) {
-		this.nivelConstruccion = nivelConstruccion;
-	}
-	public String getAreaConstruccion() {
-		return areaConstruccion;
-	}
-	public void setAreaConstruccion(String areaConstruccion) {
-		this.areaConstruccion = areaConstruccion;
-	}
 
-	public String getSoporte() {
-		return soporte;
-	}
-	public void setSoporte(String soporte) {
-		this.soporte = soporte;
-	}
-	public String getMcoCare() {
-		return mcoCare;
-	}
-	public void setMcoCare(String mcoCare) {
-		this.mcoCare = mcoCare;
-	}
-	public String getGarantiaCableado() {
-		return garantiaCableado;
-	}
-	public void setGarantiaCableado(String garantiaCableado) {
-		this.garantiaCableado = garantiaCableado;
-	}
-	public String getGarantia() {
-		return garantia;
-	}
-	public void setGarantia(String garantia) {
-		this.garantia = garantia;
-	}
-	public String getTipoProyecto() {
-		return tipoProyecto;
-	}
-	public void setTipoProyecto(String tipoProyecto) {
-		this.tipoProyecto = tipoProyecto;
-	}
-	public String getCategoriaConstruccion() {
-		return categoriaConstruccion;
-	}
-	public void setCategoriaConstruccion(String categoriaConstruccion) {
-		this.categoriaConstruccion = categoriaConstruccion;
-	}
 	public String getTipoPrecio() {
 		return tipoPrecio;
 	}
@@ -146,14 +69,47 @@ public class ProjectModel {
 	public void setFechaModificacion(String fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
-	@Override
-	public String toString() {
-		return "ProjectModel [id=" + id + ", idCrmMCO=" + idCrmMCO + ", nombreCliente=" + nombreCliente + ", ruc=" + ruc
-				+ ", nombre=" + nombre + ", localidad=" + localidad + ", montoInversion=" + montoInversion
-				+ ", montoPresupuesto=" + montoPresupuesto + ", nivelConstruccion=" + nivelConstruccion
-				+ ", areaConstruccion=" + areaConstruccion + ", soporte=" + soporte + ", garantia=" + garantia
-				+ ", tipoProyecto=" + tipoProyecto + ", categoriaConstruccion=" + categoriaConstruccion
-				+ ", tipoPrecio=" + tipoPrecio + ", fechaCreacion="
-				+ fechaCreacion + ", fechaModificacion=" + fechaModificacion + "]";
+	public String getNombreProyecto() {
+		return nombreProyecto;
 	}
+	public void setNombreProyecto(String nombreProyecto) {
+		this.nombreProyecto = nombreProyecto;
+	}
+	public String getLocalidad() {
+		return localidad;
+	}
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}
+	public String getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	public String getNombreContacto() {
+		return nombreContacto;
+	}
+	public void setNombreContacto(String nombreContacto) {
+		this.nombreContacto = nombreContacto;
+	}
+	public String getCargoContacto() {
+		return cargoContacto;
+	}
+	public void setCargoContacto(String cargoContacto) {
+		this.cargoContacto = cargoContacto;
+	}
+	public String getCorreoContacto() {
+		return correoContacto;
+	}
+	public void setCorreoContacto(String correoContacto) {
+		this.correoContacto = correoContacto;
+	}
+	public String getTelefonoContacto() {
+		return telefonoContacto;
+	}
+	public void setTelefonoContacto(String telefonoContacto) {
+		this.telefonoContacto = telefonoContacto;
+	}
+	
 }

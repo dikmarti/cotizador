@@ -57,18 +57,15 @@ public class ProjectController extends GenericController {
 			proyecto.setIdCrmMCO(projectModel.getIdCrmMCO());
 			proyecto.setNombreCliente(projectModel.getNombreCliente());
 			proyecto.setRuc(projectModel.getRuc());
-			proyecto.setNombre(projectModel.getNombre());
+			proyecto.setNombreProyecto((projectModel.getNombreProyecto()));
 			proyecto.setLocalidad(projectModel.getLocalidad());
-			proyecto.setMontoInversion(Double.parseDouble(projectModel.getMontoInversion()));
-			proyecto.setMontoPresupuesto(Double.parseDouble(projectModel.getMontoPresupuesto()));
-			proyecto.setNivelConstruccion(projectModel.getNivelConstruccion());
-			proyecto.setAreaConstruccion(Float.parseFloat(projectModel.getAreaConstruccion()));
-			proyecto.setSoporte(projectModel.getSoporte().equals("0") ? false : true);
-			proyecto.setGarantia(projectModel.getGarantia().equals("0") ? false : true);
-			proyecto.setTipoProyecto(projectModel.getTipoProyecto());
-			proyecto.setMcoCare(projectModel.getMcoCare());
-			proyecto.setGarantiaCableado(projectModel.getGarantiaCableado());
-			
+			proyecto.setDireccion(projectModel.getDireccion());
+			proyecto.setNombreContacto(projectModel.getNombreContacto());
+			proyecto.setCargoContacto(projectModel.getCargoContacto());
+			proyecto.setCorreoContacto(projectModel.getCorreoContacto());
+			proyecto.setTelefonoContacto(projectModel.getTelefonoContacto());
+			proyecto.setTipoPrecio(Integer.parseInt(projectModel.getTipoPrecio()));
+						
 			if (!StringUtils.isEmpty(projectModel.getTipoPrecio())) {
 				proyecto.setTipoPrecio(Integer.parseInt(projectModel.getTipoPrecio()));	
 			}
