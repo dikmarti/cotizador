@@ -189,6 +189,7 @@ public class ProjectService {
 		project.setLocalidad(oldProject.getLocalidad());
 		project.setNombreContacto(oldProject.getNombreContacto());
 		project.setNombreCliente(oldProject.getNombreCliente());
+		project.setNombreProyecto(oldProject.getNombreProyecto());
 		project.setRuc(oldProject.getRuc());
 		project.setTelefonoContacto(oldProject.getTelefonoContacto());
 		project.setTipoPrecio(oldProject.getTipoPrecio());
@@ -218,12 +219,10 @@ public class ProjectService {
 		return levelsReturn;
 	}
 	
-	private List<Metrado> duplicateMetrado(Nivel oldLevel, Nivel level) {
+	private void duplicateMetrado(Nivel oldLevel, Nivel level) {
 		
 		List<Metrado> allObject = (List<Metrado>) (Object) genericRepository
 				.getAllObjectByQuery("SELECT u FROM Metrado m WHERE m.nivel.id = '"+ oldLevel +"'");
-		
-		List<Metrado> newMetradoList = new ArrayList<Metrado>();
 		
 		for (Metrado metrado : allObject) {
 			Metrado newMetrado = new Metrado();
@@ -235,12 +234,8 @@ public class ProjectService {
 			newMetrado.setPrecio(metrado.getPrecio());
 			newMetrado.setPrecioProducto(metrado.getPrecioProducto());
 			
-			newMetradoList.add(newMetrado);
+			genericRepository.addObject(newMetrado);
 		}
-		
-		List<Metrado> newMetradoListReturn = (List<Metrado>) (Object) genericRepository.addAllObject(listObject);
-		
-		return newMetradoListReturn;
 	}
 	
 	private boolean isValidProject(String idProject) {
