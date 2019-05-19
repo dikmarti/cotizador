@@ -42,6 +42,8 @@
       </th>
       <th class="th-sm">Generar Metrado
       </th>
+      <th class="th-sm">Generar Versión
+      </th>
     </tr>
   </thead>
   <tbody id="system-table-data">
@@ -65,6 +67,8 @@
       <th>Fecha Modificación
       </th>
       <th>Generar Metrado
+      </th>
+      <th>Generar Versión
       </th>
     </tr>
   </tfoot>
@@ -103,6 +107,7 @@ $(document).ready(function() {
  	        		    	   "FechaCreacion": result[index].fechaCreacion,
  	        		    	   "FechaModificacion": result[index].fechaModificacion,
  	        		    	   "GenerarMetrado": "<a href='javascript:void(0)' onclick='downloadFile("+result[index].id+");' class='btn btn-primary'>Generar</a>"
+ 	        		    	   "GenerarVersion": "<a href='javascript:void(0)' onclick='generateVersion("+result[index].id+");' class='btn btn-primary'>Generar</a>"
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -188,10 +193,25 @@ $(document).ready(function() {
 		function downloadFile(id) {
 			$.ajax({
 		    	  url: "/Cotizador/rest/project/generateFile?idProject="+id,
-		    	  type: "GET",
+		    	  type: "POST",
 		    	  success: function(result){	
 		    		  var decodedString = atob(result);
 		    		  saveByteArray("Metrado.xls", s2ab(decodedString));
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+		}
+		function generateVersion(id) {
+			$.ajax({
+		    	  url: "/Cotizador/rest/project/generateVersion?idProject="+id,
+		    	  type: "GET",
+		    	  success: function(result){	
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");

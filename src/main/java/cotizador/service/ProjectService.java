@@ -152,6 +152,62 @@ public class ProjectService {
 
 	}
 	
+	public Integer generateVersion(String idProject) {
+		System.out.println("Method generateVersion...");
+
+		
+		System.out.println("Duplicating project version from data base");
+		if(!isValidProject(idProject)) {
+			System.out.println("El sistema no tiene metrado..");
+			return 1;
+		}
+		Proyecto project = findProjectById(Integer.parseInt(idProject));
+		Proyecto newProject = new Proyecto();
+		Proyecto projectResult = (Proyecto) genericRepository.addObject(newProject);
+		List<Object> levels = genericRepository
+				.getAllObjectByQuery("SELECT u FROM Nivel n WHERE n.proyecto.id = '" 
+						+ idProject +"'");
+		List<Nivel> newLevels = (List<Nivel>) (Object) levels;
+		for (Nivel nivel : newLevels) {
+			nivel.setProyecto(newProject);
+			genericRepository.addObject(nivel);
+		}
+		
+		
+		
+		
+		System.out.println("Updating project version from data base");
+		int status = genericRepository.executeUpdateQuery("UPDATE Proyecto u SET u.fechaFin = '" + new Date() + "', "
+						+ "' WHERE u.id = '" + idProject + "'");
+		
+		System.out.println("finish system update");
+		System.out.println("status: " + status);
+		Integer result = status == 1 ? 0 : 2;
+		
+		return result;
+		
+	}
+	
+	private Proyecto duplicateProject(Proyecto oldProject) {
+		Proyecto project = new Proyecto();
+		project.setAreaConstruccion(oldProject.getAreaConstruccion());
+		project.setFechaCreacion(new Date());
+		project.setGarantia(oldProject.isGarantia());
+		return project;
+	}
+	
+	private boolean isValidProject(String idProject) {
+		System.out.println("Method isValidProject...");
+		List<Object> allObject = genericRepository
+				.getAllObjectByQuery("SELECT u FROM Metrado m, Nivel n WHERE n.proyecto.id = '" 
+						+ idProject +"' AND m.nivel.id = n.id");
+
+		Boolean result = !allObject.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
+		System.out.println("result: " + result);
+
+		return result;
+	}
+
 	public File generateFile(String idProject) {
 		try {
 			Proyecto project = findProjectById(Integer.valueOf(idProject));

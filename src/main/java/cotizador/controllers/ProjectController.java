@@ -212,5 +212,22 @@ public class ProjectController extends GenericController {
 		}
 		return null;
 	}
+	
+	@POST
+	@Path("/generateVersion")
+	public Integer generateVersion(@QueryParam("idProject") String id) {
+		
+		System.out.println("/generateVersion");
+		
+		try {
+			
+			Integer status = projectService.generateVersion(id);
+			return status;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

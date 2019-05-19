@@ -68,6 +68,9 @@ public class Proyecto {
 	
 	@Column(name="fecha_modificacion")
 	private Date fechaModificacion;
+	
+	@Column(name="fecha_fin")
+	private Date fechaFin;
 
 	public int getId() {
 		return id;
@@ -211,6 +214,14 @@ public class Proyecto {
 
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
+	}
+
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 
 }
