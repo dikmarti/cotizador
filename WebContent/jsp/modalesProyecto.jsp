@@ -56,6 +56,59 @@
 	</div>
 	<!-- End Modal -->
 	
+	<!-- Modal -->
+	<div id="bloque-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title" id="modal-title-text">Crear Bloque</h4>
+	      </div>
+	      <div class="modal-body">
+	      		<form id="createBloqueForm" class="form-content">
+					
+					<input id="idProyecto" type="hidden" name="idProyecto"/>
+					<input id="idBloque" type="hidden" name="idBloque" />
+					
+		      		<div class="form-row">
+		      			<div class="form-group col-md-6">
+						    <input class="form-control js-text" id="nombre-bloque" type="text" name="nombre-bloque" placeholder="Nombre" maxlength="200"/>
+		      			</div>	      			
+		    		</div>
+		      		<div class="form-row">
+		      			<div class="form-group col-md-6">
+						    <input class="form-control js-text" id="descripcion-bloque" type="text" name="descripcion-bloque" placeholder="Descripción"  maxlength="200"/>
+		      			</div>	      			
+		      		</div>	      		
+		      		<div class="form-row">
+		      			<div class="form-group col-md-12">
+						    <div class="msg-error" id="msg-error-bloque">
+						   			Debe ingresar los datos.
+			      			</div>
+		      			</div>
+					</div>
+					<div class="form-row">
+		    			<div class="form-group col-md-12">
+						    <div class="msg-exito" id="msg-exito-bloque">
+						   			Se guardó el nivel exitosamente.
+			     			</div>
+		    			</div>
+					</div>
+					<div class="form-style-button proyecto">
+					   	<input type="button" value="Guardar" id="btn-guardar-bloque" class="btn btn-primary" style="margin-left: 20%;"/>	
+					   	<input type="button" value="Cancelar" id="btn-cancelar-bloque" class="btn btn-primary" style="margin-left: 10%;"/>			   
+					</div>
+			   	</form>
+	      </div>
+	
+	    </div>
+	
+	  </div>
+	</div>
+	<!-- End Modal -->
+	
 	<!-- Modal Confirm-->
 	<div id="confirm-elim-modal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">	
@@ -68,7 +121,7 @@
 	      <div class="modal-body">
 	      		<div class="form-row">
 		      		<div class="form-group col-md-6" style="width: 100%;">
-						  <span class="confirm">¿ Est&aacute; seguro que desea eliminar el nivel?</span>						    
+						  <span class="confirm">¿ Est&aacute; seguro que desea eliminar el elemento?</span>						    
       				</div>	      			
 	    		</div>
 	    		<div class="form-row">
@@ -1162,7 +1215,7 @@
 			
 			var idMetrado = $(element).parent("div").data("metrado")
 			
-			if ghubj (idMetrado != undefined) {
+			if (idMetrado != undefined) {
 				metradoEliminados += "," + idMetrado.toString();		
 			}					
 			 

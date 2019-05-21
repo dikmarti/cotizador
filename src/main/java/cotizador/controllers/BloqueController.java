@@ -20,11 +20,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.Bloque;
 import cotizador.model.domain.Nivel;
-import cotizador.model.domain.Proyecto;
 import cotizador.model.domain.models.BloqueModel;
-import cotizador.model.domain.models.NivelModel;
 import cotizador.service.BloqueService;
-import cotizador.service.NivelService;
 import cotizador.service.ProjectService;
 
 @Path("/bloque")

@@ -35,15 +35,15 @@
 		    		<input class="form-control js-text" id="localidad" type="text" name="localidad" placeholder="Localidad" maxlength="200"/>
     			</div>    			
     			<div class="form-group col-md-4">
-		    		<input class="form-control js-decimal" id="direccion" type="text" name="direccion" placeholder="Dirección" maxlength="200"/>
+		    		<input class="form-control js-text" id="direccion" type="text" name="direccion" placeholder="Dirección" maxlength="200"/>
     			</div>
     		</div>
     		<div class="form-row">
     			<div class="form-group col-md-4">
-				    <input class="form-control js-decimal" id="nombreContacto" type="text" name="nombreContacto" placeholder="Nombre de Contacto" maxlength="200"/>
+				    <input class="form-control js-text" id="nombreContacto" type="text" name="nombreContacto" placeholder="Nombre de Contacto" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
-				    <input class="form-control js-decimal" id="cargoContacto" type="text" name="cargoContacto" placeholder="Cargo de Contacto" maxlength="200"/>
+				    <input class="form-control js-text" id="cargoContacto" type="text" name="cargoContacto" placeholder="Cargo de Contacto" maxlength="200"/>
     			</div>
     			<div class="form-group col-md-4">
 				    <input class="form-control js-text" id="correoContacto" type="text" name="correoContacto" placeholder="Correo de Contatco" maxlength="200"/>
@@ -93,16 +93,20 @@
 			</div>
 			<div class="div-btns">
 			   	<input type="button" value="Guardar" id="btn-guardar-proyecto" class="btn btn-primary" />			   	
-			   	<input type="button" value="Crear Nivel" id="btn-crear-nivel" class="btn btn-primary" style="display:none;" />
+			   	<input type="button" value="Crear Bloque" id="btn-crear-bloque" class="btn btn-primary" style="display:none;" />
 			</div>
 			
 		 </form>  
    	
-	   	<div id="niveles" class="niveles">
+   		<div id="bloques">
+			
+  		</div>
+
+		<div id="niveles" class="niveles">
 			<div class="row div-row" id="row-niveles">
 			   			 
 			</div>  
-  		</div>
+  		</div>  	   	
   
 <!-- End page content -->
 
@@ -142,7 +146,7 @@
 				return false;
 			}
 			
-			$("#btn-crear-nivel").css("display","inline-block");
+			$("#btn-crear-bloque").css("display","inline-block");
 			
 			$.ajax({
 		    	  url: "/Cotizador/rest/project/byId",
@@ -303,7 +307,7 @@
 		    	        			$("#fechaModificacion").addClass("show");
 		    	        		}
 		    	        		
-		    	        		$("#btn-crear-nivel").css("display","inline-block");
+		    	        		$("#btn-crear-bloque").css("display","inline-block");
 		    	        		
 		    	        	} else {	    	        	
 		    	        		$(".msg-error").html("Ha ocurrido un error, el proyecto no pudo ser creado.");
@@ -336,6 +340,20 @@
 			$("#nivel-modal").off();
 			
 			$("#nivel-modal").css('z-index', '2');
+        	$(".modal-backdrop.fade.in").css('z-index', '1');
+		});
+		
+		$("#btn-crear-bloque").click(function() {
+			
+			$("#nombre-bloque").val("");
+			$("#descripcion-bloque").val("");
+			
+			$("#msg-exito-bloque").removeClass("show");
+			$("#bloque-modal").modal("show");
+			
+			$("#bloque-modal").off();
+			
+			$("#bloque-modal").css('z-index', '2');
         	$(".modal-backdrop.fade.in").css('z-index', '1');
 		});
 		
@@ -407,6 +425,129 @@
 
 			
 		});
+		
+		$("#btn-guardar-bloque").click(function() {
+			
+			var nombre = $("#nombre-bloque").val();
+			var descripcion = $("#descripcion-bloque").val();
+			
+			if(nombre.trim() == "" || descripcion.trim() == "") {
+				$("#msg-error-bloque").addClass("show");
+				return false;
+			}
+			
+			var html = "<div id='bloque_1' style='width: 33%;float: left;border: 2px solid red; border-radius: 10px;'> Bloque 1 ";
+		   	html += "<input type='button' value='Crear Nivel' id='btn-crear-nivel-bloque-1' class='btn btn-primary' style='inline-block;' />";
+			html += "</div>";
+			
+			$("#bloques").append(html);
+						
+			var $divNiveles = $("#niveles");
+
+			$("#bloque_1").append($divNiveles);
+			
+			$("#bloque-modal").css('z-index', '2');
+        	$(".modal-backdrop.fade.in").css('z-index', '1');
+        
+			$("#bloque-modal").modal("hide");
+			
+				
+			/*
+			
+			
+			$("#idProyecto").val(proyectoActual);
+			 var $form = $("#createBloqueForm").serializeArray();    	  	  
+		  	 var $formSerialized = objectifyForm($form);
+		  	  
+		  	 $("#bloque-modal").css('z-index', '1');
+		  	 
+			 $.ajax({
+		    	  url: "/Cotizador/rest/bloque/createBloque",
+		    	  type: "POST",
+		    	  data: JSON.stringify($formSerialized),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino creacion de nivel");
+		    	        console.log("result: " + result);
+		    	        var obj = JSON.stringify(result);
+		    	        console.log(" objeto " + obj);	    	        
+		    	        
+		    	        $("#msg-error-bloque").removeClass("on");
+		    	        
+		    	        if(obj === undefined) {	
+		    	        	
+		    	        	$("#blouqe-modal").css('z-index', '2');
+		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+		    	        	
+		    	        	$("#msg-error-bloque").html("Ha ocurrido un error, el bloque no pudo ser creado.");
+		    	        	$("#msg-error-bloque").addClass("on");	    	        	 
+		    	        } else {
+		    	        	if(result != null) {
+		    	        		$("#msg-exito-bloque").addClass("show");
+		    	        		bloqueActual = result;	
+		    	        		
+		    	        		if( $("div.edit").length > 0) {
+		    	    				$("div.edit").find("p").html(nombre);
+		    	    				
+		    	    				$("div.edit").data("id",result);
+		    	    				$("div.edit").data("nombre-bloque", nombre);
+		    	    				$("div.edit").data("descripcion-bloque", descripcion);
+		    	    				
+		    	    				$("#bloque-modal").css('z-index', '2');
+				    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+				    	        	
+			    	    			$("#bloque-modal").modal("hide");
+			    	    			
+			    	    			$("#nombre-bloque").val("");
+			    	    			$("#descripcion-bloque").val("");
+		    	    				return false;
+		    	    			}
+		    	    		
+		    	    			var html = '';			
+		    	    			
+		    	    			$("#row-niveles").prepend(html);	
+		    	    				    	    			   	        		
+		    	    			$("#bloque-modal").css('z-index', '2');
+			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+			    	        	
+		    	    			$("#bloque-modal").modal("hide");
+		    	    			
+		    	    			$("#nombre-bloque").val("");
+		    	    			$("#descripcion-bloque").val("");
+		    	    			
+		    	        	} else {
+		    	        		
+		    	        		$("#bloque-modal").css('z-index', '2');
+			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+			    	        	
+		    	        		$("#msg-error-bloque").html("Ha ocurrido un error, el bloque no pudo ser creado.");
+			    	        	$("#msg-error-bloque").addClass("on");	 
+		    	        	}
+		    	        }
+		    	       
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+			 
+			 */
+
+			
+		});	
+		
+		$("#btn-cancelar-bloque").click(function() {
+
+			$("#nombre-bloque").val("");
+			$("#descripcion-bloque").val("");
+			
+			$("#bloque-modal").modal("hide");
+		});
 
 		$("#btn-guardar-nivel").click(function() {
 			
@@ -444,7 +585,7 @@
 		    	        	$("#nivel-modal").css('z-index', '2');
 		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 		    	        	
-		    	        	$("#msg-error-nivel").html("Ha ocurrido un error, el proyecto no pudo ser creado.");
+		    	        	$("#msg-error-nivel").html("Ha ocurrido un error, el nivel no pudo ser creado.");
 		    	        	$("#msg-error-nivel").addClass("on");	    	        	 
 		    	        } else {
 		    	        	if(result != null) {
@@ -510,7 +651,7 @@
 		    	        		$("#nivel-modal").css('z-index', '2');
 			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
 			    	        	
-		    	        		$("#msg-error-nivel").html("Ha ocurrido un error, el proyecto no pudo ser creado.");
+		    	        		$("#msg-error-nivel").html("Ha ocurrido un error, el nivel no pudo ser creado.");
 			    	        	$("#msg-error-nivel").addClass("on");	 
 		    	        	}
 		    	        }

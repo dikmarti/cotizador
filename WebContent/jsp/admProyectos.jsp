@@ -107,7 +107,6 @@ $(document).ready(function() {
  	        		    	   "FechaCreacion": result[index].fechaCreacion,
  	        		    	   "FechaModificacion": result[index].fechaModificacion,
  	        		    	   "GenerarMetrado": "<a href='javascript:void(0)' onclick='downloadFile("+result[index].id+");' class='btn btn-primary'>Generar</a>"
- 	        		    	   "GenerarVersion": "<a href='javascript:void(0)' onclick='generateVersion("+result[index].id+");' class='btn btn-primary'>Generar</a>"
  	        		    	}]).draw(); 
     	        });
     	  },
