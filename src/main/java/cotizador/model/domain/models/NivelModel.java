@@ -15,7 +15,7 @@ public class NivelModel {
 	private String nombre;
 	private String descripcion;
 	private String orden;
-	private String idProyecto;
+	private String idBloque;
 	
 	public String getId() {
 		return id;
@@ -41,11 +41,11 @@ public class NivelModel {
 	public void setOrden(String orden) {
 		this.orden = orden;
 	}
-	public String getIdProyecto() {
-		return idProyecto;
+	public String getIdBloque() {
+		return idBloque;
 	}
-	public void setIdProyecto(String idProyecto) {
-		this.idProyecto = idProyecto;
+	public void setIdBloque(String idBloque) {
+		this.idBloque = idBloque;
 	}
 		
 }

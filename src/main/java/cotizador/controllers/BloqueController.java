@@ -19,7 +19,6 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.Bloque;
-import cotizador.model.domain.Nivel;
 import cotizador.model.domain.models.BloqueModel;
 import cotizador.service.BloqueService;
 import cotizador.service.ProjectService;
@@ -55,8 +54,8 @@ public class BloqueController extends GenericController {
 			Integer idBloque = null;
 			String idBloq = bloqueModel.getId();
 			
-			if(idBloq != null && idBloq.isEmpty()) {
-				idBloque = ((Nivel) bloqueService.createBloque(bloque)).getId();	
+			if(idBloq == null || idBloq.isEmpty()) {
+				idBloque = ((Bloque) bloqueService.createBloque(bloque)).getId();	
 			} else {
 				bloque.setId(Integer.parseInt(idBloq));
 				bloqueService.updateBloque(bloque);
@@ -127,7 +126,7 @@ public class BloqueController extends GenericController {
 	@Path("/findBloqueByProject")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Bloque> finNivelByProject(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public List<Bloque> finBloqueByProject(String jsonForm, @Context HttpServletRequest httpRequest) {
 
 		System.out.println("/findBloqueByProject json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();

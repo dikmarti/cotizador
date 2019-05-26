@@ -64,7 +64,6 @@ public class ProjectController extends GenericController {
 			proyecto.setCargoContacto(projectModel.getCargoContacto());
 			proyecto.setCorreoContacto(projectModel.getCorreoContacto());
 			proyecto.setTelefonoContacto(projectModel.getTelefonoContacto());
-			proyecto.setTipoPrecio(Integer.parseInt(projectModel.getTipoPrecio()));
 						
 			if (!StringUtils.isEmpty(projectModel.getTipoPrecio())) {
 				proyecto.setTipoPrecio(Integer.parseInt(projectModel.getTipoPrecio()));	
@@ -74,6 +73,7 @@ public class ProjectController extends GenericController {
 			
 			if(idProj == 0) {
 				proyecto.setFechaCreacion(new Date());
+				projectService.createProject(proyecto);
 			} else {
 				proyecto.setId(idProj);
 				proyecto.setFechaModificacion(new Date());

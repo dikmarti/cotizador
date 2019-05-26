@@ -11,8 +11,8 @@
 	      <div class="modal-body">
 	      		<form id="createNivelForm" class="form-content">
 					
-					<input id="idProyecto" type="hidden" name="idProyecto"/>
 					<input id="idNivel" type="hidden" name="id" />
+					<input id="idBloque" type="hidden" name="idBloque" />
 					
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
@@ -70,16 +70,16 @@
 	      		<form id="createBloqueForm" class="form-content">
 					
 					<input id="idProyecto" type="hidden" name="idProyecto"/>
-					<input id="idBloque" type="hidden" name="idBloque" />
+					<input id="idBloque" type="hidden" name="id" />
 					
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
-						    <input class="form-control js-text" id="nombre-bloque" type="text" name="nombre-bloque" placeholder="Nombre" maxlength="200"/>
+						    <input class="form-control js-text" id="nombre-bloque" type="text" name="nombre" placeholder="Nombre" maxlength="200"/>
 		      			</div>	      			
 		    		</div>
 		      		<div class="form-row">
 		      			<div class="form-group col-md-6">
-						    <input class="form-control js-text" id="descripcion-bloque" type="text" name="descripcion-bloque" placeholder="Descripción"  maxlength="200"/>
+						    <input class="form-control js-text" id="descripcion-bloque" type="text" name="descripcion" placeholder="Descripción"  maxlength="200"/>
 		      			</div>	      			
 		      		</div>	      		
 		      		<div class="form-row">
@@ -398,17 +398,17 @@
 		    	        	priceList[result[index].producto.id + "_" + result[index].proveedor.id] = result[index].id;
 		    	        	preciosXProveedor[result[index].proveedor.id] = result[index].precioMinimoo + "," + result[index].precioMaximo + "," + result[index].precioPromedio;
 		    	        });
-		    	       
+
 		    	        switch(unidadMedida) {
-			    	        case 1:
+			    	        case 0:
 			    	        	unidadMedida = "Galón"; break;
-			    	        case 2:
+			    	        case 1:
 			    	        	unidadMedida = "Litros"; break;
-			    	        case 3:
+			    	        case 2:
 			    	        	unidadMedida = "Pulgadas"; break;
-			    	        case 4:
+			    	        case 3:
 			    	        	unidadMedida = "Pies"; break;
-			    	        case 5:
+			    	        case 4:
 			    	        	unidadMedida = "Metros"; break;
 			    	        case 5:
 			    	        	unidadMedida = "Kilómetros"; break;
@@ -419,9 +419,11 @@
 			    	        case 8:
 				    	        unidadMedida = "Mtros Cúbicos"; break;
 			    	        case 9:
-			    	        	unidadMedida = "Rollos"; break;
+			    	        	unidadMedida = "Rollo"; break;
 			    	        case 10:
-			    	        	unidadMedida = "Unidad"; break;
+			    	        	unidadMedida = "Unidades"; break;
+			    	        case 11:
+			    	        	unidadMedida = "Global"; break;
 		    	      	}
 		    	        
 		    	        $("#medida").html(unidadMedida);

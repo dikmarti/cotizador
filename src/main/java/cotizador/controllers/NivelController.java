@@ -18,9 +18,11 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import cotizador.model.domain.Bloque;
 import cotizador.model.domain.Nivel;
 import cotizador.model.domain.Proyecto;
 import cotizador.model.domain.models.NivelModel;
+import cotizador.service.BloqueService;
 import cotizador.service.NivelService;
 import cotizador.service.ProjectService;
 
@@ -32,7 +34,7 @@ public class NivelController extends GenericController {
 	NivelService nivelService;
 	
 	@Inject
-	ProjectService projectService;
+	BloqueService bloqueService;
 	
 	@POST
 	@Path("/createNivel")
@@ -53,13 +55,13 @@ public class NivelController extends GenericController {
 			nivel.setNombre(nivelModel.getNombre());
 			nivel.setOrden(Integer.parseInt(nivelModel.getOrden()));
 			
-			Proyecto proyecto = projectService.findProjectById(Integer.parseInt(nivelModel.getIdProyecto()));
-			nivel.setProyecto(proyecto);
+			Bloque bloque = bloqueService.findBloqueById(Integer.parseInt(nivelModel.getIdBloque()));
+			nivel.setBloque(bloque);
 			
 			Integer idNivel = null;
 			String idNiv = nivelModel.getId();
 			
-			if(idNiv != null && idNiv.isEmpty()) {
+			if(idNiv == null || idNiv.isEmpty()) {
 				idNivel = ((Nivel) nivelService.createNivel(nivel)).getId();	
 			} else {
 				nivel.setId(Integer.parseInt(idNiv));

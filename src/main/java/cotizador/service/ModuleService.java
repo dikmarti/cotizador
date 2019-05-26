@@ -43,14 +43,17 @@ public class ModuleService {
 
 		@SuppressWarnings("unchecked")
 		List<Modulo> result = !allObject.isEmpty() ? (List<Modulo>) (Object) allObject : new ArrayList<Modulo>();	
+		/*
 		genericRepository.getAllObjectByQuery("SELECT m FROM RelacionProducto m");
 		
-		/*genericRepository.getAllObjectByQuery("SELECT m FROM Proyecto m");
-			genericRepository.getAllObjectByQuery("SELECT m FROM Sistema m");
-		genericRepository.getAllObjectByQuery("SELECT m FROM Proyecto m");*/
-		genericRepository.getAllObjectByQuery("SELECT m FROM Marca m");
+		genericRepository.getAllObjectByQuery("SELECT m FROM Proyecto m");
+		genericRepository.getAllObjectByQuery("SELECT m FROM Sistema m");
+		genericRepository.getAllObjectByQuery("SELECT m FROM Proyecto m");
+		
 		genericRepository.getAllObjectByQuery("SELECT m FROM Producto m");
-		genericRepository.getAllObjectByQuery("SELECT m FROM Precio m");
+		genericRepository.getAllObjectByQuery("SELECT m FROM Bloque m");
+		genericRepository.getAllObjectByQuery("SELECT m FROM Nivel m");
+		genericRepository.getAllObjectByQuery("SELECT m FROM Precio m");*/
 	
 		
 		return  result;

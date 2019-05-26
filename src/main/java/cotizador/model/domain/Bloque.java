@@ -1,18 +1,22 @@
 package cotizador.model.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 @NamedQueries({
-	@NamedQuery(name = "Bloque.findById", query = "SELECT n FROM Nivel n WHERE n.bloque.id = :id"),
-	@NamedQuery(name = "Bloque.findByIdProject", query = "SELECT n FROM Nivel n WHERE n.proyecto.id = :id"),
-	@NamedQuery(name = "Bloque.findAll", query = "SELECT n FROM Bloque n")	
+	@NamedQuery(name = "Bloque.findById", query = "SELECT b FROM Bloque b WHERE b.id = :id"),
 })
 
+@Entity
+@Table(name="bloque")
 public class Bloque {
 	
 	@Id
@@ -26,6 +30,10 @@ public class Bloque {
 	@Column
 	private String descripcion;
 
+	@ManyToOne
+	@PrimaryKeyJoinColumn(name="id_proyecto", referencedColumnName="id")
+	private Proyecto proyecto;
+	
 	public int getId() {
 		return id;
 	}
@@ -49,5 +57,13 @@ public class Bloque {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
+
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
+	}
+		
 }

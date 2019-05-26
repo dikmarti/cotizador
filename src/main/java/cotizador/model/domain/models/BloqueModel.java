@@ -14,6 +14,7 @@ public class BloqueModel {
 	private String id;
 	private String nombre;
 	private String descripcion;
+	private String idProyecto;
 	
 	public String getId() {
 		return id;
@@ -33,5 +34,10 @@ public class BloqueModel {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-		
+	public String getIdProyecto() {
+		return idProyecto;
+	}
+	public void setIdProyecto(String idProyecto) {
+		this.idProyecto = idProyecto;
+	}	
 }

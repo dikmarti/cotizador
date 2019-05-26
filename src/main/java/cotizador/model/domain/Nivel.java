@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @NamedQueries({
 	@NamedQuery(name = "Nivel.findById", query = "SELECT n FROM Nivel n WHERE n.id = :id"),
-	@NamedQuery(name = "Nivel.findByIdProject", query = "SELECT n FROM Nivel n WHERE n.proyecto.id = :id"),
+	@NamedQuery(name = "Nivel.findByIdProject", query = "SELECT n FROM Nivel n WHERE n.bloque.proyecto.id = :id"),
 	@NamedQuery(name = "Nivel.findAll", query = "SELECT n FROM Nivel n")	
 })
 
@@ -27,8 +27,8 @@ public class Nivel {
 	private int orden;
 	
 	@ManyToOne
-	@PrimaryKeyJoinColumn(name="id_proyecto", referencedColumnName="id")
-	private Proyecto proyecto;
+	@PrimaryKeyJoinColumn(name="id_bloque", referencedColumnName="id")
+	private Bloque bloque;
 
 	public int getId() {
 		return id;
@@ -62,12 +62,11 @@ public class Nivel {
 		this.orden = orden;
 	}
 
-	public Proyecto getProyecto() {
-		return proyecto;
+	public Bloque getBloque() {
+		return bloque;
 	}
 
-	public void setProyecto(Proyecto proyecto) {
-		this.proyecto = proyecto;
+	public void setBloque(Bloque bloque) {
+		this.bloque = bloque;
 	}
-	
 }

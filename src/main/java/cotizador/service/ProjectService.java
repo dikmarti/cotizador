@@ -207,7 +207,9 @@ public class ProjectService {
 			level.setDescripcion(nivel.getDescripcion());
 			level.setNombre(nivel.getNombre());
 			level.setOrden(nivel.getOrden());
-			level.setProyecto(project);
+			
+			//TODO: ver donde se agrega el proyect xq ahora es bloque
+			//level.setProyecto(project);
 			
 			Nivel newLevel = (Nivel) genericRepository.addObject(level);
 			

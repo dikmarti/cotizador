@@ -101,12 +101,6 @@
    		<div id="bloques">
 			
   		</div>
-
-		<div id="niveles" class="niveles">
-			<div class="row div-row" id="row-niveles">
-			   			 
-			</div>  
-  		</div>  	   	
   
 <!-- End page content -->
 
@@ -121,6 +115,25 @@
 	var nivelActual = "";
 	var proyectoActual = "";
 	var precioActual = "";
+	var bloqueActual = "";
+	
+	function crearNivelPorBloque (element) {
+		var idBloque = $(element).parent().data("id");
+		bloqueActual = idBloque;
+		$(this).data("bloque", idBloque);
+		$("#nombre-nivel").val("");
+		$("#descripcion-nivel").val("");
+		$("#orden").val("")
+		
+		$("#msg-exito-nivel").removeClass("show");
+		$("#niveles").addClass("show");			
+		$("#nivel-modal").modal("show");
+		
+		$("#nivel-modal").off();
+		
+		$("#nivel-modal").css('z-index', '2');
+    	$(".modal-backdrop.fade.in").css('z-index', '1');
+	}
 	
 	$(document).ready(function() {
 		
@@ -238,6 +251,7 @@
 		    	  
 		    	});
 		}
+		
 		$("#garantia").click(function() {
 			$(this).removeClass("custom-color");
 		});	
@@ -263,6 +277,8 @@
 			var telefonoContacto = $("#nombreContacto").val();
 			var tipoPrecio = $("#tipoPrecio").val();
 			$("#idProject").val(proyectoActual);
+			
+			$("#msg-error-proyecto").removeClass("show");
 			
 			if(idCrmMCO.trim() == "" || ruc.trim() == "" || nombreCliente.trim() == "" ||
 				nombreProyecto.trim() == "" || localidad.trim() == "" || nombreContacto.trim() == ""
@@ -325,24 +341,7 @@
 		    	  
 		    	});
 		});
-		
-		$("#btn-crear-nivel").click(function() {
-			
-//TODO validar si es nuevo o esta modificando para mostrar los valores
-			$("#nombre-nivel").val("");
-			$("#descripcion-nivel").val("");
-			$("#orden").val("")
-			
-			$("#msg-exito-nivel").removeClass("show");
-			$("#niveles").addClass("show");			
-			$("#nivel-modal").modal("show");
-			
-			$("#nivel-modal").off();
-			
-			$("#nivel-modal").css('z-index', '2');
-        	$(".modal-backdrop.fade.in").css('z-index', '1');
-		});
-		
+				
 		$("#btn-crear-bloque").click(function() {
 			
 			$("#nombre-bloque").val("");
@@ -428,33 +427,15 @@
 		
 		$("#btn-guardar-bloque").click(function() {
 			
-			var nombre = $("#nombre-bloque").val();
-			var descripcion = $("#descripcion-bloque").val();
+			var nombreBloque = $("#nombre-bloque").val();
+			var descripcionBloque = $("#descripcion-bloque").val();
 			
-			if(nombre.trim() == "" || descripcion.trim() == "") {
+			$("#msg-error-bloque").removeClass("show");
+			if(nombreBloque.trim() == "" || descripcionBloque.trim() == "") {
 				$("#msg-error-bloque").addClass("show");
 				return false;
 			}
-			
-			var html = "<div id='bloque_1' style='width: 33%;float: left;border: 2px solid red; border-radius: 10px;'> Bloque 1 ";
-		   	html += "<input type='button' value='Crear Nivel' id='btn-crear-nivel-bloque-1' class='btn btn-primary' style='inline-block;' />";
-			html += "</div>";
-			
-			$("#bloques").append(html);
 						
-			var $divNiveles = $("#niveles");
-
-			$("#bloque_1").append($divNiveles);
-			
-			$("#bloque-modal").css('z-index', '2');
-        	$(".modal-backdrop.fade.in").css('z-index', '1');
-        
-			$("#bloque-modal").modal("hide");
-			
-				
-			/*
-			
-			
 			$("#idProyecto").val(proyectoActual);
 			 var $form = $("#createBloqueForm").serializeArray();    	  	  
 		  	 var $formSerialized = objectifyForm($form);
@@ -487,32 +468,26 @@
 		    	        		$("#msg-exito-bloque").addClass("show");
 		    	        		bloqueActual = result;	
 		    	        		
-		    	        		if( $("div.edit").length > 0) {
-		    	    				$("div.edit").find("p").html(nombre);
-		    	    				
-		    	    				$("div.edit").data("id",result);
-		    	    				$("div.edit").data("nombre-bloque", nombre);
-		    	    				$("div.edit").data("descripcion-bloque", descripcion);
-		    	    				
-		    	    				$("#bloque-modal").css('z-index', '2');
-				    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-				    	        	
-			    	    			$("#bloque-modal").modal("hide");
-			    	    			
-			    	    			$("#nombre-bloque").val("");
-			    	    			$("#descripcion-bloque").val("");
-		    	    				return false;
-		    	    			}
-		    	    		
-		    	    			var html = '';			
-		    	    			
-		    	    			$("#row-niveles").prepend(html);	
-		    	    				    	    			   	        		
-		    	    			$("#bloque-modal").css('z-index', '2');
-			    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
-			    	        	
-		    	    			$("#bloque-modal").modal("hide");
-		    	    			
+		    	      			var idBloque = result;
+	    	        			var html = "<div id='bloque_"+idBloque+"' data-id='" + idBloque + "' style='width: 30%; float: left; border: 2px solid; border-radius: 5px; box-shadow: -6px -4px 5px 0px rgba(0,0,0,0.2);padding: 5px; margin-left: 10px;  margin-top: 10px;'>"; 
+	    	        			html += '<a id="editarBloque" title="Editar bloque" onclick="editarBloque($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="padding: 4px;font-size: 16px; text-decoration: none; float:left;color:rgb(0,72,118);"></a>';
+	    	        			html += ' <b>Bloque:</b> ' + nombreBloque;
+	    	        			var paramIdBloque = '"' + idBloque + '"';
+	    	        		   	html += "<input type='button' data-bloque='' value='Crear Nivel' id='btn-crear-nivel-bloque-" + idBloque + "' class='btn btn-primary' style='inline-block;float: right' onclick='crearNivelPorBloque($(this));'/>";
+	    	        			html += "</br></br></br></div>";
+	    	        		
+	    	        			$("#bloques").append(html);
+	    	        						
+	    	        			var divNiveles = '<div id="niveles" class="niveles show" style="float: left;">';
+	    	        			divNiveles += "</div> ";
+	    	
+	    	        			$("#bloque_" + idBloque).append(divNiveles);
+	    	        			
+	    	        			$("#bloque-modal").css('z-index', '2');
+	    	                	$(".modal-backdrop.fade.in").css('z-index', '1');
+	    	                
+	    	        			$("#bloque-modal").modal("hide");
+	    	    	    	    			
 		    	    			$("#nombre-bloque").val("");
 		    	    			$("#descripcion-bloque").val("");
 		    	    			
@@ -534,10 +509,7 @@
 		    	        console.log("error");
 		    	  }
 		    	  
-		    	});
-			 
-			 */
-
+		    });
 			
 		});	
 		
@@ -548,19 +520,21 @@
 			
 			$("#bloque-modal").modal("hide");
 		});
-
+		
 		$("#btn-guardar-nivel").click(function() {
 			
 			var orden = $("#orden").val();
 			var nombre = $("#nombre-nivel").val();
 			var descripcion = $("#descripcion-nivel").val();
 			
+			$("#msg-error-nivel").removeClass("show");
+			
 			if(orden.trim() == "" || nombre.trim() == "" || descripcion.trim() == "") {
 				$("#msg-error-nivel").addClass("show");
 				return false;
 			}	
 			
-			$("#idProyecto").val(proyectoActual);
+			$("#idBloque").val(bloqueActual);
 			 var $form = $("#createNivelForm").serializeArray();    	  	  
 		  	 var $formSerialized = objectifyForm($form);
 		  	  
@@ -626,14 +600,21 @@
 		    	    			html += '<a id="editarNivel" title="Editar nivel" onclick="editarNivel($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: -28px;float:right;color:white;"></a>';
 		    	    			html += '</div>';			
 		    	    			
-		    	    			$("#row-niveles").prepend(html);	
+		    	    			var rowNiveles = '<div class="row div-row" id="row-niveles">';
+       			   			    rowNiveles += '</div>';
+       			   			    
+       			   			    var $niveles = $("#bloque_"+bloqueActual).find("#niveles");
+       			   			    $niveles.append(rowNiveles);
+       			   			    
+       			   			    var $rows = $niveles.find("#row-niveles");
+       			   			    $rows.prepend(html);	
 		    	    									
-		    	    			var $test = $('#row-niveles div').sort(function(a,b) {
+		    	    			var $test = $niveles.find("#row-niveles div").sort(function(a,b) {
 		    	    			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
 		    	    			});
 		    	    			
-		    	    			$("#row-niveles").html("");			
-		    	    			$("#row-niveles").append($test);	
+		    	    			$rows.html("");			
+		    	    			$rows.append($test);	
 		    	    			
 		    	    			indexColorNivel++;
 		    	        		
@@ -665,10 +646,10 @@
 		    	  }
 		    	  
 		    	});
-
-			
+			 			
 		});	
-				
+			
+						
 		function interpolateColor(color1, color2, factor) {
 		    if (arguments.length < 3) { 
 		        factor = 0.5; 
@@ -716,6 +697,22 @@
 		$(".modal-backdrop.fade.in").css('z-index', '1');
 		$("#nivel-modal").off();
 	}
+	
+	function editarBloque(elem){
+		elem.parent().addClass("edit");
+		
+		$("#nombre-bloque").val(elem.parent().data("nombre"));
+		$("#descripcion-bloque").val(elem.parent().data("descripcion-nivel"));
+		$("#idBloque").val(elem.parent().data("id"));
+		
+		$("#msg-exito-bloque").removeClass("show");
+		
+		$("#bloque-modal").modal("show");
+		$("#bloque-modal").css('z-index', '2');
+		$(".modal-backdrop.fade.in").css('z-index', '1');
+		$("#bloque-modal").off();
+	}
+	
 	
 	function eliminarNivel(elem){
 		elem.parent().addClass("remove");	
