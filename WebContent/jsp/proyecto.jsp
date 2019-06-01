@@ -116,6 +116,8 @@
 	var proyectoActual = "";
 	var precioActual = "";
 	var bloqueActual = "";
+	var cantBloques = 0;
+	var rowBloque = 0;
 	
 	function crearNivelPorBloque (element) {
 		var idBloque = $(element).parent().data("id");
@@ -362,7 +364,7 @@
 		});
 		
 		$("#btn-cancelar-nivel").click(function() {
-			$("div.edit").removeClass("edit");
+			$("div.edit-nivel").removeClass("edit-nivel");
 			$("#nombre-nivel").val("");
 			$("#descripcion-nivel").val("");
 			$("#orden").val("")
@@ -468,20 +470,53 @@
 		    	        		$("#msg-exito-bloque").addClass("show");
 		    	        		bloqueActual = result;	
 		    	        		
+		    	        		if( $("div.edit-bloque").length > 0) {
+		    	    				$("div.edit-bloque").find("p").html(nombreBloque);
+		    	    				
+		    	    				$("div.edit-bloque").data("id",result);
+		    	    				$("div.edit-bloque").data("nombre-bloque", nombreBloque);
+		    	    				$("div.edit-bloque").data("descripcion-bloque", descripcionBloque);
+		    	    				
+		    	    				$("#bloque-modal").css('z-index', '2');
+				    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
+				    	        	
+			    	    			$("#bloque-modal").modal("hide");
+			    	    			
+			    	    			$("#nombre-bloque").val("");
+			    	    			$("#descripcion-bloque").val("");
+			    	    			$("div.edit-bloque").removeClass("edit-bloque");
+		    	    				return false;
+		    	    			}
+		    	        		
 		    	      			var idBloque = result;
-	    	        			var html = "<div id='bloque_"+idBloque+"' data-id='" + idBloque + "' style='width: 30%; float: left; border: 2px solid; border-radius: 5px; box-shadow: -6px -4px 5px 0px rgba(0,0,0,0.2);padding: 5px; margin-left: 10px;  margin-top: 10px;'>"; 
+	    	        			var html = "<div id='bloque_"+idBloque+"' data-nombre-bloque='"+nombreBloque+"' data-descripcion-bloque='"+descripcionBloque+"' data-id='"+idBloque+"'  class='js-bloques' data-id='" + idBloque + "' style='width: 30%; float: left; border: 2px solid; border-radius: 3px; box-shadow: -6px -4px 5px 0px rgba(0,0,0,0.2);padding: 5px; margin-left: 10px;  margin-top: 10px;'>"; 
 	    	        			html += '<a id="editarBloque" title="Editar bloque" onclick="editarBloque($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="padding: 4px;font-size: 16px; text-decoration: none; float:left;color:rgb(0,72,118);"></a>';
-	    	        			html += ' <b>Bloque:</b> ' + nombreBloque;
+	    	        			html += ' <p><b>Bloque:</b></p> ' + nombreBloque;
 	    	        			var paramIdBloque = '"' + idBloque + '"';
 	    	        		   	html += "<input type='button' data-bloque='' value='Crear Nivel' id='btn-crear-nivel-bloque-" + idBloque + "' class='btn btn-primary' style='inline-block;float: right' onclick='crearNivelPorBloque($(this));'/>";
 	    	        			html += "</br></br></br></div>";
+	    	        			
+	    	        			var divRowBloque = "";
+		    	        		if(cantBloques % 3 == 0){
+		    	        			rowBloque = cantBloques;
+		    	        			divRowBloque = '<div id="rowBloque_'+rowBloque+'" style="display: flex; flex-direction: row;">';
+		    	        			divRowBloque += "</div> ";
+		    	        			$("#bloques").append(divRowBloque);
+		    	        		}
+		    	        		
+		    	        		cantBloques++;
 	    	        		
-	    	        			$("#bloques").append(html);
+		    	        		$("#rowBloque_"+rowBloque).append(html);
 	    	        						
 	    	        			var divNiveles = '<div id="niveles" class="niveles show" style="float: left;">';
 	    	        			divNiveles += "</div> ";
 	    	
 	    	        			$("#bloque_" + idBloque).append(divNiveles);
+	    	        			
+	    	        			var rowNiveles = '<div class="row div-row" id="row-niveles">';
+       			   			    rowNiveles += '</div>';
+       			   			    
+       			   				$("#bloque_" + idBloque).find("#niveles").append(rowNiveles);
 	    	        			
 	    	        			$("#bloque-modal").css('z-index', '2');
 	    	                	$(".modal-backdrop.fade.in").css('z-index', '1');
@@ -566,13 +601,13 @@
 		    	        		$("#msg-exito-nivel").addClass("show");
 		    	        		nivelActual = result;	
 		    	        		
-		    	        		if( $("div.edit").length > 0) {
-		    	    				$("div.edit").find("p").html(nombre);
+		    	        		if( $("div.edit-nivel").length > 0) {
+		    	    				$("div.edit-nivel").find("p").html(nombre);
 		    	    				
-		    	    				$("div.edit").data("id",result);
-		    	    				$("div.edit").data("orden", orden);
-		    	    				$("div.edit").data("nombre", nombre);
-		    	    				$("div.edit").data("descripcion-nivel", descripcion);
+		    	    				$("div.edit-nivel").data("id",result);
+		    	    				$("div.edit-nivel").data("orden", orden);
+		    	    				$("div.edit-nivel").data("nombre", nombre);
+		    	    				$("div.edit-nivel").data("descripcion-nivel", descripcion);
 		    	    				
 		    	    				$("#nivel-modal").css('z-index', '2');
 				    	        	$(".modal-backdrop.fade.in").css('z-index', '1');
@@ -582,6 +617,7 @@
 			    	    			$("#nombre-nivel").val("");
 			    	    			$("#descripcion-nivel").val("");
 			    	    			$("#orden").val("");
+			    	    			$("div.edit-nivel").removeClass("edit-nivel");
 		    	    				return false;
 		    	    			}
 
@@ -599,13 +635,9 @@
 		    	    			html += '<a id="metrarNivel" data-nivel-id="'+result+'" title="Metrar nivel" onclick="metrarNivel($(this));" href="javascript:void(0)" class="fa fa-calculator fa-3x home" style="font-size: 13px; text-decoration: none; position: relative;top: -27px;float:right;color:white;padding-left: 4px;"></a>';
 		    	    			html += '<a id="editarNivel" title="Editar nivel" onclick="editarNivel($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: -28px;float:right;color:white;"></a>';
 		    	    			html += '</div>';			
-		    	    			
-		    	    			var rowNiveles = '<div class="row div-row" id="row-niveles">';
-       			   			    rowNiveles += '</div>';
-       			   			    
+		    	    					    	    			    			   			    
        			   			    var $niveles = $("#bloque_"+bloqueActual).find("#niveles");
-       			   			    $niveles.append(rowNiveles);
-       			   			    
+       			          			   			    
        			   			    var $rows = $niveles.find("#row-niveles");
        			   			    $rows.prepend(html);	
 		    	    									
@@ -684,7 +716,8 @@
 	});
 	
 	function editarNivel(elem){
-		elem.parent().addClass("edit");
+		bloqueActual = elem.parents(".js-bloques").data("id");
+		elem.parent().addClass("edit-nivel");
 		$("#orden").val(elem.parent().data("orden"));
 		$("#nombre-nivel").val(elem.parent().data("nombre"));
 		$("#descripcion-nivel").val(elem.parent().data("descripcion-nivel"));
@@ -699,10 +732,10 @@
 	}
 	
 	function editarBloque(elem){
-		elem.parent().addClass("edit");
+		elem.parent().addClass("edit-bloque");
 		
-		$("#nombre-bloque").val(elem.parent().data("nombre"));
-		$("#descripcion-bloque").val(elem.parent().data("descripcion-nivel"));
+		$("#nombre-bloque").val(elem.parent().data("nombre-bloque"));
+		$("#descripcion-bloque").val(elem.parent().data("descripcion-bloque"));
 		$("#idBloque").val(elem.parent().data("id"));
 		
 		$("#msg-exito-bloque").removeClass("show");
