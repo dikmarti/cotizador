@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 @NamedQueries({
 	@NamedQuery(name = "Bloque.findById", query = "SELECT b FROM Bloque b WHERE b.id = :id"),
+	@NamedQuery(name = "Bloque.findByIdProject", query = "SELECT b FROM Bloque b WHERE b.proyecto.id = :id"),
+	@NamedQuery(name = "Bloque.findAll", query = "SELECT b FROM Bloque b")
 })
 
 @Entity
@@ -31,7 +33,7 @@ public class Bloque {
 	private String descripcion;
 
 	@ManyToOne
-	@PrimaryKeyJoinColumn(name="id_proyecto", referencedColumnName="id")
+	@PrimaryKeyJoinColumn(name="proyecto_id", referencedColumnName="id")
 	private Proyecto proyecto;
 	
 	public int getId() {

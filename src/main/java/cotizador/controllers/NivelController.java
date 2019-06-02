@@ -127,42 +127,6 @@ public class NivelController extends GenericController {
 		}
 		return null;
 	}
-	
-	@SuppressWarnings("unchecked")
-	@POST
-	@Path("/findNivelByProject")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Nivel> finNivelByProject(String jsonForm, @Context HttpServletRequest httpRequest) {
-
-		System.out.println("/findNivelByProject json form " + jsonForm);
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, String> map = new HashMap<String, String>();
-
-		try {
-
-			map = mapper.readValue(jsonForm, Map.class);
-			Integer idProject = Integer.valueOf(map.get("idProject"));
-			List<Nivel> niveles = nivelService.findNivelByProject(idProject);
-			System.out.println("niveles: " + niveles);
-			
-			return niveles;
-
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 
 }

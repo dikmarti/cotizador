@@ -1,6 +1,7 @@
 package cotizador.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +20,11 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.Bloque;
+import cotizador.model.domain.Nivel;
+import cotizador.model.domain.Proyecto;
 import cotizador.model.domain.models.BloqueModel;
 import cotizador.service.BloqueService;
+import cotizador.service.NivelService;
 import cotizador.service.ProjectService;
 
 @Path("/bloque")
@@ -32,6 +36,9 @@ public class BloqueController extends GenericController {
 	
 	@Inject
 	ProjectService projectService;
+	
+	@Inject
+	NivelService nivelService;
 	
 	@POST
 	@Path("/createBloque")
@@ -47,10 +54,12 @@ public class BloqueController extends GenericController {
 
 			bloqueModel = mapper.readValue(jsonForm, BloqueModel.class);
 			Bloque bloque = new Bloque();
+			Proyecto proyecto = projectService.findProjectById(Integer.parseInt(bloqueModel.getIdProyecto()));
 			
 			bloque.setDescripcion(bloqueModel.getDescripcion());
 			bloque.setNombre(bloqueModel.getNombre());
-				
+			bloque.setProyecto(proyecto);
+						
 			Integer idBloque = null;
 			String idBloq = bloqueModel.getId();
 			
@@ -96,6 +105,9 @@ public class BloqueController extends GenericController {
 
 			providerMap = mapper.readValue(jsonForm, Map.class);
 			Integer id = providerMap.get("idBloque");
+			
+			nivelService.deleteNivelByIdBloque(id);
+			
 			Boolean deleted = bloqueService.deleteBloque(id);
 
 			System.out.println("deleted: " + deleted);
@@ -126,20 +138,36 @@ public class BloqueController extends GenericController {
 	@Path("/findBloqueByProject")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Bloque> finBloqueByProject(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public List<BloqueModel> finBloqueByProject(String jsonForm, @Context HttpServletRequest httpRequest) {
 
 		System.out.println("/findBloqueByProject json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> map = new HashMap<String, String>();
-
+		List<BloqueModel> bloqueModelList = new ArrayList<BloqueModel>();
+		
 		try {
 
 			map = mapper.readValue(jsonForm, Map.class);
 			Integer idProject = Integer.valueOf(map.get("idProject"));
 			List<Bloque> bloques = bloqueService.findBloqueByProject(idProject);
 			System.out.println("bloques: " + bloques);
+			BloqueModel bloqueModel = new BloqueModel();
+			for (Bloque bloque : bloques) {
+				
+				List<Nivel> niveles = nivelService.findNivelByBloque(bloque.getId());
+				
+				bloqueModel.setId(String.valueOf(bloque.getId()));
+				bloqueModel.setDescripcion(bloque.getDescripcion());
+				bloqueModel.setNombre(bloque.getNombre());
+				bloqueModel.setIdProyecto(String.valueOf(bloque.getProyecto().getId()));
+				bloqueModel.setNiveles(niveles);
+				
+				bloqueModelList.add(bloqueModel);
+				bloqueModel = new BloqueModel();
+				
+			}
 			
-			return bloques;
+			return bloqueModelList;
 
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block

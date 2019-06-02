@@ -5,7 +5,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import cotizador.model.domain.Nivel;
-import cotizador.model.domain.Proyecto;
 import cotizador.model.repository.GenericRepository;
 
 public class NivelService {
@@ -42,6 +41,23 @@ public class NivelService {
 	
 
 	/**
+	 * Metodo que elimina un nivel por bloque de la base de datos
+	 * @param id
+	 * @return
+	 */
+	public Boolean deleteNivelByIdBloque(Integer idBloque) {
+
+		System.out.println("Method deleteNivel by bloque...");
+
+		int deleted = genericRepository.executeUpdateQuery("DELETE FROM Nivel n WHERE n.bloque.id = '" + idBloque +"'");
+
+		System.out.println("deleted: " + deleted);
+		Boolean systemResult = deleted == 1 ? Boolean.TRUE : Boolean.FALSE;
+
+		return  systemResult;
+	}
+	
+	/**
 	 * Metodo que elimina un proveedor de la base de datos
 	 * @param id
 	 * @return
@@ -76,14 +92,14 @@ public class NivelService {
 	}
 
 	/**
-	 * Metodo que retorna lista de niveles por id de proyecto
-	 * @param idProject
+	 * Metodo que retorna lista de niveles por id de bloque
+	 * @param idBloque
 	 * @return
 	 */
-	public List<Nivel> findNivelByProject(Integer idProject) {
+	public List<Nivel> findNivelByBloque(Integer idBloque) {
 		
 		System.out.println("Method findNivelById...");
-		List<Object> allObject = genericRepository.getAllObjectFiltered("Nivel.findByIdProject", "id", idProject);
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Nivel.findByIdBloque", "id", idBloque);
 		
 		List<Nivel> result = !allObject.isEmpty() ? (List<Nivel>) (Object) allObject : null;
 		System.out.println("NivelList: " + result);

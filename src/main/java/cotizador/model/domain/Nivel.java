@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @NamedQueries({
 	@NamedQuery(name = "Nivel.findById", query = "SELECT n FROM Nivel n WHERE n.id = :id"),
-	@NamedQuery(name = "Nivel.findByIdProject", query = "SELECT n FROM Nivel n WHERE n.bloque.proyecto.id = :id"),
+	@NamedQuery(name = "Nivel.findByIdBloque", query = "SELECT n FROM Nivel n WHERE n.bloque.id = :id"),
 	@NamedQuery(name = "Nivel.findAll", query = "SELECT n FROM Nivel n")	
 })
 

@@ -132,8 +132,41 @@
 	      			</div>
 				</div>		      		
 				<div class="form-style-button proyecto">
-				   	<input type="button" value="Aceptar" id="btn-confirm-elim" class="btn btn-primary confirm-ok" />	
+				   	<input type="button" value="Aceptar" id="btn-confirm-elim-nivel" class="btn btn-primary confirm-ok" />	
 				   	<input type="button" value="Cancelar" id="btn-confirm-cancel" class="btn btn-primary confirm-no" />			   
+				</div>
+		   	
+	      </div>	
+	    </div>	
+	  </div>
+	</div>
+	<!-- End Modal -->
+	
+	<!-- Modal Confirm-->
+	<div id="confirm-elim-bloque-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">	
+	    <!-- Modal content-->
+	    <div class="modal-content" style="height: 180px;">
+	      <div class="modal-header">
+	        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title" id="modal-title-text">Confirmar</h4>
+	      </div>
+	      <div class="modal-body">
+	      		<div class="form-row">
+		      		<div class="form-group col-md-6" style="width: 100%;">
+						  <span class="confirm">¿ Est&aacute; seguro que desea eliminar el elemento?</span>						    
+      				</div>	      			
+	    		</div>
+	    		<div class="form-row">
+	      			<div class="form-group col-md-12">
+					    <div class="msg-error" id="msg-error-elim-bloque">
+					   			Ocurrió un error al eliminar el bloque.
+		      			</div>
+	      			</div>
+				</div>		      		
+				<div class="form-style-button proyecto">
+				   	<input type="button" value="Aceptar" id="btn-confirm-elim-bloque" class="btn btn-primary confirm-ok" />	
+				   	<input type="button" value="Cancelar" id="btn-confirm-cancel-bloque" class="btn btn-primary confirm-no" />			   
 				</div>
 		   	
 	      </div>	

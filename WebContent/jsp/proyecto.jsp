@@ -186,6 +186,106 @@
 		    		    $("#tipoPrecio").val(result.tipoPrecio);
 		    			
 		    	        precioActual = $("#tipoPrecio").val();
+		    	        
+		    	        $.ajax({
+		  		    	  url: "/Cotizador/rest/bloque/findBloqueByProject",
+		  		    	  type: "POST",
+		  		    	  data: JSON.stringify({idProject: $idProyecto}),
+		  		    	  dataType: "json",
+		  		    	  contentType: "application/json; charset=utf-8",
+		  		    	  success: function(result){	
+		  		    	        console.log("termino");
+		  		    	        console.log(result);
+		  		    	        
+		  		    	        //incorporar for de bloques
+		  		    	        $.each(result, function( index, element ) {	
+		  		    	        	var nombreBloque = result[index].nombre;
+		  		    	        	var descripcionBloque = result[index].descripcion;
+		  		    	        	var idBloque = result[index].id;
+		  		    	        	var niveles = result[index].niveles;
+		  		    	        	
+		  		    	        	//crear div bloque
+		  		    	        	var html = "<div id='bloque_"+idBloque+"' data-nombre-bloque='"+nombreBloque+"' data-descripcion-bloque='"+descripcionBloque+"' data-id='"+idBloque+"'  class='js-bloques' data-id='" + idBloque + "' style='width: 30%; float: left; border: 2px solid; border-radius: 3px; box-shadow: -6px -4px 5px 0px rgba(0,0,0,0.2);padding: 5px; margin-left: 10px;  margin-top: 10px;'>"; 
+		      	        			html += '<a id="editarBloque" title="Editar bloque" onclick="editarBloque($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="padding: 4px;font-size: 16px; text-decoration: none; float:left;color:rgb(0,72,118);"></a>';
+		      	        			html += '<a id="eliminarBloque" title="Eliminar bloque" onclick="eliminarBloque($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="padding: 4px;font-size: 16px; text-decoration: none; float:left;color:rgb(0,72,118);"></a>';
+		      	        			html += ' <b><p>Bloque: ' + nombreBloque + '</p></b>';
+		      	        			var paramIdBloque = '"' + idBloque + '"';
+		      	        		   	html += "<input type='button' data-bloque='' value='Crear Nivel' id='btn-crear-nivel-bloque-" + idBloque + "' class='btn btn-primary' style='inline-block;float: right' onclick='crearNivelPorBloque($(this));'/>";
+		      	        			html += "</br></br></br></div>";
+		      	        			
+		      	        			var divRowBloque = "";
+		  	    	        		if(cantBloques % 3 == 0){
+		  	    	        			rowBloque = cantBloques;
+		  	    	        			divRowBloque = '<div id="rowBloque_'+rowBloque+'" style="display: flex; flex-direction: row;">';
+		  	    	        			divRowBloque += "</div> ";
+		  	    	        			$("#bloques").append(divRowBloque);
+		  	    	        		}
+		  	    	        		
+		  	    	        		cantBloques++;
+		      	        		
+		  	    	        		$("#rowBloque_"+rowBloque).append(html);
+		      	        						
+		      	        			var divNiveles = '<div id="niveles" class="niveles show" style="float: left;">';
+		      	        			divNiveles += "</div> ";
+		      	
+		      	        			$("#bloque_" + idBloque).append(divNiveles);
+		      	        			
+		      	        			var rowNiveles = '<div class="row div-row" id="row-niveles">';
+		     			   			    rowNiveles += '</div>';
+		     			   			    
+		     			   				$("#bloque_" + idBloque).find("#niveles").append(rowNiveles);
+		      	
+		  		    	        
+		  		    	        	$.each(niveles, function( index, element ) {	
+		  			    	        	var nombre = niveles[index].nombre;
+		  			    	        	var orden = niveles[index].orden;
+		  			    	        	var descripcion = niveles[index].descripcion;
+		  			    	        	var id = niveles[index].id;
+		  			    	        	
+		  		    	        		var colorNivelCreado = colorArray[indexColorNivel];
+		  		    	    			var colorFont = "white";
+		  		    	    			
+		  		    	    			if (indexColorNivel >= cantMaxNiveles/2) {
+		  		    	    				colorFont = "dark";
+		  		    	    			}	
+		  		    	    			
+		  		    	    			 var $niveles = $("#bloque_"+idBloque).find("#niveles");
+		  		    	    			 
+		  		    	    			 $niveles.addClass("show");	
+		  		    	    			
+		  		    	    			var html = '<div data-id="' + id + '" data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
+		  		    	    			html += ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
+		  		    	    			html += '<p>' + nombre + '</p>';
+		  		    	    			html += '<a id="eliminarNivel" title="Eliminar nivel" onclick="eliminarNivel($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 0px;padding-left: 4px;"></a>';
+		  		    	    			html += '<a id="metrarNivel" data-nivel-id="'+id+'" title="Metrar nivel" onclick="metrarNivel($(this));" href="javascript:void(0)" class="fa fa-calculator fa-3x home" style="font-size: 13px; text-decoration: none; position: relative;top: -27px;float:right;color:white;padding-left: 4px;"></a>';
+		  		    	    			html += '<a id="editarNivel" title="Editar nivel" onclick="editarNivel($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: -28px;float:right;color:white;"></a>';
+		  		    	    			html += '</div>';			
+		  		    	    			   
+	         			   			    var $rows = $niveles.find("#row-niveles");
+	         			   			    $rows.prepend(html);	
+		  		    	    									
+		  		    	    			var $test = $niveles.find("#row-niveles div").sort(function(a,b) {
+		  		    	    			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
+		  		    	    			});
+		  		    	    			
+		  		    	    			$rows.html("");			
+		  		    	    			$rows.append($test);	
+		  		    	    			
+		  		    	    			indexColorNivel++;     	
+		  			    	        
+		  			    	        });
+		  		    	        });
+		  		    	        		    	        
+		  			    	    			    	        
+		  		    	  },
+		  		    	  complete: function(result){
+		  		    	        console.log("complete");
+		  		    	  },
+		  		    	  error: function(result){
+		  		    	        console.log("error");
+		  		    	  }
+		  		    	  
+		  		    	});
 			    	    			    	        
 		    	  },
 		    	  complete: function(result){
@@ -197,61 +297,7 @@
 		    	  
 		    	});
 			
-			$.ajax({
-		    	  url: "/Cotizador/rest/nivel/findNivelByProject",
-		    	  type: "POST",
-		    	  data: JSON.stringify({idProject: $idProyecto}),
-		    	  dataType: "json",
-		    	  contentType: "application/json; charset=utf-8",
-		    	  success: function(result){	
-		    	        console.log("termino");
-		    	        console.log(result);
-		    	        
-		    	        $.each(result, function( index, element ) {	
-		    	        	var nombre = result[index].nombre;
-		    	        	var orden = result[index].orden;
-		    	        	var descripcion = result[index].descripcion;
-		    	        	var id = result[index].id;
-		    	        	
-	    	        		var colorNivelCreado = colorArray[indexColorNivel];
-	    	    			var colorFont = "white";
-	    	    			
-	    	    			if (indexColorNivel >= cantMaxNiveles/2) {
-	    	    				colorFont = "dark";
-	    	    			}	
-	    	    			
-	    	    			$("#niveles").addClass("show");	
-	    	    			
-	    	    			var html = '<div data-id="' + id + '" data-orden=' + orden + ' data-nombre="' + nombre + '" data-descripcion-nivel="' + descripcion + '"';
-	    	    			html += ' class="col-sm-12 nivel-font '+ colorFont +'" style="background-color:rgb(' + colorNivelCreado +');height: 40px;">';
-	    	    			html += '<p>' + nombre + '</p>';
-	    	    			html += '<a id="eliminarNivel" title="Eliminar nivel" onclick="eliminarNivel($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="font-size: 16px; text-decoration: none; position: relative;top: -29px;float:right; color:white;margin-right: 0px;padding-left: 4px;"></a>';
-	    	    			html += '<a id="metrarNivel" data-nivel-id="'+id+'" title="Metrar nivel" onclick="metrarNivel($(this));" href="javascript:void(0)" class="fa fa-calculator fa-3x home" style="font-size: 13px; text-decoration: none; position: relative;top: -27px;float:right;color:white;padding-left: 4px;"></a>';
-	    	    			html += '<a id="editarNivel" title="Editar nivel" onclick="editarNivel($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: -28px;float:right;color:white;"></a>';
-	    	    			html += '</div>';			
-	    	    			
-	    	    			$("#row-niveles").prepend(html);	
-	    	    									
-	    	    			var $test = $('#row-niveles div').sort(function(a,b) {
-	    	    			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
-	    	    			});
-	    	    			
-	    	    			$("#row-niveles").html("");			
-	    	    			$("#row-niveles").append($test);	
-	    	    			
-	    	    			indexColorNivel++;		    	        	
-		    	        
-		    	        });		    	        
-			    	    			    	        
-		    	  },
-		    	  complete: function(result){
-		    	        console.log("complete");
-		    	  },
-		    	  error: function(result){
-		    	        console.log("error");
-		    	  }
-		    	  
-		    	});
+			
 		}
 		
 		$("#garantia").click(function() {
@@ -346,6 +392,8 @@
 				
 		$("#btn-crear-bloque").click(function() {
 			
+			bloqueActual = "";
+			$("#createBloqueForm").find("#idBloque").val("");
 			$("#nombre-bloque").val("");
 			$("#descripcion-bloque").val("");
 			
@@ -370,6 +418,8 @@
 			$("#orden").val("")
 			
 			$("#nivel-modal").modal("hide");
+			
+			$("div.edit-nivel").removeClass("edit-nivel");
 		});
 		
 		$("#btn-confirm-cancel").click(function() {
@@ -377,7 +427,12 @@
 			$("#confirm-elim-modal").modal("hide");
 		});
 		
-		$("#btn-confirm-elim").click(function() {
+		$("#btn-confirm-cancel-bloque").click(function() {
+			$("div.remove").removeClass("remove");
+			$("#confirm-elim-bloque-modal").modal("hide");
+		});
+		
+		$("#btn-confirm-elim-nivel").click(function() {
 
 			$("#msg-error-elim-nivel").removeClass("on");
 			
@@ -401,17 +456,61 @@
 		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');  
 		    	        	
 		    	            $("div.remove").remove();
+		    	            
+		    	            var $niveles = $("#bloque_"+bloqueActual).find("#niveles");
+     			   			var $rows = $niveles.find("#row-niveles");
+   			   			   	    	    									
+	    	    			var $test = $niveles.find("#row-niveles div").sort(function(a,b) {
+	    	    			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
+	    	    			});
 			    			
-			    			var $test = $('#row-niveles div').sort(function(a,b) {
-			    			     return parseInt($(b).data('orden')) - parseInt($(a).data('orden'));
-			    			});
-			    			
-			    			$("#row-niveles").html("");			
-			    			$("#row-niveles").append($test);	
+			    			$rows.html("");			
+			    			$rows.append($test);	
 			    			
 			    			$("#confirm-elim-modal").modal("hide");
 		    	        } else {
 		    	        	$("#msg-error-elim-nivel").addClass("on");
+		    	        }
+		    	       
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+
+			
+		});
+		
+		$("#btn-confirm-elim-bloque").click(function() {
+
+			$("#msg-error-elim-bloque").removeClass("on");
+									
+			$("#confirm-elim-bloque-modal").css('z-index', '1');
+			
+ 			$.ajax({
+		    	  url: "/Cotizador/rest/bloque/deleteBloque",
+		    	  type: "POST",
+		    	  data: JSON.stringify({idBloque: bloqueActual}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino eliminacion de bloque");
+		    	        console.log(result);
+		    	        
+		    	        if (result) {
+		    	        	
+		    	        	$("#confirm-elim-bloque-modal").css('z-index', '2');
+		    	        	$(".modal-backdrop.fade.in").css('z-index', '1');  
+		    	            
+		    	             $("#bloque_"+bloqueActual).remove();
+     			   			
+			    			$("#confirm-elim-bloque-modal").modal("hide");
+		    	        } else {
+		    	        	$("#msg-error-elim-bloque").addClass("on");
 		    	        }
 		    	       
 		    	  },
@@ -437,7 +536,7 @@
 				$("#msg-error-bloque").addClass("show");
 				return false;
 			}
-						
+		
 			$("#idProyecto").val(proyectoActual);
 			 var $form = $("#createBloqueForm").serializeArray();    	  	  
 		  	 var $formSerialized = objectifyForm($form);
@@ -471,7 +570,7 @@
 		    	        		bloqueActual = result;	
 		    	        		
 		    	        		if( $("div.edit-bloque").length > 0) {
-		    	    				$("div.edit-bloque").find("p").html(nombreBloque);
+		    	    				$("div.edit-bloque").find("p").html("Bloque: " + nombreBloque);
 		    	    				
 		    	    				$("div.edit-bloque").data("id",result);
 		    	    				$("div.edit-bloque").data("nombre-bloque", nombreBloque);
@@ -491,7 +590,8 @@
 		    	      			var idBloque = result;
 	    	        			var html = "<div id='bloque_"+idBloque+"' data-nombre-bloque='"+nombreBloque+"' data-descripcion-bloque='"+descripcionBloque+"' data-id='"+idBloque+"'  class='js-bloques' data-id='" + idBloque + "' style='width: 30%; float: left; border: 2px solid; border-radius: 3px; box-shadow: -6px -4px 5px 0px rgba(0,0,0,0.2);padding: 5px; margin-left: 10px;  margin-top: 10px;'>"; 
 	    	        			html += '<a id="editarBloque" title="Editar bloque" onclick="editarBloque($(this));" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="padding: 4px;font-size: 16px; text-decoration: none; float:left;color:rgb(0,72,118);"></a>';
-	    	        			html += ' <p><b>Bloque:</b></p> ' + nombreBloque;
+	    	        			html += '<a id="eliminarBloque" title="Eliminar bloque" onclick="eliminarBloque($(this));" href="javascript:void(0)" class="fa fa-trash fa-2x home" style="padding: 4px;font-size: 16px; text-decoration: none; float:left;color:rgb(0,72,118);"></a>';
+	    	        			html += ' <b><p>Bloque: ' + nombreBloque + '</p></b>';
 	    	        			var paramIdBloque = '"' + idBloque + '"';
 	    	        		   	html += "<input type='button' data-bloque='' value='Crear Nivel' id='btn-crear-nivel-bloque-" + idBloque + "' class='btn btn-primary' style='inline-block;float: right' onclick='crearNivelPorBloque($(this));'/>";
 	    	        			html += "</br></br></br></div>";
@@ -554,6 +654,10 @@
 			$("#descripcion-bloque").val("");
 			
 			$("#bloque-modal").modal("hide");
+			
+			$("div.edit-bloque").removeClass("edit-bloque");
+
+			$("#createBloqueForm").find("#idBloque").val("");
 		});
 		
 		$("#btn-guardar-nivel").click(function() {
@@ -732,11 +836,12 @@
 	}
 	
 	function editarBloque(elem){
+		bloqueActual = elem.parents(".js-bloques").data("id");
 		elem.parent().addClass("edit-bloque");
 		
 		$("#nombre-bloque").val(elem.parent().data("nombre-bloque"));
 		$("#descripcion-bloque").val(elem.parent().data("descripcion-bloque"));
-		$("#idBloque").val(elem.parent().data("id"));
+		$("#createBloqueForm").find("#idBloque").val(elem.parent().data("id"));
 		
 		$("#msg-exito-bloque").removeClass("show");
 		
@@ -750,6 +855,12 @@
 	function eliminarNivel(elem){
 		elem.parent().addClass("remove");	
 		$("#confirm-elim-modal").modal("show");
+	}
+	
+	function eliminarBloque(elem){
+		bloqueActual = elem.parents(".js-bloques").data("id");
+		elem.parent().addClass("remove");	
+		$("#confirm-elim-bloque-modal").modal("show");
 	}
 	
 	function metrarNivel(elem){

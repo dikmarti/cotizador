@@ -94,19 +94,20 @@ $(document).ready(function() {
     	  success: function(result){		    		
     	        console.log("termino");
     	        console.log(result);
-
+    	    	
     	        $.each(result, function( index, element ) {	   
     	        	
     	        	table.rows.add(
  	        		       [{ "Id": result[index].id, 
  	        		    	   "IdCrmMco": result[index].idCrmMCO,
  	        		    	   "NombreCliente": result[index].nombreCliente,
- 	        		    	   "Ruc": result[index].ruc,
+ 	        		    	   "Ruc": result[index].ruc, 	        		    	   
+ 	        		    	   "NombreProyecto": result[index].nombreProyecto,
  	        		    	   "Localidad": result[index].localidad,
- 	        		    	   "NombreProyecto": result[index].nombre,
  	        		    	   "FechaCreacion": result[index].fechaCreacion,
  	        		    	   "FechaModificacion": result[index].fechaModificacion,
- 	        		    	   "GenerarMetrado": "<a href='javascript:void(0)' onclick='downloadFile("+result[index].id+");' class='btn btn-primary'>Generar</a>"
+ 	        		    	   "GenerarMetrado": "<a href='javascript:void(0)' onclick='downloadFile("+result[index].id+");' class='btn btn-primary'>Generar Metrado</a>",
+ 	        		    	   "GenerarVersion": "<a href='javascript:void(0)' onclick='' class='btn btn-primary'>Generar Versión</a>"
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -141,11 +142,12 @@ $(document).ready(function() {
             	    {data: 'IdCrmMco'},
             	    {data: 'NombreCliente'},
             	    {data: 'Ruc'},
-            	    {data: 'Localidad'},
             	    {data: 'NombreProyecto'},
+            	    {data: 'Localidad'},
             	    {data: 'FechaCreacion'},
             	    {data: 'FechaModificacion'},
-            	    {data: 'GenerarMetrado'}],
+            	    {data: 'GenerarMetrado'},
+            	    {data: 'GenerarVersion'}],
 	       	    "columnDefs": [
 	                   {
 	                       "targets": [ 0 ],

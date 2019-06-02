@@ -1,7 +1,11 @@
 package cotizador.model.domain.models;
 
+import java.util.List;
+
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import cotizador.model.domain.Nivel;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -15,6 +19,7 @@ public class BloqueModel {
 	private String nombre;
 	private String descripcion;
 	private String idProyecto;
+	private List<Nivel> niveles;
 	
 	public String getId() {
 		return id;
@@ -39,5 +44,11 @@ public class BloqueModel {
 	}
 	public void setIdProyecto(String idProyecto) {
 		this.idProyecto = idProyecto;
+	}
+	public List<Nivel> getNiveles() {
+		return niveles;
+	}
+	public void setNiveles(List<Nivel> niveles) {
+		this.niveles = niveles;
 	}	
 }
