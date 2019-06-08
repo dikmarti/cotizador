@@ -25,6 +25,7 @@ public class ProjectModel {
 	private String tipoPrecio;
 	private String fechaCreacion;
 	private String fechaModificacion;
+	private String fechaFin;
 	
 	public int getId() {
 		return id;
@@ -110,6 +111,12 @@ public class ProjectModel {
 	}
 	public void setTelefonoContacto(String telefonoContacto) {
 		this.telefonoContacto = telefonoContacto;
+	}
+	public String getFechaFin() {
+		return fechaFin;
+	}
+	public void setFechaFin(String fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 	
 }
