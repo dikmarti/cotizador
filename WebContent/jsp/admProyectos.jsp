@@ -189,7 +189,7 @@ $(document).ready(function() {
  	        		    	   "FechaModificacion": result[index].fechaModificacion,
  	        		    	   "FechaFin": result[index].fechaFin,
  	        		    	   "GenerarMetrado": "<a href='javascript:void(0)' onclick='showModalMetrado("+result[index].id+");' class='btn btn-primary'>Generar Metrado</a>",
- 	        		    	   "GenerarVersion": "<a href='javascript:void(0)' onclick='' class='btn btn-primary'>Generar Versión</a>"
+ 	        		    	   "GenerarVersion": "<a href='javascript:void(0)' onclick='generateVersion("+result[index].id+");' class='btn btn-primary'>Generar Versión</a>"
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -287,7 +287,7 @@ $(document).ready(function() {
 		function downloadFile(id) {
 			$.ajax({
 		    	  url: "/Cotizador/rest/project/generateFile?idProject="+id,
-		    	  type: "POST",
+		    	  type: "GET",
 		    	  success: function(result){	
 		    		  var decodedString = atob(result);
 		    		  saveByteArray("Metrado.xls", s2ab(decodedString));
