@@ -74,6 +74,7 @@ public class ProjectService {
 				projectModel.setNombreProyecto(p.getNombreProyecto());
 				projectModel.setFechaCreacion(p.getFechaCreacion() != null ? format.format(p.getFechaCreacion()) : "");
 				projectModel.setFechaModificacion(p.getFechaModificacion() != null ? format.format(p.getFechaModificacion()) : "");
+				projectModel.setFechaFin(p.getFechaFin() != null ? format.format(p.getFechaFin()) : "");
 				
 				projectModels.add(projectModel);
 			}

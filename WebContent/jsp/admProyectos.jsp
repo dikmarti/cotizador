@@ -40,6 +40,8 @@
       </th>
       <th class="th-sm">Fecha Modificación
       </th>
+      <th class="th-sm">Fecha Fin
+      </th>
       <th class="th-sm">Generar Metrado
       </th>
       <th class="th-sm">Generar Versión
@@ -66,6 +68,8 @@
       </th>
       <th>Fecha Modificación
       </th>
+      <th>Fecha Fin
+      </th>
       <th>Generar Metrado
       </th>
       <th>Generar Versión
@@ -79,7 +83,84 @@
 		</div>
 	</div>
 </div>
-  
+ 
+<!-- Modal Generar Metrado-->
+<div id="modal-metrado" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal-title-text">Generar Metrado</h4>
+      </div>
+      <div class="modal-body">
+			<div class="modal-footer" style="border-top: none; text-align: center">
+				<button type="button" id="btn-modal-metrado-bloque"  class="btn btn-primary">Metrar Bloque</button>
+				<a href='javascript:void(0)' id="btn-modal-metrado-proyecto" class="btn btn-primary">Metrar Proyecto</a>
+			</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Generar Metrado -->
+
+<!-- Modal Bloquees -->
+<div id="modal-bloque" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close js-close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal-title-text">Bloques</h4>
+      </div>
+      <div class="modal-body">
+		   	<table id="dtModalBloque" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+			  <thead>
+			    <tr>
+			      <th class="th-sm">Id
+			      </th>
+			      <th class="th-sm">Nombre
+			      </th>
+			      <th class="th-sm">Descripción
+			      </th>
+			    </tr>
+			  </thead>
+			  <tbody id="table-data-bloque">
+			  </tbody>
+			</table>
+			
+			<div class="row icon button">
+				<a id="btn-modal-metrar-bloque" class="btn btn-primary a-btn-slide-text">
+		        	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+		        	<span><strong>Metrar Bloque</strong></span>            
+		    	</a>
+			</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- End Modal -->
+
+<div id="modal-confirm-metrar-bloque" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal-title-text">Confirmación</h4>
+      </div>
+      <div class="modal-body">
+			<h4 style="text-align: center;"><p>¿Está seguro que desea generar el metrado de el bloque seleccionado?</p></h4>
+			<div class="modal-footer" style="border-top: none">
+				<button type="button" id="btn-modal-confirm"  class="btn btn-primary">Confirmar</button>
+				<button type="button" id="btn-modal-cancel" class="btn btn-secundary">Cancelar</button>
+			</div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- End page content -->
 </div>
 
@@ -106,8 +187,9 @@ $(document).ready(function() {
  	        		    	   "Localidad": result[index].localidad,
  	        		    	   "FechaCreacion": result[index].fechaCreacion,
  	        		    	   "FechaModificacion": result[index].fechaModificacion,
- 	        		    	   "GenerarMetrado": "<a href='javascript:void(0)' onclick='downloadFile("+result[index].id+");' class='btn btn-primary'>Generar Metrado</a>",
- 	        		    	   "GenerarVersion": "<a href='javascript:void(0)' onclick='' class='btn btn-primary'>Generar Versión</a>"
+ 	        		    	   "FechaFin": result[index].fechaFin,
+ 	        		    	   "GenerarMetrado": "<a href='javascript:void(0)' onclick='showModalMetrado("+result[index].id+");' class='btn btn-primary'>Generar Metrado</a>",
+ 	        		    	   "GenerarVersion": "<a href='javascript:void(0)' onclick='generateVersion("+result[index].id+");' class='btn btn-primary'>Generar Versión</a>"
  	        		    	}]).draw(); 
     	        });
     	  },
@@ -146,6 +228,7 @@ $(document).ready(function() {
             	    {data: 'Localidad'},
             	    {data: 'FechaCreacion'},
             	    {data: 'FechaModificacion'},
+            	    {data: 'FechaFin'},
             	    {data: 'GenerarMetrado'},
             	    {data: 'GenerarVersion'}],
 	       	    "columnDefs": [
@@ -155,7 +238,12 @@ $(document).ready(function() {
 	                       "searchable": false
 	                   },
 	                   {
-	                       "targets": [ 8 ],
+	                       "targets": [ 9 ],
+	                       "className": 'dt-body-center',
+	                       "searchable": false
+	                   },
+	                   {
+	                       "targets": [ 10 ],
 	                       "className": 'dt-body-center',
 	                       "searchable": false
 	                   }]
@@ -191,10 +279,15 @@ $(document).ready(function() {
 		});
 	  });   
 	  
+		function showModalMetrado(id) {
+			$("#btn-modal-metrado-bloque").attr("data-project", id)
+			$("#btn-modal-metrado-proyecto").attr("data-project", id)
+			$("#modal-metrado").modal("show");
+		}
 		function downloadFile(id) {
 			$.ajax({
 		    	  url: "/Cotizador/rest/project/generateFile?idProject="+id,
-		    	  type: "POST",
+		    	  type: "GET",
 		    	  success: function(result){	
 		    		  var decodedString = atob(result);
 		    		  saveByteArray("Metrado.xls", s2ab(decodedString));
@@ -211,8 +304,25 @@ $(document).ready(function() {
 		function generateVersion(id) {
 			$.ajax({
 		    	  url: "/Cotizador/rest/project/generateVersion?idProject="+id,
-		    	  type: "GET",
+		    	  type: "POST",
 		    	  success: function(result){	
+		    		  	console.log("termino generar version");
+	    	        	console.log("result: " + result);
+	    	        	var obj = JSON.stringify(result);
+		    		  if(obj === undefined) {	    	  
+		    	        	$(".msg-error").html("Ha ocurrido un error, el proyecto no pudo ser versionado.");
+		    	        	$(".msg-error").addClass("on");	    	        	 
+		    	        } else {
+		    	        	if(result == 0) {
+			    	        	location.href = "admProyectos";
+		    	        	} else if (result == 1) {
+		    	        		$("#error-table").html("Ha ocurrido un error, el proyecto no pudo ser versionado.");
+			    	        	$(".msg-error").addClass("on");	 
+		    	        	} else if (result == 2) {
+		    	        		$("#error-table").html("Ha ocurrido un error, el proyecto no pudo ser versionado.");
+			    	        	$("#error-table").addClass("on");	 
+		    	        	}
+		    	        }
 		    	  },
 		    	  complete: function(result){
 		    	        console.log("complete");
@@ -239,6 +349,105 @@ $(document).ready(function() {
 			  for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
 			  return buf;
 			}
+		
+		$("#btn-modal-metrado-bloque").click(function() {
+	    	var $idProject =  $("#btn-modal-metrado-bloque").attr("data-project");
+			$("#modal-metrado").modal("hide");
+			$.ajax({
+		    	  url: "/Cotizador/rest/bloque/findBloqueByProject",
+		    	  type: "POST",
+		    	  data: JSON.stringify({idProject: $idProject}),
+		    	  dataType: "json",
+		    	  contentType: "application/json; charset=utf-8",
+		    	  success: function(result){		    		
+		    	        console.log("termino buscar bloques");
+		    	        console.log(result);
+		    	        
+		    	        $.each(result, function( index, element ) {	 
+		    	        	
+		    	        	dtModalBloque.rows.add(
+		    	        		       [{ "Nombre": result[index].nombre, 
+		    	        		    	  "Descripcion": result[index].descripcion,
+		    	        		    	  "Id": result[index].id
+		    	        		    	}]).draw(); 
+		    	        });
+					$("#modal-bloque").modal("show");
+		    	  },
+		    	  complete: function(result){
+		    	        console.log("complete");
+		    	  },
+		    	  error: function(result){
+		    	        console.log("error");
+		    	  }
+		    	  
+		    	});
+	      });
+		$("#btn-modal-metrado-proyecto").click(function() {
+	    	var $idProject =  $("#btn-modal-metrado-proyecto").attr("data-project");
+			$("#modal-metrado").modal("hide");
+			downloadFile($idProject);
+	      });
+		
+		var dtModalBloque = $('#dtModalBloque').DataTable({
+			  responsive: true,
+			    "pagingType": "simple_numbers",
+			    "pageLength": 8,
+			    "searching": false,
+			    "language": {
+		            "lengthMenu": "Seleccionar Bloque:",
+		            "zeroRecords": "No existen registros",
+		            "emptyTable":     "No existen registros en tabla",
+		            "info": "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros.",
+		            "infoEmpty": "",
+		            "infoFiltered": "",
+		            "paginate": {
+		                "previous": "Atrás",
+		                "next": "Siguiente"
+		              }
+		        },
+		        columns:[
+          	    {data: 'Id'},
+          	    {data: 'Nombre'},
+          	    {data: 'Descripcion'}],
+          	   
+          	"columnDefs": [
+                  {
+                      "targets": [ 0 ],
+                      "visible": false,
+                      "searchable": false
+                  }]
+		  });
+		
+		$("#btn-modal-metrar-bloque").click(function() {
+			if(dtModalBloque.$('tr.selected').length != 1) {
+				console.log("No hay bloque seleccionado");   	 
+				return false;
+			} 
+			$("#modal-confirm-metrar-bloque").modal("show");
+		});
+		
+		$("#btn-modal-cancel").click(function() {
+			$("#modal-confirm-metrar-bloque").modal("hide");
+		});
+		$("#btn-modal-confirm").click(function() {
+			$("#modal-confirm-metrar-bloque").modal("hide");
+			if(dtModalBloque.$('tr.selected').length != 1) {
+				console.log("No hay bloque seleccionado");   	 
+				return false;
+			} 
+			var $idBloque = dtModalBloque.rows('.selected').data()[0]['Id'];
+		});
+		
+
+		$('#dtModalBloque tbody').on( 'click', 'tr', function () {
+		  if ($(this).hasClass('selected')) {
+		      $(this).removeClass('selected');
+		  }
+		  else {
+			  dtModalBloque.$('tr.selected').removeClass('selected');
+		      $(this).addClass('selected'); 
+		  }
+		} );
 	</script>
 	
 </t:standardPage>
