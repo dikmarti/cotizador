@@ -650,17 +650,14 @@
 		    	        			    	        	
 		    	        	var cantidadRelacion = 0;
 		    	        	var operacion = element.operacion;
-		    	        	var factor = element.factor;
-		    	        	var variableRelacion = element.cantidadRelacion;
-		    	        	
-		    	        	if (variableRelacion == 0) variableRelacion = 1;
-		    	        	
+		    	        	var factor = element.factor;		    
+		    	        			    	        			    	        	
 		    	        	if(operacion == 0){
-		    	        		cantidadRelacion = variableRelacion * (cantidad / factor);
+		    	        		cantidadRelacion = (cantidad / factor);
 		    	        	}
 		    	        	
 							if(operacion == 1){
-								cantidadRelacion = variableRelacion * ( cantidad * factor);
+								cantidadRelacion = ( cantidad * factor);
 		    	        	}
 							
 							var prodRel = $("#producto_"+element.productoRelacion.id);
@@ -672,18 +669,15 @@
 								var operacionAnterior = prodRel.data("operacion");
 								var factorAnterior = prodRel.data("factor");
 								var cantidadAnterior = prodRel.data("cantidad");
-								var variableAnterior = prodRel.data("variable");
 								var parentAnterior = prodRel.data("parent-product");
 								
 								operacionAnterior += "," + operacion;
 								factorAnterior += "," + factor;
 								cantidadAnterior += "," + cantidad;
-								variableAnterior  += "," + variable;
 								
 								prodRel.data("operacion", operacionAnterior);
 								prodRel.data("factor", factorAnterior);
 								prodRel.data("cantidad", cantidadAnterior);
-								prodRel.data("variable", variableAnterior);
 								prodRel.data("parent-product", parentAnterior);
 								
 								oldCantidad.val(cantidadRelacion);
@@ -692,7 +686,7 @@
 		    	        	
 			    	        	htmlProducto = "";
 			    				
-			    				htmlProducto += "<div id='producto_"+ element.productoRelacion.id +"' class='js-product' data-operacion='" + operacion+ "' data-factor='"+ factor+"' data-variable='"+variableRelacion+"' data-cantidad='"+ cantidad+"'  data-parent-product='" + producto+ "'>";			
+			    				htmlProducto += "<div id='producto_"+ element.productoRelacion.id +"' class='js-product' data-operacion='" + operacion+ "' data-factor='"+ factor+"' data-cantidad='"+ cantidad+"'  data-parent-product='" + producto+ "'>";			
 			    				
 			    				htmlProducto += '		<a id="modificarProducto" onclick="modificarProducto(this,1);" data-sistema="' + sistema + '" data-producto="' +  element.productoRelacion.id + '" data-proveedor="' + '' + '" data-precio="' + "" + '" data-cantidad="' + cantidadRelacion + '" title="Editar producto" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
 			    				
@@ -789,7 +783,6 @@
 				var operacionAnterior = $(element).data("operacion");
 				var factorAnterior = $(element).data("factor");
 				var cantidadAnterior = $(element).data("cantidad");
-				var variableAnterior = $(element).data("variable");
 				var parentAnterior = $(element).data("parent-product");
 				
 				var listaParent = parentAnterior.split(",");
@@ -800,11 +793,11 @@
 						var cantSinProducto = labelCantidad.val() - cantidadAnterior[index];
 								   	        	
 		   	        	if(operacionAnterior[index] == 0){
-		   	        		cantidadRelacion = variableAnterior[index] * (cantidad / factorAnterior[index]);
+		   	        		cantidadRelacion = (cantidad / factorAnterior[index]);
 		   	        	}
 		   	        	
 						if(operacionAnterior[index] == 1){
-							cantidadRelacion = variableAnterior[index] * (cantidad * factorAnterior[index]);
+							cantidadRelacion = (cantidad * factorAnterior[index]);
 		   	        	}
 						
 						cantidadAnterior[index] = cantidadRelacion;
@@ -819,14 +812,13 @@
 				if (listaParent.length == 1) {
 					var operacion = $(element).data("operacion");
 	   	        	var factor = $(element).data("factor");
-	   	        	var variable = $(element).data("variable");
 	   	        	
 	   	        	if(operacion == 0){
-	   	        		cantidadRelacion = variable * (cantidad / factor);
+	   	        		cantidadRelacion = (cantidad / factor);
 	   	        	}
 	   	        	
 					if(operacion == 1){
-						cantidadRelacion = variable * (cantidad * factor);
+						cantidadRelacion = (cantidad * factor);
 	   	        	}
 					
 					$(element).data("cantidad", cantidadRelacion);
