@@ -7,14 +7,14 @@ import cotizador.model.domain.Producto;
 public class ProductConfiguration {
 	
 	public Producto producto;
-	public List<NivelConfiguration> niveles;
+	public List<BloqueConfiguration> bloques;
 	public Double precioTotalProducto;
-	
-	public List<NivelConfiguration> getNiveles() {
-		return niveles;
+			
+	public List<BloqueConfiguration> getBloques() {
+		return bloques;
 	}
-	public void setNiveles(List<NivelConfiguration> niveles) {
-		this.niveles = niveles;
+	public void setBloques(List<BloqueConfiguration> bloques) {
+		this.bloques = bloques;
 	}
 	public Double getPrecioTotalProducto() {
 		return precioTotalProducto;

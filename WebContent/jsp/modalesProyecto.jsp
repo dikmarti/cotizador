@@ -306,7 +306,7 @@
 				
 				$("#producto_" + producto).find("#msg-error-producto").removeClass("show");
 				
-				if(proveedor == "" || precio == "") {
+				if(proveedor === "" || precio === "") {
 					$("#producto_" + producto).find("#msg-error-producto").addClass("show");
 					errorProductos = true;
 					return false;
