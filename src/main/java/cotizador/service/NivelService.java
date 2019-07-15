@@ -98,7 +98,7 @@ public class NivelService {
 	 */
 	public List<Nivel> findNivelByBloque(Integer idBloque) {
 		
-		System.out.println("Method findNivelById...");
+		System.out.println("Method findNivelByBloque...");
 		List<Object> allObject = genericRepository.getAllObjectFiltered("Nivel.findByIdBloque", "id", idBloque);
 		
 		List<Nivel> result = !allObject.isEmpty() ? (List<Nivel>) (Object) allObject : null;

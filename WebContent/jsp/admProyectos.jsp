@@ -310,14 +310,14 @@ $(document).ready(function() {
 	    	        	console.log("result: " + result);
 	    	        	var obj = JSON.stringify(result);
 		    		  if(obj === undefined) {	    	  
-		    	        	$(".msg-error").html("Ha ocurrido un error, el proyecto no pudo ser versionado.");
-		    	        	$(".msg-error").addClass("on");	    	        	 
-		    	        } else {
+		    	        	$("#error-table").html("Ha ocurrido un error, el proyecto no pudo ser versionado.");
+		    	        	$("#error-table").addClass("on");	    	        	 
+		    	        } else { 
 		    	        	if(result == 0) {
 			    	        	location.href = "admProyectos";
 		    	        	} else if (result == 1) {
 		    	        		$("#error-table").html("Ha ocurrido un error, el proyecto no pudo ser versionado.");
-			    	        	$(".msg-error").addClass("on");	 
+			    	        	$("#error-table").addClass("on");	 
 		    	        	} else if (result == 2) {
 		    	        		$("#error-table").html("Ha ocurrido un error, el proyecto no pudo ser versionado.");
 			    	        	$("#error-table").addClass("on");	 

@@ -14,7 +14,8 @@ import javax.persistence.Table;
 @NamedQueries({
 	@NamedQuery(name = "Bloque.findById", query = "SELECT b FROM Bloque b WHERE b.id = :id"),
 	@NamedQuery(name = "Bloque.findByIdProject", query = "SELECT b FROM Bloque b WHERE b.proyecto.id = :id"),
-	@NamedQuery(name = "Bloque.findAll", query = "SELECT b FROM Bloque b")
+	@NamedQuery(name = "Bloque.findAll", query = "SELECT b FROM Bloque b"),
+	@NamedQuery(name = "Bloque.findBloquesByIdProject", query = "SELECT b FROM Bloque b WHERE b.proyecto.id = :idProyecto")
 })
 
 @Entity
@@ -67,5 +68,11 @@ public class Bloque {
 	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
 	}
-		
+
+	@Override
+	public String toString() {
+		return "Bloque [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", proyecto=" + proyecto
+				+ "]";
+	}
+	
 }

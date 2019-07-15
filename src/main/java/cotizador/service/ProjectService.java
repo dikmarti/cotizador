@@ -161,27 +161,42 @@ public class ProjectService {
 
 	}
 	
+	/**
+	 * Metodo que retorna los bloques de un proyecto de la base por id
+	 * @param id
+	 * @return
+	 */
+	public List<Bloque> findBloquesByIdProject(Integer id) {
+		
+		System.out.println("Method findBloquesByProjectId...");
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Bloque.findBloquesByIdProject", "idProyecto", id);
+		
+		List<Bloque> result = !allObject.isEmpty() ? (List<Bloque>) (Object) allObject : null;
+		System.out.println("Lista metrados: " + result);
+		
+		return result;
+		
+	}
+	
 	public Integer generateVersion(String idProject) {
 		System.out.println("Method generateVersion...");
 
 		
 		System.out.println("Duplicating project version from data base");
 		if(!isValidProject(idProject)) {
-			System.out.println("El sistema no tiene metrado..");
-			return 1;
+			System.out.println("El proyecto no tiene metrado..");
+			return 1; 
 		}
 		Proyecto project = findProjectById(Integer.parseInt(idProject));
 		Proyecto newProject = duplicateProject(project);
-		List<Nivel> levels = findNivelesByIdProject(Integer.parseInt(idProject));
-		List<Nivel> newLevels = duplicateLevels(levels, newProject);
+		List<Bloque> bloques = findBloquesByIdProject(Integer.parseInt(idProject));
+		List<Bloque> newBloques = duplicateBloques(bloques, newProject);
 		
 		System.out.println("Updating project version from data base");
-		int status = genericRepository.executeUpdateQuery("UPDATE Proyecto u SET u.fechaFin = '" + new Date() + "', "
-						+ "' WHERE u.id = '" + idProject + "'");
-		
+		newProject.setFechaFin(new Date());
+		genericRepository.updateObject(newProject);
 		System.out.println("finish system update");
-		System.out.println("status: " + status);
-		Integer result = status == 1 ? 0 : 2;
+		Integer result = 0;
 		
 		return result;
 		
@@ -208,32 +223,52 @@ public class ProjectService {
 		return projectReturn;
 	}
 	
-	private List<Nivel> duplicateLevels(List<Nivel> oldLevels, Proyecto project) {
+	private List<Nivel> duplicateLevels(List<Nivel> oldLevels, Bloque bloque) {
 		List<Nivel> levelsReturn = new ArrayList<Nivel>();
 		
-		for (Nivel nivel : oldLevels) {
+		for (Nivel oldNivel : oldLevels) {
 			Nivel level = new Nivel();
-			level.setDescripcion(nivel.getDescripcion());
-			level.setNombre(nivel.getNombre());
-			level.setOrden(nivel.getOrden());
-			
-			//TODO: ver donde se agrega el proyect xq ahora es bloque
-			//level.setProyecto(project);
+			level.setDescripcion(oldNivel.getDescripcion());
+			level.setNombre(oldNivel.getNombre());
+			level.setOrden(oldNivel.getOrden());
+			level.setBloque(bloque);
 			
 			Nivel newLevel = (Nivel) genericRepository.addObject(level);
 			
-			duplicateMetrado(nivel, newLevel);
+			duplicateMetrado(oldNivel, newLevel);
 			
 			levelsReturn.add(newLevel);
 		}
-	
 		return levelsReturn;
+	}
+	
+	private List<Bloque> duplicateBloques(List<Bloque> oldBloques, Proyecto project) {
+		List<Bloque> bloquesReturn = new ArrayList<Bloque>();
+		
+		for (Bloque oldBloque : oldBloques) {
+			List<Nivel> bloquesLevels = new ArrayList<Nivel>();
+			bloquesLevels = nivelService.findNivelByBloque(oldBloque.getId());
+			
+			Bloque newBloque = new Bloque();
+			newBloque.setNombre(oldBloque.getNombre());
+			newBloque.setDescripcion(oldBloque.getDescripcion());
+			newBloque.setProyecto(project);
+			
+			Bloque newBloqueCreate = (Bloque) genericRepository.addObject(newBloque);
+			
+			if(bloquesLevels != null && !bloquesLevels.isEmpty()) {
+				duplicateLevels(bloquesLevels, newBloqueCreate);
+			}
+			
+			bloquesReturn.add(newBloqueCreate);
+		}
+		return bloquesReturn;
 	}
 	
 	private void duplicateMetrado(Nivel oldLevel, Nivel level) {
 		
 		List<Metrado> allObject = (List<Metrado>) (Object) genericRepository
-				.getAllObjectByQuery("SELECT u FROM Metrado m WHERE m.nivel.id = '"+ oldLevel +"'");
+				.getAllObjectByQuery("SELECT m FROM Metrado m WHERE m.nivel.id = '"+ oldLevel.getId() +"'");
 		
 		for (Metrado metrado : allObject) {
 			Metrado newMetrado = new Metrado();
@@ -252,12 +287,12 @@ public class ProjectService {
 	private boolean isValidProject(String idProject) {
 		System.out.println("Method isValidProject...");
 		List<Object> allObject = genericRepository
-				.getAllObjectByQuery("SELECT u FROM Metrado m, Nivel n WHERE n.proyecto.id = '" 
-						+ idProject +"' AND m.nivel.id = n.id");
+				.getAllObjectByNativeQuery("SELECT * FROM Metrado m, Nivel n, Bloque b WHERE b.proyecto_id = '" 
+						+ idProject +"' AND b.id = n.bloque_id AND m.nivel_id = n.id");
 
-		Boolean result = !allObject.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
+		Boolean result = !allObject.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
 		System.out.println("result: " + result);
-
+		
 		return result;
 	}
 

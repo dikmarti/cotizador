@@ -24,7 +24,7 @@ public class GenericRepository {
     	Object objectSaved = addObject(entityManager, object);
     	
         entityManager.getTransaction().commit();
-        entityManager.close();
+        //entityManager.close();
         
        return objectSaved;
         
@@ -151,6 +151,15 @@ public class GenericRepository {
 		List<Object> result = (List<Object>)entityManager.createNamedQuery(query)
 			    			.getResultList();  	
         	    	
+    	return result;
+    }
+    
+    public List<Object> getAllObjectByNativeQuery(String query) {
+    	
+    	@SuppressWarnings("unchecked")
+    	List<Object> result = (List<Object>)entityManager.createNativeQuery(query)
+    	.getResultList();  	
+    	
     	return result;
     }
     
