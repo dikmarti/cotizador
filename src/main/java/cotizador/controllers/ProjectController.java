@@ -209,6 +209,7 @@ public class ProjectController extends GenericController {
 	
 	@POST
 	@Path("/generateVersion")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Integer generateVersion(@QueryParam("idProject") String id) {
 		
 		System.out.println("/generateVersion");

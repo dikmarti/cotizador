@@ -187,16 +187,21 @@ public class ProjectService {
 			System.out.println("El proyecto no tiene metrado..");
 			return 1; 
 		}
+		if(!isValidProjectVersion(idProject)) {
+			System.out.println("El proyecto ya tiene fecha fin..");
+			return 2; 
+		}
 		Proyecto project = findProjectById(Integer.parseInt(idProject));
 		Proyecto newProject = duplicateProject(project);
 		List<Bloque> bloques = findBloquesByIdProject(Integer.parseInt(idProject));
 		List<Bloque> newBloques = duplicateBloques(bloques, newProject);
 		
 		System.out.println("Updating project version from data base");
-		newProject.setFechaFin(new Date());
+		project.setFechaFin(new Date());
 		genericRepository.updateObject(newProject);
 		System.out.println("finish system update");
 		Integer result = 0;
+		System.out.println("result final: " + result);
 		
 		return result;
 		
@@ -291,6 +296,16 @@ public class ProjectService {
 						+ idProject +"' AND b.id = n.bloque_id AND m.nivel_id = n.id");
 
 		Boolean result = !allObject.isEmpty() ? Boolean.TRUE : Boolean.FALSE;
+		System.out.println("result: " + result);
+		
+		return result;
+	}
+	
+	private boolean isValidProjectVersion(String idProject) {
+		System.out.println("Method isValidProjectVersion...");
+		Proyecto project = findProjectById(Integer.parseInt(idProject));
+		
+		Boolean result = project.getFechaFin() == null ? Boolean.TRUE : Boolean.FALSE;
 		System.out.println("result: " + result);
 		
 		return result;

@@ -319,7 +319,7 @@ $(document).ready(function() {
 		    	        		$("#error-table").html("Ha ocurrido un error, el proyecto no pudo ser versionado.");
 			    	        	$("#error-table").addClass("on");	 
 		    	        	} else if (result == 2) {
-		    	        		$("#error-table").html("Ha ocurrido un error, el proyecto no pudo ser versionado.");
+		    	        		$("#error-table").html("Ha ocurrido un error, el proyecto no puede ser versionado porque ya tiene fecha fin.");
 			    	        	$("#error-table").addClass("on");	 
 		    	        	}
 		    	        }
