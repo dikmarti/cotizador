@@ -27,15 +27,15 @@ public class RelacionProducto {
 	private int id;
 	
 	@ManyToOne
-	@PrimaryKeyJoinColumn(name="id_sistema", referencedColumnName="id")
+	@PrimaryKeyJoinColumn(name="sistema_id", referencedColumnName="id")
 	private Sistema sistema;
 	
 	@ManyToOne
-	@PrimaryKeyJoinColumn(name="id_producto", referencedColumnName="id")
+	@PrimaryKeyJoinColumn(name="producto_id", referencedColumnName="id")
 	private Producto producto;
 	
 	@ManyToOne
-	@PrimaryKeyJoinColumn(name="id_producto_relacion", referencedColumnName="id")
+	@PrimaryKeyJoinColumn(name="producto_relacion_id", referencedColumnName="id")
 	private Producto productoRelacion;
 	
 	@Column(name="factor")

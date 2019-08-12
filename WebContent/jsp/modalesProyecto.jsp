@@ -660,7 +660,7 @@
 								cantidadRelacion = ( cantidad * factor);
 		    	        	}
 							
-							var prodRel = $("#producto_"+element.productoRelacion.id);
+							var prodRel = $("#producto_"+element.producto.id);
 							
 							if (prodRel.length > 0){
 								var oldCantidad = prodRel.find("label-cantidad");								
@@ -686,14 +686,14 @@
 		    	        	
 			    	        	htmlProducto = "";
 			    				
-			    				htmlProducto += "<div id='producto_"+ element.productoRelacion.id +"' class='js-product' data-operacion='" + operacion+ "' data-factor='"+ factor+"' data-cantidad='"+ cantidad+"'  data-parent-product='" + producto+ "'>";			
+			    				htmlProducto += "<div id='producto_"+ element.producto.id +"' class='js-product' data-operacion='" + operacion+ "' data-factor='"+ factor+"' data-cantidad='"+ cantidad+"'  data-parent-product='" + producto+ "'>";			
 			    				
-			    				htmlProducto += '		<a id="modificarProducto" onclick="modificarProducto(this,1);" data-sistema="' + sistema + '" data-producto="' +  element.productoRelacion.id + '" data-proveedor="' + '' + '" data-precio="' + "" + '" data-cantidad="' + cantidadRelacion + '" title="Editar producto" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
+			    				htmlProducto += '		<a id="modificarProducto" onclick="modificarProducto(this,1);" data-sistema="' + element.producto.sistema.id + '" data-producto="' +  element.producto.id + '" data-proveedor="' + '' + '" data-precio="' + "" + '" data-cantidad="' + cantidadRelacion + '" title="Editar producto" href="javascript:void(0)" class="fa fa-edit fa-3x home" style="font-size: 16px; text-decoration: none; position: relative;top: 5px;float:right;color:black;"></a>';
 			    				
 			    				htmlProducto += '<div class="form-group row font-products" style="margin-top: 15px;">';
 			    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Producto:</label>';
 			    				htmlProducto += '   <div class="col-sm-10">';
-			    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + element.productoRelacion.nombre+ '" style="border: none;">';
+			    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + element.producto.nombre+ '" style="border: none;">';
 			    				htmlProducto += '    </div>';
 			    				htmlProducto += '</div>';
 	
@@ -728,7 +728,7 @@
 			    				
 			    				if(divSistema.length > 0) {								
 			    					divSistema.find(".panel-body").append(htmlProducto);
-			    					$("#producto_" + element.productoRelacion.id).addClass("sep-products");
+			    					$("#producto_" + element.producto.id).addClass("sep-products");
 			    				}
 							}
 		    	        });
@@ -783,7 +783,7 @@
 				var operacionAnterior = $(element).data("operacion");
 				var factorAnterior = $(element).data("factor");
 				var cantidadAnterior = $(element).data("cantidad");
-				var parentAnterior = $(element).data("parent-product");
+				var parentAnterior = $(element).data("parent-product")+ "";
 				
 				var listaParent = parentAnterior.split(",");
 				
@@ -1072,7 +1072,7 @@
 		}
 		
 		$('#producto').empty()
-	    .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Producto</option>');
+	    .append('<option class="placeholder-option" value="" selected >Seleccione el Producto</option>');
 		$('#proveedor').empty()
 		 .append('<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>');
 		$('#precio').empty()
@@ -1112,9 +1112,7 @@
 	   			 	
 	   			 	$("#metrado-modal").css('z-index', '2');
 		    	    $(".modal-backdrop.fade.in").css('z-index', '1');
-		    	    
-		    	    $("#producto").val(producto);
-		    		
+		    	    		    	    	    		
 					if(productosSelected[sistema ] == undefined) {
 						productosSelected[sistema] = producto;
 					} else {
@@ -1150,9 +1148,7 @@
 				    	        	preciosXProveedor[result[index].proveedor.id] = result[index].precioMinimoo + "," + result[index].precioMaximo + "," + 
 				    	        	result[index].precioPromedio;
 				    	        });
-				    	        
-				    	        $("#proveedor").val(proveedor);
-				    	        
+				    	       				    	       				    	        
 				    			var precios = preciosXProveedor[proveedor];
 				    			
 				    			$('#precio').empty()
@@ -1179,6 +1175,8 @@
 				    			}
 				    			
 				    			$("#cantidad").val(cantidad);
+				    			$("#producto option").removeAttr('selected'); $("#producto option[value^="+ producto +"]").attr("selected",true)
+				    			$("#proveedor").val(proveedor);
 				    				
 				    			$("#btn-modificar-producto").css("display","inline-block");
 				    			$("#btn-agregar-producto").css("display","none");
@@ -1255,10 +1253,10 @@
 			var productDivs = $(".js-product");			
 			$.each(productDivs, function( index, elementProd ) {
 				
-				var parentData = $(elementProd).data("parent-product");	
+				var parentData = $(elementProd).data("parent-product") + "";	
 				
 				var parents = parentData.split(",");
-				var cantidades = $(elementProd).data("cantidad").split(",");	
+				var cantidades = ($(elementProd).data("cantidad")+"").split(",");	
 				
 				$.each(parents, function( index, element ) {
 					

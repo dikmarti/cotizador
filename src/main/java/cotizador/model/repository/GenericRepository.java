@@ -54,12 +54,14 @@ public class GenericRepository {
         
     }
     
-    public void updateObject(Object object){
+    public Object updateObject(Object object){
     	
     	entityManager.getTransaction().begin();	
     	entityManager.merge(object);
         entityManager.getTransaction().commit();
         entityManager.close();
+        
+        return object;
         
     }
     

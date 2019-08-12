@@ -2,6 +2,8 @@ package cotizador.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +23,13 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.Precio;
+import cotizador.model.domain.Producto;
+import cotizador.model.domain.Proveedor;
 import cotizador.model.domain.models.PriceListModel;
 import cotizador.model.domain.models.PriceListResponseModel;
 import cotizador.service.PriceListService;
+import cotizador.service.ProductService;
+import cotizador.service.ProviderService;
 
 @Path("/priceList")
 @Produces(MediaType.TEXT_HTML)
@@ -31,6 +37,12 @@ public class PriceListController extends GenericController {
 
 	@Inject
 	PriceListService priceListService;
+	
+	@Inject
+	ProductService productService;
+	
+	@Inject
+	ProviderService providerService;
 	
 	@GET
 	@Path("/all")
@@ -64,9 +76,10 @@ public class PriceListController extends GenericController {
 		try {
 
 			priceListModel = mapper.readValue(jsonForm, PriceListModel.class);
-			Integer status = priceListService.createPriceList(priceListModel.getProducto(), 
-					priceListModel.getProveedor(), priceListModel.getPrecioMinimo(), priceListModel.getPrecioMaximo(),
-					priceListModel.getPrecioPromedio());
+			
+			priceListModel = calculatePrices(priceListModel);
+			
+			Integer status = priceListService.createPriceList(mapToPrice(priceListModel));
 			
 			System.out.println("status: " + status);
 			return status;
@@ -141,8 +154,9 @@ public class PriceListController extends GenericController {
 
 			priceListModel = mapper.readValue(jsonForm, PriceListModel.class);
 			
-			Integer status = priceListService.updatePriceList(priceListModel.getPrecioMinimo(),
-					priceListModel.getPrecioMaximo(), priceListModel.getPrecioPromedio(), priceListModel.getId());
+			priceListModel = calculatePrices(priceListModel);
+			
+			Integer status = priceListService.updatePriceList(mapToPrice(priceListModel));
 
 			System.out.println("status: " + status);
 			return status;
@@ -186,6 +200,74 @@ public class PriceListController extends GenericController {
 		}
 		System.out.println("allPriceList: " + allPriceList);
 		return allPriceList;
+	}
+	
+	public PriceListModel calculatePrices(PriceListModel priceListModel) {
+		
+		List<Double> precios = new ArrayList<>();
+		
+		precios.add(Double.parseDouble(priceListModel.getPrecio1()));
+		precios.add(Double.parseDouble(priceListModel.getPrecio2()));
+		precios.add(Double.parseDouble(priceListModel.getPrecio3()));
+		precios.add(Double.parseDouble(priceListModel.getPrecio4()));
+		precios.add(Double.parseDouble(priceListModel.getPrecio5()));
+		precios.add(Double.parseDouble(priceListModel.getPrecio6()));
+		precios.add(Double.parseDouble(priceListModel.getPrecio7()));
+		precios.add(Double.parseDouble(priceListModel.getPrecio8()));
+		precios.add(Double.parseDouble(priceListModel.getPrecio9()));
+		precios.add(Double.parseDouble(priceListModel.getPrecio10()));
+		precios.add(Double.parseDouble(priceListModel.getPrecio11()));
+		
+		
+		Collections.sort(precios, new Comparator<Double>() {
+		    @Override
+		    public int compare(Double o1, Double o2) {
+		        return Double.valueOf(o1).compareTo(o2);
+		    }
+		});	
+		
+		priceListModel.setPrecioMinimo(String.valueOf(precios.get(0)));
+		priceListModel.setPrecioMaximo(String.valueOf(precios.get(10)));
+		
+		Double sum = 0.0;
+		
+		for(Double precio: precios) {
+			sum += precio;
+		}
+		
+		Double promedio = sum / precios.size();
+		
+		priceListModel.setPrecioPromedio(String.valueOf(promedio));
+		
+		return priceListModel;
+	}
+	
+	public Precio mapToPrice(PriceListModel priceListModel) {
+		
+		Precio precio = new Precio();
+		
+		precio.setId(priceListModel.getId());
+		precio.setPrecio1(Double.parseDouble(priceListModel.getPrecio1()));
+		precio.setPrecio2(Double.parseDouble(priceListModel.getPrecio2()));
+		precio.setPrecio3(Double.parseDouble(priceListModel.getPrecio3()));
+		precio.setPrecio4(Double.parseDouble(priceListModel.getPrecio4()));
+		precio.setPrecio5(Double.parseDouble(priceListModel.getPrecio5()));
+		precio.setPrecio6(Double.parseDouble(priceListModel.getPrecio6()));
+		precio.setPrecio7(Double.parseDouble(priceListModel.getPrecio7()));
+		precio.setPrecio8(Double.parseDouble(priceListModel.getPrecio8()));
+		precio.setPrecio9(Double.parseDouble(priceListModel.getPrecio9()));
+		precio.setPrecio10(Double.parseDouble(priceListModel.getPrecio10()));
+		precio.setPrecioMinimoo(Double.parseDouble(priceListModel.getPrecioMinimo()));
+		precio.setPrecioMaximo(Double.parseDouble(priceListModel.getPrecioMaximo()));
+		precio.setPrecioPromedio(Double.parseDouble(priceListModel.getPrecioPromedio()));
+		
+		Producto producto = productService.findProductById(priceListModel.getProducto());
+		precio.setProducto(producto);
+		
+		Proveedor proveedor = providerService.findProviderById(priceListModel.getProveedor());
+		precio.setProveedor(proveedor);
+		
+		return precio;
 	}
 
 }

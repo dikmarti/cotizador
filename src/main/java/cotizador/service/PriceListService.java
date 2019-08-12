@@ -67,28 +67,15 @@ public class PriceListService {
 	 * @param precioPromedio
 	 * @return
 	 */
-	public Integer createPriceList(Integer idProducto, Integer idProveedor, String precioMinimo, 
-			String precioMaximo, String precioPromedio) {
+	public Integer createPriceList(Precio precio) {
 
 		System.out.println("Method createPriceList...");
 		
-		if(!isValidPriceList(idProducto, idProveedor)) {
+		if(!isValidPriceList(precio.getProducto().getId(), precio.getProveedor().getId())) {
 			System.out.println("Existe priceList vigente para producto y proveedor...");
 			return 1;
 		}
-
-		Precio precio = new Precio();
-		
-		Producto producto = productService.findProductById(idProducto);
-		Proveedor proveedor = providerService.findProviderById(idProveedor);
-		
-		precio.setProducto(producto);
-		precio.setProveedor(proveedor);
-		precio.setPrecioMinimoo(new Double(precioMinimo));
-		precio.setPrecioMaximo(new Double(precioMaximo));
-		precio.setPrecioPromedio(new Double(precioPromedio));
-		precio.setFechaInicio(new Date());
-
+	
 		System.out.println("Creating system from data base");
 		Object object = genericRepository.addObject(precio);
 
@@ -106,18 +93,12 @@ public class PriceListService {
 	 * @param id
 	 * @return
 	 */
-	public Integer updatePriceList(String precioMinimo, String precioMaximo, String precioPromedio, Integer id) {
+	public Integer updatePriceList(Precio precio) {
 
 		System.out.println("Method updatePriceList...");
 		System.out.println("Updating PriceList from data base");
 		
-		Double precioMin = new Double(precioMinimo);
-		Double precioMax = new Double(precioMaximo);
-		Double precioProm = new Double(precioPromedio);
-		
-		int status = genericRepository.executeUpdateQuery("UPDATE Precio u SET u.precioMinimoo = '" + precioMin + "', "
-						+ "u.precioMaximo = '" + precioMax
-						+ "', u.precioPromedio = '" + precioProm + "' WHERE u.id = '" + id + "'");
+		int status = ((Precio) genericRepository.updateObject(precio)).getId();
 		
 		System.out.println("finish priceList update");
 		System.out.println("status: " + status);
