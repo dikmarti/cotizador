@@ -34,11 +34,25 @@
       </th>
       <th class="th-sm">Proveedor
       </th>
-      <th class="th-sm">Precio Mínimo
+      <th class="th-sm">Precio 1
       </th>
-      <th class="th-sm">Precio Máximo
+      <th class="th-sm">Precio 2
       </th>
-      <th class="th-sm">Precio Promedio
+      <th class="th-sm">Precio 3
+      </th>
+      <th class="th-sm">Precio 4
+      </th>
+      <th class="th-sm">Precio 5
+      </th>
+      <th class="th-sm">Precio 6
+      </th>
+      <th class="th-sm">Precio 7
+      </th>
+      <th class="th-sm">Precio 8
+      </th>
+      <th class="th-sm">Precio 9
+      </th>
+      <th class="th-sm">Precio 10
       </th>
       <th class="th-sm">Fecha Inicio
       </th>
@@ -56,11 +70,25 @@
       </th>
       <th>Proveedor
       </th>
-      <th>Precio Mínimo
+      <th class="th-sm">Precio 1
       </th>
-      <th>Precio Máximo
+      <th class="th-sm">Precio 2
       </th>
-      <th>Precio Promedio
+      <th class="th-sm">Precio 3
+      </th>
+      <th class="th-sm">Precio 4
+      </th>
+      <th class="th-sm">Precio 5
+      </th>
+      <th class="th-sm">Precio 6
+      </th>
+      <th class="th-sm">Precio 7
+      </th>
+      <th class="th-sm">Precio 8
+      </th>
+      <th class="th-sm">Precio 9
+      </th>
+      <th class="th-sm">Precio 10
       </th>
       <th>Fecha Inicio
       </th>
@@ -107,23 +135,58 @@
 				    	<option class="placeholder-option" value="" disabled selected >Seleccione el Proveedor</option>
 				    </select>
       			</div>
+      		</div> 
+      		<div class="form-row">
+      			<div class="form -group col-md-6">
+				    <input class="form-control js-precio" id="precio1" type="text" name="precio1" 
+				    	placeholder="Precio 1" maxlength="200"/>
+      			</div>
+      			<div class="form -group col-md-6">
+				    <input class="form-control js-precio" id="precio2" type="text" name="precio2" 
+				    	placeholder="Precio 2" maxlength="200"/>
+      			</div>
       		</div>
       		<div class="form-row">
       			<div class="form -group col-md-6">
-				    <input class="form-control" id="precioMinimo" type="text" name="precioMinimo" 
-				    	placeholder="Precio Mínimo" maxlength="200"/>
+				    <input class="form-control js-precio" id="precio3" type="text" name="precio3" 
+				    	placeholder="Precio 3" maxlength="200"/>
       			</div>
       			<div class="form -group col-md-6">
-				    <input class="form-control" id="precioMaximo" type="text" name="precioMaximo" 
-				    	placeholder="Precio Máximo" maxlength="200"/>
+				    <input class="form-control js-precio" id="precio4" type="text" name="precio4" 
+				    	placeholder="Precio 4" maxlength="200"/>
       			</div>
       		</div>
       		<div class="form-row">
       			<div class="form -group col-md-6">
-				    <input class="form-control" id="precioPromedio" type="text" name="precioPromedio" 
-				    	placeholder="Precio Promedio" maxlength="200"  style="margin-top: 15px;" disabled/>
+				    <input class="form-control js-precio" id="precio5" type="text" name="precio5" 
+				    	placeholder="Precio 5" maxlength="200"/>
+      			</div>
+      			<div class="form -group col-md-6">
+				    <input class="form-control js-precio" id="precio6" type="text" name="precio6" 
+				    	placeholder="Precio 6" maxlength="200"/>
       			</div>
       		</div>
+      		<div class="form-row">
+      			<div class="form -group col-md-6">
+				    <input class="form-control js-precio" id="precio7" type="text" name="precio7" 
+				    	placeholder="Precio 7" maxlength="200"/>
+      			</div>
+      			<div class="form -group col-md-6">
+				    <input class="form-control js-precio" id="precio8" type="text" name="precio8" 
+				    	placeholder="Precio 8" maxlength="200"/>
+      			</div>
+      		</div>
+      		<div class="form-row">
+      			<div class="form -group col-md-6">
+				    <input class="form-control js-precio" id="precio9" type="text" name="precio9" 
+				    	placeholder="Precio 9" maxlength="200"/>
+      			</div>
+      			<div class="form -group col-md-6">
+				    <input class="form-control js-precio" id="precio10" type="text" name="precio10" 
+				    	placeholder="Precio 10" maxlength="200"/>
+      			</div>
+      		</div>
+      		
       		<div class="form-row">
       			<div class="form-group col-md-10">
 				    <div class="msg-error" id="msg-error">
@@ -157,31 +220,73 @@
       		<div class="form-group row">
       			<label for="producto" class="col-sm-4 col-form-label">Producto:</label>
 			    <div class="col-sm-8">
-			      <input type="text" readonly class="form-control-plaintext" id="producto" value="" style="border: none;">
+			      <input type="text" readonly class="form-control-plaintext" name="producto" id="producto" value="" style="border: none;">
 			    </div>
     		</div>
     		<div class="form-group row">
       			<label for="proveedor" class="col-sm-4 col-form-label">Proveedor:</label>
 			    <div class="col-sm-8">
-			      <input type="text" readonly class="form-control-plaintext" id="proveedor" value="" style="border: none;">
+			      <input type="text" readonly class="form-control-plaintext" name="proveedor" id="proveedor" value="" style="border: none;">
 			    </div>
     		</div>
       		<div class="form-group row">
-      			<label for="precioMinimo" class="col-sm-4 col-form-label">Precio Mínimo:</label>
+      			<label for="precio1" class="col-sm-4 col-form-label">Precio 1:</label>
 			    <div class="col-sm-4">
-			      <input class="form-control" id="precioMinimo" type="text" name="precioMinimo" placeholder="Precio Mínimo" maxlength="200"/>
+			      <input class="form-control js-precio" id="precio1" type="text" name="precio1" placeholder="Precio 1" maxlength="200"/>
 			    </div>
       		</div>
       		<div class="form-group row">
-      			<label for="precioMaximo" class="col-sm-4 col-form-label">Precio Máximo:</label>
+      			<label for="precio1" class="col-sm-4 col-form-label">Precio 2:</label>
 			    <div class="col-sm-4">
-			      <input class="form-control" id="precioMaximo" type="text" name="precioMaximo" placeholder="Precio Máximo" maxlength="200" onkeyup="calcularPromedio(this);"/>
+			      <input class="form-control js-precio" id="precio2" type="text" name="precio2" placeholder="Precio 2" maxlength="200"/>
 			    </div>
       		</div>
       		<div class="form-group row">
-      			<label for="precioPromedio" class="col-sm-4 col-form-label">Precio Promedio:</label>
+      			<label for="precio1" class="col-sm-4 col-form-label">Precio 3:</label>
 			    <div class="col-sm-4">
-			      <input class="form-control" id="precioPromedio" type="text" name="precioPromedio" placeholder="Precio Promedio" maxlength="200"/>
+			      <input class="form-control js-precio" id="precio3" type="text" name="precio3" placeholder="Precio 3" maxlength="200"/>
+			    </div>
+      		</div>
+      		<div class="form-group row">
+      			<label for="precio1" class="col-sm-4 col-form-label">Precio 4:</label>
+			    <div class="col-sm-4">
+			      <input class="form-control js-precio" id="precio4" type="text" name="precio4" placeholder="Precio 4" maxlength="200"/>
+			    </div>
+      		</div>
+      		<div class="form-group row">
+      			<label for="precio1" class="col-sm-4 col-form-label">Precio 5:</label>
+			    <div class="col-sm-4">
+			      <input class="form-control js-precio" id="precio5" type="text" name="precio5" placeholder="Precio 5" maxlength="200"/>
+			    </div>
+      		</div>
+      		<div class="form-group row">
+      			<label for="precio1" class="col-sm-4 col-form-label">Precio 6:</label>
+			    <div class="col-sm-4">
+			      <input class="form-control js-precio" id="precio6" type="text" name="precio6" placeholder="Precio 6" maxlength="200"/>
+			    </div>
+      		</div>
+      		<div class="form-group row">
+      			<label for="precio1" class="col-sm-4 col-form-label">Precio 7:</label>
+			    <div class="col-sm-4">
+			      <input class="form-control js-precio" id="precio7" type="text" name="precio7" placeholder="Precio 7" maxlength="200"/>
+			    </div>
+      		</div>
+      		<div class="form-group row">
+      			<label for="precio1" class="col-sm-4 col-form-label">Precio 8:</label>
+			    <div class="col-sm-4">
+			      <input class="form-control js-precio" id="precio8" type="text" name="precio8" placeholder="Precio 8" maxlength="200"/>
+			    </div>
+      		</div>
+      		<div class="form-group row">
+      			<label for="precio1" class="col-sm-4 col-form-label">Precio 9:</label>
+			    <div class="col-sm-4">
+			      <input class="form-control js-precio" id="precio9" type="text" name="precio9" placeholder="Precio 9" maxlength="200"/>
+			    </div>
+      		</div>
+      		<div class="form-group row">
+      			<label for="precio1" class="col-sm-4 col-form-label">Precio 10:</label>
+			    <div class="col-sm-4">
+			      <input class="form-control js-precio" id="precio10" type="text" name="precio10" placeholder="Precio 10" maxlength="200"/>
 			    </div>
       		</div>
       		<div class="form-row">
@@ -229,16 +334,6 @@
 
 <script type="text/javascript">
 
-function calcularPromedio (element){
-	var precioMin = parseFloat($(element).parent("div").parent("div").siblings().find("#precioMinimo").val());
-	var precioMax = parseFloat($(element).val());
-	var precioProm = 0;
-	
-	if (precioMin != "" && precioMax != "") {
-		precioProm = (precioMin + precioMax) / 2;
-		$(element).parent("div").parent("div").siblings().find("#precioPromedio").val(precioProm);
-	}
-}
 
 $(document).ready(function() {
 	
@@ -257,10 +352,17 @@ $(document).ready(function() {
  	        		       [{ "Id": result[index].id, 
  	        		    	   "Producto": result[index].producto,
  	        		    	   "Proveedor": result[index].proveedor,
- 	        		    	   "PrecioMinimo": result[index].precioMinimo,
- 	        		    	   "PrecioMaximo": result[index].precioMaximo,
- 	        		    	   "PrecioPromedio": result[index].precioPromedio,
- 	        		    	   "FechaInicio": result[index].fechaInicio,
+ 	        		    	   "Precio1": result[index].precio1,
+ 	        		    	   "Precio2": result[index].precio2,
+ 	        		    	   "Precio3": result[index].precio3,
+ 	        		   	   	   "Precio4": result[index].precio4,
+	        		    	   "Precio5": result[index].precio5,
+	        		    	   "Precio6": result[index].precio6,
+	        		    	   "Precio7": result[index].precio7,
+ 	        		    	   "Precio8": result[index].precio8,
+ 	        		    	   "Precio9": result[index].precio9,
+ 	        		   	   	   "Precio10": result[index].precio10,
+	        		    	   "FechaInicio": result[index].fechaInicio,
  	        		    	   "FechaFin": result[index].fechaFin
  	        		    	}]).draw(); 
     	        });
@@ -295,9 +397,16 @@ $(document).ready(function() {
             	    {data: 'Id'},
             	    {data: 'Producto'},
             	    {data: 'Proveedor'},
-            	    {data: 'PrecioMinimo'},
-            	    {data: 'PrecioMaximo'},
-            	    {data: 'PrecioPromedio'},
+            	    {data: 'Precio1'},
+            	    {data: 'Precio2'},
+            	    {data: 'Precio3'},
+            	    {data: 'Precio4'},
+            	    {data: 'Precio5'},
+            	    {data: 'Precio6'},
+            	    {data: 'Precio7'},
+            	    {data: 'Precio8'},
+            	    {data: 'Precio9'},
+            	    {data: 'Precio10'},
             	    {data: 'FechaInicio'},
             	    {data: 'FechaFin'}],
 	       	    "columnDefs": [
@@ -327,10 +436,17 @@ $(document).ready(function() {
 			$("#id").val('');
 	    	$("#producto").val([""]);
 	    	$("#proveedor").val([""]);
-	    	$("#precioMinimo").val('');
-	    	$("#precioMaximo").val('');
-	    	$("#precioPromedio").val('');
-	    	
+	    	$("#precio1").val('');
+	    	$("#precio2").val('');
+	    	$("#precio3").val('');
+	    	$("#precio4").val('');
+	    	$("#precio5").val('');
+	    	$("#precio6").val('');
+	    	$("#precio7").val('');
+	    	$("#precio8").val('');
+	    	$("#precio9").val('');
+	    	$("#precio10").val('');
+	    		    		    	
 	    	$.ajax({
 		    	  url: "/Cotizador/rest/system/all",
 		    	  type: "GET",
@@ -400,6 +516,18 @@ $(document).ready(function() {
 			$('#modal-priceList-update').find('#id').val($priceListModify.Id);
 			$('#modal-priceList-update').find('#producto').val($priceListModify.Producto);
 			$('#modal-priceList-update').find('#proveedor').val($priceListModify.Proveedor);
+			
+			$('#modal-priceList-update').find('#precio1').val($priceListModify.Precio1);
+			$('#modal-priceList-update').find('#precio2').val($priceListModify.Precio2);
+			$('#modal-priceList-update').find('#precio3').val($priceListModify.Precio3);
+			$('#modal-priceList-update').find('#precio4').val($priceListModify.Precio4);
+			$('#modal-priceList-update').find('#precio5').val($priceListModify.Precio5);
+			$('#modal-priceList-update').find('#precio6').val($priceListModify.Precio6);
+			$('#modal-priceList-update').find('#precio7').val($priceListModify.Precio7);
+			$('#modal-priceList-update').find('#precio8').val($priceListModify.Precio8);
+			$('#modal-priceList-update').find('#precio9').val($priceListModify.Precio9);
+			$('#modal-priceList-update').find('#precio10').val($priceListModify.Precio10);
+			
 			$('#modal-priceList-update').find('#precioMinimo').val($priceListModify.PrecioMinimo);
 			$('#modal-priceList-update').find('#precioMaximo').val($priceListModify.PrecioMaximo);
 			$('#modal-priceList-update').find('#precioPromedio').val($priceListModify.PrecioPromedio);
@@ -469,9 +597,18 @@ $(document).ready(function() {
 	    	 var $sistema =  $("#sistema option:selected").val();
 	    	 var $producto =  $("#producto option:selected").val();
 	    	 var $proveedor =  $("#proveedor option:selected").val();
-	    	 var $precioMinimo =  $("#precioMinimo").val();
-	    	 var $precioMaximo =  $("#precioMaximo").val();
-	    	 var $precioPromedio =  $("#precioPromedio").val();
+	    	 var $precio1 =  $("#precio1").val();
+	    	 var $precio2 =  $("#precio2").val();
+	    	 var $precio3 =  $("#precio3").val();
+	    	 var $precio4 =  $("#precio4").val();
+	    	 var $precio5 =  $("#precio5").val();
+	    	 var $precio6 =  $("#precio6").val();
+	    	 var $precio7 =  $("#precio7").val();
+	    	 var $precio8 =  $("#precio8").val();
+	    	 var $precio9 =  $("#precio9").val();
+	    	 var $precio10 =  $("#precio10").val();
+	    	 
+	    	
 	    	 $("#msg-error").removeClass("on");
 		     $("#msg-error").html("Debe ingresar los datos.");
 		     
@@ -488,14 +625,7 @@ $(document).ready(function() {
 		    	 $("#msg-error").addClass("on");
 		    	 return false;
 		     } 
-	    	 
-	    	 if ($precioMinimo == "" || precioMaximo == "" || precioPromedio == "") {
-	    		  $("#msg-error").addClass("on");
-	    		  return false;
-	   		 } else {
-	   		      console.log("Hay valores");
-	   		 }
-	    	 
+	    	    	   	 
 	    	  var $form = $("#createPriceListForm").serializeArray();    	  	  
 		  	  var $formSerialized = objectifyForm($form);
 	    	 
@@ -563,6 +693,9 @@ $(document).ready(function() {
 			
 	    	 var $form = $("#updatePriceListForm").serializeArray();    	  	  
 		  	 var $formSerialized = objectifyForm($form);
+		  	 console.log("form update", $form);
+		  	 console.log("form formSerialized", $formSerialized);
+		  	 
 	    	 $("#modal-priceList-update").css('z-index', '1');
 	    	 $.ajax({
 		    	  url: "/Cotizador/rest/priceList/updatePriceList",
@@ -608,6 +741,7 @@ $(document).ready(function() {
 		    	  }
 		    	  
 		    	});
+	    
 	      });
 		
 		$("#sistema").change(function() {

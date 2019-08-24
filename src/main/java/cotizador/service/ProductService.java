@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import cotizador.model.domain.Marca;
 import cotizador.model.domain.Producto;
 import cotizador.model.domain.Sistema;
 import cotizador.model.repository.GenericRepository;
@@ -163,6 +162,23 @@ public class ProductService {
 
 		System.out.println("Method findProductById...");
 		List<Object> allObject = genericRepository.getAllObjectFiltered("Producto.findById", "id", id);
+
+		Producto result = !allObject.isEmpty() ? (Producto) (Object) allObject.get(0) : null;
+		System.out.println("Producto: " + result);
+
+		return result;
+
+	}
+	
+	/**
+	 * Metodo que retorna un producto de la base
+	 * @param nombre
+	 * @return
+	 */
+	public Producto findProductByName(String nombre) {
+
+		System.out.println("Method findProductById...");
+		List<Object> allObject = genericRepository.getAllObjectFiltered("Producto.findByName", "nombre", nombre);
 
 		Producto result = !allObject.isEmpty() ? (Producto) (Object) allObject.get(0) : null;
 		System.out.println("Producto: " + result);

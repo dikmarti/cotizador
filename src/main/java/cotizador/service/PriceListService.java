@@ -8,8 +8,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import cotizador.model.domain.Precio;
-import cotizador.model.domain.Producto;
-import cotizador.model.domain.Proveedor;
 import cotizador.model.domain.models.PriceListResponseModel;
 import cotizador.model.repository.GenericRepository;
 
@@ -45,6 +43,16 @@ public class PriceListService {
 				priceListResponseModel.setId(p.getId());
 				priceListResponseModel.setProducto(p.getProducto().getNombre());
 				priceListResponseModel.setProveedor(p.getProveedor().getNombre());
+				priceListResponseModel.setPrecio1(String.valueOf(p.getPrecio1()));
+				priceListResponseModel.setPrecio2(String.valueOf(p.getPrecio2()));
+				priceListResponseModel.setPrecio3(String.valueOf(p.getPrecio3()));
+				priceListResponseModel.setPrecio4(String.valueOf(p.getPrecio4()));
+				priceListResponseModel.setPrecio5(String.valueOf(p.getPrecio5()));
+				priceListResponseModel.setPrecio6(String.valueOf(p.getPrecio6()));
+				priceListResponseModel.setPrecio7(String.valueOf(p.getPrecio7()));
+				priceListResponseModel.setPrecio8(String.valueOf(p.getPrecio8()));
+				priceListResponseModel.setPrecio9(String.valueOf(p.getPrecio9()));
+				priceListResponseModel.setPrecio10(String.valueOf(p.getPrecio10()));
 				priceListResponseModel.setPrecioMinimo(String.valueOf(p.getPrecioMinimo()));
 				priceListResponseModel.setPrecioMaximo(String.valueOf(p.getPrecioMaximo()));
 				priceListResponseModel.setPrecioPromedio(String.valueOf(p.getPrecioPromedio()));
@@ -80,7 +88,7 @@ public class PriceListService {
 		Object object = genericRepository.addObject(precio);
 
 		Integer priceListResult = object != null ? 0 : 2;
-		System.out.println("systemResult: " + priceListResult);
+		System.out.println("precioResult: " + priceListResult);
 
 		return  priceListResult;
 	}
@@ -98,11 +106,8 @@ public class PriceListService {
 		System.out.println("Method updatePriceList...");
 		System.out.println("Updating PriceList from data base");
 		
-		int status = ((Precio) genericRepository.updateObject(precio)).getId();
-		
+		Integer result = ((Precio) genericRepository.updateObject(precio)) != null ? 0 : 2;
 		System.out.println("finish priceList update");
-		System.out.println("status: " + status);
-		Integer result = status == 1 ? 0 : 2;
 		
 		return result;
 	}

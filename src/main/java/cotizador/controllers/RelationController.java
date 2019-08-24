@@ -20,8 +20,12 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import cotizador.model.domain.Precio;
 import cotizador.model.domain.RelacionProducto;
 import cotizador.model.domain.models.RelationModel;
+import cotizador.model.domain.models.RelationProductsModel;
+import cotizador.service.PriceListService;
+import cotizador.service.ProductService;
 import cotizador.service.RelationService;
 
 @Path("/relation")
@@ -30,6 +34,9 @@ public class RelationController extends GenericController {
 
 	@Inject
 	RelationService relationService;
+	
+	@Inject
+	PriceListService priceListService;
 	
 	@GET
 	@Path("/all")
@@ -131,12 +138,14 @@ public class RelationController extends GenericController {
 	@Path("/findByProduct")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<RelacionProducto> findRelationByProduct(String jsonForm, @Context HttpServletRequest httpRequest) {
+	public RelationProductsModel findRelationByProduct(String jsonForm, @Context HttpServletRequest httpRequest) {
 		
 		System.out.println("/findRelationByProduct json form " + jsonForm);
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Integer> relationMap = new HashMap<String, Integer>();
 		
+		RelationProductsModel relationProductsModels = new RelationProductsModel();
+				
 		try {
 			
 			relationMap = mapper.readValue(jsonForm, Map.class);
@@ -144,9 +153,21 @@ public class RelationController extends GenericController {
 			
 			List<RelacionProducto> result = relationService.findRelationByProductId(id);
 			
+			relationProductsModels.setRelacionProducto(result);
+			
+			relationProductsModels.setPrecioProductoRelacion(new ArrayList<List<Precio>>());
+			
+			for (RelacionProducto relacionProducto : result)
+			{
+				List<Precio> precios = priceListService.findByProduct(relacionProducto.getProducto().getId());
+				
+				relationProductsModels.getPrecioProductoRelacion().add(precios);
+				
+			} 
+			
 			System.out.println("findRelationByProduct: " + result);
 			
-			return result;
+			return relationProductsModels;
 			
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block

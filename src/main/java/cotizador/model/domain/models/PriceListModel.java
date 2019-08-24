@@ -10,9 +10,9 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 		fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class PriceListModel {
 	
-	public Integer id;
-	public Integer producto;
-	public Integer proveedor;
+	public int id;
+	public String producto;
+	public String proveedor;
 	public String precio1;
 	public String precio2;
 	public String precio3;
@@ -23,7 +23,6 @@ public class PriceListModel {
 	public String precio8;
 	public String precio9;
 	public String precio10;
-	public String precio11;
 	public String precioMinimo;
 	public String precioMaximo;
 	public String precioPromedio;
@@ -107,14 +106,6 @@ public class PriceListModel {
 	public void setPrecio10(String precio10) {
 		this.precio10 = precio10;
 	}
-
-	public String getPrecio11() {
-		return precio11;
-	}
-
-	public void setPrecio11(String precio11) {
-		this.precio11 = precio11;
-	}
 	
 	public Integer getId() {
 		return id;
@@ -124,19 +115,19 @@ public class PriceListModel {
 		this.id = id;
 	}
 	
-	public Integer getProducto() {
+	public String getProducto() {
 		return producto;
 	}
 	
-	public void setProducto(Integer producto) {
+	public void setProducto(String producto) {
 		this.producto = producto;
 	}
 	
-	public Integer getProveedor() {
+	public String getProveedor() {
 		return proveedor;
 	}
 	
-	public void setProveedor(Integer proveedor) {
+	public void setProveedor(String proveedor) {
 		this.proveedor = proveedor;
 	}
 	

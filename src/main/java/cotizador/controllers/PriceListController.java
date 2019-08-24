@@ -216,9 +216,7 @@ public class PriceListController extends GenericController {
 		precios.add(Double.parseDouble(priceListModel.getPrecio8()));
 		precios.add(Double.parseDouble(priceListModel.getPrecio9()));
 		precios.add(Double.parseDouble(priceListModel.getPrecio10()));
-		precios.add(Double.parseDouble(priceListModel.getPrecio11()));
-		
-		
+	
 		Collections.sort(precios, new Comparator<Double>() {
 		    @Override
 		    public int compare(Double o1, Double o2) {
@@ -227,7 +225,7 @@ public class PriceListController extends GenericController {
 		});	
 		
 		priceListModel.setPrecioMinimo(String.valueOf(precios.get(0)));
-		priceListModel.setPrecioMaximo(String.valueOf(precios.get(10)));
+		priceListModel.setPrecioMaximo(String.valueOf(precios.get(9)));
 		
 		Double sum = 0.0;
 		
@@ -261,11 +259,14 @@ public class PriceListController extends GenericController {
 		precio.setPrecioMaximo(Double.parseDouble(priceListModel.getPrecioMaximo()));
 		precio.setPrecioPromedio(Double.parseDouble(priceListModel.getPrecioPromedio()));
 		
-		Producto producto = productService.findProductById(priceListModel.getProducto());
+		Producto producto = productService.findProductByName(priceListModel.getProducto());
 		precio.setProducto(producto);
 		
-		Proveedor proveedor = providerService.findProviderById(priceListModel.getProveedor());
+		Proveedor proveedor = providerService.findProviderByName(priceListModel.getProveedor());
 		precio.setProveedor(proveedor);
+		
+		System.out.println("Producto: " + producto.toString());
+		System.out.println("Proveedor: " + proveedor.toString());
 		
 		return precio;
 	}

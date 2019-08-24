@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @NamedQueries({
 	@NamedQuery(name = "Proveedor.findById", query = "SELECT s FROM Proveedor s WHERE s.id = :id"),
+	@NamedQuery(name = "Proveedor.findByName", query = "SELECT s FROM Proveedor s WHERE s.nombre = :nombre"),
 	@NamedQuery(name = "Proveedor.findAll", query = "SELECT s FROM Proveedor s")	
 })
 
