@@ -568,14 +568,14 @@
 			htmlProducto += '<div class="form-group row font-products" style="margin-top: 15px;">';
 			htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Producto:</label>';
 			htmlProducto += '   <div class="col-sm-10">';
-			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + $("#producto option:selected").text()+ '" style="border: none;">';
+			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + $("#producto option:selected").text()+ '" style="border: none;width: 420px;">';
 			htmlProducto += '    </div>';
 			htmlProducto += '</div>';
 
 			htmlProducto += '<div class="form-group row font-products">';
 			htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Proveedor:</label>';
 			htmlProducto += '   <div class="col-sm-10">';
-			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-proveedor" value="' + $("#proveedor option:selected").text()+ '" style="border: none;">';
+			htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-proveedor" value="' + $("#proveedor option:selected").text()+ '" style="border: none;width: 420px;">';
 			htmlProducto += '    </div>';
 			htmlProducto += '</div>';
 
@@ -643,9 +643,7 @@
 		    	  success: function(result){	
 		    	        console.log("termino");
 		    	        console.log(result);
-		    	        
-		    	        var divSistema = $("#sistema_" + sistema);
-		    	        
+		    		    	        
 		    	        console.log("Recorrer lista productos relacionados: ");
 		    	        
 		    	        $.each(result.relacionProducto, function( index, element ) {	 
@@ -653,6 +651,8 @@
 		    	        	var preciosProductoRelacion = result.precioProductoRelacion[index];
 		    	        	var proveedor = preciosProductoRelacion[0].proveedor.nombre;
 		    	        	var precios = preciosProductoRelacion[0];
+		    	        	var sistemaProd =  element.producto.sistema.id;
+		    	        	var sistemaNombre =  element.producto.sistema.nombre;
 		    	        	
 		    	        	priceList[preciosProductoRelacion[0].producto.id + "_" + preciosProductoRelacion[0].proveedor.id] = precios.id;
 		    	        	
@@ -721,14 +721,14 @@
 			    				htmlProducto += '<div class="form-group row font-products" style="margin-top: 15px;">';
 			    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Producto:</label>';
 			    				htmlProducto += '   <div class="col-sm-10">';
-			    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + element.producto.nombre+ '" style="border: none;">';
+			    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + element.producto.nombre+ '" style="border: none;width: 420px;">';
 			    				htmlProducto += '    </div>';
 			    				htmlProducto += '</div>';
 	
 			    				htmlProducto += '<div class="form-group row font-products">';
 			    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Proveedor:</label>';
 			    				htmlProducto += '   <div class="col-sm-10">';
-			    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-proveedor" value="' + proveedor + '" style="border: none;">';
+			    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-proveedor" value="' + proveedor + '" style="border: none; width: 420px;">';
 			    				htmlProducto += '    </div>';
 			    				htmlProducto += '</div>';
 	
@@ -754,10 +754,30 @@
 			    				
 			    				htmlProducto += "</div>";
 			    				
-			    				if(divSistema.length > 0) {								
+			    				 var divSistema = $("[id^=sistema_"+sistemaProd+"]");
+			    				 html = "";
+			    				 if(divSistema.length > 0) {								
 			    					divSistema.find(".panel-body").append(htmlProducto);
-			    					$("#producto_" + element.producto.id).addClass("sep-products");
-			    				}
+			    					$("#producto_" + element.producto.id).addClass("sep-products");			    						
+		    					} else {
+		    						
+		    						html += '<div class="panel panel-default" id="sistema_' + sistemaProd + '">';
+		    						html += '  <div class="panel-heading">';
+		    						html += '    <h4 class="panel-title" style="height: 10px;">';
+		    						html += '      <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" style="position: absolute;left: 30px;">' + sistemaNombre +'</a>';
+		    						html += '     </h4>';
+		    						html += '</div>';
+		    						html += '<div id="collapse1" class="panel-collapse collapse in">';
+		    						html += '    <div class="panel-body">';
+		    						html += htmlProducto;
+		    						html += '	 </div>';
+		    						html += '</div>';
+		    						html += '</div>';
+		    					    
+		    						$("#sist-metrado").append(html);	
+		    						$("#producto_" + element.producto.id).addClass("sep-first-products");
+		    				
+		    					}
 							}
 		    	        });
 		    	        
@@ -1006,14 +1026,14 @@
 	    				htmlProducto += '<div class="form-group row font-products" style="margin-top: 15px;">';
 	    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Producto:</label>';
 	    				htmlProducto += '   <div class="col-sm-10">';
-	    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + productoNombre+ '" style="border: none;">';
+	    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-producto" value="' + productoNombre+ '" style="border: none; width: 420px;">';
 	    				htmlProducto += '    </div>';
 	    				htmlProducto += '</div>';
 
 	    				htmlProducto += '<div class="form-group row font-products">';
 	    				htmlProducto += '	<label for="nombre" class="col-sm-2 col-form-label label-products">Proveedor:</label>';
 	    				htmlProducto += '   <div class="col-sm-10">';
-	    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-proveedor" value="' + proveedorNombre+ '" style="border: none;">';
+	    				htmlProducto += '      <input type="text" readonly class="form-control-plaintext" id="label-proveedor" value="' + proveedorNombre+ '" style="border: none; width: 420px;">';
 	    				htmlProducto += '    </div>';
 	    				htmlProducto += '</div>';
 

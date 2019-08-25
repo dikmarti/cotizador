@@ -9,11 +9,9 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -22,8 +20,6 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import cotizador.model.domain.Metrado;
-import cotizador.model.domain.Precio;
-import cotizador.model.domain.Proyecto;
 import cotizador.model.domain.RelacionProducto;
 import cotizador.model.domain.models.MetradoListModel;
 import cotizador.model.domain.models.MetradoModel;

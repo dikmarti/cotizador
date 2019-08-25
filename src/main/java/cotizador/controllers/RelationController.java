@@ -25,7 +25,6 @@ import cotizador.model.domain.RelacionProducto;
 import cotizador.model.domain.models.RelationModel;
 import cotizador.model.domain.models.RelationProductsModel;
 import cotizador.service.PriceListService;
-import cotizador.service.ProductService;
 import cotizador.service.RelationService;
 
 @Path("/relation")

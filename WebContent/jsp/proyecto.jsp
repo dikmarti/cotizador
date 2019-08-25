@@ -931,7 +931,6 @@
 		}
 	});	
 	
-	
 	$('.js-numeric').on('paste', function (e) {
 	    var $this = $(this);
 	    setTimeout(function (e) {
